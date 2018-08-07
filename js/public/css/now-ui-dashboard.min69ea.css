@@ -5271,11 +5271,11 @@ img {
 }
 
 .off-canvas-sidebar[data-color=blue]:after, .sidebar[data-color=blue]:after {
-    background: #2ca8ff
+    background: #000000
 }
 
 .off-canvas-sidebar[data-color=blue] .nav li.active>a:not([data-toggle=collapse]), .off-canvas-sidebar[data-color=blue] .nav li.active>a:not([data-toggle=collapse]) i, .sidebar[data-color=blue] .nav li.active>a:not([data-toggle=collapse]), .sidebar[data-color=blue] .nav li.active>a:not([data-toggle=collapse]) i {
-    color: #2ca8ff
+    color: #000000
 }
 
 .off-canvas-sidebar[data-color=green]:after, .sidebar[data-color=green]:after {

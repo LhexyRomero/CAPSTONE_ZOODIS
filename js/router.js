@@ -21,8 +21,8 @@ router.get('/tables',(req,res,next)=>{
     res.render('tables'); 
 });
 
-router.get('/bacteriaTable',(req,res,next)=>{
-    res.render('bacteriaTable');
+router.get('/hostTable',(req,res,next)=>{
+    res.render('hostTable');
 });
 
 router.get('/diseaseTable',(req,res,next)=>{
