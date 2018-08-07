@@ -3,6 +3,7 @@ const router = express.Router();
 
 const animalMid = require('./middleware/animalMid'); //importing animal middleware 
 const bacteriaMid = require('./middleware/bacteriaMid');
+const search = require('./middleware/searchMid');
 
 router.get('/login', (req,res,next)=>{
     res.render('login');
@@ -65,6 +66,13 @@ router.get('/disease', (req,res,next)=>{
 router.get('/Zoonotic-Disease-Identification',(req,res)=> {
     res.render('index');
 });
+
+/**
+ * Search Router, for searching taxonomy of animal and bacteria
+ */
+router.get('/search/animal', search.animal);
+
+router.get('/search/bacteria', search.bacteria);
 
 /**
  * 404 error handler

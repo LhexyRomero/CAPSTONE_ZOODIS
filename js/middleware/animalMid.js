@@ -9,7 +9,7 @@ exports.addAnimal = (req,res,next) =>{
     let scienceName = data.strScientificName;
     let speciesName = scientificName[1];
     let bodySite = data.strBodySite;
-   
+    let isInserting = data.isInserting; 
 
     /**
      * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
@@ -60,24 +60,29 @@ exports.addAnimal = (req,res,next) =>{
      */
     let insertAnimal = function(result){
         let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID) VALUES (?,?,?,?)";
-        //db.get().query(sql3,[commonName,genusName+' '+speciesName,bodySite,result[0].animalTaxoID],(error,result3) => {
-        //    if(error) return next(error);
-            
-            let dataDisplay = {
-                commonName      : commonName,
-                scientificName  : scientificName,
-                bodySite        : bodySite,
-                phylum          : result[0].phylum,
-                class           : result[0].class,
-                order           : result[0].orderr,
-                family          : result[0].family,
-                genus           : result[0].genus,
-                species         : speciesName
-            };
+        let dataDisplay = {
+            commonName      : commonName,
+            scientificName  : scientificName,
+            bodySite        : bodySite,
+            phylum          : result[0].phylum,
+            class           : result[0].class,
+            order           : result[0].orderr,
+            family          : result[0].family,
+            genus           : result[0].genus,
+            species         : speciesName
+        };
 
-            //hawak niya yung data na ibibigay sa client
+        if(isInserting) {
+            db.get().query(sql3,[commonName,genusName+' '+speciesName,bodySite,result[0].animalTaxoID],(error,result3) => {
+                if(error) return next(error);
+            
+                res.status(200).send({success: true, detail: "Successfully Added!",});
+            });
+        }
+
+        else {
             res.status(200).send({success: true, detail: "", data:dataDisplay});
-        //});
+        }
     };
 
     //Dito simula nung operation flow. puro declaration lang sa taas.
