@@ -29,9 +29,9 @@
     <link href="../../../use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
     <!-- CSS Files -->
-
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
+    <link href="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
 
 </head>
 
@@ -263,7 +263,7 @@
             </div>
 
             <div class="content">
-                <form onsubmit="addAnimal(event)" method="POST" action="#" id="animalForm">
+                <form enctype="multipart/form-data" onsubmit="addAnimal(event)" method="POST" action="#" id="animalForm">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -337,7 +337,7 @@
                                 </div>
                                 <div class="card-footer" align="right">
                                     <button type="button" class="btn btn-secondary" onclick="clearAnimal(event)">Clear</button>
-                                    <button type="submit" class="btn btn-primary">Add</button>
+                                    <button type="submit" class="btn btn-primary" id="toSubmitAnimal">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -347,6 +347,7 @@
 
             <!--   Core JS Files   -->
             <script src="../assets/js/core/jquery.min.js"></script>
+            <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
             <script src="../assets/js/core/popper.min.js"></script>
 
 
