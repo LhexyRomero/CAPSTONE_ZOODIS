@@ -7,7 +7,7 @@
     "start": "node ./js/head.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "LhexyKhyrystelle B. Romero",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",

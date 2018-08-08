@@ -38,7 +38,7 @@
 
     <div class="wrapper ">
 
-        <div class="sidebar" data-color="orange">
+        <div class="sidebar" data-color="blue">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -279,35 +279,17 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table" id="myTable">
+                                    <table class="table" id="animalTaxonTable">
                                         <thead class="text-primary">
-                                            <th>Phylum</th>
-                                            <th>Class</th>
-                                            <th>Order</th>
-                                            <th>Family</th>
-                                            <th>Genus</th>
-                                            <th>Species</th>
-                                            <th>Action</th>
+                                            <th><small><b>PHYLUM</b></small></th>
+                                            <th><small><b>CLASS</b></small></th>
+                                            <th><small><b>ORDER</b></small></th>
+                                            <th><small><b>FAMILY</b></small></th>
+                                            <th><small><b>GENUS</b></small></th>
+                                            <th><small><b>SPECIES</b></small></th>
+                                            <th><small><b>ACTION</b></small></th>
                                         </thead>
                                         <tbody id="animaltaxonTableList">
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>Andrew Mike</td>
-                                                <td>Develop</td>
-                                                <td class="text-center">2013</td>
-                                                <td class="text-right">€ 99,225</td>
-                                                <td class="text-right">
-                                                    <button type="button" rel="tooltip" class="btn btn-info btn-icon btn-sm ">
-                                                        <i class="now-ui-icons users_single-02"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm ">
-                                                        <i class="now-ui-icons ui-2_settings-90"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm ">
-                                                        <i class="now-ui-icons ui-1_simple-remove"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -331,6 +313,9 @@
                                 <form id="animalTaxonForm" method="POST" action="/animalTaxon" onsubmit="addAnimalTaxon(event)">
 
                                     <div class="card-header ">
+                                        <button type="button" class="close"  aria-label="Close" data-toggle="collapse" href="#AddCollapse">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                         <h5 class="card-title">Animal taxonomic Classification</h5>
                                     </div>
 
@@ -358,7 +343,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer" align="right">
-                                        <button type="button" class="btn btn-secondary " onclick="clearAnimalTaxon(event)">Clear</button>
+                                        <button type="button" class="btn btn-warning " onclick="clearAnimalTaxon(event)">Clear</button>
                                         <button type="submit" class="btn btn-primary ">Add</button>
                                     </div>
                                 </form>
@@ -539,24 +524,7 @@
 
             fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-            // if( window_width > 767 && fixed_plugin_open == 'Dashboard' ){
-            //     if($('.fixed-plugin .dropdown').hasClass('show-dropdown')){
-            //         $('.fixed-plugin .dropdown').addClass('show');
-            //     }
-            //
-            // }
-
-
             var $btn = $(this);
-
-            /* if (sidebar_mini_active == true) {
-                $('body').removeClass('sidebar-mini');
-                sidebar_mini_active = false;
-            } else {
-                $('body').addClass('sidebar-mini');
-                sidebar_mini_active = true;
-            } */
-
             // we simulate the window Resize so the charts will get updated in realtime.
             var simulateWindowResize = setInterval(function () {
                 window.dispatchEvent(new Event('resize'));

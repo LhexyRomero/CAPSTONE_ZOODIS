@@ -222,5 +222,10 @@ exports.updateAnimalTaxon = (req,res,next) => {
     let strGenus = data.modalGenus;
     let strSpecies = data.modalSpecies;
 
-    res.status(200).send();
+    let sql8 = "UPDATE animaltaxo_t SET phylum = ?, class =?, orderr = ?, family =?,genus=?, species=? WHERE animalTaxoID = ?";
+    db.get().query(sql8,[strPhylum, strClass,strOrder,strFamily,strGenus,strSpecies,id],(err8,result8)=>{
+        if(err8) return next(err8);
+
+        res.status(200).send({success: true, detail:"Successfully Updated!"});
+    });
 };

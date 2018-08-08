@@ -63,6 +63,15 @@ router.get('/disease', (req,res,next)=>{
     res.render('disease');
 });
 
+router.get('/toxin',(req,res,next)=>{
+    res.render('toxin');
+});
+
+router.post('/toxin',bacteriaMid.addToxin);
+router.get('/toxinList',bacteriaMid.toxinList);
+router.get('/editToxin/:id',bacteriaMid.editToxin);
+router.post('/updateToxin/:id',bacteriaMid.updateToxin);
+
 router.get('/Zoonotic-Disease-Identification',(req,res)=> {
     res.render('index');
 });

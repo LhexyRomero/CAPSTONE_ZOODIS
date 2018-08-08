@@ -238,50 +238,39 @@ function addAnimalTaxon(eAdd){
         isClick=0;
         console.log("Yieeee accpeted");
         swal({
-            title: "Warning!",
+            title: 'Add Animal Taxon',
             text: "Are you sure?",
-            type: "warning",
+            type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        },function(isConfirmed){
-            if(isConfirmed){
-                $.post("/animalTaxon", dataInsert, function(response){
-
-                    if(response.success == false){
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+          }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post("/animalTaxon", dataInsert, function(response) {
+                    if(response.success == false) {
                         swal({
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            showCancelButton: false,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Ok",
-                            closeOnConfirm: true,
-                            closeOnCancel: false
+                            confirmButtonText: "Okay"
                         });
                     }
 
-                    else {
+                    else{
                         swal({
                             title: "Done!",
                             text: "Data Recorded",
                             type: "success",
-                            showCancelButton: false,
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Ok",
-                            closeOnConfirm: true,
-                            closeOnCancel: false
+                            confirmButtonText: "Okay"
                         });
                         animalTaxonList();
                         clearAnimalTaxon();
                     }
-
                 });
             }
-        });
+          })
     }
 }
 
@@ -324,13 +313,13 @@ function clearAnimalTaxon(eClear){
                 row += "<td>"+ element.family+"</td>";
                 row += "<td>"+ element.genus +"</td>";
                 row += "<td>"+ element.species+"</td>";
-                row += "<td onclick='editAnimalTaxon("+element.animalTaxoID+")'><center><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></center></td>";
+                row += "<td onclick='editAnimalTaxon("+element.animalTaxoID+")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
             });
             
             $('#animaltaxonTableList').html(html);
-                $('#myTable').dataTable();
+                $('#animalTaxonTable').dataTable();
         }
 
     });
@@ -423,40 +412,37 @@ function clearAnimalTaxon(eClear){
         isClick=0;
         console.log("Yieeee LOLL");
         swal({
-            title: "Warning!",
+            title: 'Update Animal Taxon',
             text: "Are you sure?",
-            type: "warning",
+            type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-        }).then(function(isConfirmed){
-            if(isConfirmed){
-                var xhr =  $.post(url, dataInsert, function(response){
-                    if(response.success == false){
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+          }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, dataInsert, function(response) {
+                    if(response.success == false) {
                         swal({
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            showCancelButton: false,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Ok",
+                            confirmButtonText: "Okay"
                         });
                     }
-                    else {
+
+                    else{
                         swal({
                             title: "Done!",
                             text: "Data Recorded",
                             type: "success",
-                            showCancelButton: false,
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Ok",
+                            confirmButtonText: "Okay"
                         });
                         animalTaxonList();
                     }
-
                 });
             }
-        });
+          })
     }
  }

@@ -104,3 +104,91 @@ exports.updateBacteriaTaxon = (req,res,next) =>{
         res.status(200).send({success:true, detail:"Successfully Updated"});
     });
 }
+
+exports.addToxin = (req,res,next) => {
+
+    let data = req.body;
+    let strToxinName = data.strToxinName;
+    let strStructureFeature = data.strStructureFeature;
+    let strFunction = data.strFunction;
+
+    let checkToxin = function(cb){
+        let sql5 = "SELECT * FROM toxin_t WHERE name =?";
+        db.get().query(sql5,[strToxinName],(err5,result5)=>{
+            if (err5) return cb(err5);
+
+            if(result5.length == 0){
+                return cb(null,true);
+            }
+
+            else{
+                return cb(null,false);
+            }
+        });
+    }
+
+    let insertToxin = function() {
+        let sql6 = "INSERT INTO toxin_t (name,structureFeature,function) VALUES (?,?,?)";
+        db.get().query(sql6,[strToxinName,strStructureFeature,strFunction],(err6,result6)=>{
+            if(err6) return next(err6);
+
+            res.status(200).send({success:true, detail:"", data:result6});
+        });
+    }
+
+    checkToxin((error,result)=>{ 
+        if (error) return next(error);
+
+            if(result) {    
+                insertToxin();
+            }
+            
+            else {
+                res.status(200).send({success: false, detail: "Data Already Exists"})
+            }
+    }); 
+
+}
+
+exports.toxinList = (req,res,next) =>{
+    let sql7 = "SELECT * FROM toxin_t";
+    db.get().query(sql7,(err7,result7)=>{
+        if(err7) return next(err7);
+
+        res.status(200).send({success:true, detail:"", data:result7});
+    });
+}
+
+exports.editToxin = (req,res,next) =>{
+    id = req.params.id;
+    
+    let sql8 = "SELECT * FROM toxin_t WHERE toxinID =?";
+    db.get().query(sql8,[id],(err8,result8)=>{
+        if (err8) return next (err8);
+
+        let dataDisplay = {
+            name               : result8[0].name,
+            structureFeature   : result8[0].structureFeature,
+            toxinFunction      : result8[0].function 
+        }
+
+        res.status(200).send({success: true, detail:"", data:dataDisplay});
+    });
+
+}
+
+exports.updateToxin = (req,res,next) =>{
+    let id = req.params.id;
+    let data = req.body;
+
+    let strToxinName = data.modalToxinName;
+    let strStructureFeature = data.modalStructureFeature;
+    let strFunction = data.modalFunction;
+    
+    let sql9 = "UPDATE toxin_t SET name = ?, structureFeature = ?, function = ?  WHERE toxinID = ?";
+    db.get().query(sql9,[strToxinName,strStructureFeature,strFunction,id],(err9,result9) =>{
+        if(err9) return next(err9);
+
+        res.status(200).send({success: true, detail:""});
+    });
+}

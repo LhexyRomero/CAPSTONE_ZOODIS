@@ -136,12 +136,12 @@
 }
 
 .btn-primary {
-    background-color: #f96332;
+    background-color: #9c27b0;
     color: #fff
 }
 
 .btn-primary.active:hover, .btn-primary:active:hover, .btn-primary:focus, .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle, .show>.btn-primary.dropdown-toggle:focus, .show>.btn-primary.dropdown-toggle:hover {
-    background-color: #fa7a50;
+    background-color: #b327cb;
     color: #fff;
     box-shadow: none
 }
@@ -265,13 +265,13 @@
 }
 
 .btn-warning {
-    background-color: #ffb236;
-    color: #fff
+    background-color: #f1f1f1;
+    color: #9c27b0
 }
 
 .btn-warning.active:hover, .btn-warning:active:hover, .btn-warning:focus, .btn-warning:hover, .btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled).active:focus, .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled):active:focus, .show>.btn-warning.dropdown-toggle, .show>.btn-warning.dropdown-toggle:focus, .show>.btn-warning.dropdown-toggle:hover {
-    background-color: #ffbe55;
-    color: #fff;
+    background-color: #e4e4e4;
+    color: #9c27b0;
     box-shadow: none
 }
 
@@ -481,7 +481,7 @@
 .btn-sm {
     font-size: 14px;
     border-radius: .1875rem;
-    padding: 5px 15px
+    padding: 0px 0px;
 }
 
 .btn-sm.btn-simple {
@@ -1207,16 +1207,15 @@ textarea.form-control {
     max-height: 80px;
     padding: 10px 10px 0 0;
     resize: none;
-    border: none;
     border-bottom: 1px solid #e3e3e3;
-    border-radius: 0;
+    border-radius: 2;
     line-height: 2
 }
 
 textarea.form-control:active, textarea.form-control:focus {
-    border-left: none;
-    border-top: none;
-    border-right: none
+    border-left: 1px solid #e3e3e3;
+    border-top: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3
 }
 
 .has-danger.form-group .form-control, .has-danger.form-group.no-border .form-control, .has-success.form-group .form-control, .has-success.form-group.no-border .form-control {
@@ -1378,7 +1377,7 @@ p.description {
 }
 
 .text-primary, a.text-primary:focus, a.text-primary:hover {
-    color: #f96332!important
+    color: #9c27b0!important
 }
 
 .text-info, a.text-info:focus, a.text-info:hover {
@@ -5053,7 +5052,7 @@ img {
 }
 
 .off-canvas-sidebar .sidebar-wrapper [data-toggle=collapse]~div>ul>li.active>a .sidebar-mini-icon, .sidebar .sidebar-wrapper [data-toggle=collapse]~div>ul>li.active>a .sidebar-mini-icon {
-    color: #f96332
+    color: #9c27b0
 }
 
 .off-canvas-sidebar .navbar-minimize, .sidebar .navbar-minimize {
@@ -5485,7 +5484,7 @@ img {
     padding-top: 80px;
     padding-bottom: 45px;
     background: #141e30;
-    background: linear-gradient(90deg, #0c2646 0, #204065 60%, #2a5788);
+    background: linear-gradient(90deg, #821096 0, #9c27b0 60%, #b427cc);
     position: relative;
     overflow: hidden
 }
