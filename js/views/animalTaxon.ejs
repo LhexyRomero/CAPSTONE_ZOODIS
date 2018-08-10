@@ -9,46 +9,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Zoonotic Disease Identification</title>
-
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
 
-    
-
-
     <!--     Fonts and icons     -->
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-
-    <link href="../../../../use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="../assets/css/font.css" rel="stylesheet" />
+    <link href="../assets/css/all.css" rel="stylesheet">
 
     <!-- CSS Files -->
-
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-
-
-
-
     <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
-
-
+    <link href="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
 </head>
 
 <body>
-
-
     <div class="wrapper ">
-
         <div class="sidebar" data-color="blue">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-    -->
-
             <div class="logo">
-
-                &nbsp;
-                <img width="240px" height="110px" src="../assets/img/zoodis.png">
-
-
+                &nbsp;<img width="240px" height="110px" src="../assets/img/zoodis.png">
             </div>
 
             <div class="sidebar-wrapper">
@@ -150,11 +127,16 @@
                                         <span class="sidebar-normal"> Bacterium Taxonomy </span>
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="toxin">
                                         <span class="sidebar-mini-icon">T</span>
                                         <span class="sidebar-normal"> Toxins </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="disease">
+                                        <span class="sidebar-mini-icon">D</span>
+                                        <span class="sidebar-normal"> Disease </span>
                                     </a>
                                 </li>
                             </ul>
@@ -177,11 +159,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="disease">
+                        <a href="prevention">
                             <i>
-                                <img src="../assets/img/disease.png" height="28px" width="28px">
+                                <img src="../assets/img/prevention.png" height="28px" width="28px">
                             </i>
-                            <p>Disease</p>
+                            <p>Prevention</p>
                         </a>
                     </li>
                 </ul>
@@ -202,7 +184,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Extended Tables</a>
+                        <a class="navbar-brand" href="#pablo"><h5>ANIMAL TAXONOMY</h5></a>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
@@ -259,11 +241,6 @@
                                 </a>
                             </li>
                         </ul>
-
-
-
-
-
                     </div>
                 </div>
             </nav>
@@ -436,17 +413,13 @@
 
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
 
 
     <script src="../assets/js/core/bootstrap.min.js"></script>
-
-
     <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
     <script src="../assets/js/plugins/moment.min.js"></script>
-
-
 
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
     <script src="../assets/js/plugins/bootstrap-switch.js"></script>
@@ -484,14 +457,8 @@
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js"></script>
 
-
-    <!--  Google Maps Plugin    -->
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
-
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="../../../../buttons.github.io/buttons.js"></script>
-
+    <script async defer src="../assets/js/buttons.js"></script>
 
     <!-- Chart JS -->
     <script src="../assets/js/plugins/chartjs.min.js"></script>
@@ -504,12 +471,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
-
-
     <script src="../assets/js/animal.js"></script>
-
-
-
     <script>
         $(document).ready(function () {
             $sidebar = $('.sidebar');
@@ -537,6 +499,4 @@
         });
     </script>
 </body>
-
-
 </html>

@@ -1,47 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/img/zoo.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
     <title>Zoonotic Disease Identification</title>
-
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-    />
-
-
-    <!-- Extra details for Live View on GitHub Pages -->
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
-
-    <link href="../../../use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="../assets/css/all.css" rel="stylesheet">
 
     <!-- CSS Files -->
-
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
 </head>
 
 <body>
-
     <div class="wrapper ">
         <div class="sidebar" data-color="blue">
-            <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-    -->
-
             <div class="logo">
-                &nbsp;
-                <img width="240px" height="110px" src="../assets/img/zoodis.png">
+                &nbsp;<img width="240px" height="110px" src="../assets/img/zoodis.png">
             </div>
-
             <div class="sidebar-wrapper">
-
                 <div class="user">
                     <div class="photo">
                         <img src="../assets/img/james.jpg" />
@@ -78,7 +61,6 @@
                         </div>
                     </div>
                 </div>
-
                 <ul class="nav">
                     <li>
                         <a href="dashboard">
@@ -123,7 +105,6 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-
                         <div class="collapse " id="maintenance">
                             <ul class="nav">
                                 <li>
@@ -139,11 +120,16 @@
                                         <span class="sidebar-normal"> Bacterium Taxonomy </span>
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="toxin">
                                         <span class="sidebar-mini-icon">T</span>
                                         <span class="sidebar-normal"> Toxins </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="toxin">
+                                        <span class="sidebar-mini-icon">D</span>
+                                        <span class="sidebar-normal"> Disease </span>
                                     </a>
                                 </li>
                             </ul>
@@ -166,18 +152,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="disease">
+                        <a href="prevention">
                             <i>
-                                <img src="../assets/img/disease.png" height="28px" width="28px">
+                                <img src="../assets/img/prevention.png" height="28px" width="28px">
                             </i>
-                            <p>Disease</p>
+                            <p>Prevention</p>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-
-
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
@@ -201,8 +185,6 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-
                         <form>
                             <div class="input-group no-border">
                                 <input type="text" value="" class="form-control" placeholder="Search...">
@@ -387,38 +369,14 @@
                     </div>
                 </form>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <!--   Core JS Files   -->
             <script src="../assets/js/core/jquery.min.js"></script>
+            <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
             <script src="../assets/js/core/popper.min.js"></script>
 
-
             <script src="../assets/js/core/bootstrap.min.js"></script>
-
-
             <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
             <script src="../assets/js/plugins/moment.min.js"></script>
-
-
 
             <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
             <script src="../assets/js/plugins/bootstrap-switch.js"></script>
@@ -456,24 +414,14 @@
             <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
             <script src="../assets/js/plugins/nouislider.min.js"></script>
 
-
-            <!--  Google Maps Plugin    -->
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
-
             <!-- Place this tag in your head or just before your close body tag. -->
-            <script async defer src="../../../buttons.github.io/buttons.js"></script>
-
+            <script async defer src="../assets/js/buttons.js"></script>
 
             <!-- Chart JS -->
             <script src="../assets/js/plugins/chartjs.min.js"></script>
 
             <!--  Notifications Plugin    -->
             <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-
-
-
-
 
             <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
             <script src="../assets/js/now-ui-dashboard.min69ea.js?v=1.1.2" type="text/javascript"></script>
@@ -498,23 +446,7 @@
 
                     fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-                    // if( window_width > 767 && fixed_plugin_open == 'Dashboard' ){
-                    //     if($('.fixed-plugin .dropdown').hasClass('show-dropdown')){
-                    //         $('.fixed-plugin .dropdown').addClass('show');
-                    //     }
-                    //
-                    // }
-
-
                     var $btn = $(this);
-
-                    /* if (sidebar_mini_active == true) {
-                        $('body').removeClass('sidebar-mini');
-                        sidebar_mini_active = false;
-                    } else {
-                        $('body').addClass('sidebar-mini');
-                        sidebar_mini_active = true;
-                    } */
 
                     // we simulate the window Resize so the charts will get updated in realtime.
                     var simulateWindowResize = setInterval(function () {
@@ -528,8 +460,4 @@
                 });
             </script>
 </body>
-
-
-<!-- Mirrored from demos.creative-tim.com/now-ui-dashboard-pro/examples/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Aug 2018 02:28:49 GMT -->
-
 </html>

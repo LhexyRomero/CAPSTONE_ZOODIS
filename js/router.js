@@ -67,6 +67,10 @@ router.get('/toxin',(req,res,next)=>{
     res.render('toxin');
 });
 
+router.get('/prevention',(req,res,next)=>{
+    res.render('prevention');
+});
+
 router.post('/toxin',bacteriaMid.addToxin);
 router.get('/toxinList',bacteriaMid.toxinList);
 router.get('/editToxin/:id',bacteriaMid.editToxin);
