@@ -169,9 +169,7 @@
                     </li>
                 </ul>
             </div>
-
         </div>
-
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
@@ -294,10 +292,21 @@
 
                                         <label>Disease Description</label>
                                         <textarea class="form-control" name="strDiseaseName" type="text"></textarea>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                    <label>Symptoms</label>
+                                                    <input class="form-control" name="strDiseaseName" type="text"/> 
+                                                    <div id="response"></div>
+                                                       
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <br>
+                                                <button type='button' onclick = "addField()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add'>+</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="card-button">
-                                        <button type="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#AddCollapse" role="button" aria-expanded="true"
-                                            aria-controls="AddCollapse">Add</button>
+                                        <button type="button" class="btn btn-primary pull-right">Add</button>
                                         <br>
                                         <br>
                                     </div>
@@ -353,8 +362,6 @@
                     </div>
                 </div>
             </div>
-
-
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
@@ -447,7 +454,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
-    <script src="../assets/js/animal.js"></script>
+    <script src="../assets/js/disease.js"></script>
 
     <script>
         $(document).ready(function () {
