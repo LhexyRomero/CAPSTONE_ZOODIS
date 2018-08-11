@@ -247,7 +247,7 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <small><h4 class="card-title">DISEASE TABLE</h4></small>
@@ -276,42 +276,50 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="card-button">
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#AddCollapse" role="button" aria-expanded="true"
+                                        aria-controls="AddCollapse">Add</button>
+                                    <br>
+                                    <br>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <form>
-                                <div class="card-header">
-                                    <h5 class="card-title">Disease Form</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group has-label">
-                                        <label>Disease Name</label>
-                                        <input class="form-control" name="strDiseaseName" type="text"/>
-
-                                        <label>Disease Description</label>
-                                        <textarea class="form-control" name="strDiseaseName" type="text"></textarea>
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                    <label>Symptoms</label>
-                                                    <input class="form-control" name="strDiseaseName" type="text"/> 
-                                                    <div id="response"></div>
-                                                       
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <br>
-                                                <button type='button' onclick = "addField()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add'>+</button>
-                                            </div>
+                </div>
+                <div class="collapse" id="AddCollapse">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <form onsubmit="addDisease(event)" id="diseaseForm" method="POST">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Disease Form</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group has-label">
+                                            <label>Disease Name</label>
+                                            <input class="form-control" name="strDiseaseName" type="text"/>
+    
+                                            <label>Disease Description</label>
+                                            <textarea class="form-control" name="strDiseaseDesc" type="text"></textarea>
+                                            <div class="symptomsTxt">
+                                                    <div class="row"><br><br><br><br>
+                                                        <div class="col-md-8">
+                                                            <label>Symptoms</label>
+                                                            <input class="form-control" name="strSymptoms" type="text" />
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type='button' onclick="addField()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <div class="card-button">
+                                            <button type="submit" class="btn btn-primary pull-right">Add</button>
+                                            <br>
+                                            <br>
                                         </div>
                                     </div>
-                                    <div class="card-button">
-                                        <button type="button" class="btn btn-primary pull-right">Add</button>
-                                        <br>
-                                        <br>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

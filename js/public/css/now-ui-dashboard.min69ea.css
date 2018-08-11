@@ -19,6 +19,11 @@
     font-size: 11px;
 }
 
+.btnPosition {
+    position: absolute;
+    top: 15px;
+}
+
 .btn, .navbar .navbar-nav>a.btn {
     border-width: 2px;
     font-weight: 400;

@@ -4,6 +4,7 @@ const router = express.Router();
 const animalMid = require('./middleware/animalMid'); //importing animal middleware 
 const bacteriaMid = require('./middleware/bacteriaMid');
 const search = require('./middleware/searchMid');
+const diseaseMid = require('./middleware/diseaseMid');
 
 router.get('/login', (req,res,next)=>{
     res.render('login');
@@ -62,6 +63,8 @@ router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
 router.get('/disease', (req,res,next)=>{
     res.render('disease');
 });
+
+router.post('/disease',diseaseMid.addDisease);
 
 router.get('/toxin',(req,res,next)=>{
     res.render('toxin');
