@@ -65,6 +65,8 @@ router.get('/disease', (req,res,next)=>{
 });
 
 router.post('/disease',diseaseMid.addDisease);
+router.get('/diseaseList',diseaseMid.diseaseList);
+router.get('/viewDisease/:id',diseaseMid.viewDisease);
 
 router.get('/toxin',(req,res,next)=>{
     res.render('toxin');

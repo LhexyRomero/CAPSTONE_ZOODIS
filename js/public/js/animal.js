@@ -317,9 +317,8 @@ function clearAnimalTaxon(eClear){
                 row += "</tr>";
                 html += row;
             });
-            
             $('#animaltaxonTableList').html(html);
-                $('#animalTaxonTable').dataTable();
+            $('#animalTaxonTable').dataTable();
         }
 
     });

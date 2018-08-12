@@ -11342,7 +11342,7 @@ a.fc-more:hover {
 }
 
 .page-header[filter-color=orange] {
-    background: rgba(44, 44, 44, .2);
+    background: rgba(44, 44, 44, .05);
     background: linear-gradient(0deg, rgba(44, 44, 44, .2), rgba(224, 23, 3, .6))
 }
 

@@ -1,3 +1,6 @@
+$(function(){ //onload
+    diseaseList();
+});
 /**
  * Start: Adding field
  */
@@ -8,7 +11,7 @@ let target = $(".symptomsTxt");
 let targetBtn = $("#responseButton");
 
 function addField() { 
-    if (count>=10){
+    if (count>=9){
         $.notify("You reached the maximum numbers of field!",{type:"danger"});
         return;
     }
@@ -34,11 +37,13 @@ function deleteField(count) {
     console.log(count+"lol");
 }
 
-
 /**
  * End: Adding field
  */
 
+/**
+ * Start: Adding Disease
+ */
 function addDisease(eAdd) {
     eAdd.preventDefault();
 
@@ -120,4 +125,88 @@ function addDisease(eAdd) {
     })
 }
 
+function clearDisease(){
 
+    $('input[name=strDiseaseName]').val("");
+    $('textarea[name=strDiseaseDesc]').val("");
+    $('input[name=strSymptoms]').val("");
+    $('input[name=symptoms0').val("");
+    $('input[name=symptoms1').val("");
+    $('input[name=symptoms2').val("");
+    $('input[name=symptoms3').val("");
+    $('input[name=symptoms4').val("");
+    $('input[name=symptoms5').val("");
+    $('input[name=symptoms6').val("");
+    $('input[name=symptoms7').val("");
+    $('input[name=symptoms8').val("");
+}
+
+/**
+ * End: Adding Disease
+ */
+
+/**
+ * Start: Disease List
+ */
+
+function diseaseList(){
+    $.get("/diseaseList",(response)=>{
+        if(response.success == false){
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+
+        let data = response.data;
+        let html = "";
+        data.forEach((element,index)=>{
+            let row = "<tr>";
+            row += "<td>"+ element.diseaseName +"</td>";
+            row += "<td>"+ element.diseaseDesc +"</td>";
+            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease("+element.diseaseID+")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "</tr>";
+            html += row;
+        });
+        $('#diseaseTableList').html(html);
+        $('#diseaseTable').dataTable();
+
+    });
+}
+/**
+ * End: Disease List
+ */
+
+
+let viewDiseaseID = 0;
+function viewDisease(vDiseaseID){
+
+    viewDiseaseID = vDiseaseID;
+    let url = "/viewDisease/" + viewDiseaseID;
+    console.log(url);
+
+    $.get(url,(response) =>{
+        if(response.success == false) {
+            $.notify("Error getting data from the server!",{type: "danger"});
+            return;
+        }
+
+        console.log("here");
+        let data = response.data;
+        let html = "";
+        let diseaseName = "<h5><font color='#9c27b0'><b>"+data.diseaseName+"</b></font></h5>";
+        let diseaseDesc = "<p>"+data.diseaseDesc+"</p>";
+
+        data.symptoms.forEach((element,index) => {
+            let list = "<ul>";
+            list += "<li>"+element+"</li>";
+            list += "</ul>";
+            html += list;
+            
+        });
+
+        $("#viewDiseaseName").html(diseaseName);
+        $("#viewDiseaseDesc").html(diseaseDesc);
+        $("#viewSymptoms").html(html);
+
+
+    });
+};

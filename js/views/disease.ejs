@@ -9,8 +9,7 @@
 
     <title>Zoonotic Disease Identification</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-    />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -254,7 +253,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table" id="">
+                                    <table class="table" id="diseaseTable">
                                         <thead class="text-primary">
                                             <th>
                                                 <small>
@@ -272,7 +271,7 @@
                                                 </small>
                                             </th>
                                         </thead>
-                                        <tbody id="">
+                                        <tbody id="diseaseTableList">
                                         </tbody>
                                     </table>
                                 </div>
@@ -314,6 +313,7 @@
                                                 </div>
                                         <div class="card-button">
                                             <button type="submit" class="btn btn-primary pull-right">Add</button>
+                                            <button type="button" onclick="clearDisease()" class="btn btn-warning pull-right">Clear</button>
                                             <br>
                                             <br>
                                         </div>
@@ -329,7 +329,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
+                                <h4 class="title title-up">Animal Taxonomy</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -370,6 +370,30 @@
                     </div>
                 </div>
             </div>
+
+            <!--View Modal-->
+            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="title title-up">DISEASE INFORMATION</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h6 id ="viewDiseaseName"></h6>
+                                <p id ="viewDiseaseDesc"></p>
+
+                                <label><b>Symptoms</b></label>
+                                <div id ="viewSymptoms"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
