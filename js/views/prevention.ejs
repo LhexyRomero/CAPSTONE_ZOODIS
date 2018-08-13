@@ -9,7 +9,8 @@
 
     <title>Zoonotic Disease Identification System</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -27,7 +28,8 @@
 
         <div class="sidebar" data-color="blue">
             <div class="logo">
-                &nbsp;<img width="240px" height="110px" src="../assets/img/zoodis.png">
+                &nbsp;
+                <img width="240px" height="110px" src="../assets/img/zoodis.png">
             </div>
 
             <div class="sidebar-wrapper">
@@ -187,7 +189,9 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo"><h5>PREVENTION</h5></a>
+                        <a class="navbar-brand" href="#pablo">
+                            <h5>PREVENTION</h5>
+                        </a>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
@@ -244,11 +248,6 @@
                                 </a>
                             </li>
                         </ul>
-
-
-
-
-
                     </div>
                 </div>
             </nav>
@@ -256,6 +255,55 @@
             <div class="panel-header panel-header-sm">
             </div>
 
+            <div class="content">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <h4 class="card-title"> PREVENTION FORM</h4>
+                                    <br>
+                                    <h6 class="card-title">DISEASE</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group has-label">
+                                                <label>Disease Name</label>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-header">
+                                    <div class="form-group has-label">
+                                        <div class="preventionTxt">
+                                            <div class="row">
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <div class="col-md-10">
+                                                    <label>Prevention/s</label>
+                                                    <input class="form-control" name="strPreventionTitle" type="text" />
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type='button' onclick="addField()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer" align="right">
+                                    <button type="button" class="btn btn-warning" onclick="">Clear</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <footer class="footer">
 
                 <div class="container-fluid">
@@ -419,6 +467,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+    <script src="../assets/js/prevention.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -447,4 +496,5 @@
         });
     </script>
 </body>
+
 </html>
