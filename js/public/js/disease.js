@@ -1,4 +1,4 @@
-$(function(){ //onload
+$(function () { //onload
     diseaseList();
 });
 /**
@@ -10,19 +10,19 @@ let count = 0;
 let target = $(".symptomsTxt");
 let targetBtn = $("#responseButton");
 
-function addField() { 
-    if (count>=9){
-        $.notify("You reached the maximum numbers of field!",{type:"danger"});
+function addField() {
+    if (count >= 9) {
+        $.notify("You reached the maximum numbers of field!", { type: "danger" });
         return;
     }
-    
-    let boxName="symptoms"+count;
-    let buttonName = "button"+count;
-    let html = '<input type="text" class="form-control" name="'+boxName+'""/>';
-    let button = '<button name="'+buttonName+'"type="button" onclick ="deleteField('+ count +')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
-    
-    let newDiv = "<div class='sympDiv"+ count +" row'>" + "<div class='col-md-8'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
-    
+
+    let boxName = "symptoms" + count;
+    let buttonName = "button" + count;
+    let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
+    let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+
+    let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-8'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+
     target.append(newDiv);
     count++;
     console.log(count);
@@ -30,11 +30,11 @@ function addField() {
 }
 
 function deleteField(count) {
-    $('input[name=symptoms'+ count +']').remove();
-    $('button[name=button'+ count +']').remove();
-    $('.sympDiv'+count).remove();
+    $('input[name=symptoms' + count + ']').remove();
+    $('button[name=button' + count + ']').remove();
+    $('.sympDiv' + count).remove();
     count--;
-    console.log(count+"lol");
+    console.log(count + "lol");
 }
 
 /**
@@ -111,7 +111,7 @@ function addDisease(eAdd) {
                 });
                 return;
             }
-            
+
             swal({
                 title: "Done!",
                 text: "Data Recorded",
@@ -119,13 +119,13 @@ function addDisease(eAdd) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
             });
-        
+
         });
-        
+
     })
 }
 
-function clearDisease(){
+function clearDisease() {
 
     $('input[name=strDiseaseName]').val("");
     $('textarea[name=strDiseaseDesc]').val("");
@@ -149,20 +149,20 @@ function clearDisease(){
  * Start: Disease List
  */
 
-function diseaseList(){
-    $.get("/diseaseList",(response)=>{
-        if(response.success == false){
-            $.notify("Error getting data from the server!",{type:"danger"});
+function diseaseList() {
+    $.get("/diseaseList", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
 
         let data = response.data;
         let html = "";
-        data.forEach((element,index)=>{
+        data.forEach((element, index) => {
             let row = "<tr>";
-            row += "<td>"+ element.diseaseName +"</td>";
-            row += "<td>"+ element.diseaseDesc +"</td>";
-            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease("+element.diseaseID+")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td>" + element.diseaseName + "</td>";
+            row += "<td>" + element.diseaseDesc + "</td>";
+            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editDisease(" + element.diseaseID + ") type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             row += "</tr>";
             html += row;
         });
@@ -175,32 +175,35 @@ function diseaseList(){
  * End: Disease List
  */
 
+/**
+ * Start: View Disease
+ */
 
 let viewDiseaseID = 0;
-function viewDisease(vDiseaseID){
+function viewDisease(vDiseaseID) {
 
     viewDiseaseID = vDiseaseID;
     let url = "/viewDisease/" + viewDiseaseID;
     console.log(url);
 
-    $.get(url,(response) =>{
-        if(response.success == false) {
-            $.notify("Error getting data from the server!",{type: "danger"});
+    $.get(url, (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
 
         console.log("here");
         let data = response.data;
         let html = "";
-        let diseaseName = "<h5><font color='#9c27b0'><b>"+data.diseaseName+"</b></font></h5>";
-        let diseaseDesc = "<p>"+data.diseaseDesc+"</p>";
+        let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
+        let diseaseDesc = "<p>" + data.diseaseDesc + "</p>";
 
-        data.symptoms.forEach((element,index) => {
+        data.symptoms.forEach((element, index) => {
             let list = "<ul>";
-            list += "<li>"+element+"</li>";
+            list += "<li>" + element + "</li>";
             list += "</ul>";
             html += list;
-            
+
         });
 
         $("#viewDiseaseName").html(diseaseName);
@@ -209,4 +212,44 @@ function viewDisease(vDiseaseID){
 
 
     });
+};
+
+/**
+ * End: View Disease
+ */
+
+/**
+* Start: Edit Disease
+*/
+
+let editDiseaseID = 0;
+function editDisease(id) {
+    editDiseaseID = id;
+    let url = "/editDisease/" + editDiseaseID;
+    console.log(url);
+
+    $.get(url,(response) =>{
+        if(response.success == false) {
+            $.notify("Error getting data form the server!");
+            return;
+        }
+
+        console.log("meron");   
+        let data = response.data;
+        $('input[name=modalName').val(data.diseaseName);
+        $('textarea[name=modalDesc]').val(data.diseaseDesc);
+        
+        let symptoms = "";
+        data.symptoms.forEach((element,index) => {
+            console.log(element,index);
+            
+            let display ="<input class='form-control' name='modalSymp"+index+"' value ='"+element+"' type = 'text'/><br>";
+            symptoms += display;
+        });
+
+        $("#modalSymptoms").html(symptoms);
+        let html;
+        $('#exampleModalCenter').html(html);
+    });
+
 };

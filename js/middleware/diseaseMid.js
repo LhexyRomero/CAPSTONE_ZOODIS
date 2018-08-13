@@ -65,7 +65,8 @@ exports.diseaseList = (req, res, next) => {
 }
 
 exports.viewDisease = (req,res,next) => {
-
+    
+    console.log("here saview");
     let id = req.params.id;
     let data = req.body;
 

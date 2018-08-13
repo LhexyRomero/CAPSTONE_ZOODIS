@@ -4304,7 +4304,20 @@ img {
 
 .modal-content .modal-body {
     padding: 24px 24px 16px;
-    line-height: 1.9
+    line-height: 1.9;
+}
+
+.for-footer {
+    
+    padding: 24px 24px 16px;
+}
+.for-scroll {
+    position: fixed;
+    height: 90%;
+}
+
+.body-scroll {
+    overflow-y: scroll;
 }
 
 .modal-content .modal-footer {
@@ -4319,7 +4332,7 @@ img {
     margin: 0;
     padding-left: 16px;
     padding-right: 16px;
-    width: auto
+    width: auto;
 }
 
 .modal-content .modal-footer button.pull-left {
