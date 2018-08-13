@@ -17,7 +17,7 @@ db.connect(db.zoodis_mode, (err) =>{
     }
     else {
         let server = app.listen(4000,function(){
-            console.log('[SERVER] Listening in port' + server.address().port);
+            console.log('[SERVER] Listening in port: ' + server.address().port);
         }).on('error',function(err){
             console.log('[SERVER] Network related error: Port must be in use.' + err );
             process.exit(1);

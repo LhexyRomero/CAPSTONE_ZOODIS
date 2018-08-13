@@ -67,7 +67,7 @@ router.get('/disease', (req,res,next)=>{
 router.post('/disease',diseaseMid.addDisease);
 router.get('/diseaseList',diseaseMid.diseaseList);
 router.get('/viewDisease/:id',diseaseMid.viewDisease);
-router.get('/editDisease/:id',diseaseMid.viewDisease);
+router.put('/editDisease/:id',diseaseMid.editDisease);
 
 router.get('/toxin',(req,res,next)=>{
     res.render('toxin');
@@ -97,14 +97,26 @@ router.get('/search/bacteria', search.bacteria);
  * 404 error handler
  */
 router.use((req,res)=>{
-    res.status(404).send();
+    let response;
+    if(req.xhr){
+        response = {success: false};
+    }else{
+        response = "<center><h1>404 Page Not Found</h1><br/><p>The page you been looking for must be remove</p></center>";
+    }
+    res.status(404).send(response);
 });
 /**
  * 500 error handler
  */
 router.use((err,req,res,next)=>{
     console.error(err);
-    res.status(500).send({success: false, detail: "Internal Server Error"});
+    let response;
+    if(req.xhr){
+        response = {success: false};
+    }else{
+        response = "<center><h1>Error: 500</h1><br/><p>Internal Server Error. We'll fix it soon. ;)</p></center>";
+    }
+    res.status(500).send(response);
 });
 
 module.exports = router;

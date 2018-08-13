@@ -222,11 +222,11 @@ function viewDisease(vDiseaseID) {
 * Start: Edit Disease
 */
 
-let editDiseaseID = 0;
+let editDiseaseID = -1;
 function editDisease(id) {
     editDiseaseID = id;
-    let url = "/editDisease/" + editDiseaseID;
-    console.log(url);
+    let url = "/viewDisease/" + editDiseaseID;
+    //console.log(url);
 
     $.get(url,(response) =>{
         if(response.success == false) {
@@ -234,15 +234,14 @@ function editDisease(id) {
             return;
         }
 
-        console.log("meron");   
+        //console.log("meron");   
         let data = response.data;
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
         
         let symptoms = "";
         data.symptoms.forEach((element,index) => {
-            console.log(element,index);
-            
+            //console.log(element,index);
             let display ="<input class='form-control' name='modalSymp"+index+"' value ='"+element+"' type = 'text'/><br>";
             symptoms += display;
         });
@@ -253,3 +252,45 @@ function editDisease(id) {
     });
 
 };
+
+let updateDisease = function(){
+    var formData = $('#editDiseaseForm').serializeArray();
+    var _data = {
+        symptoms: [],
+    };
+    var error = 0;
+    formData.forEach((element,index)=>{
+        if(element.value == ""){
+            error++;
+            return;
+        }
+        if(element.name.search("modalSymp") == -1){
+            _data[element.name] = element.value;
+        }else{
+            _data.symptoms.push(element.value);
+        }
+    });
+    console.log(_data);
+    if(error == 0){
+        _data.symptoms = _data.symptoms.join(":");
+        $.ajax({
+            url: "/editDisease/" + editDiseaseID,
+            type: "PUT",
+            data: _data,
+            success: function(res){
+                if(res.success){
+                    swal("Done", res.detail, "success");
+                    $('#exampleModalCenter').modal("hide");
+                }else{
+                    $.notify("Failed: " + res.detail,{type:"danger"});
+                }
+            },
+            error: function(xhr){
+                $.notify("Failed: " + xhr.status + " " + xhr.statusText,{type:"danger"});
+                //swal("Failed", xhr.statusText, "error");
+            }
+        });
+    }else{
+        $.notify("All input must be filled.",{type:"warning"}); //change this leki
+    }
+}

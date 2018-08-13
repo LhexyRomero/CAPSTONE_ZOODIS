@@ -65,8 +65,7 @@ exports.diseaseList = (req, res, next) => {
 }
 
 exports.viewDisease = (req,res,next) => {
-    
-    console.log("here saview");
+    //console.log("here saview");
     let id = req.params.id;
     let data = req.body;
 
@@ -84,4 +83,33 @@ exports.viewDisease = (req,res,next) => {
 
         res.status(200).send({success: true, detail :"", data:dataDisplay});
     });
+}
+
+exports.editDisease = (req, res, next) => {
+    let id = req.params.id;
+    let data = req.body;
+    let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ? WHERE diseaseID = ?";
+    let error = 0;
+
+    //Some validations here... 
+    let queryData = [];
+    queryData.push(data.modalName);
+    queryData.push(data.modalDesc);
+    queryData.push(data.symptoms);
+    queryData.push(id);
+
+    queryData.forEach((e)=>{
+        if(e==undefined || e==null){
+            error++;
+        }
+    });
+
+    if(error == 0){
+        db.get().query(sql, queryData, function(err, result){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail: "Disease Successfully Modify"});
+        });
+    }else{
+        res.status(200).send({success: false, detail: "Invalid Data"});
+    }
 }
