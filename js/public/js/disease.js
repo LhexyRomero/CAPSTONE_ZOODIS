@@ -7,6 +7,7 @@ $(function () { //onload
 
 let isClicked = 0;
 let count = 0;
+let sympCount = 0;
 let target = $(".symptomsTxt");
 let targetBtn = $("#responseButton");
 
@@ -239,26 +240,26 @@ function editDisease(id) {
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
         
-        let symptoms = "";
+        $("#modalSymptoms").html("");
+
         data.symptoms.forEach((element,index) => {
             //console.log(element,index);
-            let display ="<input class='form-control' name='modalSymp"+index+"' value ='"+element+"' type = 'text'/><br>";
-            symptoms += display;
+            addFieldEdit(element);
         });
 
-        $("#modalSymptoms").html(symptoms);
         let html;
         $('#exampleModalCenter').html(html);
+        sympCount = data.symptoms.length;
     });
 
 };
 
 let updateDisease = function(){
-    var formData = $('#editDiseaseForm').serializeArray();
-    var _data = {
+    let formData = $('#editDiseaseForm').serializeArray();
+    let _data = {
         symptoms: [],
     };
-    var error = 0;
+    let error = 0;
     formData.forEach((element,index)=>{
         if(element.value == ""){
             error++;
@@ -270,27 +271,59 @@ let updateDisease = function(){
             _data.symptoms.push(element.value);
         }
     });
-    console.log(_data);
     if(error == 0){
         _data.symptoms = _data.symptoms.join(":");
-        $.ajax({
-            url: "/editDisease/" + editDiseaseID,
-            type: "PUT",
-            data: _data,
-            success: function(res){
-                if(res.success){
-                    swal("Done", res.detail, "success");
-                    $('#exampleModalCenter').modal("hide");
-                }else{
-                    $.notify("Failed: " + res.detail,{type:"danger"});
-                }
-            },
-            error: function(xhr){
-                $.notify("Failed: " + xhr.status + " " + xhr.statusText,{type:"danger"});
-                //swal("Failed", xhr.statusText, "error");
+        swal({
+            title: 'Edit Disease',
+            text: "Are you sure?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then(function(ok){
+            if(ok){
+                $.ajax({
+                    url: "/editDisease/" + editDiseaseID,
+                    type: "POST",
+                    data: _data,
+                    success: function(res){
+                        if(res.success){
+                            swal("Done", res.detail, "success");
+                            $('#exampleModalCenter').modal("hide");
+                        }else{
+                            $.notify("Failed: " + res.detail,{type:"danger"});
+                        }
+                    },
+                    error: function(xhr){
+                        $.notify("Failed: " + xhr.status + " " + xhr.statusText,{type:"danger"});
+                        //swal("Failed", xhr.statusText, "error");
+                    }
+                });
             }
         });
     }else{
         $.notify("All input must be filled.",{type:"warning"}); //change this leki
     }
+}
+
+let addFieldEdit = function(value){
+    if($('.symptomsEditDiv').length >= 10){
+        $.notify("You reached the maximum numbers of field!", { type: "danger" });
+        return;
+    }
+
+    value = value == undefined ? "" : value;
+
+    let html ="<input class='form-control' name='modalSymp"+sympCount+"' value='"+ value +"' type = 'text'/><br>";
+    let buttonName = "buttonEdit" + sympCount;
+    let button = '<button name="' + buttonName + '"type="button" onclick ="deleteFieldEdit(' + sympCount + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+
+    let newDiv = "<div class='symptomsEditDiv sympEditDiv" + sympCount + " row'>" + "<div class='col-md-8'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+
+    $("#modalSymptoms").append(newDiv);
+    sympCount++;
+}
+
+let deleteFieldEdit = function(selected) {
+    $('.sympEditDiv' + selected).remove();
 }
