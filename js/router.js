@@ -75,6 +75,7 @@ router.get('/bacteria',(req,res,next)=>{
     res.render('bacteria');
 });
 
+router.post('/bacteria',bacteriaMid.addBacteria);
 router.post('/bacteriaTaxon',bacteriaMid.addBacteriaTaxon);
 router.post('/updateBacteriaTaxon/:id',bacteriaMid.updateBacteriaTaxon);
 
@@ -113,7 +114,6 @@ router.get('/Zoonotic-Disease-Identification',(req,res)=> {
  * Search Router, for searching taxonomy of animal and bacteria
  */
 router.get('/search/animal', search.animal);
-
 router.get('/search/bacteria', search.bacteria);
 
 /**
