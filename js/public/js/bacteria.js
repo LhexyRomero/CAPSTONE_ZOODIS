@@ -6,16 +6,14 @@ $(function () { //onload
 
 let isClick = 0;
 function toSelectBacteria() {
-    console.log("saanka");
     $.get("/toSelectBacteria", (response) => {
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
         let data = response.data;
-        let html;
+        let html = "<option value=''>...</option>";
         data.forEach((element, index) => {
-            console.log("hiii");
             html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
         });
         $('#toSelectBacteria').html(html);
@@ -504,6 +502,7 @@ function addBacteria(eAdd) {
     let errCount = 0;
     let numCount = 0;
     let strCount = 0;
+    let dataInsert = {};
 
     data.forEach((element,index) => {
         console.log(element.name +":"+ element.value);
@@ -511,6 +510,7 @@ function addBacteria(eAdd) {
         isClick = 0;
         if (element.value == ""){
             $('input[name='+ element.name +']').css("background", "#feebeb");
+            $('select[name='+ element.name +']').css("background", "#feebeb");
             errCount++;
         }
 
@@ -552,7 +552,8 @@ function addBacteria(eAdd) {
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
-                $.post("", dataInsert, (response)=>{
+                console.log("weh?");
+                $.post("/bacteria", dataInsert, (response)=>{
                     isClick = 0;
                     if (response.success == false) {
                         swal({

@@ -201,3 +201,49 @@ exports.toSelectBacteria = (req,res,next) =>{
         res.status(200).send({success: true, detail:"", data:result10});
     });
 }
+
+exports.addBacteria = (req,res,next) => {
+
+    console.log("ADD KA NA");
+    let data = req.body;
+    let animalID = data.toSelect;
+    let strSpeciesName = data.strSpeciesName;
+    let strGenusName = data.strGenusName;
+    let strScientificName = strGenusName+' '+strSpeciesName;
+    let strTissueSpecifity = data.strTissueSpecifity;
+    let strSampleType = data.strSampleType;
+    let strMethodOfIsolation = data.strMethodOfIsolation;
+    let strMethodOfIdentification = data.strMethodOfIdentification;
+    let strGramStain = data.strGramStain;
+    let strLength = data.strLength;
+    let strWidth = data.strWidth;
+    let strShape = data.strShape;
+    let strMotility = data.strMotility;
+
+    let checkBacteria = function(cb) {
+        console.log("checking function to boi");
+        let sql11 = "SELECT * FROM bacteria_t WHERE animalID = ? AND bacteriumScientificName = ?";
+        db.get().query(sql11,[animalID,strScientificName],(err11,result11)=>{
+            if(err11) return cb(err11);
+
+            if(result11.length == 0){
+                return cb(null,true);
+            }
+
+            else {
+                return cb(null,false);
+            }
+        });
+    }
+
+    checkBacteria((error,result)=>{
+        console.log("check niy muna bacteria");
+        if(error) return next(error);
+
+        if (result){
+            console.log("lagay mo");
+            return;
+        }
+        res.status(200).send({success: false , detail :"Data Already Exists!"});
+    });
+}

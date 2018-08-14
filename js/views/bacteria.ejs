@@ -275,7 +275,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group has-label">
                                                 <label>Full Scientific Name</label>
-                                                <input class="form-control" name="strScientificName" type="text">
+                                                <input class="form-control" name="strScientificName" type="text" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -338,19 +338,24 @@
 
                                             <div class="form-group has-label">
                                                 <label>Gram Stain</label>
-                                                <input class="form-control" name="strGramStain" type="text" />
+                                                <select class="form-control" name="strGramStain" type="text" />
+                                                    <option value ="">...</option>
+                                                    <option value="Positive">Positive</option>
+                                                    <option value="Negative">Negative</option>
+                                                </select>
+                                                
 
                                                 <label>Cell Length</label>
-                                                <input class="form-control" name="strClass" type="number" />
+                                                <input class="form-control" name="strLength" type="number" />
 
                                                 <label>Cell Width</label>
-                                                <input class="form-control" name="strOrder" type="number" />
+                                                <input class="form-control" name="strWidth" type="number" />
 
                                                 <label>Cell Shape</label>
-                                                <input class="form-control" name="strFamily" type="text" />
+                                                <input class="form-control" name="strShape" type="text" />
 
                                                 <label>Motility</label>
-                                                <input class="form-control" name="strGenus" type="text" />
+                                                <input class="form-control" name="strMotility" type="text" />
 
                                             </div>
                                         </div>

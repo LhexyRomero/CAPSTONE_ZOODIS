@@ -290,6 +290,7 @@ let updateDisease = function(){
                         if(res.success){
                             swal("Done", res.detail, "success");
                             $('#exampleModalCenter').modal("hide");
+                            diseaseList();
                         }else{
                             $.notify("Failed: " + res.detail,{type:"danger"});
                         }
@@ -302,7 +303,7 @@ let updateDisease = function(){
             }
         });
     }else{
-        $.notify("All input must be filled.",{type:"warning"}); //change this leki
+        $.notify("All field must be filled.",{type:"warning"}); //change this leki
     }
 }
 
@@ -318,7 +319,7 @@ let addFieldEdit = function(value){
     let buttonName = "buttonEdit" + sympCount;
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteFieldEdit(' + sympCount + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
 
-    let newDiv = "<div class='symptomsEditDiv sympEditDiv" + sympCount + " row'>" + "<div class='col-md-8'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+    let newDiv = "<div class='symptomsEditDiv sympEditDiv" + sympCount + " row'>" + "<div class='col-sm-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
     $("#modalSymptoms").append(newDiv);
     sympCount++;

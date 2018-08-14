@@ -326,7 +326,7 @@
             </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content for-scroll">
                         <div class="modal-header">
                                 <h4 class="title title-up">Disease</h4>
@@ -346,9 +346,18 @@
                                                 <label class="modalLabel">Disease Description</label>
                                                 <textarea class="form-control" name="modalDesc"></textarea>
 
-                                                <label class="modalLabel">Symptoms</label>
+                                                <div class="row">
+                                                    <div class="col-sm-10"><br>
+                                                            <label class="modalLabel">Symptoms</label>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                            <button type='button' onclick="addFieldEdit()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                    </div>
+                                                </div>
+                                            
                                                 <div id="modalSymptoms">
                                                 </div>
+                                        
                                             </div>
                                         </div>
                                     </div>
