@@ -217,13 +217,13 @@ function addAnimalTaxon(eAdd){
 
         if(element.value == ""){
             console.log("HI");
-            $('input[name='+ element.name +']').css("border-color","#ff5050");
+            $('input[name='+ element.name +']').css("background", "#feebeb");
             errCount++;
             isClick=0;
         }
 
         else if(element.value.match(/[0-9*#\/]/g) != null){
-            $('input[name='+ element.name +']').css("border-color","#ff5050");
+            $('input[name='+ element.name +']').css("background", "#feebeb");
             invCount++;
             isClick=0;
         }

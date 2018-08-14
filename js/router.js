@@ -80,6 +80,7 @@ router.post('/updateBacteriaTaxon/:id',bacteriaMid.updateBacteriaTaxon);
 
 router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
 router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
+router.get('/toSelectBacteria',bacteriaMid.toSelectBacteria);
 
 
 router.get('/disease', (req,res,next)=>{

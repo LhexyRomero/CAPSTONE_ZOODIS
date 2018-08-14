@@ -192,3 +192,12 @@ exports.updateToxin = (req,res,next) =>{
         res.status(200).send({success: true, detail:""});
     });
 }
+
+exports.toSelectBacteria = (req,res,next) =>{
+    let sql10 = "SELECT animalID, animalName FROM animal_t";
+    db.get().query(sql10,(err10,result10)=>{
+        if(err10) return next(err10);
+
+        res.status(200).send({success: true, detail:"", data:result10});
+    });
+}

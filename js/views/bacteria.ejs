@@ -235,7 +235,7 @@
             </div>
 
             <div class="content">
-                <form>
+                <form id ="bacteriaForm" action="/bacteria" method="POST" onsubmit="addBacteria(event)">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -249,8 +249,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-label">
                                                 <label>Animal Name</label>
-                                                <select class="form-control">
-                                                    <option>A</option>
+                                                <select class="form-control" name = "toSelect" id ="toSelectBacteria">
                                                 </select>
                                             </div>
                                         </div>
@@ -310,26 +309,25 @@
 
                                             <div class="form-group has-label">
                                                 <label>Phylum</label>
-                                                <input class="form-control" name="strPhylum" type="text" />
+                                                <input class="form-control" name="strPhylum" type="text" disabled/>
 
                                                 <label>Class</label>
-                                                <input class="form-control" name="strClass" type="text" />
+                                                <input class="form-control" name="strClass" type="text" disabled/>
 
                                                 <label>Order</label>
-                                                <input class="form-control" name="strOrder" type="text" />
+                                                <input class="form-control" name="strOrder" type="text" disabled/>
 
                                                 <label>Family</label>
-                                                <input class="form-control" name="strFamily" type="text" />
+                                                <input class="form-control" name="strFamily" type="text" disabled/>
 
                                                 <label>Genus</label>
-                                                <input class="form-control" name="strGenus" type="text" />
+                                                <input class="form-control" name="strGenus" type="text" disabled/>
 
                                                 <label>Species</label>
-                                                <input class="form-control" name="strSpecies" type="text" />
+                                                <input class="form-control" name="strSpecies" type="text" disabled/>
 
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-header ">
@@ -431,6 +429,7 @@
 
             <!-- Sharrre libray -->
             <script src="../assets/demo/jquery.sharrre.js"></script>
+            <script src="../assets/js/bacteria.js"></script>
 
             <script>
                 $(document).ready(function () {
