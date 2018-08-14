@@ -114,7 +114,8 @@ router.get('/Zoonotic-Disease-Identification',(req,res)=> {
  * Search Router, for searching taxonomy of animal and bacteria
  */
 router.get('/search/animal', search.animal);
-router.get('/search/bacteria', search.bacteria);
+router.get('/search/bacteriaGenus',search.bacteriaGenus);
+router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
 
 /**
  * 404 error handler
