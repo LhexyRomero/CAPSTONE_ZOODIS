@@ -1,6 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, "public/image_upload");
+    },
+    filename: (req, file, cb)=>{
+        let generateToken = function(size){
+            var d = new Date().getTime();
+            if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+                d += performance.now(); //use high-precision timer if available
+            }
+            return (new Array(size).fill("x").join("")).replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        };
+        cb(null, generateToken(15)+"."+file.mimetype.split("/")[1]);  
+    }
+});
+const upload = multer({storage: storage});
+
 const animalMid = require('./middleware/animalMid'); //importing animal middleware 
 const bacteriaMid = require('./middleware/bacteriaMid');
 const search = require('./middleware/searchMid');
@@ -42,7 +64,7 @@ router.get('/animal',(req,res,next) =>{
     res.render('animal');
 });
 
-router.post('/animal',animalMid.addAnimal);
+router.post('/animal', upload.single("animalImg"), animalMid.addAnimal);
 router.post('/animalTaxon', animalMid.addAnimalTaxon);
 router.post('/updateAnimalTaxon/:id',animalMid.updateAnimalTaxon);
 
@@ -67,7 +89,7 @@ router.get('/disease', (req,res,next)=>{
 router.post('/disease',diseaseMid.addDisease);
 router.get('/diseaseList',diseaseMid.diseaseList);
 router.get('/viewDisease/:id',diseaseMid.viewDisease);
-router.put('/editDisease/:id',diseaseMid.editDisease);
+router.post('/editDisease/:id',diseaseMid.editDisease);
 
 router.get('/toxin',(req,res,next)=>{
     res.render('toxin');

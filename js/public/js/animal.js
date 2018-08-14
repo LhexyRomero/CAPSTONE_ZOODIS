@@ -48,7 +48,7 @@ function addAnimal(e){
     let data = $("#animalForm").serializeArray();
     let errCount = 0;
     let invCount = 0;
-    let dataInsert = {};
+    let dataInsert = new FormData($("#animalForm")[0]);
 
     data.forEach((element,index) => {
         console.log(element.name + ":" + element.value);
@@ -66,7 +66,7 @@ function addAnimal(e){
         }
 
         else {
-            dataInsert[element.name] = element.value;
+            //dataInsert.append(element.name,element.value);
         }
         
     });
@@ -82,69 +82,78 @@ function addAnimal(e){
     else{
         let submit = function(){
             //kapag tama na yung input -- Ajax Requests
-            $.post("/animal",dataInsert, function(response){
-                isClick=0;
-                if(response.success == false) { 
+            //$.post("/animal",dataInsert, function(response){
+
+            //});
+            $.ajax({
+                type: "POST",
+                url: "/animal",
+                data: dataInsert,
+                processData: false,
+                contentType: false,
+                success: function(response){
                     isClick=0;
-                    
-                    //if data already exists
-                    if(response.error == 1){
-                        $.notify(response.detail, {type: "danger"});
+                    if(response.success == false) { 
+                        isClick=0;
+                        
+                        //if data already exists
+                        if(response.error == 1){
+                            $.notify(response.detail, {type: "danger"});
+                        }
+            
+                        //if Genus not found
+                        else if(response.error == 2){
+                            $.notify(response.detail,{type:"danger"});
+                            $.notify(response.detail, {type: 'warning'});
+                            let html = "<br><ul><h4 class ='card-title'>Suggested Genus</h4><br>";
+                            response.data.forEach((element, index)=>{
+                                html += "<li font size='6'>"+ element.genus +"</li>";
+                            });
+                            html += "</ul>";
+                            $('#suggestionsGenus').html(html);
+                        }   
+            
+                        //if Species not found
+                        else if(response.error == 3){
+                            $.notify(response.detail,{type:"danger"});
+                            let html = "<br><ul><h4 class ='card-title'>Suggested Species</h4><br>";
+                            response.data.forEach((element, index)=>{
+                                html += "<li font size='6'>"+ element.species +"</li>";
+                            });
+                            html += "</ul>";
+                            $('#suggestionsSpecies').html(html);
+                        }
+    
+                        else {
+                            $.notify(response.detail , {type:"danger"});
+                        }
+    
                     }
-        
-                    //if Genus not found
-                    else if(response.error == 2){
-                        $.notify(response.detail,{type:"danger"});
-                        $.notify(response.detail, {type: 'warning'});
-                        let html = "<br><ul><h4 class ='card-title'>Suggested Genus</h4><br>";
-                        response.data.forEach((element, index)=>{
-                            html += "<li font size='6'>"+ element.genus +"</li>";
-                        });
-                        html += "</ul>";
-                        $('#suggestionsGenus').html(html);
-                    }   
-        
-                    //if Species not found
-                    else if(response.error == 3){
-                        $.notify(response.detail,{type:"danger"});
-                        let html = "<br><ul><h4 class ='card-title'>Suggested Species</h4><br>";
-                        response.data.forEach((element, index)=>{
-                            html += "<li font size='6'>"+ element.species +"</li>";
-                        });
-                        html += "</ul>";
-                        $('#suggestionsSpecies').html(html);
-                    }
-
                     else {
-                        $.notify(response.detail , {type:"danger"});
-                    }
-
-                }
-                else {
-                    //$.notify("Successfully Added!", {type:"success"})
-
-                    if(response.data) {
-                        $("input[name=strPhylum]").val(response.data.phylum);
-                        $("input[name=strClass]").val(response.data.class);
-                        $("input[name=strOrder]").val(response.data.order);
-                        $("input[name=strFamily]").val(response.data.family);
-                        $("input[name=strGenus]").val(response.data.genus);
-                        $("input[name=strSpecies]").val(response.data.species);
-                        $("#toSubmitAnimal").html("Save");
-                        isInsertAnimal=1;
-                    }
-
-                    else {
-                        swal({
-                            title: "Success",
-                            text: "Animal Successfully Added!",
-                            type: "success",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Okay",
-                        });
+                        //$.notify("Successfully Added!", {type:"success"})
+    
+                        if(response.data) {
+                            $("input[name=strPhylum]").val(response.data.phylum);
+                            $("input[name=strClass]").val(response.data.class);
+                            $("input[name=strOrder]").val(response.data.order);
+                            $("input[name=strFamily]").val(response.data.family);
+                            $("input[name=strGenus]").val(response.data.genus);
+                            $("input[name=strSpecies]").val(response.data.species);
+                            $("#toSubmitAnimal").html("Save");
+                            isInsertAnimal=1;
+                        }
+    
+                        else {
+                            swal({
+                                title: "Success",
+                                text: "Animal Successfully Added!",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Okay",
+                            });
+                        }
                     }
                 }
-
             });
         };
 
