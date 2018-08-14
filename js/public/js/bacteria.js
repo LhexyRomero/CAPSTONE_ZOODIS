@@ -2,6 +2,36 @@ $(function () { //onload
     toSelectBacteria();
     bacteriaTaxonList();
     toxinList();
+
+    $("input[name=strSpeciesName]").autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/bacteriaSpecies/?data=" + req.term,
+                success: (response) => {
+                    res(response.data);
+                },
+                error: (response) => {
+                    console.log(response.detail);
+                }
+            });
+        },
+    });
+
+    $("input[name=strGenusName]").autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/bacteriaGenus/?data=" + req.term + "&species=" + $('input[name=strSpeciesName').val() + "",
+                success: (response) => {
+                    res(response.data);
+                },
+                error: (response) => {
+                    console.log(response.detail);
+                },
+            });
+        },
+    });
 });
 
 let isClick = 0;
@@ -490,6 +520,9 @@ function updateToxin() {
 }
 // End: Edit Taxon 
 
+
+//Start: Add Bacteria
+let isInsertBacteria = 0;
 function addBacteria(eAdd) {
     eAdd.preventDefault();
 
@@ -504,23 +537,23 @@ function addBacteria(eAdd) {
     let strCount = 0;
     let dataInsert = {};
 
-    data.forEach((element,index) => {
-        console.log(element.name +":"+ element.value);
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
 
         isClick = 0;
-        if (element.value == ""){
-            $('input[name='+ element.name +']').css("background", "#feebeb");
-            $('select[name='+ element.name +']').css("background", "#feebeb");
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            $('select[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
         }
 
-        else if($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null){
+        else if ($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null) {
             $('select[name=toSelect]').css("background", "#feebeb");
             $('input[type=number]').css("background", "#feebeb");
-             numCount++;
+            numCount++;
         }
-        
-        else if( $('input[type=text]').val().match(/[0-9*#\/]/g) != null){
+
+        else if ($('input[type=text]').val().match(/[0-9*#\/]/g) != null) {
             $('input[type=text]').css("background", "#feebeb");
             strCount++;
         }
@@ -530,52 +563,107 @@ function addBacteria(eAdd) {
         }
     });
 
-    if(errCount>0){
-        $.notify("All fields must be filled!",{type:"danger"});
+    if (errCount > 0) {
+        $.notify("All fields must be filled!", { type: "danger" });
     }
 
-    else if(numCount>0){
-        $.notify("Invalid input!",{type:"danger"});
+    else if (numCount > 0) {
+        $.notify("Invalid input!", { type: "danger" });
     }
 
-    else if(strCount>0){
-        $.notify("Invalid Characters!",{type:"danger"});
+    else if (strCount > 0) {
+        $.notify("Invalid Characters!", { type: "danger" });
     }
 
-    else{
-        swal({
-            title: 'Add Bacteria',
-            text: "Are you sure?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes'
-        }).then((isConfirmed) => {
-            if (isConfirmed) {
-                console.log("weh?");
-                $.post("/bacteria", dataInsert, (response)=>{
+    else {
+        let submit = () => {
+            $.post("/bacteria", dataInsert, (response) => {
+                isClick = 0;
+                if (response.success == false) {
                     isClick = 0;
-                    if (response.success == false) {
+
+                    if (response.error == 1) {
+                        $.notify(response.detail, { type: "danger" });
+                    }
+
+                    else if (response.error == 2) {
+                        $.notify(response.detail, { type: "danger" });
+                    }
+
+                    else if (response.error == 3) {
+                        $.notify(response.detail, { type: "danger" });
+                    }
+
+                    else {
                         swal({
                             title: "Error!",
-                            text: "Data Already Exists!",
+                            text: response.detail,
                             type: "error",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Okay"
                         });
                     }
+                }
+                else {
+                    if (response.data) {
+                        $.notify("Check before Saving!",{type: "primary"});
+                        $("input[name=strScientificName]").val(response.data.scientificName);
+                        $("input[name=strPhylum]").val(response.data.phylum);
+                        $("input[name=strClass]").val(response.data.class);
+                        $("input[name=strOrder]").val(response.data.order);
+                        $("input[name=strFamily]").val(response.data.family);
+                        $("input[name=strGenus]").val(response.data.genus);
+                        $("input[name=strSpecies]").val(response.data.species);
+
+                        $("#toSubmitBacteria").html("Save");
+                        isInsertBacteria = 1;
+                    }
 
                     else {
                         swal({
-                            title: "Done!",
-                            text: "Data Recorded",
+                            title: "Success!",
+                            text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
-                });
-            }
-        })
+                }
+            });
+        }
+
+        if(isInsertBacteria){
+            dataInsert.isInserting = 1;
+            swal({
+                title: 'Add Bacteria',
+                text: "Are you sure?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes'
+            }).then((isConfirmed) => {
+                submit();
+            });
+        }
+        else{
+            submit();
+        }
     }
 }
+
+function clearBacteria() {
+    $("select[name=toSelect]").val("");
+    $("input[name=strSpeciesName]").val("");
+    $("input[name=strGenusName]").val("");
+    $("input[name=strTissueSpecifity]").val("");
+    $("input[name=strSampleType]").val("");
+    $("input[name=strMethodOfIsolation]").val("");
+    $("input[name=strMethodOfIdentification]").val("");
+    $("input[name=strGramStain]").val("");
+    $("input[name=strLength]").val("");
+    $("input[name=strWidth]").val("");
+    $("input[name=strShape]").val("");
+    $("input[name=strMotility]").val("");
+}
+//End: Add Bacteria
+

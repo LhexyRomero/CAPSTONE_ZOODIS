@@ -104,7 +104,7 @@ function addAnimal(e){
                         //if Genus not found
                         else if(response.error == 2){
                             $.notify(response.detail,{type:"danger"});
-                            $.notify(response.detail, {type: 'warning'});
+                            $.notify(response.detail, {type: 'danger'});
                             let html = "<br><ul><h4 class ='card-title'>Suggested Genus</h4><br>";
                             response.data.forEach((element, index)=>{
                                 html += "<li font size='6'>"+ element.genus +"</li>";
