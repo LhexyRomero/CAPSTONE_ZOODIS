@@ -1,13 +1,29 @@
 $(function () { //onload
+    toSelectBacteria();
     bacteriaTaxonList();
     toxinList();
 });
 
 let isClick = 0;
+function toSelectBacteria() {
+    console.log("saanka");
+    $.get("/toSelectBacteria", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html;
+        data.forEach((element, index) => {
+            console.log("hiii");
+            html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
+        });
+        $('#toSelectBacteria').html(html);
+        //$('#toSelectBacteria').val();//kinukuha niya yung selected value
+    });
+};
 
-/**
- * Start: Bacteria Taxonomy
- */
+//Start: Bacteria Taxonomy
 function addBacteriaTaxon(eAdd) {
     eAdd.preventDefault();
 
@@ -100,14 +116,10 @@ function clearBacteriaTaxon(eClear) {
     $('input[name=strSpecies]').val("");
     isClick = 0;
 }
+// End: Bacteria Taxonomy
 
-/**
- * End: Bacteria Taxonomy
- */
 
-/**
- * Start: Bacteria Taxonomy List
- */
+// Start: Bacteria Taxonomy List
 function bacteriaTaxonList() {
     $.get("/bacteriaTaxonList", function (response) {
 
@@ -138,14 +150,10 @@ function bacteriaTaxonList() {
 
     });
 }
+//End: Bacteria Taxonomy List
 
-/**
- * End: Bacteria Taxonomy List
- */
 
-/**
- * Start: Edit Bacteria Taxonomy
- */
+//Start: Edit Bacteria Taxonomy
 let globalId = 0;
 
 function editBacteriaTaxon(bacteriumTaxoID) {
@@ -258,14 +266,10 @@ function updateBacteriaTaxon() {
         })
     }
 }
+//End: Edit Bacteria Taxonmy
 
-/**
- * End: Edit Bacteria Taxonmy
- */
 
-/**
- * Start: Toxins
- */
+//Start: Toxins
 function addToxin(eAdd) {
     eAdd.preventDefault();
 
@@ -321,7 +325,7 @@ function addToxin(eAdd) {
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/toxin", dataInsert, function (response) {
-                    isClick=0;
+                    isClick = 0;
                     if (response.success == false) {
                         swal({
                             title: "Error!",
@@ -350,26 +354,21 @@ function addToxin(eAdd) {
 
 }
 
-function clearToxin(){
+function clearToxin() {
     $('input[name=strToxinName]').val("");
     $('textarea[name=strStructureFeature]').val("");
     $('textarea[name=strFunction]').val("");
 }
-/**
- * End: Toxins
- */
+// End: Toxins
 
- /**
-  * Start: Taxon List
-  */
-
-function toxinList(){
-    $.get("/toxinList",function(response){
-        if(response.success == false) {
-            $.notify("Error getting data from the server!",{type:"danger"});
+//Start: Taxon List
+function toxinList() {
+    $.get("/toxinList", function (response) {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
         }
 
-        else{
+        else {
             let data = response.data;
             let html = "";
 
@@ -387,25 +386,21 @@ function toxinList(){
         }
     });
 }
- /**
-  * End: Taxon List
-  */
+//End: Taxon List
 
-/**
- * Start: Edit Taxon 
- */
 
+//Start: Edit Taxon  
 let globalToxinID = 0;
-function editToxin(toxinID){
+function editToxin(toxinID) {
 
     globalToxinID = toxinID;
     console.log(globalToxinID + "AKO YON");
     let url = "/editToxin/" + globalToxinID;
 
-    $.get(url,function(response){
+    $.get(url, function (response) {
         isClick = 0;
 
-        if(response.success == false) {
+        if (response.success == false) {
             S.notify("Error getting data from the server!");
         }
 
@@ -420,7 +415,7 @@ function editToxin(toxinID){
 
 function updateToxin() {
 
-    console.log(globalToxinID +"UPDATE NA KO"); 
+    console.log(globalToxinID + "UPDATE NA KO");
     let url = "/updateToxin/" + globalToxinID;
     console.log(url);
     let data = $("#editToxinForm").serializeArray();
@@ -428,8 +423,8 @@ function updateToxin() {
     let invCount = 0;
     let dataInsert = {};
 
-    data.forEach((element,index) => {
-        console.log(element.name +":"+element.value);
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
 
         if (element.value == "") {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
@@ -450,12 +445,12 @@ function updateToxin() {
         }
     });
 
-    if(errCount>0) {
-        $.notify("All fields must be field!",{type:"danger"});
+    if (errCount > 0) {
+        $.notify("All fields must be field!", { type: "danger" });
     }
 
-    else if(invCount>0) {
-        $.notify("Invalid Characters!",{type:"danger"});
+    else if (invCount > 0) {
+        $.notify("Invalid Characters!", { type: "danger" });
     }
 
     else {
@@ -469,7 +464,7 @@ function updateToxin() {
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
-                    isClick=0;
+                    isClick = 0;
                     if (response.success == false) {
                         swal({
                             title: "Error!",
@@ -495,9 +490,91 @@ function updateToxin() {
         });
     }
 }
-/**
- * End: Edit Taxon 
- */
+// End: Edit Taxon 
 
- 
+function addBacteria(eAdd) {
+    eAdd.preventDefault();
 
+    if (isClick != 0) {
+        return;
+    }
+    isClick++;
+
+    let data = $("#bacteriaForm").serializeArray();
+    let errCount = 0;
+    let numCount = 0;
+    let strCount = 0;
+
+    data.forEach((element,index) => {
+        console.log(element.name +":"+ element.value);
+
+        isClick = 0;
+        if (element.value == ""){
+            $('input[name='+ element.name +']').css("background", "#feebeb");
+            errCount++;
+        }
+
+        else if($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null){
+            $('select[name=toSelect]').css("background", "#feebeb");
+            $('input[type=number]').css("background", "#feebeb");
+             numCount++;
+        }
+        
+        else if( $('input[type=text]').val().match(/[0-9*#\/]/g) != null){
+            $('input[type=text]').css("background", "#feebeb");
+            strCount++;
+        }
+
+        else {
+            dataInsert[element.name] = element.value;
+        }
+    });
+
+    if(errCount>0){
+        $.notify("All fields must be filled!",{type:"danger"});
+    }
+
+    else if(numCount>0){
+        $.notify("Invalid input!",{type:"danger"});
+    }
+
+    else if(strCount>0){
+        $.notify("Invalid Characters!",{type:"danger"});
+    }
+
+    else{
+        swal({
+            title: 'Add Bacteria',
+            text: "Are you sure?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post("", dataInsert, (response)=>{
+                    isClick = 0;
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Data Already Exists!",
+                            type: "error",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Data Recorded",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+                });
+            }
+        })
+    }
+}
