@@ -68,8 +68,11 @@ router.post('/animal', upload.single("animalImg"), animalMid.addAnimal);
 router.post('/animalTaxon', animalMid.addAnimalTaxon);
 router.post('/updateAnimalTaxon/:id',animalMid.updateAnimalTaxon);
 
+router.get('/animalList',animalMid.animalList);
 router.get('/animalTaxonList',animalMid.animalTaxonList);
 router.get('/editAnimalTaxon/:id',animalMid.editAnimalTaxon);
+router.get('/viewAnimal/:id',animalMid.viewAnimal);
+router.get('/editAnimal/:id',animalMid.viewAnimal);
 
 router.get('/bacteria',(req,res,next)=>{
     res.render('bacteria');
@@ -78,10 +81,14 @@ router.get('/bacteria',(req,res,next)=>{
 router.post('/bacteria',bacteriaMid.addBacteria);
 router.post('/bacteriaTaxon',bacteriaMid.addBacteriaTaxon);
 router.post('/updateBacteriaTaxon/:id',bacteriaMid.updateBacteriaTaxon);
+router.post('/updateBacteria/:id',bacteriaMid.updateBacteria);
 
+router.get('/bacteriaList',bacteriaMid.bacteriaList);
 router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
 router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
 router.get('/toSelectBacteria',bacteriaMid.toSelectBacteria);
+router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
+router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
 
 
 router.get('/disease', (req,res,next)=>{

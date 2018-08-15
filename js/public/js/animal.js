@@ -1,138 +1,119 @@
-$(function(){ //onload
+$(function () { //onload
     animalTaxonList();
+    animalList();
     $("input[name=strScientificName]").autocomplete({
-        source: (req, res)=>{
+        source: (req, res) => {
             $.ajax({
                 type: "GET",
                 url: "/search/animal/?data=" + req.term,
-                success: function(response){
+                success: function (response) {
                     res(response.data);
                 },
-                error: function(response){
+                error: function (response) {
                     console.log(response.detail);
                 },
             });
         },
     });
 
-    $("input[name=strCommonName]").on("keyup" , function(){
+    $("input[name=strCommonName]").on("keyup", function () {
         isInsertAnimal = 0;
         $("#toSubmitAnimal").html("Add");
     });
 
-    $("input[name=strScientificName]").on("keyup" , function(){
+    $("input[name=strScientificName]").on("keyup", function () {
         isInsertAnimal = 0;
         $("#toSubmitAnimal").html("Add");
     });
 
-    $("input[name=strBodySite]").on("keyup" , function(){
+    $("input[name=strBodySite]").on("keyup", function () {
         isInsertAnimal = 0;
         $("#toSubmitAnimal").html("Add");
     });
 });
 
-let isClick=0;
+let isClicked = 0;
 let isInsertAnimal = 0;
 /**
  * Start: Add Animal Details
  */
-function addAnimal(e){
+function addAnimal(e) {
     e.preventDefault();
 
     //to prevent spam
-    if (isClick !=0){
+    if (isClicked != 0) {
         return;
     }
-    isClick++
+    isClicked++
 
     let data = $("#animalForm").serializeArray();
     let errCount = 0;
     let invCount = 0;
     let dataInsert = new FormData($("#animalForm")[0]);
 
-    data.forEach((element,index) => {
+    data.forEach((element, index) => {
         console.log(element.name + ":" + element.value);
 
-        if(element.value == ""){    
-        $('input[name='+ element.name +']').css("background","#feebeb");
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
-            isClick=0;
+            isClicked = 0;
         }
 
-        else if(element.value.match(/[0-9*#\/]/g) != null){
-            $('input[name='+ element.name +']').css("background","#feebeb");
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
-            isClick=0;
+            isClicked = 0;
         }
 
         else {
-            //dataInsert.append(element.name,element.value);
+            dataInsert.append(element.name,element.value);
         }
-        
+
     });
 
-    if(errCount>0) {
-        $.notify("Fields must be filled out!",{type: "danger"});
+    if (errCount > 0) {
+        $.notify("Fields must be filled out!", { type: "danger" });
     }
 
-    else if(invCount>0){
-        $.notify("Invalid Character!", {type:"danger"});
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
     }
 
-    else{
-        let submit = function(){
-            //kapag tama na yung input -- Ajax Requests
-            //$.post("/animal",dataInsert, function(response){
-
-            //});
+    else {
+        let submit = function () {
             $.ajax({
                 type: "POST",
                 url: "/animal",
                 data: dataInsert,
                 processData: false,
                 contentType: false,
-                success: function(response){
-                    isClick=0;
-                    if(response.success == false) { 
-                        isClick=0;
-                        
-                        //if data already exists
-                        if(response.error == 1){
-                            $.notify(response.detail, {type: "danger"});
+                success: function (response) {
+                    isClicked = 0;
+                    if (response.success == false) {
+                        isClicked = 0;
+
+                        if (response.error == 1) {
+                            $.notify(response.detail, { type: "danger" });
                         }
-            
-                        //if Genus not found
-                        else if(response.error == 2){
-                            $.notify(response.detail,{type:"danger"});
-                            $.notify(response.detail, {type: 'danger'});
-                            let html = "<br><ul><h4 class ='card-title'>Suggested Genus</h4><br>";
-                            response.data.forEach((element, index)=>{
-                                html += "<li font size='6'>"+ element.genus +"</li>";
-                            });
-                            html += "</ul>";
-                            $('#suggestionsGenus').html(html);
-                        }   
-            
-                        //if Species not found
-                        else if(response.error == 3){
-                            $.notify(response.detail,{type:"danger"});
-                            let html = "<br><ul><h4 class ='card-title'>Suggested Species</h4><br>";
-                            response.data.forEach((element, index)=>{
-                                html += "<li font size='6'>"+ element.species +"</li>";
-                            });
-                            html += "</ul>";
-                            $('#suggestionsSpecies').html(html);
+
+                        else if (response.error == 2) {
+                            $.notify(response.detail, { type: "danger" });
+                            $.notify(response.detail, { type: 'danger' });
                         }
-    
+
+                        else if (response.error == 3) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
                         else {
-                            $.notify(response.detail , {type:"danger"});
+                            $.notify(response.detail, { type: "danger" });
                         }
-    
+
                     }
                     else {
-                        //$.notify("Successfully Added!", {type:"success"})
-    
-                        if(response.data) {
+
+                        if (response.data) {
                             $("input[name=strPhylum]").val(response.data.phylum);
                             $("input[name=strClass]").val(response.data.class);
                             $("input[name=strOrder]").val(response.data.order);
@@ -140,9 +121,9 @@ function addAnimal(e){
                             $("input[name=strGenus]").val(response.data.genus);
                             $("input[name=strSpecies]").val(response.data.species);
                             $("#toSubmitAnimal").html("Save");
-                            isInsertAnimal=1;
+                            isInsertAnimal = 1;
                         }
-    
+
                         else {
                             swal({
                                 title: "Success",
@@ -157,7 +138,7 @@ function addAnimal(e){
             });
         };
 
-        if(isInsertAnimal) { //kapag mag iinsert
+        if (isInsertAnimal) { //kapag mag iinsert
             dataInsert.isInserting = 1;
             swal({
                 title: "Warning!",
@@ -167,18 +148,16 @@ function addAnimal(e){
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            }).then(function(isConfirmed){
+            }).then(function (isConfirmed) {
                 submit();
             });
-        }else{
+        } else {
             submit();
         }
     }
 }
 
-function clearAnimal(eClear){
+function clearAnimal(eClear) {
 
     $('input[name=strCommonName]').val("");
     $('input[name=strScientificName]').val("");
@@ -189,62 +168,56 @@ function clearAnimal(eClear){
     $('input[name=strFamily]').val("");
     $('input[name=strGenus]').val("");
     $('input[name=strSpecies]').val("");
-    isClick=0;
-}
+    isClicked = 0;
+}//End: Add Animal Details
 
-/**
- * End: Add Animal Details
- */
-
-/**
- * Start: Animal Taxonomy
- */
-function addAnimalTaxon(eAdd){
+//Start: Animal Taxonomy
+function addAnimalTaxon(eAdd) {
     eAdd.preventDefault();
 
-    if(isClick != 0){
+    if (isClicked != 0) {
         return
     }
-    isClick++;
+    isClicked++;
 
     let data = $("#animalTaxonForm").serializeArray();
     let errCount = 0;
     let invCount = 0;
     let dataInsert = {};
 
-    data.forEach((element,index)=>{
-        console.log(element.name +":"+ element.value);
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
 
-        if(element.value == ""){
+        if (element.value == "") {
             console.log("HI");
-            $('input[name='+ element.name +']').css("background", "#feebeb");
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
-            isClick=0;
+            isClicked = 0;
         }
 
-        else if(element.value.match(/[0-9*#\/]/g) != null){
-            $('input[name='+ element.name +']').css("background", "#feebeb");
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
-            isClick=0;
+            isClicked = 0;
         }
 
         else {
-            dataInsert[element.name] = element.value; 
+            dataInsert[element.name] = element.value;
         }
 
-        
+
     });
 
-    if(errCount>0) {
-        $.notify("All fields must be filled!",{type:"danger"});
+    if (errCount > 0) {
+        $.notify("All fields must be filled!", { type: "danger" });
     }
 
-    else if(invCount>0){
-        $.notify("Invalid Character!",{type:"danger"});
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
     }
 
     else {
-        isClick=0;
+        isClicked = 0;
         console.log("Yieeee accpeted");
         swal({
             title: 'Add Animal Taxon',
@@ -253,10 +226,10 @@ function addAnimalTaxon(eAdd){
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
             confirmButtonText: 'Yes'
-          }).then((isConfirmed) => {
+        }).then((isConfirmed) => {
             if (isConfirmed) {
-                $.post("/animalTaxon", dataInsert, function(response) {
-                    if(response.success == false) {
+                $.post("/animalTaxon", dataInsert, function (response) {
+                    if (response.success == false) {
                         swal({
                             title: "Error!",
                             text: "Data Already Exists!",
@@ -266,7 +239,7 @@ function addAnimalTaxon(eAdd){
                         });
                     }
 
-                    else{
+                    else {
                         swal({
                             title: "Done!",
                             text: "Data Recorded",
@@ -279,13 +252,13 @@ function addAnimalTaxon(eAdd){
                     }
                 });
             }
-          })
+        })
     }
 }
 
-function clearAnimalTaxon(eClear){
+function clearAnimalTaxon(eClear) {
 
-    isClick=0;
+    isClicked = 0;
     $('input[name=strPhylum]').val("");
     $('input[name=strClass]').val("");
     $('input[name=strOrder]').val("");
@@ -293,36 +266,29 @@ function clearAnimalTaxon(eClear){
     $('input[name=strGenus]').val("");
     $('input[name=strSpecies]').val("");
     console.log("nabura naman");
-    
-} 
 
-/**
- * End: Animal Taxonomy
- */
+}// End: Animal Taxonomy
 
- /**
-  * Start: Animal Taxonomy List
-  */
+// Start: Animal Taxonomy List
+function animalTaxonList() {
+    $.get("/animalTaxonList", function (response) {
 
-  function animalTaxonList(){
-    $.get("/animalTaxonList",function(response){
-
-        if(response.success == false) {
-            $.notify("Error getting data from the server!", {type:"danger"});
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
         }
 
         else {
             let data = response.data;
             let html = "";
-            data.forEach((element,index)=>{
+            data.forEach((element, index) => {
                 let row = "<tr>";
-                row += "<td>"+ element.phylum +"</td>";
-                row += "<td>"+ element.class +"</td>";
-                row += "<td>"+ element.orderr +"</td>";
-                row += "<td>"+ element.family+"</td>";
-                row += "<td>"+ element.genus +"</td>";
-                row += "<td>"+ element.species+"</td>";
-                row += "<td onclick='editAnimalTaxon("+element.animalTaxoID+")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
+                row += "<td>" + element.phylum + "</td>";
+                row += "<td>" + element.class + "</td>";
+                row += "<td>" + element.orderr + "</td>";
+                row += "<td>" + element.family + "</td>";
+                row += "<td>" + element.genus + "</td>";
+                row += "<td>" + element.species + "</td>";
+                row += "<td onclick='editAnimalTaxon(" + element.animalTaxoID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
             });
@@ -331,36 +297,31 @@ function clearAnimalTaxon(eClear){
         }
 
     });
-  }
+}//End: Animal Taxonomy List
 
-  /**
-  * End: Animal Taxonomy List
-  */
 
-  /**
-  * Start: Edit Animal Taxonomy
-  */
- let globalId = 0;
- function editAnimalTaxon(animalTaxoID) {
+// Start: Edit Animal Taxonomy
+let globalIDa = 0;
+function editAnimalTaxon(animalTaxoID) {
 
-    globalId = animalTaxoID;
-    console.log(globalId + "ID TO UPDATE")
+    globalIDa = animalTaxoID;
+    console.log(globalIDa + "ID TO UPDATE")
     let url = "/editAnimalTaxon/" + animalTaxoID;
 
-    $.get(url, function(response){
+    $.get(url, function (response) {
 
-        if(response.success == false) {
-            $.notify("Error getting data from the server!",{type: "danger"});
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
         }
 
-        else{
+        else {
             $('#formPhylum').addClass("is-filled");
             $('#formClass').addClass("is-filled");
             $('#formOrder').addClass("is-filled");
             $('#formFamily').addClass("is-filled");
             $('#formGenus').addClass("is-filled");
             $('#formSpecies').addClass("is-filled");
-            
+
             $('input[name=modalPhylum]').val(response.data.phylum);
             $('input[name=modalClass]').val(response.data.class);
             $('input[name=modalOrder]').val(response.data.order);
@@ -372,52 +333,50 @@ function clearAnimalTaxon(eClear){
     });
     let html;
     $('#exampleModalCenter').html(html);
- }
- /**
-  * End: Edit Animal Taxonomy
-  */
+}//End: Edit Animal Taxonomy
 
- function updateAnimalTaxon() {
-     console.log(globalId + "SA UPDATE");
-     let url = "/updateAnimalTaxon/" + globalId;
-     let errCount = 0;
-     let invCount = 0;
-     let dataInsert = {};
-     console.log(url);
 
-     let data = $("#editAnimalTaxonForm").serializeArray();
+function updateAnimalTaxon() {
+    console.log(globalIDa + "SA UPDATE");
+    let url = "/updateAnimalTaxon/" + globalIDa;
+    let errCount = 0;
+    let invCount = 0;
+    let dataInsert = {};
+    console.log(url);
 
-     data.forEach((element,index)=> {
+    let data = $("#editAnimalTaxonForm").serializeArray();
+
+    data.forEach((element, index) => {
         console.log(element.name + ":" + element.value);
 
-        if(element.value == "") {
-            $('input[name='+element.name +']').css("background","#feebeb");
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
-            isClick=0;
+            isClicked = 0;
         }
 
-        else if(element.value.match(/[0-9*#\/]/g) != null){
-            $('input[name='+ element.name +']').css("background","#feebeb");
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
-            isClick=0;
+            isClicked = 0;
         }
-        
+
         else {
             dataInsert[element.name] = element.value;
         }
 
-     });
+    });
 
-     if(errCount>0) {
-         $.notify("All fields must be filled!",{type:"danger"});
-     }
+    if (errCount > 0) {
+        $.notify("All fields must be filled!", { type: "danger" });
+    }
 
-     else if (invCount>0) {
-         $.notify("Invalid Character!",{type:"danger"});
-     }
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
 
-     else {
-        isClick=0;
+    else {
+        isClicked = 0;
         console.log("Yieeee LOLL");
         swal({
             title: 'Update Animal Taxon',
@@ -426,10 +385,10 @@ function clearAnimalTaxon(eClear){
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
             confirmButtonText: 'Yes'
-          }).then((isConfirmed) => {
+        }).then((isConfirmed) => {
             if (isConfirmed) {
-                $.post(url, dataInsert, function(response) {
-                    if(response.success == false) {
+                $.post(url, dataInsert, function (response) {
+                    if (response.success == false) {
                         swal({
                             title: "Error!",
                             text: "Data Already Exists!",
@@ -439,7 +398,7 @@ function clearAnimalTaxon(eClear){
                         });
                     }
 
-                    else{
+                    else {
                         swal({
                             title: "Done!",
                             text: "Data Recorded",
@@ -451,6 +410,93 @@ function clearAnimalTaxon(eClear){
                     }
                 });
             }
-          })
+        })
     }
- }
+}
+
+function animalList() {
+    $.get("/animalList",(response)=>{
+        if(response.success == false) {
+            $.notify("Error getting data from the Server!",{type:"danger"});
+            return;
+        }
+
+        let data = response.data;
+        let html = "";
+        data.forEach((element, index) => {
+            let row = "<tr>";
+            row += "<td>" + element.animalName + "</td>";
+            row += "<td>" + element.animalScientificName + "</td>";
+            row += "<td>" + element.animalBodySite + "</td>";
+            row += "<td><a data-toggle='modal' href='#exampleModalCenter2'><button onclick ='editAnimal("+element.animalID+")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal2'><button onclick = 'viewAnimal("+element.animalID+")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "</tr>";
+            html += row;
+        });
+        $('#animalList').html(html);
+        $('#animalTable').dataTable();
+
+    });
+}
+
+let globalAnimalID = 0;
+function viewAnimal(id){
+
+    globalAnimalID = id;
+    let url = "/viewAnimal/"+globalAnimalID;
+
+    console.log(url);
+    console.log("dito na ko");
+
+    $.get(url,(response)=>{
+        if(response.success == false) {
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+
+        let animalName  = "<label>"+response.data.animalName+"</label>";
+        let scientificName = "<label>"+response.data.animalScientificName+"</label>";
+        let bodySite = "<label>"+response.data.bodySite+"</label>";
+        let phylum = "<label>"+response.data.phylum+"</label>";
+        let classs = "<label>"+response.data.classs+"</label>";
+        let order = "<label>"+response.data.order+"</label>";
+        let family = "<label>"+response.data.family+"</label>";
+        let genus = "<label>"+response.data.genus+"</label>";
+        let species = "<label>"+response.data.species+"</label>";
+
+        //picture
+        $("#animalName2").html(animalName);
+        $("#scientificName").html(scientificName);
+        $("#bodySite").html(bodySite);
+        $("#phylum2").html(phylum);
+        $("#classs2").html(classs);
+        $("#order2").html(order);
+        $("#family2").html(family);
+        $("#genus2").html(genus);
+        $("#species2").html(species);
+    });
+}
+
+function editAnimal(id) {
+    globalAnimalID = id;
+    let url = "/editAnimal/"+globalAnimalID;
+
+    $.get(url, (response) =>{
+        if(response.success == false ){
+            $.notify("Error getting data from the Server!",{type:"danger"});
+            return;
+        }
+
+        console.log("display na sa form");
+        //picture
+        $("input[name=modalCommonName]").val(response.data.animalName);
+        $("input[name=modalScientificName]").val(response.data.animalScientificName);
+        $("input[name=modalBodySite]").val(response.data.bodySite);
+        $("input[name=modalPhylum2]").val(response.data.phylum);
+        $("input[name=modalClass2]").val(response.data.classs);
+        $("input[name=modalOrder2]").val(response.data.order);
+        $("input[name=modalFamily2]").val(response.data.family);
+        $("input[name=modalGenus2]").val(response.data.genus);
+        $("input[name=modalSpecies2]").val(response.data.species);
+    });
+}
+
