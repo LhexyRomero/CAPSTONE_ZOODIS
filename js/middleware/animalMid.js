@@ -24,6 +24,7 @@ exports.addAnimal = (req, res, next) => {
         res.status(200).send({ success: false, detail: "No Image Provide" });
         return;
     }
+    
     /**
      * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
      * @param cb Callback function

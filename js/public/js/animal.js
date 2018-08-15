@@ -67,7 +67,7 @@ function addAnimal(e) {
         }
 
         else {
-            dataInsert.append(element.name,element.value);
+            //dataInsert.append(element.name,element.value);
         }
 
     });
