@@ -108,12 +108,13 @@ exports.updateBacteriaTaxon = (req, res, next) => {
 exports.addToxin = (req, res, next) => {
 
     let data = req.body;
+    let selectBacteria  = data.selectBacteria2;
     let strToxinName = data.strToxinName;
     let strStructureFeature = data.strStructureFeature;
     let strFunction = data.strFunction;
 
     let checkToxin = function (cb) {
-        let sql5 = "SELECT * FROM toxin_t WHERE name =?";
+        let sql5 = "SELECT * FROM toxin_t WHERE name =?"; //undecided
         db.get().query(sql5, [strToxinName], (err5, result5) => {
             if (err5) return cb(err5);
 
@@ -129,10 +130,13 @@ exports.addToxin = (req, res, next) => {
 
     let insertToxin = function () {
         let sql6 = "INSERT INTO toxin_t (name,structureFeature,function) VALUES (?,?,?)";
+        let sql7 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
         db.get().query(sql6, [strToxinName, strStructureFeature, strFunction], (err6, result6) => {
             if (err6) return next(err6);
+            db.get().query(sql7,[selectBacteria,result6.insertId],(err,result)=>{
 
-            res.status(200).send({ success: true, detail: "", data: result6 });
+                res.status(200).send({ success: true, detail: ""});
+            });
         });
     }
 
@@ -162,11 +166,12 @@ exports.toxinList = (req, res, next) => {
 exports.editToxin = (req, res, next) => {
     id = req.params.id;
 
-    let sql8 = "SELECT * FROM toxin_t WHERE toxinID =?";
+    let sql8 = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID WHERE toxinID =?";
     db.get().query(sql8, [id], (err8, result8) => {
         if (err8) return next(err8);
 
         let dataDisplay = {
+            bacteriumID : result8[0].bacteriumID,
             name: result8[0].name,
             structureFeature: result8[0].structureFeature,
             toxinFunction: result8[0].function
@@ -488,6 +493,16 @@ exports.updateBacteria = (req,res,next) => {
         else {
             res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
         }
+    });
+}
+
+exports.toSelectBacteria2 = (req,res,next) =>{
+    
+    let sql = "SELECT bacteriumID, bacteriumScientificName FROM bacteria_t";
+    db.get().query(sql,(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success: true, detail:"", data:result});
     });
 }
 

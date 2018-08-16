@@ -1,5 +1,6 @@
 $(function () { //onload
     toSelectBacteria();
+    toSelectBacteria2();
     bacteriaTaxonList();
     toxinList();
     bacteriaList();
@@ -111,6 +112,21 @@ function toSelectBacteria() {
         //$('#toSelectBacteria').val();//kinukuha niya yung selected value
     });
 };
+
+function toSelectBacteria2() {
+    $.get("/toSelectBacteria2", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
+        });
+        $('#toSelectBacteria2').html(html);
+    });
+}
 
 //Start: Bacteria Taxonomy
 function addBacteriaTaxon(eAdd) {
@@ -381,7 +397,7 @@ function addToxin(eAdd) {
             isClick = 0;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('textarea[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
@@ -494,6 +510,7 @@ function editToxin(toxinID) {
 
         else {
             console.log("hi");
+            $('select[name=selectBacteria2]').val(response.data.bacteriumID);
             $('input[name=modalToxinName]').val(response.data.name);
             $('textarea[name=modalStructureFeature]').val(response.data.structureFeature);
             $('textarea[name=modalFunction]').val(response.data.toxinFunction);
