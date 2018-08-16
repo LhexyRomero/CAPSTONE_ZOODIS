@@ -27,6 +27,7 @@ const animalMid = require('./middleware/animalMid'); //importing animal middlewa
 const bacteriaMid = require('./middleware/bacteriaMid');
 const search = require('./middleware/searchMid');
 const diseaseMid = require('./middleware/diseaseMid');
+const preventionMid = require('./middleware/preventionMid');
 
 router.get('/login', (req,res,next)=>{
     res.render('login');
@@ -87,6 +88,7 @@ router.get('/bacteriaList',bacteriaMid.bacteriaList);
 router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
 router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
 router.get('/toSelectBacteria',bacteriaMid.toSelectBacteria);
+router.get('/toSelectBacteria2',bacteriaMid.toSelectBacteria2);
 router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
 router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
 
@@ -97,6 +99,7 @@ router.get('/disease', (req,res,next)=>{
 
 router.post('/disease',diseaseMid.addDisease);
 router.get('/diseaseList',diseaseMid.diseaseList);
+router.get('/toSelectBacteriaDisease',diseaseMid.toSelectBacteriaDisease);
 router.get('/viewDisease/:id',diseaseMid.viewDisease);
 router.post('/editDisease/:id',diseaseMid.editDisease);
 
@@ -107,6 +110,13 @@ router.get('/toxin',(req,res,next)=>{
 router.get('/prevention',(req,res,next)=>{
     res.render('prevention');
 });
+
+router.get('/toSelectDisease',preventionMid.toSelectDisease);
+router.get('/preventionList',preventionMid.preventionList);
+router.get('/viewPrevention/:id',preventionMid.viewPrevention);
+router.get('/editPrevention/:id',preventionMid.viewPrevention);
+router.post('/updatePrevention/:id',preventionMid.updatePrevention);
+router.post('/addPrevention',preventionMid.addPrevention);
 
 router.post('/toxin',bacteriaMid.addToxin);
 router.get('/toxinList',bacteriaMid.toxinList);

@@ -1,9 +1,8 @@
 $(function () { //onload
     diseaseList();
+    toSelectBacteriaDisease();
 });
-/**
- * Start: Adding field
- */
+//Start: Adding field
 
 let isClicked = 0;
 let count = 0;
@@ -22,7 +21,7 @@ function addField() {
     let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
 
-    let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-8'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+    let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-9'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
     target.append(newDiv);
     count++;
@@ -36,15 +35,10 @@ function deleteField(count) {
     $('.sympDiv' + count).remove();
     count--;
     console.log(count + "lol");
-}
+}// End: Adding field
 
-/**
- * End: Adding field
- */
 
-/**
- * Start: Adding Disease
- */
+// Start: Adding Disease
 function addDisease(eAdd) {
     eAdd.preventDefault();
 
@@ -61,12 +55,14 @@ function addDisease(eAdd) {
     data.forEach((element, index) => {
         console.log(element.name + ":" + element.value);
 
+        isClicked = 0;
         if (element.value === "") {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            $('select[name'+element.name+']').css("background", "#feebeb");
             errCount++;
         }
-        else if (element.value.match(/[0-9*#\/]/g) !== null) {
+        else if (element.value.match(/[*#\/]/g) !== null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('textarea[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
@@ -83,7 +79,7 @@ function addDisease(eAdd) {
         return;
     }
 
-    if (invCount > 0) {
+    else if (invCount > 0) {
         $.notify("Invalid Characters!", { type: "danger" });
         return;
     }
@@ -140,16 +136,11 @@ function clearDisease() {
     $('input[name=symptoms6').val("");
     $('input[name=symptoms7').val("");
     $('input[name=symptoms8').val("");
-}
+    isClick =0;
+}// End: Adding Disease
 
-/**
- * End: Adding Disease
- */
 
-/**
- * Start: Disease List
- */
-
+// Start: Disease List
 function diseaseList() {
     $.get("/diseaseList", (response) => {
         if (response.success == false) {
@@ -171,10 +162,8 @@ function diseaseList() {
         $('#diseaseTable').dataTable();
 
     });
-}
-/**
- * End: Disease List
- */
+}//End: Disease List
+
 
 /**
  * Start: View Disease
@@ -196,6 +185,8 @@ function viewDisease(vDiseaseID) {
         console.log("here");
         let data = response.data;
         let html = "";
+       // let selectedBacteria = "<option value ="+element.bacteriumID+">"+element.bacteriumName+"<option>";
+        let selectedBacteria = "<p>"+data.bacteriumName+"</p>";
         let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
         let diseaseDesc = "<p>" + data.diseaseDesc + "</p>";
 
@@ -207,22 +198,16 @@ function viewDisease(vDiseaseID) {
 
         });
 
+        $("#viewSelected").html(selectedBacteria);
         $("#viewDiseaseName").html(diseaseName);
         $("#viewDiseaseDesc").html(diseaseDesc);
         $("#viewSymptoms").html(html);
 
 
     });
-};
+};//End: View Disease
 
-/**
- * End: View Disease
- */
-
-/**
-* Start: Edit Disease
-*/
-
+//Start: Edit Disease
 let editDiseaseID = -1;
 function editDisease(id) {
     editDiseaseID = id;
@@ -237,6 +222,7 @@ function editDisease(id) {
 
         //console.log("meron");   
         let data = response.data;
+        $('select[name=selectBacteria').val(data.bacteriumID);
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
         
@@ -261,6 +247,7 @@ let updateDisease = function(){
     };
     let error = 0;
     formData.forEach((element,index)=>{
+        console.log(element.name+":"+element.value);
         if(element.value == ""){
             error++;
             return;
@@ -327,4 +314,20 @@ let addFieldEdit = function(value){
 
 let deleteFieldEdit = function(selected) {
     $('.sympEditDiv' + selected).remove();
+}//End: Edit Disease
+
+function toSelectBacteriaDisease() {
+    $.get("/toSelectBacteriaDisease",(response)=>{
+        if (response.success == false) {
+            $.notify("Erro getting data from the Server!",{type:"danger"});
+            return;
+        }
+
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
+        });
+        $('#toSelectBacteria').html(html);
+    });
 }
