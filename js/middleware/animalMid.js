@@ -264,21 +264,21 @@ exports.viewAnimal = (req,res,next) =>{
 }
 
 exports.updateAnimal = function(req, res, next){
-    let image = req.file.path;
-    let data = req.body;
-    let commonName = data.strCommonName+"";
-    let scientificName = data.strScientificName+"";
-    let finalScienctific = scientificName.split(' ');
-    let genusName = finalScienctific[0];
-    let scienceName = data.strScientificName+"";
-    let speciesName = finalScienctific[1];
-    let bodySite = data.strBodySite;
-    let isInserting = data.isInserting;
-    
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No Image Provide" });
         return;
     }
+
+    let image = req.file.path;
+    let data = req.body;
+    let commonName = data.modalCommonName+"";
+    let scientificName = data.modalScientificName+"";
+    let finalScienctific = scientificName.split(' ');
+    let genusName = finalScienctific[0];
+    let scienceName = data.strScientificName+"";
+    let speciesName = finalScienctific[finalScienctific.length-1];
+    let bodySite = data.modalBodySite;
+    let isInserting = 1;
     
     /**
      * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
@@ -337,7 +337,7 @@ exports.updateAnimal = function(req, res, next){
         };
 
         if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image], (error, result3) => {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image, req.params.id], (error, result3) => {
                 if (error) return next(error);
 
                 res.status(200).send({ success: true, detail: "Successfully Added!", });
@@ -362,7 +362,6 @@ exports.updateAnimal = function(req, res, next){
                     let sql = "SELECT * FROM animaltaxo_t WHERE species = ?";
                     db.get().query(sql, [speciesName], (err, result) => { //pagkuha ng result ng taxo classification by a species
                         if (err) return next(err);
-
                         if (result.length == 0) {
                             res.status(200).send({ success: false, detail: "Species not found", error: 2});
                         }
