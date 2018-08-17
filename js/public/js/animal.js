@@ -1,7 +1,7 @@
 $(function () { //onload
     animalTaxonList();
     animalList();
-    $("input[name=strScientificName]").autocomplete({
+    $('.searchAnimal').autocomplete({
         source: (req, res) => {
             $.ajax({
                 type: "GET",
@@ -480,7 +480,7 @@ function viewAnimal(id){
 
 function editAnimal(id) {
     globalAnimalID = id;
-    let url = "/editAnimal/"+globalAnimalID;
+    let url = "/viewAnimal/"+globalAnimalID;
 
     $.get(url, (response) =>{
         if(response.success == false ){
@@ -502,14 +502,13 @@ function editAnimal(id) {
 }
 
 function updateAnimal(){
+    
     let dataInsert = new FormData($("#editAnimalForm")[0]);
     let data = $("#editAnimalForm").serializeArray();
     let errCount = 0;
     let invCount = 0;
 
-    console.log(dataInsert);
     data.forEach((element, index) => {
-        console.log(element.name + ":" + element.value);
 
         if (element.value == "") {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
@@ -555,7 +554,6 @@ function updateAnimal(){
                         }
 
                         else if (response.error == 2) {
-                            $.notify(response.detail, { type: "danger" });
                             $.notify(response.detail, { type: 'danger' });
                         }
 
@@ -584,7 +582,7 @@ function updateAnimal(){
                         else {
                             swal({
                                 title: "Success",
-                                text: "Animal Successfully Added!",
+                                text: "Animal Successfully Modify!",
                                 type: "success",
                                 confirmButtonColor: "#DD6B55",
                                 confirmButtonText: "Okay",
