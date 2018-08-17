@@ -73,7 +73,7 @@ router.get('/animalList',animalMid.animalList);
 router.get('/animalTaxonList',animalMid.animalTaxonList);
 router.get('/editAnimalTaxon/:id',animalMid.editAnimalTaxon);
 router.get('/viewAnimal/:id',animalMid.viewAnimal);
-router.get('/editAnimal/:id',animalMid.viewAnimal);
+router.get('/editAnimal/:id', upload.single(''),animalMid.viewAnimal);
 
 router.get('/bacteria',(req,res,next)=>{
     res.render('bacteria');
