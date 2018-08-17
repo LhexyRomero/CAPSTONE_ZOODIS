@@ -2,14 +2,22 @@ const db = require('./connection');
 const express = require('express');
 const routes = require('./router');
 const bodyParser = require('body-parser');
+const session = require('express-session')
+
 let app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
 app.use('/assets', express.static(__dirname + '/public'));
-app.use('/',routes);
 
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use('/',routes);
 db.connect(db.zoodis_mode, (err) =>{
     if(err) {
         console.error('Unable to Connect to MYSQL' + err);
