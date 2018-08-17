@@ -96,7 +96,7 @@ exports.editDisease = (req, res, next) => {
     let data = req.body;
     let bacteriumID = data.selectBacteria;
     let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ? WHERE diseaseID = ?";
-    let sql1 = "UPDATE bacteriadisease_t SET bacteriumID =? , diseaseID =? ";
+    let sql1 = "UPDATE bacteriadisease_t SET bacteriumID =? , diseaseID =? WHERE diseaseID = ?";
     let error = 0;
 
     //Some validations here... 
@@ -115,7 +115,7 @@ exports.editDisease = (req, res, next) => {
     if(error == 0){
         db.get().query(sql, queryData, function(err, result){
             if(err) return next(err);
-            db.get().query(sql1,[bacteriumID,id],(err1, result1)=>{
+            db.get().query(sql1,[bacteriumID,id,id],(err1, result1)=>{
                 res.status(200).send({success: true, detail: "Disease Successfully Modify"});
             });
         });
