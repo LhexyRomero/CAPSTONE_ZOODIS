@@ -124,10 +124,6 @@ router.get('/toxinList',bacteriaMid.toxinList);
 router.get('/editToxin/:id',bacteriaMid.editToxin);
 router.post('/updateToxin/:id',bacteriaMid.updateToxin);
 
-router.get('/', (req,res)=>{
-    res.redirect('/dashboard');
-});
-
 router.get('/Zoonotic-Disease-Identification',(req,res)=> {
     res.render('index');
 });
