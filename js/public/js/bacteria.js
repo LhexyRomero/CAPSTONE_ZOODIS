@@ -4,6 +4,7 @@ $(function () { //onload
     bacteriaTaxonList();
     toxinList();
     bacteriaList();
+    toModalSelect();
 
     $("input[name=strSpeciesName]").autocomplete({
         source: (req, res) => {
@@ -125,6 +126,21 @@ function toSelectBacteria2() {
             html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
         });
         $('#toSelectBacteria2').html(html);
+    });
+}
+
+function toModalSelect() {
+    $.get("/toModalSelect", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
+        });
+        $('#toModalSelect').html(html);
     });
 }
 
@@ -510,7 +526,9 @@ function editToxin(toxinID) {
 
         else {
             console.log("hi");
-            $('select[name=selectBacteria2]').val(response.data.bacteriumID);
+            console.log(response.data.bacteriumID);
+
+            $('select[name=modalSelect]').val(response.data.bacteriumID);
             $('input[name=modalToxinName]').val(response.data.name);
             $('textarea[name=modalStructureFeature]').val(response.data.structureFeature);
             $('textarea[name=modalFunction]').val(response.data.toxinFunction);
@@ -538,7 +556,7 @@ function updateToxin() {
             isClick = 0;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('textarea[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
@@ -583,7 +601,7 @@ function updateToxin() {
                     else {
                         swal({
                             title: "Done!",
-                            text: "Data Recorded",
+                            text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"

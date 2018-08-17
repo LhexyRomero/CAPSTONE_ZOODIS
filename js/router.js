@@ -89,6 +89,7 @@ router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
 router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
 router.get('/toSelectBacteria',bacteriaMid.toSelectBacteria);
 router.get('/toSelectBacteria2',bacteriaMid.toSelectBacteria2);
+router.get('/toModalSelect',bacteriaMid.toSelectBacteria2);
 router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
 router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
 

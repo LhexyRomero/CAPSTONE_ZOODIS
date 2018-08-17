@@ -166,11 +166,13 @@ exports.toxinList = (req, res, next) => {
 exports.editToxin = (req, res, next) => {
     id = req.params.id;
 
-    let sql8 = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID WHERE toxinID =?";
+    let sql8 = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID WHERE toxin_t.toxinID = ?";
     db.get().query(sql8, [id], (err8, result8) => {
         if (err8) return next(err8);
 
+        console.log(result8);
         let dataDisplay = {
+
             bacteriumID : result8[0].bacteriumID,
             name: result8[0].name,
             structureFeature: result8[0].structureFeature,
@@ -186,15 +188,20 @@ exports.updateToxin = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
 
+    let bacteriumID = data.modalSelect;
     let strToxinName = data.modalToxinName;
     let strStructureFeature = data.modalStructureFeature;
     let strFunction = data.modalFunction;
 
     let sql9 = "UPDATE toxin_t SET name = ?, structureFeature = ?, function = ?  WHERE toxinID = ?";
+    let sql10 = "UPDATE bacteriatoxin_t SET bacteriumID = ? , toxinID = ? WHERE toxinID = ?";
     db.get().query(sql9, [strToxinName, strStructureFeature, strFunction, id], (err9, result9) => {
         if (err9) return next(err9);
+        db.get().query(sql10,[bacteriumID,id,id],(err,result)=>{
+            if(err) return next(err);
 
-        res.status(200).send({ success: true, detail: "" });
+            res.status(200).send({ success: true, detail: "Successfully Updated!" });
+        });
     });
 }
 
