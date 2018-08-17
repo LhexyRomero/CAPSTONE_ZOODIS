@@ -285,7 +285,7 @@
                                                     <th><small><b>ANIMAL</b></small></th>
                                                     <th><small><b>BACTERIA</b></small></th>
                                                     <th><small><b>TISSUE</b></small></th>
-                                                    <th><small><b>SAMPLE TYPE</b></small></th>
+                                                    <th><small><b>TYPE</b></small></th>
                                                     <th><small><b>ISOLATION</b></small></th>
                                                     <th><small><b>IDENTIFICATION</b></small></th>
                                                     <th><small><b>ACTION</b></small></th>
@@ -447,13 +447,13 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form enctype="multipart/form-data" id="editBacteriaForm" action="" method="POST">
+                                <form enctype="multipart/form-data" id="editAnimalForm" action="" method="POST">
                                     <div class="row">
                                             <div class="col-md-6">
                                                 <div class="card-body ">
                                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
-                                                            <img src="../assets/img/image_placeholder.jpg" width="170" height="110" alt="...">
+                                                            <img class='animalEditPic' src="../assets/img/image_placeholder.jpg" width="170" height="110" alt="...">
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                                         <div>
@@ -510,7 +510,7 @@
                             </div>
                             <div class="for-footer">
                                 <div align="right">
-                                    <button type="button" class="btn btn-primary" id ="toSave" onclick="updateBacteria()">Save changes</button>
+                                    <button type="button" class="btn btn-primary" id ="toSave" onclick="updateAnimal()">Save changes</button>
                                 </div>
                             </div>
                             </form>
@@ -742,6 +742,7 @@
                                         <div class="form-group has-label">
                                             <div class="row">
                                                 <div class="col-md-6">
+                                                    <img width="200" height="200" src="" class="animalPic" />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <h6 class="card-title">ANimal</h6>
@@ -859,36 +860,7 @@
                         </div>
                     </div>
             </div>
-    
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav>
-                        <ul>
-                            <li>
-                                <a href="https://www.creative-tim.com/">
-                                    Creative Tim
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://presentation.creative-tim.com/">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com/">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright" id="copyright">
-                        &copy;
-                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>, Designed by
-                        <a href="https://www.invisionapp.com/" target="_blank">Invision</a>. Coded by
-                        <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a>.
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </div>
     <!--   Core JS Files   -->

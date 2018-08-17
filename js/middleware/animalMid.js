@@ -1,9 +1,6 @@
 const db = require("../connection");
 
-exports.addAnimal = (req, res, next) => {
-
-    console.log(req.file);  
-    
+exports.addAnimal = (req, res, next) => {    
     let image = req.file.path;
     let data = req.body;
     let commonName = data.strCommonName+"";
@@ -14,11 +11,6 @@ exports.addAnimal = (req, res, next) => {
     let speciesName = finalScienctific[1];
     let bodySite = data.strBodySite;
     let isInserting = data.isInserting;
-    
-    console.log("AKO NA PATH" +image);
-    console.log("ANIMAL NAME : " +commonName);
-    console.log("SCIENCE NAME : " +scienceName);
-
     
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No Image Provide" });
@@ -67,7 +59,7 @@ exports.addAnimal = (req, res, next) => {
      * @param result ResultSet object, containing taxonomy of the animal.
      */
     let insertAnimal = function (result) {
-        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID) VALUES (?,?,?,?)";
+        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image) VALUES (?,?,?,?,?)";
         let dataDisplay = {
             commonName: commonName,
             scientificName: scientificName,
@@ -77,11 +69,12 @@ exports.addAnimal = (req, res, next) => {
             order: result[0].orderr,
             family: result[0].family,
             genus: result[0].genus,
-            species: speciesName
+            species: speciesName,
+            image   : image
         };
 
         if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID], (error, result3) => {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID,image], (error, result3) => {
                 if (error) return next(error);
 
                 res.status(200).send({ success: true, detail: "Successfully Added!", });
@@ -261,10 +254,130 @@ exports.viewAnimal = (req,res,next) =>{
             order                   :   result[0].orderr,
             family                  :   result[0].family,
             genus                   :   result[0].genus,
-            species                 :   result[0].species
+            species                 :   result[0].species,
+            image                   :   result[0].image
         }
 
         res.status(200).send({success:true, detail:"", data:dataDisplay});
     });
    
+}
+
+exports.updateAnimal = function(req, res, next){
+    let image = req.file.path;
+    let data = req.body;
+    let commonName = data.strCommonName+"";
+    let scientificName = data.strScientificName+"";
+    let finalScienctific = scientificName.split(' ');
+    let genusName = finalScienctific[0];
+    let scienceName = data.strScientificName+"";
+    let speciesName = finalScienctific[1];
+    let bodySite = data.strBodySite;
+    let isInserting = data.isInserting;
+    
+    if (!req.file) {
+        res.status(200).send({ success: false, detail: "No Image Provide" });
+        return;
+    }
+    
+    /**
+     * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
+     * @param cb Callback function
+     */
+    let checkAnimal = function (cb) {
+        let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
+        db.get().query(sql, [commonName, scienceName], (err, result) => {
+            if (err) return cb(err);
+            if (result.length == 0) {
+                return cb(null, true);
+            }
+            else {
+                return cb(null, false);
+            }
+        });
+    };
+
+    /**
+     * This function run when no species provided in the scientific name, 
+     * also return set of suggestion to the client if ever a non-existing genus is provided.
+     */
+    let noGenus = function () {
+        //kapag walang prinovide yung user ng species
+        speciesName = "spp.";
+        let sql = "SELECT animalTaxoID, phylum, class, orderr, family, genus FROM animaltaxo_t WHERE genus = ?";
+        db.get().query(sql, [genusName], (err, result) => { //pagkuha ng result ng taxo classification by a genus
+            if (err) return next(err);
+
+            if (result.length == 0) {
+                res.status(200).send({ success: false, detail: "Genus not found", error: 1 });
+            }
+            else {
+                insertAnimal(result);
+            }
+        });
+    };
+
+    /**
+     * This Function: iinsert na ng system sa database yung ininput ng User
+     * @param result ResultSet object, containing taxonomy of the animal.
+     */
+    let insertAnimal = function (result) {
+        let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalBodySite = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
+        let dataDisplay = {
+            commonName: commonName,
+            scientificName: scientificName,
+            bodySite: bodySite,
+            phylum: result[0].phylum,
+            class: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: speciesName,
+            image   : image
+        };
+
+        if (isInserting) {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image], (error, result3) => {
+                if (error) return next(error);
+
+                res.status(200).send({ success: true, detail: "Successfully Added!", });
+            });
+        }
+
+        else {
+            res.status(200).send({ success: true, detail: "", data: dataDisplay });
+        }
+    };
+
+    checkAnimal((error, result) => {
+        if (error) return next(error);
+        if (result) {
+            if (scientificName.length > 1) {
+                if (speciesName == "spp") {
+                    noGenus();
+                }
+                else {
+
+                    //kapag kumpleto yung scientific name 
+                    let sql = "SELECT * FROM animaltaxo_t WHERE species = ?";
+                    db.get().query(sql, [speciesName], (err, result) => { //pagkuha ng result ng taxo classification by a species
+                        if (err) return next(err);
+
+                        if (result.length == 0) {
+                            res.status(200).send({ success: false, detail: "Species not found", error: 2});
+                        }
+                        else {
+                            insertAnimal(result);
+                        }
+                    })
+                }
+            }
+            else {
+                noGenus();
+            }
+        }
+        else {
+            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists" });
+        }
+    });
 }

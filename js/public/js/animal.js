@@ -67,7 +67,7 @@ function addAnimal(e) {
         }
 
         else {
-            dataInsert.append(element.name,element.value);
+            //dataInsert.append(element.name,element.value);
         }
 
     });
@@ -139,7 +139,7 @@ function addAnimal(e) {
         };
 
         if (isInsertAnimal) { //kapag mag iinsert
-            dataInsert.isInserting = 1;
+            dataInsert.append('isInserting', 1)
             swal({
                 title: "Warning!",
                 text: "Are you sure?",
@@ -149,7 +149,9 @@ function addAnimal(e) {
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
             }).then(function (isConfirmed) {
-                submit();
+                if(isConfirmed){
+                    submit();
+                }
             });
         } else {
             submit();
@@ -444,14 +446,13 @@ function viewAnimal(id){
     globalAnimalID = id;
     let url = "/viewAnimal/"+globalAnimalID;
 
-    console.log(url);
-    console.log("dito na ko");
-
+    
     $.get(url,(response)=>{
         if(response.success == false) {
             $.notify("Error getting data from the server!",{type:"danger"});
             return;
         }
+        console.log(response.data);
 
         let animalName  = "<label>"+response.data.animalName+"</label>";
         let scientificName = "<label>"+response.data.animalScientificName+"</label>";
@@ -464,6 +465,7 @@ function viewAnimal(id){
         let species = "<label>"+response.data.species+"</label>";
 
         //picture
+        $('.animalPic').attr('src',response.data.image.replace('public','assets'));
         $("#animalName2").html(animalName);
         $("#scientificName").html(scientificName);
         $("#bodySite").html(bodySite);
@@ -486,8 +488,7 @@ function editAnimal(id) {
             return;
         }
 
-        console.log("display na sa form");
-        //picture
+        $('.animalEditPic').attr('src', response.data.image.replace('public','assets'))
         $("input[name=modalCommonName]").val(response.data.animalName);
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
         $("input[name=modalBodySite]").val(response.data.bodySite);
@@ -498,5 +499,114 @@ function editAnimal(id) {
         $("input[name=modalGenus2]").val(response.data.genus);
         $("input[name=modalSpecies2]").val(response.data.species);
     });
+}
+
+function updateAnimal(){
+    let dataInsert = new FormData($("#editAnimalForm")[0]);
+    let data = $("#editAnimalForm").serializeArray();
+    let errCount = 0;
+    let invCount = 0;
+
+    console.log(dataInsert);
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+            //dataInsert.append(element.name,element.value);
+        }
+
+    });
+    
+    if (errCount > 0) {
+        $.notify("Fields must be filled out!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        let submit = function () {
+            $.ajax({
+                type: "POST",
+                url: "/editAnimal/"  + globalAnimalID,
+                data: dataInsert,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    isClicked = 0;
+                    if (response.success == false) {
+                        isClicked = 0;
+
+                        if (response.error == 1) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else if (response.error == 2) {
+                            $.notify(response.detail, { type: "danger" });
+                            $.notify(response.detail, { type: 'danger' });
+                        }
+
+                        else if (response.error == 3) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                    }
+                    else {
+
+                        if (response.data) {
+                            $("input[name=strPhylum]").val(response.data.phylum);
+                            $("input[name=strClass]").val(response.data.class);
+                            $("input[name=strOrder]").val(response.data.order);
+                            $("input[name=strFamily]").val(response.data.family);
+                            $("input[name=strGenus]").val(response.data.genus);
+                            $("input[name=strSpecies]").val(response.data.species);
+                            $("#toSubmitAnimal").html("Save");
+                            isInsertAnimal = 1;
+                        }
+
+                        else {
+                            swal({
+                                title: "Success",
+                                text: "Animal Successfully Added!",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Okay",
+                            });
+                        }
+                    }
+                }
+            });
+        };
+        swal({
+            title: "Warning!",
+            text: "Are you sure?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+        }).then(function (isConfirmed) {
+            if(isConfirmed){
+                submit();
+            }
+        });
+    }
 }
 
