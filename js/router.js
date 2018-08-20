@@ -154,6 +154,8 @@ router.get('/contri_Bacteria',(req,res,next)=>{
 });
 
 router.post('/contri_bacteriaTaxon',contri_bacteriaMid.addBacteriaTaxon);
+router.post('/contri_bacteria',contri_bacteriaMid.addBacteria);
+
 
 router.get('/contri_bacteriaTaxonList',contri_bacteriaMid.bacteriaTaxonList);
 router.get('/contri_viewBacteriaTaxon/:id',contri_bacteriaMid.viewBacteriaTaxon);
