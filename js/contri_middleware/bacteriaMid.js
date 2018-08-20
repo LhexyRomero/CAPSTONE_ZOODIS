@@ -150,3 +150,124 @@ exports.toSelectJournal = (req,res,next) =>{
         res.status(200).send({ success: true, detail: "", data: result});
     });
 }
+
+exports.addBacteria = (req, res, next) => {
+
+    console.log("ADD KA NA");
+    let data = req.body;
+    let animalID = data.toSelect;
+    let strSpeciesName = data.strSpeciesName;
+    let strGenusName = data.strGenusName;
+    let strScientificName = strGenusName + ' ' + strSpeciesName;
+    let strTissueSpecifity = data.strTissueSpecifity;
+    let isInserting = data.isInserting;
+
+    let checkBacteria = (cb) => {
+        console.log("checking function to boi");
+        let sql11 = "SELECT * FROM bacteria_t WHERE animalID = ? OR bacteriumScientificName = ?";
+        db.get().query(sql11, [animalID, strScientificName], (err11, result11) => {
+            if (err11) return cb(err11);
+
+            if (result11.length == 0) {
+                return cb(null, true);
+            }
+
+            else {
+                return cb(null, false);
+            }
+        });
+    }
+
+    let checkSpecies = (cb) => {
+        console.log("check Species!");
+        let sql = "SELECT * FROM bacteriataxo_t WHERE species = ?";
+        db.get().query(sql, [strSpeciesName], (err, result) => {
+            if (err) return cb(err);
+
+            if (result.length == 0) {
+                return cb(null, undefined);
+            }
+            else {
+                return cb(null, result);
+            }
+        });
+    }
+
+    let checkGenus = (cb) => {
+        console.log("Check Genus");
+        let sql = "SELECT * FROM bacteriataxo_t WHERE genus =?";
+        db.get().query(sql, [strGenusName], (err, result) => {
+            if (err) return cb(err);
+
+            if (result.length == 0) {
+                return cb(null, undefined);
+            }
+            else {
+                return cb(null, result);
+            }
+        });
+    }
+
+    let insertBacteria = (result) => {
+        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,animalID,bacteriumTaxoID) VALUES (?,?,?,?,?,?)";
+        let dataDisplay = {
+            scientificName: strScientificName,
+            phylum: result[0].phylum,
+            class: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: result[0].species
+        }
+
+        if (isInserting) {
+            db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, animalID, result[0].bacteriumTaxoID], (err, result) => {
+                if (err) return next(err);
+                res.status(200).send({ success: true, detail: "Successfully Added!" });
+            });
+
+        }
+
+        else {
+            res.status(200).send({ success: true, detail: "", data: dataDisplay });
+        }
+    };
+
+    checkBacteria((error, result) => {
+        console.log("check niya muna bacteria");
+        if (error) return next(error);
+
+        if (result) {
+            checkGenus((error1, genus) => {
+                if (error1) return next(error1);
+
+                checkSpecies((error2, species) => {
+                    if (error2) return next(error2);
+
+                    if (!genus && !species) {
+                        res.status(200).send({ success: false, detail: "Genus and Species not found!", error: 1 });
+                    }
+
+                    else if (!genus && species) {
+                        console.log("genus error!");
+                        res.status(200).send({ success: false, detail: "Genus not found!", error: 2 });
+                    }
+
+                    else if (!species && genus) {
+                        console.log("species error!");
+                        res.status(200).send({ success: false, detail: "Species not found!", error: 3 });
+                    }
+
+                    else {
+                        //inser
+                        insertBacteria(species);
+                    }
+                });
+            });
+            return;
+        }
+        else {
+            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
+        }
+    });
+}
