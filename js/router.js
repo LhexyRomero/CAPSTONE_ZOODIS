@@ -28,9 +28,15 @@ const bacteriaMid = require('./middleware/bacteriaMid');
 const search = require('./middleware/searchMid');
 const diseaseMid = require('./middleware/diseaseMid');
 const preventionMid = require('./middleware/preventionMid');
+
 const contri_animalMid = require('./contri_middleware/animalMid');
 const contri_bacteriaMid = require('./contri_middleware/bacteriaMid');
+<<<<<<< HEAD
 const auth = require('./middleware/authentication');
+=======
+const contri_diseaseMid = require('./contri_middleware/diseaseMid');
+const contri_preventionMid = require('./contri_middleware/preventionMid');
+>>>>>>> master
 
 router.get('/', (_,res,__)=>{
     res.redirect('/dashboard');
@@ -136,7 +142,16 @@ router.get('/editPrevention/:id',preventionMid.viewPrevention);
 router.post('/updatePrevention/:id',preventionMid.updatePrevention);
 router.post('/addPrevention',preventionMid.addPrevention);
 
-router.get('/Zoonotic-Disease-Identification', auth.authenticate, (req,res,next)=> {
+router.get('/notification',(req,res,next) =>{
+    res.render('notification');
+
+});
+
+router.get('/', (req,res)=>{
+    res.redirect('/dashboard');
+});
+
+router.get('/Zoonotic-Disease-Identification', auth.authenticate,(req,res,next)=> {
     res.render('index');
 });
 
@@ -150,7 +165,10 @@ router.get('/contri_Animal',(req,res,next)=>{
     res.render('contri_Animal');
 });
 
-router.post('/contri_animal',upload.single("animalImg"),contri_animalMid.addAnimal);
+router.post('/contri_animal',upload.single("contri_animalImg"),contri_animalMid.addAnimal);
+
+router.get('/contri_viewAnimal/:id',contri_animalMid.viewAnimal);
+router.get('/contri_animalList',contri_animalMid.animalList);
 
 router.get('/contri_animalTaxon',(req,res,next)=>{
     res.render('contri_AnimalTaxon');
@@ -182,6 +200,12 @@ router.get('/contri_Disease',(req,res,next)=>{
     res.render('contri_Disease');
 });
 
+router.post('/contri_disease',contri_diseaseMid.addDisease);
+router.get('/contri_toSelectBacteriaDisease',contri_diseaseMid.toSelectBacteriaDisease);
+router.get('/contri_toSelectJournalDisease',contri_diseaseMid.toSelectJournalDisease);
+router.get('/contri_diseaseList',contri_diseaseMid.diseaseList);
+router.get('/contri_viewDisease/:id',contri_diseaseMid.viewDisease);
+
 router.get('/contri_DiseaseTable',(req,res,next)=>{
     res.render('contri_DiseaseTable');
 });
@@ -193,6 +217,10 @@ router.get('/contri_HostTable',(req,res,next)=>{
 router.get('/contri_Prevention',(req,res,next)=>{
     res.render('contri_Prevention');
 });
+
+router.post('/contri_addPrevention',contri_preventionMid.addPrevention);
+router.get('/contri_toSelectDisease',contri_preventionMid.toSelectDisease);
+router.get('/contri_preventionList',contri_preventionMid.preventionList);
 
 router.get('/contri_Toxin',(req,res,next)=>{
     res.render('contri_Toxin');
