@@ -29,7 +29,7 @@
             <div class="content">
                 <div class="container">
                     <div class="col-md-4 ml-auto mr-auto">
-                        <form class="form" method="" action="#">
+                        <form class="form" method="POST">
                             <div class="card card-login card-plain">
 
                                 <img src="../../assets/img/zoodis.png" width="800px" height="148px" alt="">
@@ -43,7 +43,7 @@
                                                 <i class="now-ui-icons users_circle-08"></i>
                                             </div>
                                         </span>
-                                        <input type="text" class="form-control" placeholder="Email/User Name">
+                                        <input type="text" name="username" class="form-control" placeholder="Email/User Name">
                                     </div>
 
                                     <div class="input-group no-border form-control-lg">
@@ -52,10 +52,10 @@
                                                 <i class="now-ui-icons objects_key-25"></i>
                                             </div>
                                         </div>
-                                        <input type="password" placeholder="Password" class="form-control">
+                                        <input type="password" name="password" placeholder="Password" class="form-control">
                                     </div>
                                     <div class="card-footer ">
-                                        <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block mb-3">Login</a>
+                                        <input class="btn btn-primary btn-round btn-lg btn-block mb-3" type="submit" value="Login">
                                         <div align="center">
                                             <h6>
                                                 <a href="register" class="link footer-link">Create Account?</a>
@@ -90,7 +90,13 @@
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/now-ui-dashboard.min69ea.js?v=1.1.2" type="text/javascript"></script>
 
-
+    <%
+        var script = "";
+        if(logFail){
+            script = "<script type='text/javascript'>alert('Invalid Username/Password')</script>";
+        }
+    %>
+    <%-script%>
 </body>
 
 </html>
