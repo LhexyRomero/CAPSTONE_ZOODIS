@@ -258,39 +258,6 @@
 
                                     </div>
                                 </div>
-                                        <div class="card-header ">
-                                            <h6 class="card-title">MORPHOLOGY AND PHYSIOLOGY</h6>
-                                        </div>
-
-                                        <div class="card-body ">
-
-                                            <div class="form-group has-label">
-                                                <label>Gram Stain</label>
-                                                <select class="form-control" name="strGramStain" type="text" />
-                                                    <option value ="">...</option>
-                                                    <option value="Positive">Positive</option>
-                                                    <option value="Negative">Negative</option>
-                                                </select>
-                                                
-
-                                                <label>Cell Length</label>
-                                                <input class="form-control" name="strLength" type="number" />
-
-                                                <label>Cell Width</label>
-                                                <input class="form-control" name="strWidth" type="number" />
-
-                                                <label>Cell Shape</label>
-                                                <input class="form-control" name="strShape" type="text" />
-
-                                                <label>Motility</label>
-                                                <input class="form-control" name="strMotility" type="text" />
-
-                                            </div>
-                                        </div>
-
-                                    
-                                
-
                                 <div class="card-footer" align="right">
                                     <button type="button" class="btn btn-warning" onclick="clearBacteria()">Clear</button>
                                     <button type="submit" class="btn btn-primary" id ="toSubmitBacteria">Add</button>
@@ -303,21 +270,9 @@
                                     <div class="table-responsive">
                                         <table class="table" id="diseaseTable">
                                             <thead class="text-primary">
-                                                <th>
-                                                    <small>
-                                                        <b>BACTERIA</b>
-                                                    </small>
-                                                </th>
-                                                <th>
-                                                    <small>
-                                                        <b>VIEW</b>
-                                                    </small>
-                                                </th>
-                                                <th>
-                                                    <small>
-                                                        <b>ACTION</b>
-                                                    </small>
-                                                </th>
+                                                <th><small><b>BACTERIA</b></small></th>
+                                                <th><small><b>ACTION</b></small></th>
+                                                <th><small><b>STATUS</b></small></th>
                                             </thead>
                                             <tbody id="diseaseTableList">
                                             </tbody>

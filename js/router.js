@@ -23,11 +23,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-const animalMid = require('./middleware/animalMid'); //importing animal middleware 
+const animalMid = require('./middleware/animalMid');
 const bacteriaMid = require('./middleware/bacteriaMid');
 const search = require('./middleware/searchMid');
 const diseaseMid = require('./middleware/diseaseMid');
 const preventionMid = require('./middleware/preventionMid');
+const contri_animalMid = require('./contri_middleware/animalMid');
+const contri_bacteriaMid = require('./contri_middleware/bacteriaMid');
 
 router.get('/login', (req,res,next)=>{
     res.render('login');
@@ -135,13 +137,27 @@ router.get('/contri_Animal',(req,res,next)=>{
     res.render('contri_Animal');
 });
 
+router.post('/contri_animal',upload.single("animalImg"),contri_animalMid.addAnimal);
+
 router.get('/contri_animalTaxon',(req,res,next)=>{
     res.render('contri_AnimalTaxon');
 });
 
+router.post('/contri_animalTaxon',contri_animalMid.addAnimalTaxon);
+
+router.get('/contri_animalTaxonList',contri_animalMid.animalTaxonList);
+router.get('/contri_viewAnimalTaxon/:id',contri_animalMid.viewAnimalTaxon);
+router.get('/contri_toSelectJournal',contri_animalMid.toSelectJournal);
+
 router.get('/contri_Bacteria',(req,res,next)=>{
     res.render('contri_Bacteria');
 });
+
+router.post('/contri_bacteriaTaxon',contri_bacteriaMid.addBacteriaTaxon);
+
+router.get('/contri_bacteriaTaxonList',contri_bacteriaMid.bacteriaTaxonList);
+router.get('/contri_viewBacteriaTaxon/:id',contri_bacteriaMid.viewBacteriaTaxon);
+router.get('/contri_toSelectJournal1',contri_bacteriaMid.toSelectJournal);
 
 router.get('/contri_BacteriaTaxon',(req,res,next)=>{
     res.render('contri_BacteriaTaxon');
@@ -166,6 +182,10 @@ router.get('/contri_Prevention',(req,res,next)=>{
 router.get('/contri_Toxin',(req,res,next)=>{
     res.render('contri_Toxin');
 });
+
+router.post('/contri_toxin',contri_bacteriaMid.addToxin);
+
+router.get('/contri_toSelectBacteria',contri_bacteriaMid.toSelectBacteria);
 
 router.get('/contri_Dashboard',(req,res,next)=>{
     res.render('contri_Dashboard');
