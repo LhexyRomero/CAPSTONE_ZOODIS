@@ -31,18 +31,35 @@ const preventionMid = require('./middleware/preventionMid');
 
 const contri_animalMid = require('./contri_middleware/animalMid');
 const contri_bacteriaMid = require('./contri_middleware/bacteriaMid');
+const auth = require('./middleware/authentication');
 const contri_diseaseMid = require('./contri_middleware/diseaseMid');
 const contri_preventionMid = require('./contri_middleware/preventionMid');
 
-router.get('/login', (req,res,next)=>{
-    res.render('login');
+router.get('/', (_,res,__)=>{
+    res.redirect('/dashboard');
 });
+
+router.route('/login')
+    .post(auth.login, auth.authRedirect)
+    .get(auth.authRedirect,(req,res,next)=>{
+        res.locals.logFail = req.query.failed || false;
+        res.render('login', res.locals);
+    });
+
+router.get('/logout', auth.logout);
 
 router.get('/register',(req,res,next)=>{
-    res.render('register');
+    var result = req.query.error || false;
+    res.render('register',{regError: result});
 });
+router.post('/register', auth.register);
 
-router.get('/dashboard',(req,res,next)=>{
+//Search Router, for searching taxonomy of animal and bacteria
+router.get('/search/animal', search.animal);
+router.get('/search/bacteriaGenus',search.bacteriaGenus);
+router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
+
+router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('dashboard');
 });
 
@@ -50,15 +67,15 @@ router.get('/user',(req,res,next)=>{
     res.render('user');
 });
 
-router.get('/hostTable',(req,res,next)=>{
+router.get('/hostTable', auth.authenticate,(req,res,next)=>{
     res.render('hostTable');
 });
 
-router.get('/diseaseTable',(req,res,next)=>{
+router.get('/diseaseTable', auth.authenticate,(req,res,next)=>{
     res.render('diseaseTable');
 });
 
-router.get('/animalTaxon',(req,res,next)=>{
+router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
     res.render('animalTaxon');
 });
 router.post('/animalTaxon', animalMid.addAnimalTaxon);
@@ -66,7 +83,7 @@ router.post('/updateAnimalTaxon/:id',animalMid.updateAnimalTaxon);
 router.get('/animalTaxonList',animalMid.animalTaxonList);
 router.get('/editAnimalTaxon/:id',animalMid.editAnimalTaxon);
 
-router.get('/bacteriaTaxon',(req,res,next)=>{
+router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('bacteriaTaxon');
 });
 router.post('/bacteriaTaxon',bacteriaMid.addBacteriaTaxon);
@@ -74,7 +91,7 @@ router.post('/updateBacteriaTaxon/:id',bacteriaMid.updateBacteriaTaxon);
 router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
 router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
 
-router.get('/animal',(req,res,next) =>{
+router.get('/animal', auth.authenticate, (req,res,next) =>{
     res.render('animal');
 });
 router.post('/animal', upload.single("animalImg"), animalMid.addAnimal);
@@ -82,7 +99,7 @@ router.post('/editAnimal/:id', upload.single('animalImg'), animalMid.updateAnima
 router.get('/animalList',animalMid.animalList);
 router.get('/viewAnimal/:id',animalMid.viewAnimal);
 
-router.get('/bacteria',(req,res,next)=>{
+router.get('/bacteria', auth.authenticate, (req,res,next)=>{
     res.render('bacteria');
 });
 
@@ -95,8 +112,7 @@ router.get('/toModalSelect',bacteriaMid.toSelectBacteria2);
 router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
 router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
 
-
-router.get('/disease', (req,res,next)=>{
+router.get('/disease', auth.authenticate,(req,res,next)=>{
     res.render('disease');
 });
 router.post('/disease',diseaseMid.addDisease);
@@ -105,7 +121,7 @@ router.get('/toSelectBacteriaDisease',diseaseMid.toSelectBacteriaDisease);
 router.get('/viewDisease/:id',diseaseMid.viewDisease);
 router.post('/editDisease/:id',diseaseMid.editDisease);
 
-router.get('/toxin',(req,res,next)=>{
+router.get('/toxin', auth.authenticate, (req,res,next)=>{
     res.render('toxin');
 });
 router.post('/toxin',bacteriaMid.addToxin);
@@ -113,7 +129,7 @@ router.get('/toxinList',bacteriaMid.toxinList);
 router.get('/editToxin/:id',bacteriaMid.editToxin);
 router.post('/updateToxin/:id',bacteriaMid.updateToxin);
 
-router.get('/prevention',(req,res,next)=>{
+router.get('/prevention', auth.authenticate, (req,res,next)=>{
     res.render('prevention');
 });
 router.get('/toSelectDisease',preventionMid.toSelectDisease);
@@ -132,14 +148,15 @@ router.get('/', (req,res)=>{
     res.redirect('/dashboard');
 });
 
-router.get('/Zoonotic-Disease-Identification',(req,res,next)=> {
+router.get('/Zoonotic-Disease-Identification', auth.authenticate,(req,res,next)=> {
     res.render('index');
 });
 
-//Search Router, for searching taxonomy of animal and bacteria
-router.get('/search/animal', search.animal);
-router.get('/search/bacteriaGenus',search.bacteriaGenus);
-router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
+router.get('/contri_*', auth.authenticate, (req,res,next)=>{
+    if(req.session.accType == 1) return next();
+    res.redirect('/login');
+}); 
+//BELOW THIS ALL ROUTE NEEDS AUTHENTICATION
 
 router.get('/contri_Animal',(req,res,next)=>{
     res.render('contri_Animal');
@@ -208,11 +225,12 @@ router.get('/contri_Toxin',(req,res,next)=>{
 
 router.post('/contri_toxin',contri_bacteriaMid.addToxin);
 
-router.get('/contri_toSelectBacteria',contri_bacteriaMid.toSelectBacteria);
+router.get('/contri_toSelectBacteria' , contri_bacteriaMid.toSelectBacteria);
 
-router.get('/contri_Dashboard',(req,res,next)=>{
+router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{
     res.render('contri_Dashboard');
 });
+
 /**
  * 404 error handler
  */
@@ -236,7 +254,7 @@ router.use((err,req,res,next)=>{
     }else{
         response = "<center><h1>Error: 500</h1><br/><p>Internal Server Error. We'll fix it soon. ;)</p></center>";
     }
-    res.status(500).send(response);
+    if(!res.headerSent) res.status(500).send(response);
 });
 
 module.exports = router;
