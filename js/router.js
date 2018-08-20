@@ -31,12 +31,9 @@ const preventionMid = require('./middleware/preventionMid');
 
 const contri_animalMid = require('./contri_middleware/animalMid');
 const contri_bacteriaMid = require('./contri_middleware/bacteriaMid');
-<<<<<<< HEAD
 const auth = require('./middleware/authentication');
-=======
 const contri_diseaseMid = require('./contri_middleware/diseaseMid');
 const contri_preventionMid = require('./contri_middleware/preventionMid');
->>>>>>> master
 
 router.get('/', (_,res,__)=>{
     res.redirect('/dashboard');
