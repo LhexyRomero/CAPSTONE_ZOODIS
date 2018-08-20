@@ -206,10 +206,8 @@
                                     <table class="table" id="toxinTable">
                                         <thead class="text-primary">
                                             <th><small><b>TOXINS</b></small></th>
-                                            <th><small><b>STRUCTURE FEATURE</b></small></th>
-                                            <th><small><b>FUNCTION</b></small></th>
-                                            <th><small><b>VIEW</b></small></th>
-                                            <th><small><b>REQUEST</b></small></th>
+                                            <th><small><b>ACTION</b></small></th>
+                                            <th><small><b>STATUS</b></small></th>
                                         </thead>
                                         <tbody id="toxinTableList">
                                         </tbody>
@@ -243,7 +241,7 @@
                                         <div class="form-group has-label">
 
                                             <label>Bacteria</label>
-                                            <select class="form-control" name="selectBacteria2" id="toSelectBacteria2"></select>
+                                            <select class="form-control" name="selectBacteria" id="toSelectBacteria"></select>
 
                                             <label>Toxin Name</label>
                                             <input class="form-control" name="strToxinName" type="text" />
@@ -371,6 +369,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+    <script src="../assets/js/contri_js/bacteria.js"></script>
 
     <script>
         $(document).ready(function () {

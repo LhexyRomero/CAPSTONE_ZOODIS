@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Zoonotic Disease Identification</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -19,6 +20,7 @@
     <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
     <link href="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
 </head>
+
 <body>
     <div class="wrapper ">
         <div class="sidebar" data-color="blue">
@@ -90,7 +92,7 @@
                                         <span class="sidebar-normal"> Toxins </span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </li>
@@ -114,8 +116,8 @@
                         <a href="contri_Disease">
                             <i>
                                 <img src="../assets/img/disease.png" height="28px" width="28px">
-                             </i>
-                             <p>Disease</p>
+                            </i>
+                            <p>Disease</p>
                         </a>
                     </li>
                     <li>
@@ -130,7 +132,6 @@
             </div>
 
         </div>
-
 
         <div class="main-panel">
             <!-- Navbar -->
@@ -206,13 +207,10 @@
                                 <div class="table-responsive">
                                     <table class="table" id="animalTaxonTable">
                                         <thead class="text-primary">
-                                            <th><small><b>PHYLUM</b></small></th>
-                                            <th><small><b>CLASS</b></small></th>
-                                            <th><small><b>ORDER</b></small></th>
-                                            <th><small><b>FAMILY</b></small></th>
                                             <th><small><b>GENUS</b></small></th>
                                             <th><small><b>SPECIES</b></small></th>
                                             <th><small><b>ACTION</b></small></th>
+                                            <th><small><b>STATUS</b></small></th>
                                         </thead>
                                         <tbody id="animaltaxonTableList">
                                         </tbody>
@@ -234,10 +232,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
-                                <form id="animalTaxonForm" method="POST" action="/animalTaxon" onsubmit="addAnimalTaxon(event)">
+                                <form id="animalTaxonForm" method="POST" action="/contri_animalTaxon" onsubmit="addAnimalTaxon(event)">
 
                                     <div class="card-header ">
-                                        <button type="button" class="close"  aria-label="Close" data-toggle="collapse" href="#AddCollapse">
+                                        <button type="button" class="close" aria-label="Close" data-toggle="collapse" href="#AddCollapse">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                         <h5 class="card-title">Animal taxonomic Classification</h5>
@@ -265,6 +263,16 @@
                                             <input class="form-control" name="strSpecies" type="text" />
 
                                         </div>
+                                        <br>
+                                        <h5 class="card-title">References</h5>
+                                        <div class="form-group has-label">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Journal Number</label>
+                                                    <select class="form-control" name="selectJournal" id="toSelectJournal"></select><br>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="card-footer" align="right">
                                         <button type="button" class="btn btn-warning " onclick="clearAnimalTaxon(event)">Clear</button>
@@ -274,58 +282,113 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editAnimalTaxonForm" action="/updateAnimalTaxon" method="POST">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="form-group has-label">
-                                                <label class="modalLabel">Phylum</label>
-                                                <input class="form-control" name="modalPhylum" type="text" />
-        
-                                                <label class="modalLabel">Class</label>
-                                                <input class="form-control" name="modalClass" type="text" />
-    
-                                                <label class="modalLabel">Order</label>
-                                                <input class="form-control" name="modalOrder" type="text" />
-        
-                                                <label class="modalLabel">Family</label>
-                                                <input class="form-control" name="modalFamily" type="text" />
-        
-                                                <label class="modalLabel">Genus</label>
-                                                <input class="form-control" name="modalGenus" type="text" />
-        
-                                                <label class="modalLabel">Species</label>
-                                                <input class="form-control" name="modalSpecies" type="text" />
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div align ="right">
-                                    <button type="button" class="btn btn-primary" onclick="updateAnimalTaxon()">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAnimalTaxonForm" action="/updateAnimalTaxon" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="form-group has-label">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>STATUS</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-status-5">
+                                                <label id="status"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>PHYLUM</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="phylum"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>CLASS</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="classs"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>ORDER</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="order"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>FAMILY</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="family"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>GENUS</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="genus"></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>SPECIES</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label id="species"></label>
+                                            </div>
+                                        </div><br>
+                                        <div class="category form-category" id="name"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
@@ -367,9 +430,6 @@
     <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
     <script src="../assets/js/plugins/fullcalendar.min.js"></script>
 
-    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-    <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
-
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js"></script>
 
@@ -387,6 +447,9 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+
+    <script src="../assets/js/contri_js/animal.js"></script>
+
     <script>
         $(document).ready(function () {
             $sidebar = $('.sidebar');
@@ -414,4 +477,5 @@
         });
     </script>
 </body>
+
 </html>
