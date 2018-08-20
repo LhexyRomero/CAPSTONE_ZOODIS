@@ -1,18 +1,34 @@
 isClicked = 0;
 
-$(function(){
+$(function () {
     animalTaxonList();
     toSelectJournal();
+    animalList();
+
+    $('.searchAnimal').autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/animal/?data=" + req.term,
+                success: function (response) {
+                    res(response.data);
+                    console.log("dito");
+                },
+                error: function (response) {
+                    console.log(response.detail);
+                },
+            });
+        },
+    });
 });
 
-function addAnimal(e) {
-    e.preventDefault();
+function addAnimal(eAdd) {
+    eAdd.preventDefault();
 
-    //to prevent spam
     if (isClicked != 0) {
         return;
     }
-    isClicked++
+    isClicked++;
 
     let data = $("#animalForm").serializeArray();
     let errCount = 0;
@@ -23,24 +39,26 @@ function addAnimal(e) {
         console.log(element.name + ":" + element.value);
 
         if (element.value == "") {
+            $('select[name=' + element.name + ']').css("background", "#feebeb");
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
             isClicked = 0;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClicked = 0;
         }
 
         else {
+            //dataInsert.append(element.name,element.value);
         }
 
     });
 
     if (errCount > 0) {
-        $.notify("Fields must be filled out!", { type: "danger" });
+        $.notify("All Fields must be filled out!", { type: "danger" });
     }
 
     else if (invCount > 0) {
@@ -48,60 +66,62 @@ function addAnimal(e) {
     }
 
     else {
-        $.ajax({
-            type: "POST",
-            url: "/contri_animal",
-            data: dataInsert,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                isClicked = 0;
-                if (response.success == false) {
-                    isClicked = 0;
+        swal({
+            title: 'Add Animal Taxon',
+            text: "Are you sure?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/contri_animal",
+                    data: dataInsert,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        isClicked = 0;
+        
+                        if (response.success == false) {
+                            isClicked = 0;
+        
+                            if(response.error == 1) {
+                                $.notify(response.detail,{type:"danger"});
+                                return;
+                            }
+                            else if(response.error == 2) {
+                                $.notify(response.detail,{type:"danger"});
+                                return;
+                            }
+                            else{
+                                swal({
+                                    title: "Error!",
+                                    text: response.detail,
+                                    type: "error",
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Okay"
+                                });
+                            }
+                        }
 
-                    if (response.error == 1) {
-                        $.notify(response.detail, { type: "danger" });
+                        else {
+                            swal({
+                                title: "Done!",
+                                text: response.detail,
+                                type: "success",
+                                confirmButtonColor: "#9c27b0",
+                                confirmButtonText: "Okay"
+                            });
+                            //animalTaxonList();
+                            //clearAnimalTaxon();
+                        }
+                        
                     }
-
-                    else if (response.error == 2) {
-                        $.notify(response.detail, { type: "danger" });
-                        $.notify(response.detail, { type: 'danger' });
-                    }
-
-                    else if (response.error == 3) {
-                        $.notify(response.detail, { type: "danger" });
-                    }
-
-                    else {
-                        $.notify(response.detail, { type: "danger" });
-                    }
-
-                }
-                else {
-
-                    if (response.data) {
-                        $("input[name=strPhylum]").val(response.data.phylum);
-                        $("input[name=strClass]").val(response.data.class);
-                        $("input[name=strOrder]").val(response.data.order);
-                        $("input[name=strFamily]").val(response.data.family);
-                        $("input[name=strGenus]").val(response.data.genus);
-                        $("input[name=strSpecies]").val(response.data.species);
-                        $("#toSubmitAnimal").html("Save");
-                        isInsertAnimal = 1;
-                    }
-
-                    else {
-                        swal({
-                            title: "Success",
-                            text: "Animal Successfully Added!",
-                            type: "success",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Okay",
-                        });
-                    }
-                }
+                });
             }
-        });
+        })
     }
 }
 
@@ -109,7 +129,7 @@ function addAnimalTaxon(eAdd) {
     eAdd.preventDefault();
 
     if (isClicked != 0) {
-        return
+        return;
     }
     isClicked++;
 
@@ -216,12 +236,15 @@ function animalTaxonList() {
                 let row = "<tr>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon("+element.animalTaxoID+")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
-                if(element.status === "approved"){
-                    row += "<td><font color = #18ce0f><em>"+element.status+"</em></font></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                if (element.status === "approved") {
+                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                }
+                else if (element.status === "rejected"){
+                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
                 }
                 else {
-                    row += "<td><font color = #f96332><em>"+element.status+"</em></font></td>";
+                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
                 }
                 row += "</tr>";
                 html += row;
@@ -238,15 +261,15 @@ function viewAnimalTaxon(id) {
     viewID = id;
     url = "/contri_viewAnimalTaxon/" + viewID;
 
-    $.get(url,(response)=>{
-        if(response.success === false) {
-            $.notify("Error getting data from the server!",{type:"danger"});
-            return; 
+    $.get(url, (response) => {
+        if (response.success === false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
         }
-        
-        let statusApproved = "<font color = #18ce0f><em>"+response.data.status+"</em></font>";
-        let statusPending ="<font color = #f96332><em>"+response.data.status+"</em></font>";
-        if(response.data.status === 'approved') {
+
+        let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
+        let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
+        if (response.data.status === 'approved') {
             $('#status').html(statusApproved);
             $('#phylum').html(response.data.phylum);
             $('#classs').html(response.data.classs);
@@ -284,3 +307,90 @@ function toSelectJournal() {
         $('#toSelectJournal').html(html);
     });
 };
+
+function animalList() {
+    $.get("/contri_animalList",(response)=>{
+
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+        }
+
+        else {
+            let data = response.data;
+            console.log("LEKi");
+            console.log(data);
+            let html = "";
+            data.forEach((element, index) => {
+                let row = "<tr>";
+                row += "<td>" + element.animalScientificName + "</td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                if (element.status === "approved") {
+                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                }
+                else if(element.status === "rejected") {
+                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                }
+                else {
+                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                }
+                row += "</tr>";
+                html += row;
+            });
+            $('#animalList').html(html);
+            $('#animalTable').dataTable();
+        }
+    });
+}
+
+let globalAnimalID = 0;
+function viewAnimal(id){
+
+    globalAnimalID = id;
+    let url = "/contri_viewAnimal/"+globalAnimalID;
+    console.log(url);
+
+    
+    $.get(url,(response)=>{
+        if(response.success == false) {
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+        console.log(response.data);
+
+        let animalName  = "<label>"+response.data.animalName+"</label>";
+        let scientificName = "<label>"+response.data.animalScientificName+"</label>";
+        let bodySite = "<label>"+response.data.bodySite+"</label>";
+        let phylum = "<label>"+response.data.phylum+"</label>";
+        let classs = "<label>"+response.data.classs+"</label>";
+        let order = "<label>"+response.data.order+"</label>";
+        let family = "<label>"+response.data.family+"</label>";
+        let genus = "<label>"+response.data.genus+"</label>";
+        let species = "<label>"+response.data.species+"</label>";
+        let status ="";
+
+        if(response.data.status === "approved"){
+            status = "<label><font color='#18ce0f'><em>"+response.data.status+"</em></font></label>";
+        }
+
+        else if(response.data.status === "pending"){
+            status = "<label><font color='#f96332'><em>"+response.data.status+"</em></font></label>";
+        }
+        
+        else {
+            status = "<label><font color='red'><em>"+response.data.status+"</em></font></label>";
+        }
+
+        $('.contri_animalPic').attr('src',response.data.image.replace('public','assets'));
+        $("#animalName2").html(animalName);
+        $("#scientificName").html(scientificName);
+        $("#bodySite").html(bodySite);
+        $("#phylum2").html(phylum);
+        $("#classs2").html(classs);
+        $("#order2").html(order);
+        $("#family2").html(family);
+        $("#genus2").html(genus);
+        $("#species2").html(species);
+        $("#status").html(status);
+        $("#name").html(response.data.title);
+    });
+}

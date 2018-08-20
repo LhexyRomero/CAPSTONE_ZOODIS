@@ -9,7 +9,8 @@
 
     <title>Zoonotic Disease Identification System</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -116,13 +117,13 @@
                         </a>
                     </li>
                     <li class>
-                            <a href="contri_Disease">
-                                <i>
-                                    <img src="../assets/img/disease.png" height="28px" width="28px">
-                                </i>
-                                <p>Disease</p>
-                            </a>
-                        </li>
+                        <a href="contri_Disease">
+                            <i>
+                                <img src="../assets/img/disease.png" height="28px" width="28px">
+                            </i>
+                            <p>Disease</p>
+                        </a>
+                    </li>
                     <li class="active">
                         <a href="contri_Prevention">
                             <i>
@@ -201,7 +202,7 @@
             </div>
 
             <div class="content">
-                <form id ="preventionForm" method="POST" onsubmit="addPrevention(event)">
+                <form id="preventionForm" method="POST" onsubmit="addPrevention(event)">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
@@ -213,7 +214,7 @@
                                         <div class="col-md-7">
                                             <div class="form-group has-label">
                                                 <label>Disease Name</label>
-                                                <select class="form-control" name="selectDisease" id = "toSelectDisease"></select>
+                                                <select class="form-control" name="selectDisease" id="toSelectDisease"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -248,13 +249,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table" id="diseaseTable">
+                                        <table class="table" id="preventionTable">
                                             <thead class="text-primary">
                                                 <th><small><b>DISEASE</b></small></th>
-                                                <th><small><b>VIEW</b></small></th>
-                                                <th><small><b>REQUESTS</b></small></th>
+                                                <th><small><b>ACTION</b></small></th>
+                                                <th><small><b>STATUS</b></small></th>
                                             </thead>
-                                            <tbody id="diseaseTableList">
+                                            <tbody id="preventionTableList">
                                             </tbody>
                                         </table>
                                     </div>
@@ -265,7 +266,30 @@
                 </form>
             </div>
         </div>
+    </div>
+    <!--View Modal-->
+    <div class="modal fade" id="viewModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="title title-up">PREVENTION INFORMATION</h4>
+                </div>
+                <div class="modal-body">
+                    <h6 id="viewPreventionName"></h6>
 
+                    <label><b>Prevention</b></label>
+                    <div id="viewPrevention"></div>
+
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
@@ -326,6 +350,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+    <script src="../assets/js/contri_js/prevention.js"></script>
 
     <script>
         $(document).ready(function () {
