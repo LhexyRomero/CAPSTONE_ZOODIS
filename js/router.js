@@ -137,7 +137,7 @@ router.get('/contri_Animal',(req,res,next)=>{
     res.render('contri_Animal');
 });
 
-router.post('/contri_animal',animalMid.addAnimal);
+router.post('/contri_animal',upload.single("animalImg"),contri_animalMid.addAnimal);
 
 router.get('/contri_animalTaxon',(req,res,next)=>{
     res.render('contri_AnimalTaxon');

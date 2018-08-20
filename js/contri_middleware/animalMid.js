@@ -91,3 +91,7 @@ exports.toSelectJournal = (req, res, next) => {
         res.status(200).send({ success: true, detail: "", data: result});
     });
 }
+
+exports.addAnimal = (req,res,next) =>{
+    
+}
