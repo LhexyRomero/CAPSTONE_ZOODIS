@@ -1,4 +1,4 @@
-const db = require("../connection");
+const db = require("../../connection");
 
 exports.toSelectDisease = (req,res,next) =>{
     let sql = "SELECT diseaseID, diseaseName FROM disease_t";

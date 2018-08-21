@@ -175,7 +175,7 @@ function toSelectBacteria() {
         let data = response.data;
         let html = "<option value=''>...</option>";
         data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumTaxoID + ">" + element.bacteriumScientificName + "</option>";
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
         });
         $('#toSelectBacteria').html(html);
     });

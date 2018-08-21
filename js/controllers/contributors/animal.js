@@ -1,8 +1,9 @@
-const db = require("../connection");
+const db = require("../../connection");
 
 exports.addAnimalTaxon = (req, res, next) => {
 
     let data = req.body;
+
 
     let strPhylum = data.strPhylum;
     let strClass = data.strClass;
@@ -12,10 +13,12 @@ exports.addAnimalTaxon = (req, res, next) => {
     let strSpecies = data.strSpecies;
     let status = "pending";
     let strJournal = data.selectJournal;
+    
 
-    let insertAnimalTaxon = function () {
-        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID) VALUES (?,?,?,?,?,?,?,?)";
-        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, strJournal], (err, result) => {
+
+    let insertAnimalTaxon = function (result) {
+        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, strJournal,req.session.staffID], (err, result) => {
             if (err) return next(err);
 
             res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!", data: result });
@@ -102,10 +105,10 @@ exports.addAnimal = (req, res, next) => {
     let data = req.body;
     let image = req.file.path;
     let commonName = data.strCommonName;
-    let scientificName = data.strScientificName+"";
+    let scientificName = data.strScientificName + "";
     let finalScienctific = scientificName.split(' ');
     let genusName = finalScienctific[0];
-    let scienceName = data.strScientificName+"";
+    let scienceName = data.strScientificName + "";
     let speciesName = finalScienctific[1];
     let bodySite = data.strBodySite;
     let animalTaxoID = 0;
@@ -142,7 +145,7 @@ exports.addAnimal = (req, res, next) => {
         if (result) {
             if (scientificName.length > 1) {
                 let sql = "SELECT * FROM animaltaxo_t WHERE species = ?";
-                db.get().query(sql, [speciesName], (err, result) => { 
+                db.get().query(sql, [speciesName], (err, result) => {
                     if (err) return next(err);
 
                     if (result.length == 0) {
@@ -161,40 +164,40 @@ exports.addAnimal = (req, res, next) => {
 
 }
 
-exports.animalList = (req,res,next) =>{
+exports.animalList = (req, res, next) => {
 
     let sql = "SELECT * FROM animal_t";
-    db.get().query(sql,(err,result)=>{
-        if(err) return next(err);
-        res.status(200).send({success: true, detail:"", data:result});
-    });     
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+        res.status(200).send({ success: true, detail: "", data: result });
+    });
 }
 
-exports.viewAnimal = (req,res,next) =>{
+exports.viewAnimal = (req, res, next) => {
 
     console.log("im here na");
     let id = req.params.id;
 
     let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID INNER JOIN journal_t ON journal_t.journalID = animal_t.journalID WHERE animalID = ?";
-    db.get().query(sql,[id],(err,result)=>{
-        if(err) return next(err);
+    db.get().query(sql, [id], (err, result) => {
+        if (err) return next(err);
 
         let dataDisplay = {
-            animalName              :   result[0].animalName,
-            animalScientificName    :   result[0].animalScientificName,
-            bodySite                :   result[0].animalBodySite,
-            phylum                  :   result[0].phylum,
-            classs                  :   result[0].class,
-            order                   :   result[0].orderr,
-            family                  :   result[0].family,
-            genus                   :   result[0].genus,
-            species                 :   result[0].species,
-            image                   :   result[0].image,
-            title                   :   result[0].name,
-            status                  :   result[0].status
+            animalName: result[0].animalName,
+            animalScientificName: result[0].animalScientificName,
+            bodySite: result[0].animalBodySite,
+            phylum: result[0].phylum,
+            classs: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: result[0].species,
+            image: result[0].image,
+            title: result[0].name,
+            status: result[0].status
         }
 
-        res.status(200).send({success:true, detail:"", data:dataDisplay});
+        res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
-   
+
 }
