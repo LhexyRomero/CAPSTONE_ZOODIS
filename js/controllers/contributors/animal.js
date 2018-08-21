@@ -13,15 +13,20 @@ exports.addAnimalTaxon = (req, res, next) => {
     let strSpecies = data.strSpecies;
     let status = "pending";
     let strJournal = data.selectJournal;
-    
+    let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
 
 
     let insertAnimalTaxon = function (result) {
         let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
-        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, strJournal,req.session.staffID], (err, result) => {
+        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID) VALUES (CURRENT_TIMESTAMP,?,?,?,?)";
+        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, strJournal, req.session.staffID], (err, result) => {
             if (err) return next(err);
+            db.get().query(sql2, [status, name, strGenus + " " + strSpecies,req.session.staffID], (err2, result2) => {
+                if (err2) return next(err2);
 
-            res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!", data: result });
+                res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!", data: result });
+            });
+
         });
     }
 
@@ -114,6 +119,7 @@ exports.addAnimal = (req, res, next) => {
     let animalTaxoID = 0;
     let status = 'pending';
     let journal = data.selectJournal;
+    
 
     let insertAnimal = function (result) {
         let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID) VALUES (?,?,?,?,?,?,?,?)";
