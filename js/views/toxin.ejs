@@ -340,8 +340,109 @@
                     </div>
                 </div>
             </div>
-
-
+            <!--View Modal-->
+            <div class="modal fade show" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal" style="display: block;">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editAnimalTaxonForm" action="/updateAnimalTaxon" method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="form-group has-label">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>STATUS</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-status-5">
+                                                        <label id="status"><font color="#f96332"><em>pending</em></font></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>PHYLUM</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="phylum">k</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>CLASS</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="classs">k</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>ORDER</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="order">k</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>FAMILY</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="family">k</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>GENUS</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="genus">leki</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>SPECIES</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="species">ganda</label>
+                                                    </div>
+                                                </div><br>
+                                                <div class="category form-category" id="name">b</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>

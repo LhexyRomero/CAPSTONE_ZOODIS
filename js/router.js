@@ -188,6 +188,7 @@ router.post('/contri_bacteria',contri_bacteria.addBacteria);
 router.get('/contri_bacteriaTaxonList',contri_bacteria.bacteriaTaxonList);
 router.get('/contri_viewBacteriaTaxon/:id',contri_bacteria.viewBacteriaTaxon);
 router.get('/contri_toSelectJournal1',contri_bacteria.toSelectJournal);
+router.get('/contri_toSelectAnimal',contri_bacteria.toSelectAnimal);
 
 router.get('/contri_BacteriaTaxon',(req,res,next)=>{
     res.render('contri_BacteriaTaxon');
@@ -226,6 +227,7 @@ router.get('/contri_Toxin',(req,res,next)=>{
 router.post('/contri_toxin',contri_bacteria.addToxin);
 
 router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
+router.get('/contri_viewToxin/:id',contri_bacteria.viewToxin);
 
 router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{
     res.render('contri_Dashboard');
