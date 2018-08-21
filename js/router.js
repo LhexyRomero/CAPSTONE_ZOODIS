@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-const auth = require('./controllers/admin/authentication');
+const auth = require('./controllers/authentication');
 const animal = require('./controllers/admin/animal');
 const bacteria = require('./controllers/admin/bacteria');
 const search = require('./controllers/admin/search');
