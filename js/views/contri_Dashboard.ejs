@@ -17,157 +17,115 @@
     <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
 </head>
-
 <body>
     <div class="wrapper ">
-        <div class="sidebar" data-color="blue">
-            <div class="logo">
-                &nbsp;<img width="240px" height="110px" src="../assets/img/zoodis.png">
-            </div>
-            <div class="sidebar-wrapper">
-                <div class="user">
-                    <div class="photo">
-                        <img src="../assets/img/james.jpg" />
-                    </div>
-                    <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            <span>
-                                James Amos
-                                <b class="caret"></b>
-                            </span>
-                        </a>
-                        <div class="clearfix"></div>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">
-                                        <span class="sidebar-mini-icon">MP</span>
-                                        <span class="sidebar-normal">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sidebar-mini-icon">EP</span>
-                                        <span class="sidebar-normal">Edit Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="sidebar-mini-icon">S</span>
-                                        <span class="sidebar-normal">Settings</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="sidebar" data-color="blue">
+                <div class="logo">
+                    &nbsp;
+                    <img width="240px" height="110px" src="../assets/img/zoodis.png">
                 </div>
-
-                <ul class="nav">
-                    <li class="active">
-                        <a href="dashboard">
-                            <i class="now-ui-icons design_app"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#tableList">
-                            <i class="now-ui-icons files_paper"></i>
-                            <p>
-                                Table List
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-
-                        <div class="collapse " id="tableList">
-                            <ul class="nav">
-                                <li>
-                                    <a href="hostTable">
-                                        <span class="sidebar-mini-icon">HT</span>
-                                        <span class="sidebar-normal"> Hosts Table </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="diseaseTable">
-                                        <span class="sidebar-mini-icon">D</span>
-                                        <span class="sidebar-normal"> Disease Table </span>
-                                    </a>
-                                </li>
-                            </ul>
+                <div class="sidebar-wrapper">
+                    <div class="user">
+                        <div class="photo">
+                            <img src="../assets/img/james.jpg" />
                         </div>
-                    </li>
-
-                    <li>
-                        <a data-toggle="collapse" href="#maintenance">
-                            <i class="now-ui-icons ui-2_settings-90"></i>
-                            <p>
-                                Maintenance
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-
-                        <div class="collapse " id="maintenance">
-                            <ul class="nav">
-                                <li>
-                                    <a href="animalTaxon">
-                                        <span class="sidebar-mini-icon">AX</span>
-                                        <span class="sidebar-normal"> Animal Taxonomy </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="bacteriaTaxon">
-                                        <span class="sidebar-mini-icon">BX</span>
-                                        <span class="sidebar-normal"> Bacterium Taxonomy </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="toxin">
-                                        <span class="sidebar-mini-icon">T</span>
-                                        <span class="sidebar-normal"> Toxins </span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
+                        <div class="info">
+                            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                                <span>
+                                    James Amos
+                                    <b class="caret"></b>
+                                </span>
+                            </a>
+                            <div class="clearfix"></div>
+                            <div class="collapse" id="collapseExample">
+                                <ul class="nav">
+                                    <li>
+                                        <a href="#">
+                                            <span class="sidebar-mini-icon">MP</span>
+                                            <span class="sidebar-normal">My Profile</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </li>
-                    <li>
-                        <a href="animal">
-                            <i>
-                                <img src="../assets/img/animal.png" height="28px" width="28px">
-                            </i>
-                            <p>Animal</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="bacteria">
-                            <i>
-                                <img src="../assets/img/bacteria.png" height="28px" width="28px">
-                            </i>
-                            <p>Bacteria</p>
-                        </a>
-                    </li>
-                    <li class>
-                            <a href="disease">
+                    </div>
+    
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="contri_Dashboard">
+                                <i class="now-ui-icons design_app"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="collapse" href="#maintenance" aria-expanded="true">
+                                <i class="now-ui-icons ui-2_settings-90"></i>
+                                <p>
+                                    Maintenance
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+    
+                            <div class="collapse" id="maintenance">
+                                <ul class="nav">
+                                    <li>
+                                        <a href="contri_AnimalTaxon">
+                                            <span class="sidebar-mini-icon">AX</span>
+                                            <span class="sidebar-normal"> Animal Taxonomy </span>
+                                        </a>
+                                    </li>
+    
+                                    <li>
+                                        <a href="contri_BacteriaTaxon">
+                                            <span class="sidebar-mini-icon">BX</span>
+                                            <span class="sidebar-normal"> Bacterium Taxonomy </span>
+                                        </a>
+                                    </li>
+    
+                                    <li>
+                                        <a href="contri_Toxin">
+                                            <span class="sidebar-mini-icon">T</span>
+                                            <span class="sidebar-normal"> Toxins </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="contri_Animal">
+                                <i>
+                                    <img src="../assets/img/animal.png" height="28px" width="28px">
+                                </i>
+                                <p>Animal</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contri_Bacteria">
+                                <i>
+                                    <img src="../assets/img/bacteria.png" height="28px" width="28px">
+                                </i>
+                                <p>Bacteria</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contri_Disease">
                                 <i>
                                     <img src="../assets/img/disease.png" height="28px" width="28px">
                                 </i>
                                 <p>Disease</p>
                             </a>
-                    </li>
-                    <li>
-                        <a href="prevention">
-                            <i>
-                                <img src="../assets/img/prevention.png" height="28px" width="28px">
-                            </i>
-                            <p>Prevention</p>
-                        </a>
-                    </li>
-                </ul>
+                        </li>
+                        <li>
+                            <a href="contri_Prevention">
+                                <i>
+                                    <img src="../assets/img/prevention.png" height="28px" width="28px">
+                                </i>
+                                <p>Prevention</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-
-
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
