@@ -133,7 +133,7 @@ function addDisease(eAdd) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
             });
-            
+            diseaseList();
             clearDisease();
         });
 
@@ -142,7 +142,7 @@ function addDisease(eAdd) {
 
 function clearDisease() {
     
-    $('select[name=toSelectBacteria]').val("");
+    $('select[name=selectBacteria]').val("");
     $('select[name=selectJournal]').val("");
     $('input[name=strDiseaseName]').val("");
     $('textarea[name=strDiseaseDesc]').val("");

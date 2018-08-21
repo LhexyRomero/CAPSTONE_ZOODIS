@@ -122,8 +122,8 @@ exports.addAnimal = (req, res, next) => {
     
 
     let insertAnimal = function (result) {
-        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID) VALUES (?,?,?,?,?,?,?)";
-        db.get().query(sql, [commonName, scientificName, bodySite, result[0].animalTaxoID, image, status, journal], (err, result) => {
+        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID) VALUES (?,?,?,?,?,?,?,?)";
+        db.get().query(sql, [commonName, scientificName, bodySite, result[0].animalTaxoID, image, status, journal,req.session.staffID], (err, result) => {
             if (err) return next(err);
 
             res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
