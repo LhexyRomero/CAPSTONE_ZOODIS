@@ -24,7 +24,7 @@ exports.login = function(req, res, next){
         if(result.length != 0){
             req.session.staffID = result[0].staffID;
             req.session.accType = result[0].type;
-            req.session.staffDate = result[0];
+            req.session.staffData = result[0];
             next();
         }else{
             res.redirect('/login?failed=1');

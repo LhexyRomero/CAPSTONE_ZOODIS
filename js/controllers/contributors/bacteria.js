@@ -11,13 +11,19 @@ exports.addBacteriaTaxon = (req, res, next) => {
     let strSpecies = data.strSpecies;
     let status = 'pending';
     let journal = data.selectJournal;
-
+    let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
+   
     let insertBacteriaTaxon = function () {
         let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID) VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?)";
         db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal,req.session.staffID], (err, result) => {
             if (err) return next(err);
-
-            res.status(200).send({ success: true, detail: "Successfuly Submitted to Admin!", data: result });
+            db.get().query(sql2, [status, name, strGenus + " " + strSpecies, req.session.staffID], (err2, result2) => {
+                if (err2) return next(err2);
+            
+                res.status(200).send({ success: true, detail: "Successfuly Submitted to Admin!", data: result });
+            });
+            
         });
     }
 
@@ -113,6 +119,7 @@ exports.addToxin = (req, res, next) => {
             if (err) return next(err);
             db.get().query(sql1,[selectBacteria,result.insertId],(err1,result1)=>{
                 if(err1) return next (result1);
+        
 
                 res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!"});
             });
