@@ -14,9 +14,10 @@ exports.addPrevention = (req,res,next) =>{
     let data = req.body;
     let diseaseID = data.selectDisease;
     let status = 'pending';
-
+    let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
+    let category = 'Prevention';
+    
     let prevention = data.strPrevention == null ? "" : data.strPrevention == undefined ? "" : data.strPrevention;
-
     prevention += (data.prevention0 == null || data.prevention0 == undefined) ? "" : ":" + data.prevention0;
     prevention += (data.prevention1 == null || data.prevention1 == undefined) ? "" : ":" + data.prevention1;
     prevention += (data.prevention2 == null || data.prevention2 == undefined) ? "" : ":" + data.prevention2;
@@ -43,10 +44,13 @@ exports.addPrevention = (req,res,next) =>{
 
     let insertPrevention = () => {
         let sql = "INSERT INTO prevention_t (preventions,diseaseID,status,staffID,date) VALUES (?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?)";
         db.get().query(sql,[prevention,diseaseID,status,req.session.staffID],(err,result)=>{
             if(err) return next(err);
-
-            res.status(200).send({success: true, detail: "Successfully Submitted to Admin!"});
+            db.get().query(sql2, [status, name, prevention, req.session.staffID, category], (err2, result2) => {
+                if(err2) return next(err2);
+                res.status(200).send({success: true, detail: "Successfully Submitted to Admin!"});
+            });
         });
     }
 
