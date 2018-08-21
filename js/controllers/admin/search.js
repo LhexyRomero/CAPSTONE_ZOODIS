@@ -1,4 +1,4 @@
-const db = require('../connection');
+const db = require("../../connection");
 
 exports.animal = (req, res, next) => {
     let sql = "SELECT genus, species FROM animaltaxo_t WHERE genus LIKE ? OR species LIKE ?";

@@ -1,4 +1,4 @@
-const db = require("../connection");
+const db = require("../../connection");
 
 exports.addBacteriaTaxon = (req, res, next) => {
     let data = req.body;
@@ -13,8 +13,8 @@ exports.addBacteriaTaxon = (req, res, next) => {
     let journal = data.selectJournal;
 
     let insertBacteriaTaxon = function () {
-        let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID) VALUES (?,?,?,?,?,?,?,?)";
-        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal], (err, result) => {
+        let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal,req.session.staffID], (err, result) => {
             if (err) return next(err);
 
             res.status(200).send({ success: true, detail: "Successfuly Submitted to Admin!", data: result });
@@ -85,15 +85,15 @@ exports.viewBacteriaTaxon = (req,res,next) =>{
 exports.addToxin = (req, res, next) => {
 
     let data = req.body;
-    let selectBacteria  = data.selectBacteria2;
+    let selectBacteria  = data.selectBacteria;
     let strToxinName = data.strToxinName;
     let strStructureFeature = data.strStructureFeature;
     let strFunction = data.strFunction;
     let status = "pending";
 
     let checkToxin = function (cb) {
-        let sql = "SELECT * FROM toxin_t WHERE name =?"; //undecided
-        db.get().query(sql, [strToxinName], (err5, result) => {
+        let sql = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID WHERE toxin_t.toxinID = ? AND name = ?";
+        db.get().query(sql, [selectBacteria,strToxinName], (err, result) => {
             if (err) return cb(err);
 
             if (result.length == 0) {
@@ -107,11 +107,11 @@ exports.addToxin = (req, res, next) => {
     }
 
     let insertToxin = function () {
-        let sql = "INSERT INTO toxin_t (name,structureFeature,function,status) VALUES (?,?,?,?)";
+        let sql = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
-        db.get().query(sql, [strToxinName, strStructureFeature, strFunction,status], (err, result) => {
+        db.get().query(sql, [strToxinName, strStructureFeature, strFunction,status,req.session.staffID], (err, result) => {
             if (err) return next(err);
-            db.get().query(sql1,[selectBacteria,result6.insertId],(err1,result1)=>{
+            db.get().query(sql1,[selectBacteria,result.insertId],(err1,result1)=>{
                 if(err1) return next (result1);
 
                 res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!"});
@@ -134,7 +134,7 @@ exports.addToxin = (req, res, next) => {
 }
 
 exports.toSelectBacteria = (req, res, next) => {
-    let sql10 = "SELECT animalID, animalName FROM animal_t";
+    let sql10 = "SELECT bacteriumID, bacteriumScientificName FROM bacteria_t";
     db.get().query(sql10, (err10, result10) => {
         if (err10) return next(err10);
 

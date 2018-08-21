@@ -1,4 +1,4 @@
-const db = require("../connection");
+const db = require("../../connection");
 
 exports.addAnimal = (req, res, next) => {    
     let image = req.file.path;
@@ -106,7 +106,7 @@ exports.addAnimal = (req, res, next) => {
                         else {
                             insertAnimal(result);
                         }
-                    })
+                    });
                 }
             }
             else {
