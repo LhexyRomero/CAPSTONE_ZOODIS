@@ -1,7 +1,9 @@
 $(function () {
+    toSelectAnimal();
     bacteriaTaxonList();
     toSelectJournal();
     toSelectBacteria();
+    toxinList();
 });
 let isClick = 0;
 
@@ -132,7 +134,7 @@ function bacteriaTaxonList() {
 let viewID = 0;
 function viewBacteriaTaxon(id) {
     viewID = id;
-    url = "/contri_viewBacteriaTaxon/" + viewID;
+    let url = "/contri_viewBacteriaTaxon/" + viewID;
 
     $.get(url, (response) => {
         if (response.success === false) {
@@ -142,8 +144,20 @@ function viewBacteriaTaxon(id) {
 
         let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
         let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
+        let statusRejected = "<font color=red><em>" +response.data.status+ "</em></font>";
         if (response.data.status === 'approved') {
             $('#status').html(statusApproved);
+            $('#phylum').html(response.data.phylum);
+            $('#classs').html(response.data.classs);
+            $('#order').html(response.data.order);
+            $('#family').html(response.data.family);
+            $('#genus').html(response.data.genus);
+            $('#species').html(response.data.species);
+            $('#name').html(response.data.title);
+        }
+
+        else if(response.data.status === 'rejected'){
+            $('#status').html(statusRejected);
             $('#phylum').html(response.data.phylum);
             $('#classs').html(response.data.classs);
             $('#order').html(response.data.order);
@@ -180,6 +194,22 @@ function toSelectBacteria() {
         $('#toSelectBacteria').html(html);
     });
 };
+
+function toSelectAnimal() {
+    $.get("/contri_toSelectAnimal", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        console.log(data);
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.animalID + ">" + element.animalScientificName + "</option>";
+        });
+        $('#toSelectAnimal').html(html);
+    });
+}
 
 function addToxin(eAdd) {
     eAdd.preventDefault();
@@ -271,6 +301,78 @@ function clearToxin() {
     $('input[name=strToxinName]').val("");
     $('textarea[name=strStructureFeature]').val("");
     $('textarea[name=strFunction]').val("");
+}
+
+function toxinList() {
+    $.get("/toxinList", function (response) {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+        }
+
+        else {
+            let data = response.data;
+            let html = "";
+
+            data.forEach((element, index) => {
+                let row = "<tr>";
+                row += "<td>" + element.name + "</td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewToxin(" + element.toxinID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                if (element.status === "approved") {
+                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                }
+                else if (element.status === "rejected") {
+                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                }
+                else {
+                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                }
+                row += "</tr>";
+                html += row;
+            });
+            $('#toxinTableList').html(html);
+            $('#toxinTable').dataTable();
+        }
+    });
+}
+
+let viewToxinID = 0;
+function viewToxin(id) {
+    console.log("LEKI");
+    viewToxinID = id;
+    let url = "/contri_viewToxin/" + viewToxinID;
+    console.log(url);
+
+    $.get(url, (response) => {
+        if (response.success === false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+
+        let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
+        let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
+        let statusRejected = "<font color=red><em>" +response.data.status+ "</em></font>";
+
+        if (response.data.status === 'approved') {
+            $('#viewToxinName').html(response.data.name);
+            $('#status').html(statusApproved);
+            $('#structureFeature').html(response.data.feature);
+            $('#function').html(response.data.function);
+        }
+
+        else if(response.data.status === 'rejected'){
+            $('#viewToxinName').html(response.data.name);
+            $('#status').html(statusRejected);
+            $('#structureFeature').html(response.data.feature);
+            $('#function').html(response.data.func);
+        }
+
+        else {
+            $('#viewToxinName').html(response.data.name);
+            $('#status').html(statusPending);
+            $('#structureFeature').html(response.data.feature);
+            $('#function').html(response.data.func);
+        }
+    });
 }
 
 function toSelectJournal() {
@@ -371,7 +473,7 @@ function addBacteria(eAdd) {
                 }
                 else {
                     if (response.data) {
-                        $.notify("Check before Saving!",{type: "primary"});
+                        $.notify("Check before Saving!", { type: "primary" });
                         $("input[name=strScientificName]").val(response.data.scientificName);
                         $("input[name=strPhylum]").val(response.data.phylum);
                         $("input[name=strClass]").val(response.data.class);
@@ -397,7 +499,7 @@ function addBacteria(eAdd) {
             });
         }
 
-        if(isInsertBacteria){
+        if (isInsertBacteria) {
             dataInsert.isInserting = 1;
             swal({
                 title: 'Add Bacteria',
@@ -410,7 +512,7 @@ function addBacteria(eAdd) {
                 submit();
             });
         }
-        else{
+        else {
             submit();
         }
     }

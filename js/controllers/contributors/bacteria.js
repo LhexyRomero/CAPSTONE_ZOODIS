@@ -271,3 +271,42 @@ exports.addBacteria = (req, res, next) => {
         }
     });
 }
+
+exports.toxinList = (req, res, next) => {
+    let sql = "SELECT * FROM toxin_t";
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+
+        res.status(200).send({ success: true, detail: "", data: result });
+    });
+}
+
+exports. viewToxin = (req,res,next) =>{
+    let id = req.params.id;
+
+    let sql = "SELECT * FROM toxin_t WHERE toxinID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
+
+        let dataDisplay = {
+            name        :   result[0].name,
+            feature     :   result[0].structureFeature,
+            func        :   result[0].function,
+            status      :   result[0].status
+        }
+        res.status(200).send({success:true, detail:"", data:dataDisplay});
+        
+    });
+}
+
+exports.toSelectAnimal = (req, res, next) => {
+    
+    console.log("PLSSSSSSSSSSSSSSSSSS");
+    let sql = "SELECT animalID, animalScientificName FROM animal_t";
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+
+        console.log(result);
+        res.status(200).send({ success: true, detail: "", data: result});
+    });
+}

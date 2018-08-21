@@ -265,51 +265,45 @@
 
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+
+        </div>
+    </div>
+    <!--View Modal-->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h6 class="title title-up">TOXIN INFORMATION</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        
+                    <div class="row">
+                            <div class="col-md-4">
+                                <label>STATUS</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label>:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <label id="status"></label>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form id="editToxinForm" action="/updateToxin" method="POST">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="form-group has-label">
-
-                                                <label>Bacteria</label>
-                                                <select class="form-control" name="modalSelect" id="toModalSelect"></select>
-
-                                                <label class="modalLabel">Toxin Name</label>
-                                                <input class="form-control" name="modalToxinName" type="text" />
-
-                                                <label class="modalLabel">Structure Feature</label>
-                                                <textarea class="form-control" name="modalStructureFeature"></textarea>
-
-                                                <label class="modalLabel">Function</label>
-                                                <textarea class="form-control" name="modalFunction"></textarea>
-            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div align ="right">
-                                    <button type="button" class="btn btn-primary" onclick="updateToxin()">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
+                        <h6 id="viewToxinName"></h6>
+                        <label>Structure Feature</label><br>
+                        <label id = "structureFeature"></label><br>
+                        <label>Function</label><br>
+                        <label id = "function"></label>
+                        <div class="category form-category" id="name"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
