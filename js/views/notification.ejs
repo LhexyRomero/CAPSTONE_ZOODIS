@@ -190,7 +190,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo"><h5>Bacteria Taxonomy</h5></a>
+                        <a class="navbar-brand" href="#pablo"><h5>NOTIFICATIONS</h5></a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -222,166 +222,300 @@
             <div class="panel-header panel-header-sm">
             </div>
             <div class="content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <small><h4 class="card-title"> BACTERIUM TAXONOMIC CLASSIFICATION</h4></small>
-                            </div>
-                            <div class="card-body">
-                                <ul class="timeline">
-                                    <li class="timeline-inverted">
-                                        <div class="timeline-badge danger">
-                                            <i class="now-ui-icons objects_planet"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-danger">Some Title</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed.
-                                                    Thank you for making my family We just had fun with the “future” theme
-                                                    !!! It was a fun night all together ... The always rude Kanye Show at
-                                                    2am Sold Out Famous viewing @ Figueroa and 12th in downtown.</p>
-                                            </div>
-                                            <h6>
-                                                <i class="ti-time"></i>
-                                                11 hours ago via Twitter
-                                            </h6>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-badge success">
-                                            <i class="now-ui-icons shopping_tag-content"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-success">Another One</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Thank God for the support of my wife and real friends. I also wanted to
-                                                    point out that it’s the first album to go number 1 off of streaming!!!
-                                                    I love you Ellen and also my number one design rule of anything I do
-                                                    from shoes to music to homes is that Kim has to like it....</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="timeline-inverted">
-                                        <div class="timeline-badge info">
-                                            <i class="now-ui-icons shopping_delivery-fast"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <span class="badge badge-info">Another Title</span>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like
-                                                    Kanye loves Kanye Famous viewing @ Figueroa and 12th in downtown LA 11:10PM</p>
-                                                <p>What if Kanye made a song about Kanye Royère doesn't make a Polar bear
-                                                    bed but the Polar bear couch is my favorite piece of furniture we own
-                                                    It wasn’t any Kanyes Set on his goals Kanye</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="collapse" id="AddCollapse">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <form id="bacteriaTaxonForm" method="POST" action="/bacteriaTaxon" onsubmit="addBacteriaTaxon(event)">
-
-                                    <div class="card-header ">
-                                        <h5 class="card-title">Bacterium taxonomic Classification</h5>
-                                        <button type="button" class="close" aria-label="Close" data-toggle="collapse" href="#AddCollapse">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="card-body ">
-
-                                        <div class="form-group has-label">
-                                            <label>Phylum</label>
-                                            <input class="form-control" name="strPhylum" type="text" />
-
-                                            <label>Class</label>
-                                            <input class="form-control" name="strClass" type="text" />
-
-                                            <label>Order</label>
-                                            <input class="form-control" name="strOrder" type="text" />
-
-                                            <label>Family</label>
-                                            <input class="form-control" name="strFamily" type="text" />
-
-                                            <label>Genus</label>
-                                            <input class="form-control" name="strGenus" type="text" />
-
-                                            <label>Species</label>
-                                            <input class="form-control" name="strSpecies" type="text" />
-
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" align="right">
-                                        <button type="button" class="btn btn-warning " onclick="clearBacteriaTaxon(event)">Clear</button>
-                                        <button type="submit" class="btn btn-primary ">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">BACTERIA TAXONOMY CLASSIFICATION</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editBacteriaTaxonForm" action="/updateBacteriaTaxon" method="POST">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="form-group has-label">
-                                                <label class="modalLabel">Phylum</label>
-                                                <input class="form-control" name="modalPhylum" type="text" />
-
-                                                <label class="modalLabel">Class</label>
-                                                <input class="form-control" name="modalClass" type="text" />
-
-                                                <label class="modalLabel">Order</label>
-                                                <input class="form-control" name="modalOrder" type="text" />
-
-                                                <label class="modalLabel">Family</label>
-                                                <input class="form-control" name="modalFamily" type="text" />
-
-                                                <label class="modalLabel">Genus</label>
-                                                <input class="form-control" name="modalGenus" type="text" />
-
-                                                <label class="modalLabel">Species</label>
-                                                <input class="form-control" name="modalSpecies" type="text" />
-
+                        <div class="col-md-12 ml-auto mr-auto">
+                            <div class="card card-plain card-subcategories">
+                                <div class="card-body ">
+                                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-center" role="tablist">
+                                    </ul>
+                                    <div class="tab-content tab-space tab-subcategories">
+                                        <div class="tab-pane active show" id="link8">
+                                            <div class="card-header">
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table" id="notificationTable">
+                                                    <thead class="text-primary">
+                                                        <th><small><b>DATE</b></small></th>
+                                                        <th><small><b>STAFF NAME</b></small></th>
+                                                        <th><small><b>ADDED DATA</b></small></th>
+                                                        <th><small><b>STATUS</b></small></th>
+                                                        <th><small><b>ACTION</b></small></th>
+                                                        <th><small><b>NOTIFICATION</b></small></th>
+                                                    </thead>
+                                                    <tbody id="notificationList">
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div align="right">
-                                    <button type="button" class="btn btn-primary" onclick="updateBacteriaTaxon()">Save changes</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content for-scroll">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body body-scroll">
+                    <form id="editBacteriaForm" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group has-label">
+                                                    <label>Animal Name</label>
+                                                    <select class="form-control" name="toSelect" id="toSelectBacteria">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h6 class="card-title">Bacterium Details</h6>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group has-label">
+                                                    <label>Species Name</label>
+                                                    <input class="form-control" name="modalSpeciesName" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group has-label">
+                                                    <label>Genus Name</label>
+                                                    <input class="form-control" name="modalGenusName" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group has-label">
+                                                    <label>Full Scientific Name</label>
+                                                    <input class="form-control" name="modalScientificName" type="text" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-label">
+                                            <label>Tissue Specifity</label>
+                                            <input class="form-control" name="modalTissue" type="text">
+                                        </div>
+                                    </div>
+                                    <h6 class="card-title">ISOLATION, SAMPLING AND ENVIRONMENTAL INFORMATION</h6>
+                                    <div class="card-body">
+                                        <div class="form-group has-label">
+                                            <label>Sample Type</label>
+                                            <input class="form-control" name="modalSample" type="text">
+
+                                            <label>Method of Isolation</label>
+                                            <input class="form-control" name="modalIsolation" type="text">
+
+                                            <label>Method of Identification</label>
+                                            <input class="form-control" name="modalIdentification" type="text">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="card-title">TAXONOMIC CLASSIFICATION</h6>
+                                            <div class="card-body ">
+
+                                                <div class="form-group has-label">
+                                                    <label>Phylum</label>
+                                                    <input class="form-control" name="modalPhylum" type="text" disabled/>
+
+                                                    <label>Class</label>
+                                                    <input class="form-control" name="modalClass" type="text" disabled/>
+
+                                                    <label>Order</label>
+                                                    <input class="form-control" name="modalOrder" type="text" disabled/>
+
+                                                    <label>Family</label>
+                                                    <input class="form-control" name="modalFamily" type="text" disabled/>
+
+                                                    <label>Genus</label>
+                                                    <input class="form-control" name="modalGenus" type="text" disabled/>
+
+                                                    <label>Species</label>
+                                                    <input class="form-control" name="modalSpecies" type="text" disabled/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="button" class="btn btn-primary" id ="toSave" onclick="updateBacteria()">Save changes</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+</div>
+
+            <!--View Modal-->
+            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content for-scroll">
+                                <div class="modal-header justify-content-center">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="title title-up">BACTERIUM INFORMATION</h4>
+                                </div>
+                                <div class="modal-body body-scroll">
+                                    <br><h6 id ="bacteriaName"></h6>
+    
+                                    <div class="card-body">
+                                        <div class="form-group has-label">
+                                            <h6 class="card-title">Bacterium Details</h6>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Animal Name</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>:</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label id="animalName"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Tissue Specifity</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>:</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label id="tissueName"></label>
+                                                </div>
+                                            </div><br>
+                                            <h6 class="card-title">ISOLATION, SAMPLING AND ENVIRONMENTAL INFORMATION</h6>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Sample Type</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>:</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label id="sampleName"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Method Of Isolation</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>:</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label id="isolationName"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Method Of Identification</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>:</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label id="identificationName"></label>
+                                                </div>
+                                            </div><br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6 class="card-title">TAXONOMIC CLASSIFICATION</h6>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Phylum</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="phylum"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Class</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="classs"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Order</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="order"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Family</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="family"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Genus</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="genus"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Species</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label>:</label>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label id="species"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+                    </div>
+                </div>
 
             <footer class="footer">
 
