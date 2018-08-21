@@ -42,8 +42,9 @@ exports.addPrevention = (req,res,next) =>{
     }
 
     let insertPrevention = () => {
-        let sql = "INSERT INTO prevention_t (preventions,diseaseID,status) VALUES (?,?,?)";
-        db.get().query(sql,[prevention,diseaseID,status],(err,result)=>{
+        let sql = "INSERT INTO prevention_t (preventions,diseaseID,status,staffID,date) VALUES (?,?,?,?,CURRENT_TIMESTAMP)";
+        db.get().query(sql,[prevention,diseaseID,status,req.session.staffID],(err,result)=>{
+            if(err) return next(err);
 
             res.status(200).send({success: true, detail: "Successfully Submitted to Admin!"});
         });
