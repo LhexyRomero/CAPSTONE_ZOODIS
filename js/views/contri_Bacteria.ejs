@@ -258,6 +258,18 @@
 
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                        <div class="form-group has-label">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Journal ID</label>
+                                                    <select class="form-control" name="selectJournal" id="toSelectJournalB"></select><br>
+                                                    <label>Staff ID</label>
+                                                    <select class="form-control" name="selectStaff" id="toSelectStaffB"></select><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="card-footer" align="right">
                                     <button type="button" class="btn btn-warning" onclick="clearBacteria()">Clear</button>
                                     <button type="submit" class="btn btn-primary" id ="toSubmitBacteria">Add</button>
@@ -268,13 +280,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table" id="diseaseTable">
+                                        <table class="table" id="bacteriaTable">
                                             <thead class="text-primary">
                                                 <th><small><b>BACTERIA</b></small></th>
                                                 <th><small><b>ACTION</b></small></th>
                                                 <th><small><b>STATUS</b></small></th>
                                             </thead>
-                                            <tbody id="diseaseTableList">
+                                            <tbody id="bacteriaTableList">
                                             </tbody>
                                         </table>
                                     </div>
@@ -283,6 +295,121 @@
                         </div>
                     </div>
                 </form>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="exampleModalLongTitle">BACTERIA</h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editBacteria" action="/updateBacteria" method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="form-group has-label">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>STATUS</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-status-5">
+                                                        <label id="status"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>SPECIES NAME</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strSpeciesName"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>GENUS NAME</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strGenusName"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>SCIENTIFIC NAME</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strScientificName"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>TISSUE SPECIFITY</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strTissueSpecifity"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>SAMPLE TYPE</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strSampleType"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>METHOD OF ISOLATION</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strIsolation"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>METHOD OF IDENTIFICATION</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>:</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label id="strIdentification"></label>
+                                                    </div>
+                                                </div><br>
+                                                <div class="category form-category" id="name"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--   Core JS Files   -->
             <script src="../assets/js/core/jquery.min.js"></script>
@@ -346,7 +473,7 @@
 
             <!-- Sharrre libray -->
             <script src="../assets/demo/jquery.sharrre.js"></script>
-            <script src="../assets/js/bacteria.js"></script>
+            <script src="../assets/js/contri_js/bacteria.js"></script>
 
             <script>
                 $(document).ready(function () {
@@ -363,6 +490,7 @@
                     fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
                     var $btn = $(this);
+
 
                     // we simulate the window Resize so the charts will get updated in realtime.
                     var simulateWindowResize = setInterval(function () {

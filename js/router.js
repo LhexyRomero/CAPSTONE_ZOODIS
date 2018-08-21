@@ -92,7 +92,6 @@ router.get('/toModalSelect',bacteriaMid.toSelectBacteria2);
 router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
 router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
 
-
 router.get('/disease', (req,res,next)=>{
     res.render('disease');
 });
@@ -156,10 +155,15 @@ router.get('/contri_Bacteria',(req,res,next)=>{
 router.post('/contri_bacteriaTaxon',contri_bacteriaMid.addBacteriaTaxon);
 router.post('/contri_bacteria',contri_bacteriaMid.addBacteria);
 
-
+router.get('/contri_toSelectBacteria',contri_bacteriaMid.toSelectBacteria);
+router.get('/contri_toSelectStaffB',contri_bacteriaMid.toSelectStaffB);
 router.get('/contri_bacteriaTaxonList',contri_bacteriaMid.bacteriaTaxonList);
 router.get('/contri_viewBacteriaTaxon/:id',contri_bacteriaMid.viewBacteriaTaxon);
-router.get('/contri_toSelectJournal1',contri_bacteriaMid.toSelectJournal);
+router.get('/contri_toSelectJournalB',contri_bacteriaMid.toSelectJournalB);
+router.get('/contri_bacteriaList',contri_bacteriaMid.bacteriaList);
+router.get('/contri_viewBacteriaB/:id',contri_bacteriaMid.viewBacteriaB);
+
+
 
 router.get('/contri_BacteriaTaxon',(req,res,next)=>{
     res.render('contri_BacteriaTaxon');
@@ -187,7 +191,6 @@ router.get('/contri_Toxin',(req,res,next)=>{
 
 router.post('/contri_toxin',contri_bacteriaMid.addToxin);
 
-router.get('/contri_toSelectBacteria',contri_bacteriaMid.toSelectBacteria);
 
 router.get('/contri_Dashboard',(req,res,next)=>{
     res.render('contri_Dashboard');

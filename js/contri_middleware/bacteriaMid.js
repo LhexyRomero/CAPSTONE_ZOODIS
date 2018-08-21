@@ -61,6 +61,16 @@ exports.bacteriaTaxonList = (req,res,next) =>{
     });
 }
 
+exports.bacteriaList = (req,res,next) =>{
+    let sql = "SELECT * FROM bacteria_t";
+
+    db.get().query(sql,(err,result)=>{
+        if (err) return next(err);
+
+        res.status(200).send({success:true, detail:"", data:result});
+    });
+}
+
 exports.viewBacteriaTaxon = (req,res,next) =>{
     let id = req.params.id;
 
@@ -76,6 +86,28 @@ exports.viewBacteriaTaxon = (req,res,next) =>{
             species         : result[0].species,
             status          : result[0].status,
             title           : result[0].name
+        }
+
+        res.status(200).send({success: true, detail:"", data:dataDisplay});
+    });
+}
+
+exports.viewBacteriaB = (req,res,next) =>{
+    let id = req.params.id;
+
+    let sql = "SELECT * FROM bacteria_t INNER JOIN journal_t ON bacteria_t.journalID = journal_t.journalID WHERE bacteriumID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+
+        let dataDisplay = {
+            bacteriumSpeciesName          : result[0].bacteriumSpeciesName,
+            bacteriumGenusName            : result[0].bacteriumGenusName,
+            bacteriumScientificName       : result[0].bacteriumScientificName,
+            bacteriumTissueSpecifity      : result[0].bacteriumTissueSpecifity,
+            bacteriumSampleType           : result[0].bacteriumSampleType,
+            bacteriumIsolation            : result[0].bacteriumIsolation,
+            bacteriumIdentification       : result[0].bacteriumIdentification,
+            status                        : result[0].status,
+            title                         : result[0].name
         }
 
         res.status(200).send({success: true, detail:"", data:dataDisplay});
@@ -134,7 +166,7 @@ exports.addToxin = (req, res, next) => {
 }
 
 exports.toSelectBacteria = (req, res, next) => {
-    let sql10 = "SELECT animalID, animalName FROM animal_t";
+    let sql10 = "SELECT animalID, animalScientificName FROM animal_t";
     db.get().query(sql10, (err10, result10) => {
         if (err10) return next(err10);
 
@@ -142,8 +174,17 @@ exports.toSelectBacteria = (req, res, next) => {
     });
 }
 
-exports.toSelectJournal = (req,res,next) =>{
+exports.toSelectJournalB = (req,res,next) =>{
     let sql = "SELECT journalID, code FROM journal_t";
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+
+        res.status(200).send({ success: true, detail: "", data: result});
+    });
+}
+
+exports.toSelectStaffB = (req,res,next) =>{
+    let sql = "SELECT staffID, firstName FROM staff_t";
     db.get().query(sql, (err, result) => {
         if (err) return next(err);
 
@@ -160,7 +201,10 @@ exports.addBacteria = (req, res, next) => {
     let strGenusName = data.strGenusName;
     let strScientificName = strGenusName + ' ' + strSpeciesName;
     let strTissueSpecifity = data.strTissueSpecifity;
-    let isInserting = data.isInserting;
+    let strSampleType = data.strSampleType;
+    let strMethodOfIsolation = data.strMethodOfIsolation;
+    let strMethodOfIdentification = data.strMethodOfIdentification;
+    let journalID = data.selectJournal;
 
     let checkBacteria = (cb) => {
         console.log("checking function to boi");
@@ -209,7 +253,7 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let insertBacteria = (result) => {
-        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,animalID,bacteriumTaxoID) VALUES (?,?,?,?,?,?)";
+        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID) VALUES (?,?,?,?,?,?,?,?,?,?)";
         let dataDisplay = {
             scientificName: strScientificName,
             phylum: result[0].phylum,
@@ -220,17 +264,10 @@ exports.addBacteria = (req, res, next) => {
             species: result[0].species
         }
 
-        if (isInserting) {
-            db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, animalID, result[0].bacteriumTaxoID], (err, result) => {
+            db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, journalID], (err, result) => {
                 if (err) return next(err);
                 res.status(200).send({ success: true, detail: "Successfully Added!" });
             });
-
-        }
-
-        else {
-            res.status(200).send({ success: true, detail: "", data: dataDisplay });
-        }
     };
 
     checkBacteria((error, result) => {
@@ -259,7 +296,7 @@ exports.addBacteria = (req, res, next) => {
                     }
 
                     else {
-                        //inser
+            
                         insertBacteria(species);
                     }
                 });
