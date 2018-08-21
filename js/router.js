@@ -23,17 +23,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-const animalMid = require('./middleware/animalMid');
-const bacteriaMid = require('./middleware/bacteriaMid');
-const search = require('./middleware/searchMid');
-const diseaseMid = require('./middleware/diseaseMid');
-const preventionMid = require('./middleware/preventionMid');
+const auth = require('./controllers/authentication');
+const animal = require('./controllers/admin/animal');
+const bacteria = require('./controllers/admin/bacteria');
+const search = require('./controllers/admin/search');
+const disease = require('./controllers/admin/disease');
+const prevention = require('./controllers/admin/prevention');
 
-const contri_animalMid = require('./contri_middleware/animalMid');
-const contri_bacteriaMid = require('./contri_middleware/bacteriaMid');
-const auth = require('./middleware/authentication');
-const contri_diseaseMid = require('./contri_middleware/diseaseMid');
-const contri_preventionMid = require('./contri_middleware/preventionMid');
+const contri_animal = require('./controllers/contributors/animal');
+const contri_bacteria = require('./controllers/contributors/bacteria');
+const contri_disease = require('./controllers/contributors/disease');
+const contri_prevention = require('./controllers/contributors/prevention');
 
 router.get('/', (_,res,__)=>{
     res.redirect('/dashboard');
@@ -78,66 +78,66 @@ router.get('/diseaseTable', auth.authenticate,(req,res,next)=>{
 router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
     res.render('animalTaxon');
 });
-router.post('/animalTaxon', animalMid.addAnimalTaxon);
-router.post('/updateAnimalTaxon/:id',animalMid.updateAnimalTaxon);
-router.get('/animalTaxonList',animalMid.animalTaxonList);
-router.get('/editAnimalTaxon/:id',animalMid.editAnimalTaxon);
+router.post('/animalTaxon', animal.addAnimalTaxon);
+router.post('/updateAnimalTaxon/:id',animal.updateAnimalTaxon);
+router.get('/animalTaxonList',animal.animalTaxonList);
+router.get('/editAnimalTaxon/:id',animal.editAnimalTaxon);
 
 router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('bacteriaTaxon');
 });
-router.post('/bacteriaTaxon',bacteriaMid.addBacteriaTaxon);
-router.post('/updateBacteriaTaxon/:id',bacteriaMid.updateBacteriaTaxon);
-router.get('/bacteriaTaxonList',bacteriaMid.bacteriaTaxonList);
-router.get('/editBacteriaTaxon/:id',bacteriaMid.editBacteriaTaxon);
+router.post('/bacteriaTaxon',bacteria.addBacteriaTaxon);
+router.post('/updateBacteriaTaxon/:id',bacteria.updateBacteriaTaxon);
+router.get('/bacteriaTaxonList',bacteria.bacteriaTaxonList);
+router.get('/editBacteriaTaxon/:id',bacteria.editBacteriaTaxon);
 
 router.get('/animal', auth.authenticate, (req,res,next) =>{
     res.render('animal');
 });
-router.post('/animal', upload.single("animalImg"), animalMid.addAnimal);
-router.post('/editAnimal/:id', upload.single('animalImg'), animalMid.updateAnimal);
-router.get('/animalList',animalMid.animalList);
-router.get('/viewAnimal/:id',animalMid.viewAnimal);
+router.post('/animal', upload.single("animalImg"), animal.addAnimal);
+router.post('/editAnimal/:id', upload.single('animalImg'), animal.updateAnimal);
+router.get('/animalList',animal.animalList);
+router.get('/viewAnimal/:id',animal.viewAnimal);
 
 router.get('/bacteria', auth.authenticate, (req,res,next)=>{
     res.render('bacteria');
 });
 
-router.post('/bacteria',bacteriaMid.addBacteria);
-router.post('/updateBacteria/:id',bacteriaMid.updateBacteria);
-router.get('/bacteriaList',bacteriaMid.bacteriaList);
-router.get('/toSelectBacteria',bacteriaMid.toSelectBacteria);
-router.get('/toSelectBacteria2',bacteriaMid.toSelectBacteria2);
-router.get('/toModalSelect',bacteriaMid.toSelectBacteria2);
-router.get('/viewBacteria/:id',bacteriaMid.viewBacteria);
-router.get('/editBacteria/:id',bacteriaMid.viewBacteria);
+router.post('/bacteria',bacteria.addBacteria);
+router.post('/updateBacteria/:id',bacteria.updateBacteria);
+router.get('/bacteriaList',bacteria.bacteriaList);
+router.get('/toSelectBacteria',bacteria.toSelectBacteria);
+router.get('/toSelectBacteria2',bacteria.toSelectBacteria2);
+router.get('/toModalSelect',bacteria.toSelectBacteria2);
+router.get('/viewBacteria/:id',bacteria.viewBacteria);
+router.get('/editBacteria/:id',bacteria.viewBacteria);
 
 router.get('/disease', auth.authenticate,(req,res,next)=>{
     res.render('disease');
 });
-router.post('/disease',diseaseMid.addDisease);
-router.get('/diseaseList',diseaseMid.diseaseList);
-router.get('/toSelectBacteriaDisease',diseaseMid.toSelectBacteriaDisease);
-router.get('/viewDisease/:id',diseaseMid.viewDisease);
-router.post('/editDisease/:id',diseaseMid.editDisease);
+router.post('/disease',disease.addDisease);
+router.get('/diseaseList',disease.diseaseList);
+router.get('/toSelectBacteriaDisease',disease.toSelectBacteriaDisease);
+router.get('/viewDisease/:id',disease.viewDisease);
+router.post('/editDisease/:id',disease.editDisease);
 
 router.get('/toxin', auth.authenticate, (req,res,next)=>{
     res.render('toxin');
 });
-router.post('/toxin',bacteriaMid.addToxin);
-router.get('/toxinList',bacteriaMid.toxinList);
-router.get('/editToxin/:id',bacteriaMid.editToxin);
-router.post('/updateToxin/:id',bacteriaMid.updateToxin);
+router.post('/toxin',bacteria.addToxin);
+router.get('/toxinList',bacteria.toxinList);
+router.get('/editToxin/:id',bacteria.editToxin);
+router.post('/updateToxin/:id',bacteria.updateToxin);
 
 router.get('/prevention', auth.authenticate, (req,res,next)=>{
     res.render('prevention');
 });
-router.get('/toSelectDisease',preventionMid.toSelectDisease);
-router.get('/preventionList',preventionMid.preventionList);
-router.get('/viewPrevention/:id',preventionMid.viewPrevention);
-router.get('/editPrevention/:id',preventionMid.viewPrevention);
-router.post('/updatePrevention/:id',preventionMid.updatePrevention);
-router.post('/addPrevention',preventionMid.addPrevention);
+router.get('/toSelectDisease',prevention.toSelectDisease);
+router.get('/preventionList',prevention.preventionList);
+router.get('/viewPrevention/:id',prevention.viewPrevention);
+router.get('/editPrevention/:id',prevention.viewPrevention);
+router.post('/updatePrevention/:id',prevention.updatePrevention);
+router.post('/addPrevention',prevention.addPrevention);
 
 router.get('/notification',(req,res,next) =>{
     res.render('notification');
@@ -162,32 +162,32 @@ router.get('/contri_Animal',(req,res,next)=>{
     res.render('contri_Animal');
 });
 
-router.post('/contri_animal',upload.single("contri_animalImg"),contri_animalMid.addAnimal);
+router.post('/contri_animal',upload.single("contri_animalImg"),contri_animal.addAnimal);
 
-router.get('/contri_viewAnimal/:id',contri_animalMid.viewAnimal);
-router.get('/contri_animalList',contri_animalMid.animalList);
+router.get('/contri_viewAnimal/:id',contri_animal.viewAnimal);
+router.get('/contri_animalList',contri_animal.animalList);
 
 router.get('/contri_animalTaxon',(req,res,next)=>{
     res.render('contri_AnimalTaxon');
 });
 
-router.post('/contri_animalTaxon',contri_animalMid.addAnimalTaxon);
+router.post('/contri_animalTaxon',contri_animal.addAnimalTaxon);
 
-router.get('/contri_animalTaxonList',contri_animalMid.animalTaxonList);
-router.get('/contri_viewAnimalTaxon/:id',contri_animalMid.viewAnimalTaxon);
-router.get('/contri_toSelectJournal',contri_animalMid.toSelectJournal);
+router.get('/contri_animalTaxonList',contri_animal.animalTaxonList);
+router.get('/contri_viewAnimalTaxon/:id',contri_animal.viewAnimalTaxon);
+router.get('/contri_toSelectJournal',contri_animal.toSelectJournal);
 
 router.get('/contri_Bacteria',(req,res,next)=>{
     res.render('contri_Bacteria');
 });
 
-router.post('/contri_bacteriaTaxon',contri_bacteriaMid.addBacteriaTaxon);
-router.post('/contri_bacteria',contri_bacteriaMid.addBacteria);
+router.post('/contri_bacteriaTaxon',contri_bacteria.addBacteriaTaxon);
+router.post('/contri_bacteria',contri_bacteria.addBacteria);
 
 
-router.get('/contri_bacteriaTaxonList',contri_bacteriaMid.bacteriaTaxonList);
-router.get('/contri_viewBacteriaTaxon/:id',contri_bacteriaMid.viewBacteriaTaxon);
-router.get('/contri_toSelectJournal1',contri_bacteriaMid.toSelectJournal);
+router.get('/contri_bacteriaTaxonList',contri_bacteria.bacteriaTaxonList);
+router.get('/contri_viewBacteriaTaxon/:id',contri_bacteria.viewBacteriaTaxon);
+router.get('/contri_toSelectJournal1',contri_bacteria.toSelectJournal);
 
 router.get('/contri_BacteriaTaxon',(req,res,next)=>{
     res.render('contri_BacteriaTaxon');
@@ -197,11 +197,11 @@ router.get('/contri_Disease',(req,res,next)=>{
     res.render('contri_Disease');
 });
 
-router.post('/contri_disease',contri_diseaseMid.addDisease);
-router.get('/contri_toSelectBacteriaDisease',contri_diseaseMid.toSelectBacteriaDisease);
-router.get('/contri_toSelectJournalDisease',contri_diseaseMid.toSelectJournalDisease);
-router.get('/contri_diseaseList',contri_diseaseMid.diseaseList);
-router.get('/contri_viewDisease/:id',contri_diseaseMid.viewDisease);
+router.post('/contri_disease',contri_disease.addDisease);
+router.get('/contri_toSelectBacteriaDisease',contri_disease.toSelectBacteriaDisease);
+router.get('/contri_toSelectJournalDisease',contri_disease.toSelectJournalDisease);
+router.get('/contri_diseaseList',contri_disease.diseaseList);
+router.get('/contri_viewDisease/:id',contri_disease.viewDisease);
 
 router.get('/contri_DiseaseTable',(req,res,next)=>{
     res.render('contri_DiseaseTable');
@@ -215,17 +215,17 @@ router.get('/contri_Prevention',(req,res,next)=>{
     res.render('contri_Prevention');
 });
 
-router.post('/contri_addPrevention',contri_preventionMid.addPrevention);
-router.get('/contri_toSelectDisease',contri_preventionMid.toSelectDisease);
-router.get('/contri_preventionList',contri_preventionMid.preventionList);
+router.post('/contri_addPrevention',contri_prevention.addPrevention);
+router.get('/contri_toSelectDisease',contri_prevention.toSelectDisease);
+router.get('/contri_preventionList',contri_prevention.preventionList);
 
 router.get('/contri_Toxin',(req,res,next)=>{
     res.render('contri_Toxin');
 });
 
-router.post('/contri_toxin',contri_bacteriaMid.addToxin);
+router.post('/contri_toxin',contri_bacteria.addToxin);
 
-router.get('/contri_toSelectBacteria' , contri_bacteriaMid.toSelectBacteria);
+router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
 
 router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{
     res.render('contri_Dashboard');
