@@ -247,8 +247,7 @@
         </div>
 
     </div>
-    <!-- Modal -->
-
+    <!-- Modal Bacteria-->
     <div class="modal fade" id="modalBacteria" tabindex="-1" role="dialog" aria-labelledby="modalBacteria" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content for-scroll">
@@ -286,15 +285,10 @@
                                                 <input class="form-control" name="strTissueSpecifity" type="text">
                                             </div>
                                         </div>
-
                                     </div>
-
-
-
                                     <div class="col-md-6">
                                         <h6 class="card-title">NAME AND TAXONOMIC CLASSIFICATION</h6>
                                         <div class="card-body ">
-
                                             <div class="form-group has-label">
                                                 <label>Phylum</label>
                                                 <input class="form-control" name="strPhylum" type="text" disabled/>
@@ -364,6 +358,540 @@
         </div>
     </div>
 
+    <!-- Modal Animal -->
+    <div class="modal fade" id="modalAnimal" tabindex="-1" role="dialog" aria-labelledby="modalAnimal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAnimalForm" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="card-title"><b>ANIMAL FORM</b></h5>
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="../assets/img/image_placeholder.jpg" width="170" height="110" alt="...">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-file">
+                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file" class="animalAdd" name="animalImg" />
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                                    <i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-label">
+                                            <label>Common Name *</label>
+                                            <input class="form-control animalAdd" name="strCommonName" type="text" />
+
+                                            <label>Scientific Name *</label>
+                                            <input class="form-control animalAdd searchAnimal" name="strScientificName" type="text" />
+
+                                            <label>Body Site *</label>
+                                            <input class="form-control animalAdd" name="strBodySite" type="text" />
+
+                                        </div>
+                                        <div class="category form-category">* Required fields</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="card-title"><b>NAME AND TAXONOMIC CLASSIFICATION</b></h6>
+                                        <div class="card-body ">
+                                            <div class="form-group has-label">
+                                                <label>Phylum</label>
+                                                <input class="form-control" name="strPhylum" type="text" disabled/>
+
+                                                <label>Class</label>
+                                                <input class="form-control" name="strClass" type="text" disabled/>
+
+                                                <label>Order</label>
+                                                <input class="form-control" name="strOrder" type="text" disabled/>
+
+                                                <label>Family</label>
+                                                <input class="form-control" name="strFamily" type="text" disabled/>
+
+                                                <label>Genus</label>
+                                                <input class="form-control" name="strGenus" type="text" disabled/>
+
+                                                <label>Species</label>
+                                                <input class="form-control" name="strSpecies" type="text" disabled/>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="button" class="btn btn-primary" id="toClassify" onclick="">Classify</button>
+                        <button type="button" class="btn btn-success" id="toApprove" onclick="">Approve</button>
+                        <button type="button" class="btn btn-danger" id="toReject" onclick="">Reject</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Toxin -->
+    <div class="modal fade" id="modalToxins" tabindex="-1" role="dialog" aria-labelledby="modalToxins" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content for-scroll">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalToxinForm" action="" method="POST" onsubmit="approvedToxin(event)">
+                        <h5 class="card-title"><b>TOXIN</b></h5>
+                        <div class="card-body ">
+                            <div class="form-group has-label">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Bacteria</label>
+                                        <select class="form-control" name="selectBToxin" id="toSelectBacteria2"></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Toxin Name</label>
+                                        <input class="form-control" name="toxin" type="text" />
+
+                                        <label>Structure Feature</label>
+                                        <textarea class="form-control" name="sctructureFeature"></textarea>
+
+                                        <label>Function</label>
+                                        <textarea class="form-control" name="functionn"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                        <button type="button" class="btn btn-danger" id="toReject" onclick="rejectToxin()">Reject</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Prevention -->
+    <div class="modal fade" id="modalPrevention" tabindex="-1" role="dialog" aria-labelledby="modalPreventions" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content for-scroll">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body body-scroll">
+                    <form id="editPreventionForm" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="card-title"><b>PREVENTION FORM</b></h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group has-label">
+                                            <label>Disease Name</label>
+                                            <select class="form-control" name="selectDisease" id="toSelectDisease"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-label">
+                                    <div class="preventionTxt">
+                                        <div class="row">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="col-md-10">
+                                                <label>Prevention/s</label>
+                                                <input class="form-control" name="strPrevention" type="text" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type='button' onclick="addFieldPrevention()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                            </div>
+                                        </div>
+                                        <div id="modalPrevention">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="button" class="btn btn-primary" id="toClassify" onclick="">Classify</button>
+                        <button type="button" class="btn btn-success" id="toApprove" onclick="">Approve</button>
+                        <button type="button" class="btn btn-danger" id="toReject" onclick="">Reject</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bacteria Taxo -->
+    <div class="modal fade" id="modalBacteriaTaxo" tabindex="-1" role="dialog" aria-labelledby="modalBacteriaTaxo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalBacteriaTaxoForm" method="POST" onsubmit="approvedBacteriaTaxo(event)">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="card-title"><b>BACTERIUM TAXONOMIC CLASSIFICATION</b></h5>
+
+                                <div class="form-group has-label">
+                                    <label>Phylum</label>
+                                    <input class="form-control" name="mbtPhylum" type="text" />
+
+                                    <label>Class</label>
+                                    <input class="form-control" name="mbtClass" type="text" />
+
+                                    <label>Order</label>
+                                    <input class="form-control" name="mbtOrder" type="text" />
+
+                                    <label>Family</label>
+                                    <input class="form-control" name="mbtFamily" type="text" />
+
+                                    <label>Genus</label>
+                                    <input class="form-control" name="mbtGenus" type="text" />
+
+                                    <label>Species</label>
+                                    <input class="form-control" name="mbtSpecies" type="text" />
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                        <button type="button" class="btn btn-danger" onclick="rejectBacteriaTaxo()">Reject</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Animal Taxo -->
+    <div class="modal fade" id="modalAnimalTaxo" tabindex="-1" role="dialog" aria-labelledby="modalAnimalTaxo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalAnimalTaxoForm" method="POST" onsubmit="approvedAnimalTaxo(event)">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h5 class="card-title"><b>ANIMAL TAXONOMIC CLASSIFICATION</b></h5>
+                                <div class="form-group has-label">
+                                    <label>Phylum</label>
+                                    <input class="form-control" name="matPhylum" type="text" />
+
+                                    <label>Class</label>
+                                    <input class="form-control" name="matClass" type="text" />
+
+                                    <label>Order</label>
+                                    <input class="form-control" name="matOrder" type="text" />
+
+                                    <label>Family</label>
+                                    <input class="form-control" name="matFamily" type="text" />
+
+                                    <label>Genus</label>
+                                    <input class="form-control" name="matGenus" type="text" />
+
+                                    <label>Species</label>
+                                    <input class="form-control" name="matSpecies" type="text" />
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="submit" class="btn btn-success" id="toApprove">Approve</button>
+                        <button type="button" class="btn btn-danger" id="toReject" onclick="rejectAnimalTaxo()">Reject</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Disease -->
+    <div class="modal fade" id="modalDisease" tabindex="-1" role="dialog" aria-labelledby="modalDisease" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content for-scroll">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body body-scroll">
+
+                    <form id="modalDiseaseForm" method="POST" onsubmit="approvedDisease(event)">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 class="card-title"><b>DISEASE FORM</b></h5>
+                            </div>
+                        </div>
+                        <div class="form-group has-label">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Bacteria Name</label>
+                                    <select class="form-control" name="selectBacteria1" id="toSelectBacteria1"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Disease Name</label>
+                                    <input class="form-control" name="modalName" type="text" />
+
+                                    <label>Disease Description</label>
+                                    <textarea class="form-control" name="modalDesc" type="text"></textarea>
+
+                                    <div class="row">
+                                        <div class="col-sm-10"><br>
+                                            <label>Symptoms</label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type='button' onclick="addFieldEdit()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                        </div>
+                                    </div>
+                                    <div id="modalSymptoms">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="for-footer">
+                    <div align="right">
+                        <button type="submit" class="btn btn-success" >Approve</button>
+                        <button type="button" class="btn btn-danger" id="toReject" onclick="rejectDisease()">Reject</button>
+                    </div>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Animal Taxo Reasons -->
+    <div class="modal fade" id="reasonsAnimalTaxo" tabindex="-1" role="dialog" aria-labelledby="reasonsAnimalTaxo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsAnimalForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonAnimalTaxo()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bacteria Taxo Reasons -->
+    <div class="modal fade" id="reasonsBacteriaTaxo" tabindex="-1" role="dialog" aria-labelledby="reasonsBacteriaTaxo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsBacteriaForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bacteria Reasons -->
+    <div class="modal fade" id="reasonsBacteria" tabindex="-1" role="dialog" aria-labelledby="reasonsBacteria" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsBForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Animal Reasons -->
+    <div class="modal fade" id="reasonsAnimal" tabindex="-1" role="dialog" aria-labelledby="reasonsAnimal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsAForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Disease Reasons -->
+    <div class="modal fade" id="reasonsDisease" tabindex="-1" role="dialog" aria-labelledby="reasonsDisease" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsDiseaseForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonDisease()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Prevention Reasons -->
+    <div class="modal fade" id="reasonsPrevention" tabindex="-1" role="dialog" aria-labelledby="reasonsPrevention" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsPreventionForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Toxin Reasons -->
+    <div class="modal fade" id="reasonsToxin" tabindex="-1" role="dialog" aria-labelledby="reasonsToxin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-label">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="reasonsToxinForm" method="POST">
+                                    <label>Reasons of Rejecting</label><br>
+                                    <textarea class="form-control" name="reasons" id="reasons"></textarea>
+                                    <center><button type="button" class="btn btn-primary" onclick="sendReasonToxin()">Send</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
@@ -396,9 +924,6 @@
 
     <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
     <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
-
-    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-    <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
 
     <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
     <script src="../assets/js/plugins/fullcalendar.min.js"></script>

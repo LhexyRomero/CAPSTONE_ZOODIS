@@ -539,9 +539,6 @@ function editToxin(toxinID) {
         }
 
         else {
-            console.log("hi");
-            console.log(response.data.bacteriumID);
-
             $('select[name=modalSelect]').val(response.data.bacteriumID);
             $('input[name=modalToxinName]').val(response.data.name);
             $('textarea[name=modalStructureFeature]').val(response.data.structureFeature);

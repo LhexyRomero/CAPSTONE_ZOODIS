@@ -149,6 +149,20 @@ router.get('/notification',auth.authenticate,(req,res,next) =>{
 });
 
 router.get('/notificationList',notification.notificationList);
+router.get('/notificationViewAnimalTaxo/:id',notification.viewAnimalTaxo);
+router.get('/notificationViewBacteriaTaxo/:id',notification.viewBacteriaTaxo);
+router.get('/notificationSelectBacteria',notification.selectBacteria);
+router.get('/notificationViewToxin/:id',notification.viewToxin);
+router.get('/notificationViewDisease/:id',notification.viewDisease);
+
+router.post('/approvedAnimalTaxo/:id',notification.approvedAnimalTaxo);
+router.post('/rejectAnimalTaxo/:id',notification.rejectAnimalTaxo);
+router.post('/approvedBacteriaTaxo/:id',notification.approvedBacteriaTaxo);
+router.post('/rejectBacteriaTaxo/:id',notification.rejectBacteriaTaxo);
+router.post('/approvedToxin/:id',notification.approvedToxin);
+router.post('/rejectToxin/:id',notification.rejectToxin);
+router.post('/notificationApprovedDisease/:id',notification.approvedDisease);
+router.post('/rejectDisease/:id',notification.rejectDisease);
 
 router.get('/journal',auth.authenticate,(req,res,next)=>{
     res.render('journal');

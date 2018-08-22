@@ -3,7 +3,7 @@ $(function () {
     toSelectDisease();
     preventionList();
 });
-//Start: Adding field
+
 let isClick = 0;
 let count1 = 0;
 let preventionCount = 0;
@@ -35,7 +35,7 @@ function deleteField(count1) {
     $('.preventionDiv' + count1).remove();
     count1--;
     console.log(count1 + "lol");
-}//End: Adding field
+}
 
 
 function toSelectDisease() {
@@ -54,7 +54,6 @@ function toSelectDisease() {
     });
 }
 
-//Start: Add Prevention
 function addPrevention(eAdd) {
     eAdd.preventDefault();
 

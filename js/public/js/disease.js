@@ -36,10 +36,8 @@ function deleteField(count) {
     $('.sympDiv' + count).remove();
     count--;
     console.log(count + "lol");
-}// End: Adding field
+}
 
-
-// Start: Adding Disease
 function addDisease(eAdd) {
     eAdd.preventDefault();
 
@@ -141,10 +139,8 @@ function clearDisease() {
     $('input[name=symptoms7').val("");
     $('input[name=symptoms8').val("");
     isClick =0;
-}// End: Adding Disease
+}
 
-
-// Start: Disease List
 function diseaseList() {
     $.get("/diseaseList", (response) => {
         if (response.success == false) {
@@ -166,12 +162,7 @@ function diseaseList() {
         $('#diseaseTable').dataTable();
 
     });
-}//End: Disease List
-
-
-/**
- * Start: View Disease
- */
+}
 
 let viewDiseaseID = 0;
 function viewDisease(vDiseaseID) {
@@ -209,9 +200,8 @@ function viewDisease(vDiseaseID) {
 
 
     });
-};//End: View Disease
+};
 
-//Start: Edit Disease
 let editDiseaseID = -1;
 function editDisease(id) {
     editDiseaseID = id;
@@ -318,7 +308,7 @@ let addFieldEdit = function(value){
 
 let deleteFieldEdit = function(selected) {
     $('.sympEditDiv' + selected).remove();
-}//End: Edit Disease
+}
 
 function toSelectBacteriaDisease() {
     $.get("/toSelectBacteriaDisease",(response)=>{

@@ -29,6 +29,7 @@ exports.addDisease = (req, res, next) => {
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
     let symptoms = data.strSymptoms == null ? "" : data.strSymptoms == undefined ? "" : data.strSymptoms;
     let category = 'Disease';
+    let state = "notify";
 
     symptoms += (data.symptoms0 == null || data.symptoms0 == undefined) ? "" : ":" + data.symptoms0;
     symptoms += (data.symptoms1 == null || data.symptoms1 == undefined) ? "" : ":" + data.symptoms1;
@@ -56,14 +57,14 @@ exports.addDisease = (req, res, next) => {
     
     
     let insertDisease = function () {
-        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_DATE)";
         let sql2 = "INSERT INTO bacteriadisease_t (bacteriumID,diseaseID) VALUES (?,?)";
-        let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?)";
+        let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
         db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,journal,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
                 db.get().query(sql2,[bacteriumID,result1.insertId],(err,result) => {
                     if (err) return next(err);
-                        db.get().query(sql, [ status, name, diseaseName, req.session.staffID, category],(err2, result2) => {
+                        db.get().query(sql, [ status, name, diseaseName, req.session.staffID, category,result1.insertId,state],(err2, result2) => {
                             if (err2) return next(err2);
                             res.status(200).send({success: true, detail: ""}); 
                         });    
