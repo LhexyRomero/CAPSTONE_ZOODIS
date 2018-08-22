@@ -13,6 +13,7 @@ exports.addPrevention = (req,res,next) =>{
     
     let data = req.body;
     let diseaseID = data.selectDisease;
+    let status = "approved";
 
     let prevention = data.strPrevention == null ? "" : data.strPrevention == undefined ? "" : data.strPrevention;
 
@@ -41,9 +42,9 @@ exports.addPrevention = (req,res,next) =>{
     }
 
     let insertPrevention = () => {
-        let sql = "INSERT INTO prevention_t (preventions,diseaseID) VALUES (?,?)";
-        db.get().query(sql,[prevention,diseaseID],(err,result)=>{
-
+        let sql = "INSERT INTO prevention_t (preventions,diseaseID,status,staffID,date) VALUES (?,?,?,?,CURRENT_TIMESTAMP)";
+        db.get().query(sql,[prevention,diseaseID,status,req.session.staffID],(err,result)=>{
+            if(err) return next(err);
             res.status(200).send({success: true, detail: "Successfully Added!"});
         });
     }
@@ -61,8 +62,9 @@ exports.addPrevention = (req,res,next) =>{
 }
 
 exports.preventionList = (req,res,next) => {
-    let sql = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID";
-    db.get().query(sql,(err,result)=>{
+    let status = "approved";
+    let sql = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE prevention_t.status =?";
+    db.get().query(sql,[status],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"", data:result});

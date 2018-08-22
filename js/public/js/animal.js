@@ -1,6 +1,7 @@
 $(function () { //onload
     animalTaxonList();
     animalList();
+    toSelectJournal();
     $('.searchAnimal').autocomplete({
         source: (req, res) => {
             $.ajax({
@@ -34,9 +35,7 @@ $(function () { //onload
 
 let isClicked = 0;
 let isInsertAnimal = 0;
-/**
- * Start: Add Animal Details
- */
+
 function addAnimal(e) {
     e.preventDefault();
 
@@ -60,7 +59,7 @@ function addAnimal(e) {
             isClicked = 0;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClicked = 0;
@@ -126,11 +125,11 @@ function addAnimal(e) {
 
                         else {
                             swal({
-                                title: "Success",
-                                text: "Animal Successfully Added!",
+                                title: "Done!",
+                                text: response.detail,
                                 type: "success",
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#9c27b0",
+                                confirmButtonText: "Okay"
                             });
                         }
                     }
@@ -170,10 +169,9 @@ function clearAnimal(eClear) {
     $('input[name=strFamily]').val("");
     $('input[name=strGenus]').val("");
     $('input[name=strSpecies]').val("");
+    $('select[name=selectJournal]').val("");
     isClicked = 0;
-}//End: Add Animal Details
-
-//Start: Animal Taxonomy
+}
 function addAnimalTaxon(eAdd) {
     eAdd.preventDefault();
 
@@ -191,13 +189,13 @@ function addAnimalTaxon(eAdd) {
         console.log(element.name + ":" + element.value);
 
         if (element.value == "") {
-            console.log("HI");
+            $('select[name=' + element.name + ']').css("background", "#feebeb");
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
             isClicked = 0;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClicked = 0;
@@ -261,6 +259,7 @@ function addAnimalTaxon(eAdd) {
 function clearAnimalTaxon(eClear) {
 
     isClicked = 0;
+    $('select[name=selectJournal').val("");
     $('input[name=strPhylum]').val("");
     $('input[name=strClass]').val("");
     $('input[name=strOrder]').val("");
@@ -269,9 +268,7 @@ function clearAnimalTaxon(eClear) {
     $('input[name=strSpecies]').val("");
     console.log("nabura naman");
 
-}// End: Animal Taxonomy
-
-// Start: Animal Taxonomy List
+}
 function animalTaxonList() {
     $.get("/animalTaxonList", function (response) {
 
@@ -299,10 +296,7 @@ function animalTaxonList() {
         }
 
     });
-}//End: Animal Taxonomy List
-
-
-// Start: Edit Animal Taxonomy
+}
 let globalIDa = 0;
 function editAnimalTaxon(animalTaxoID) {
 
@@ -335,9 +329,7 @@ function editAnimalTaxon(animalTaxoID) {
     });
     let html;
     $('#exampleModalCenter').html(html);
-}//End: Edit Animal Taxonomy
-
-
+}
 function updateAnimalTaxon() {
     console.log(globalIDa + "SA UPDATE");
     let url = "/updateAnimalTaxon/" + globalIDa;
@@ -608,3 +600,17 @@ function updateAnimal(){
     }
 }
 
+function toSelectJournal() {
+    $.get("/toSelectJournal", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.journalID + ">" + element.code + "</option>";
+        });
+        $('#toSelectJournal').html(html);
+    });
+};

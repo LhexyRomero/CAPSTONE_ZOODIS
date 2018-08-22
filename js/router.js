@@ -29,6 +29,7 @@ const bacteria = require('./controllers/admin/bacteria');
 const search = require('./controllers/admin/search');
 const disease = require('./controllers/admin/disease');
 const prevention = require('./controllers/admin/prevention');
+const notification = require('./controllers/admin/notification');
 
 const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
@@ -98,6 +99,7 @@ router.post('/animal', upload.single("animalImg"), animal.addAnimal);
 router.post('/editAnimal/:id', upload.single('animalImg'), animal.updateAnimal);
 router.get('/animalList',animal.animalList);
 router.get('/viewAnimal/:id',animal.viewAnimal);
+router.get('/toSelectJournal',animal.toSelectJournal);
 
 router.get('/bacteria', auth.authenticate, (req,res,next)=>{
     res.render('bacteria');
@@ -108,6 +110,7 @@ router.post('/updateBacteria/:id',bacteria.updateBacteria);
 router.get('/bacteriaList',bacteria.bacteriaList);
 router.get('/toSelectBacteria',bacteria.toSelectBacteria);
 router.get('/toSelectBacteria2',bacteria.toSelectBacteria2);
+router.get('/toSelectJournalBacteria',bacteria.toSelectJournalBacteria);
 router.get('/toModalSelect',bacteria.toSelectBacteria2);
 router.get('/viewBacteria/:id',bacteria.viewBacteria);
 router.get('/editBacteria/:id',bacteria.viewBacteria);
@@ -119,7 +122,9 @@ router.post('/disease',disease.addDisease);
 router.get('/diseaseList',disease.diseaseList);
 router.get('/toSelectBacteriaDisease',disease.toSelectBacteriaDisease);
 router.get('/viewDisease/:id',disease.viewDisease);
+router.get('/toSelectJournalDisease2',disease.toSelectJournalDisease);
 router.post('/editDisease/:id',disease.editDisease);
+
 
 router.get('/toxin', auth.authenticate, (req,res,next)=>{
     res.render('toxin');
@@ -139,9 +144,14 @@ router.get('/editPrevention/:id',prevention.viewPrevention);
 router.post('/updatePrevention/:id',prevention.updatePrevention);
 router.post('/addPrevention',prevention.addPrevention);
 
-router.get('/notification',(req,res,next) =>{
+router.get('/notification',auth.authenticate,(req,res,next) =>{
     res.render('notification');
+});
 
+router.get('/notificationList',notification.notificationList);
+
+router.get('/journal',auth.authenticate,(req,res,next)=>{
+    res.render('journal');
 });
 
 router.get('/', (req,res)=>{

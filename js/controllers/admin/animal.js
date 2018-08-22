@@ -11,16 +11,14 @@ exports.addAnimal = (req, res, next) => {
     let speciesName = finalScienctific[1];
     let bodySite = data.strBodySite;
     let isInserting = data.isInserting;
+    let journal      = data.selectJournal;
+    let status      = "approved";
     
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No Image Provide" });
         return;
     }
     
-    /**
-     * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
-     * @param cb Callback function
-     */
     let checkAnimal = function (cb) {
         let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
         db.get().query(sql, [commonName, scienceName], (err, result) => {
@@ -34,10 +32,6 @@ exports.addAnimal = (req, res, next) => {
         });
     };
 
-    /**
-     * This function run when no species provided in the scientific name, 
-     * also return set of suggestion to the client if ever a non-existing genus is provided.
-     */
     let noGenus = function () {
         //kapag walang prinovide yung user ng species
         speciesName = "spp.";
@@ -54,12 +48,8 @@ exports.addAnimal = (req, res, next) => {
         });
     };
 
-    /**
-     * This Function: iinsert na ng system sa database yung ininput ng User
-     * @param result ResultSet object, containing taxonomy of the animal.
-     */
     let insertAnimal = function (result) {
-        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image) VALUES (?,?,?,?,?)";
+        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let dataDisplay = {
             commonName: commonName,
             scientificName: scientificName,
@@ -69,12 +59,13 @@ exports.addAnimal = (req, res, next) => {
             order: result[0].orderr,
             family: result[0].family,
             genus: result[0].genus,
+            status  : result[0].status,
             species: speciesName,
             image   : image
         };
 
         if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID,image], (error, result3) => {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID,image,status,journal,req.session.staffID], (error, result3) => {
                 if (error) return next(error);
 
                 res.status(200).send({ success: true, detail: "Successfully Added!", });
@@ -119,6 +110,15 @@ exports.addAnimal = (req, res, next) => {
     });
 };
 
+exports.toSelectJournal = (req, res, next) => {
+    let sql = "SELECT journalID, code FROM journal_t";
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+
+        res.status(200).send({ success: true, detail: "", data: result });
+    });
+}
+
 exports.addAnimalTaxon = (req, res, next) => {
 
     let data = req.body;
@@ -129,10 +129,12 @@ exports.addAnimalTaxon = (req, res, next) => {
     let strFamily = data.strFamily;
     let strGenus = data.strGenus;
     let strSpecies = data.strSpecies;
+    let journal = data.selectJournal;
+    let status   = "approved";
 
     let insertAnimalTaxon = function () {
-        let sql4 = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species) VALUES (?,?,?,?,?,?)";
-        db.get().query(sql4, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies], (err4, result4) => {
+        let sql4 = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+        db.get().query(sql4, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal,req.session.staffID], (err4, result4) => {
             if (err4) return next(err4);
 
             res.status(200).send({ success: true, detail: "Successfully Added!", data: result4 });
@@ -173,9 +175,9 @@ exports.addAnimalTaxon = (req, res, next) => {
 };
 
 exports.animalTaxonList = (req, res, next) => {
-
-    let sql6 = "SELECT * FROM animaltaxo_t";
-    db.get().query(sql6, (err6, result6) => {
+    let status = "approved";
+    let sql6 = "SELECT * FROM animaltaxo_t WHERE status = ?";
+    db.get().query(sql6,[status],(err6, result6) => {
         if (err6) return next(err6);
 
         res.status(200).send({ success: true, details: "", data: result6 });
@@ -227,8 +229,9 @@ exports.updateAnimalTaxon = (req, res, next) => {
 };
 
 exports.animalList = (req,res,next) =>{
-    let sql = "SELECT * FROM animal_t";
-    db.get().query(sql,(err,result) =>{
+    let status = "approved";
+    let sql = "SELECT * FROM animal_t WHERE status = ?";
+    db.get().query(sql,[status],(err,result) =>{
         if(err) return next(err);
 
         res.status(200).send({success:true, detail:"", data:result});

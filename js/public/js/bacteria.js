@@ -2,6 +2,7 @@ $(function () { //onload
     toSelectBacteria();
     toSelectBacteria2();
     bacteriaTaxonList();
+    toSelectJournalBacteria();
     toxinList();
     bacteriaList();
     toModalSelect();
@@ -144,7 +145,21 @@ function toModalSelect() {
     });
 }
 
-//Start: Bacteria Taxonomy
+function toSelectJournalBacteria() {
+    $.get("/toSelectJournalBacteria", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.journalID + ">" + element.code + "</option>";
+        });
+        $('#toSelectJournal').html(html);
+    });
+};
+
 function addBacteriaTaxon(eAdd) {
     eAdd.preventDefault();
 
@@ -162,11 +177,12 @@ function addBacteriaTaxon(eAdd) {
         console.log(element.name + ":" + element.value);
 
         if (element.value == "") {
+            $('select[name=' + element.name + ']').css("background", "#feebeb");
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
+        else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClick = 0;
@@ -229,6 +245,7 @@ function addBacteriaTaxon(eAdd) {
 
 function clearBacteriaTaxon(eClear) {
 
+    $('select[name=selectJournal]').val("");
     $('input[name=strPhylum]').val("");
     $('input[name=strClass]').val("");
     $('input[name=strOrder]').val("");
@@ -237,10 +254,7 @@ function clearBacteriaTaxon(eClear) {
     $('input[name=strSpecies]').val("");
     isClick = 0;
 }
-// End: Bacteria Taxonomy
 
-
-// Start: Bacteria Taxonomy List
 function bacteriaTaxonList() {
     $.get("/bacteriaTaxonList", function (response) {
 
@@ -271,10 +285,7 @@ function bacteriaTaxonList() {
 
     });
 }
-//End: Bacteria Taxonomy List
 
-
-//Start: Edit Bacteria Taxonomy
 let globalId = 0;
 function editBacteriaTaxon(bacteriumTaxoID) {
 
@@ -428,10 +439,12 @@ function addToxin(eAdd) {
 
     if (errCount > 0) {
         $.notify("All fields must be filled!", { type: "danger" });
+        isClick = 0;
     }
 
     else if (invCount > 0) {
         $.notify("Invalid Characters!", { type: "danger" });
+        isClick = 0;
     }
 
     else {
@@ -475,6 +488,7 @@ function addToxin(eAdd) {
 }
 
 function clearToxin() {
+    $('select[name=selectBacteria2]').val("");
     $('input[name=strToxinName]').val("");
     $('textarea[name=strStructureFeature]').val("");
     $('textarea[name=strFunction]').val("");
@@ -613,10 +627,7 @@ function updateToxin() {
         });
     }
 }
-// End: Edit Taxon 
 
-
-//Start: Add Bacteria
 let isInsertBacteria = 0;
 function addBacteria(eAdd) {
     eAdd.preventDefault();
@@ -722,6 +733,9 @@ function addBacteria(eAdd) {
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
+                        clearBacteria();
+                        bacteriaList();
+                        $("#toSubmitBacteria").html("Add");
                     }
                 }
             });
@@ -747,6 +761,7 @@ function addBacteria(eAdd) {
 }
 
 function clearBacteria() {
+    $("select[name=selectJournal]").val("");
     $("select[name=toSelect]").val("");
     $("input[name=strSpeciesName]").val("");
     $("input[name=strGenusName]").val("");
@@ -754,13 +769,14 @@ function clearBacteria() {
     $("input[name=strSampleType]").val("");
     $("input[name=strMethodOfIsolation]").val("");
     $("input[name=strMethodOfIdentification]").val("");
-    $("input[name=strGramStain]").val("");
-    $("input[name=strLength]").val("");
-    $("input[name=strWidth]").val("");
-    $("input[name=strShape]").val("");
-    $("input[name=strMotility]").val("");
+    $("input[name=strPhylum]").val("");
+    $("input[name=strClass]").val("");
+    $("input[name=strOrder]").val("");
+    $("input[name=strFamily]").val("");
+    $("input[name=strGenus]").val("");
+    $("input[name=strSpecies]").val("");
+    $("input[name=strScientificName]").val("");
 }
-//End: Add Bacteria
 
 function bacteriaList() {
     $.get("/bacteriaList",(response) =>{

@@ -6,6 +6,8 @@ exports.addDisease = (req, res, next) => {
     let bacteriumID = data.selectBacteria;
     let diseaseName = data.strDiseaseName;
     let diseaseDesc = data.strDiseaseDesc;
+    let journal = data.selectJournal;
+    let status = "approved";
 
     let symptoms = data.strSymptoms == null ? "" : data.strSymptoms == undefined ? "" : data.strSymptoms;
 
@@ -34,9 +36,9 @@ exports.addDisease = (req, res, next) => {
     }
 
     let insertDisease = function () {
-        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms) VALUES (?,?,?)";
+        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql2 = "INSERT INTO bacteriadisease_t (bacteriumID,diseaseID) VALUES (?,?)";
-        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms], (err1, result1) => {
+        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,journal,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
                 db.get().query(sql2,[bacteriumID,result1.insertId],(err,result) =>{
                     if (err) return next(err);
@@ -60,8 +62,9 @@ exports.addDisease = (req, res, next) => {
 
 exports.diseaseList = (req, res, next) => {
 
-    let sql2 = "SELECT * FROM disease_t";
-    db.get().query(sql2,(err2,result2)=>{
+    let status = "approved";
+    let sql2 = "SELECT * FROM disease_t WHERE status =?";
+    db.get().query(sql2,[status],(err2,result2)=>{
         if(err2) return next(err2);
 
         res.status(200).send({success: true, detail:"", data:result2});
@@ -127,6 +130,14 @@ exports.editDisease = (req, res, next) => {
 
 exports.toSelectBacteriaDisease = (req,res,next) =>{
     let sql = "SELECT bacteriumID, bacteriumScientificName FROM bacteria_t";
+    db.get().query(sql,(err,result)=>{
+
+        res.status(200).send({success: true, detail:"", data:result});
+    });
+}
+
+exports.toSelectJournalDisease = (req,res,next) =>{
+    let sql = "SELECT * FROM journal_t";
     db.get().query(sql,(err,result)=>{
 
         res.status(200).send({success: true, detail:"", data:result});

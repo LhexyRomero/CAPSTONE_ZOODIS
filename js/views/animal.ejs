@@ -9,7 +9,8 @@
 
     <title>Zoonotic Disease Identification</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -18,7 +19,7 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
-    <link href="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -26,7 +27,7 @@
     <div class="wrapper ">
 
         <div class="sidebar" data-color="blue">
-            
+
             <div class="logo">
 
                 &nbsp;
@@ -69,13 +70,13 @@
                 </div>
 
                 <ul class="nav">
-                    
-                        <li class="active">
-                                <a href="notification">
-                                    <i class="now-ui-icons ui-1_bell-53"></i>
-                                    <p>Notifications</p>
-                                </a>
-                            </li>
+
+                    <li class="active">
+                        <a href="notification">
+                            <i class="now-ui-icons ui-1_bell-53"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
 
                     <li>
                         <a href="dashboard">
@@ -165,7 +166,7 @@
                     </li>
                     <li class>
                         <a href="disease">
-                              <i>
+                            <i>
                                 <img src="../assets/img/disease.png" height="28px" width="28px">
                             </i>
                             <p>Disease</p>
@@ -186,7 +187,7 @@
 
         <div class="main-panel">
             <!-- Navbar -->
-            
+
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -208,21 +209,21 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                    
+
                         <ul class="navbar-nav">
-                           
-                                <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="http://example.com/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i class="now-ui-icons media-1_button-power"></i>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Some Actions</span>
-                                            </p>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="/logout">Log-Out</a>
-                                        </div>
-                                    </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="now-ui-icons media-1_button-power"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Some Actions</span>
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="/logout">Log-Out</a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -269,8 +270,15 @@
                                                 <label>Body Site *</label>
                                                 <input class="form-control animalAdd" name="strBodySite" type="text" />
 
-                                            </div>
-                                            <div class="category form-category">* Required fields</div>
+                                                <br>
+                                                <h6 class="card-title">References</h6>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Journal Number</label>
+                                                        <select class="form-control" name="selectJournal" id="toSelectJournal"></select><br>
+                                                    </div>
+                                                </div>
+                                            </div><br>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -279,7 +287,6 @@
                                         </div>
 
                                         <div class="card-body ">
-
                                             <div class="form-group has-label">
                                                 <label>Phylum</label>
                                                 <input class="form-control" name="strPhylum" type="text" disabled/>
@@ -418,4 +425,5 @@
             </script>
 
 </body>
+
 </html>
