@@ -1,6 +1,7 @@
 $(function () { //onload
     diseaseList();
     toSelectBacteriaDisease();
+    toSelectJournalDisease2();
 });
 //Start: Adding field
 
@@ -59,7 +60,7 @@ function addDisease(eAdd) {
         if (element.value === "") {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('textarea[name=' + element.name + ']').css("background", "#feebeb");
-            $('select[name'+element.name+']').css("background", "#feebeb");
+            $('select[name='+element.name+']').css("background", "#feebeb");
             errCount++;
         }
         else if (element.value.match(/[*#\/]/g) !== null) {
@@ -116,14 +117,17 @@ function addDisease(eAdd) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
             });
-
+            diseaseList();
+            clearDisease();
         });
 
     })
 }
 
 function clearDisease() {
-
+    
+    $('select[name=selectBacteria]').val("");
+    $('select[name=selectJournal]').val("");
     $('input[name=strDiseaseName]').val("");
     $('textarea[name=strDiseaseDesc]').val("");
     $('input[name=strSymptoms]').val("");
@@ -330,4 +334,21 @@ function toSelectBacteriaDisease() {
         });
         $('#toSelectBacteria').html(html);
     });
+}
+
+function toSelectJournalDisease2() {
+    $.get("/toSelectJournalDisease2", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        console.log("DITO NA");
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.journalID + ">" + element.code + "</option>";
+        });
+        $('#toSelectJournal').html(html);
+    });
+
 }
