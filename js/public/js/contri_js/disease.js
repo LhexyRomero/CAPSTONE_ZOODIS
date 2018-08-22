@@ -169,7 +169,7 @@ function toSelectJournalDisease() {
         let data = response.data;
         let html = "<option value=''>...</option>";
         data.forEach((element, index) => {
-            html += "<option value=" + element.journalID + ">" + element.name + "</option>";
+            html += "<option value=" + element.journalID + ">" + element.code + "</option>";
         });
         $('#toSelectJournal').html(html);
     });

@@ -12,16 +12,18 @@ exports.addAnimalTaxon = (req, res, next) => {
     let strGenus = data.strGenus;
     let strSpecies = data.strSpecies;
     let status = "pending";
+    let state = "notify";
+    let category = "Animal Taxonomy";
     let strJournal = data.selectJournal;
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
 
 
     let insertAnimalTaxon = function (result) {
-        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
-        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID) VALUES (CURRENT_TIMESTAMP,?,?,?,?)";
+        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE,?)";
+        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID,category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
         db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, strJournal, req.session.staffID], (err, result) => {
             if (err) return next(err);
-            db.get().query(sql2, [status, name, strGenus + " " + strSpecies,req.session.staffID], (err2, result2) => {
+            db.get().query(sql2, [status, name, strGenus + " " + strSpecies,req.session.staffID,category,result.insertId,state], (err2, result2) => {
                 if (err2) return next(err2);
 
                 res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!", data: result });
@@ -116,18 +118,22 @@ exports.addAnimal = (req, res, next) => {
     let scienceName = data.strScientificName + "";
     let speciesName = finalScienctific[1];
     let bodySite = data.strBodySite;
-    let animalTaxoID = 0;
     let status = 'pending';
+    let state = 'notify';
+    let category = 'Animal';
     let journal = data.selectJournal;
+    let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
     
 
     let insertAnimal = function (result) {
-        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID) VALUES (?,?,?,?,?,?,?,?)";
+        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE)";
+        let sql1 = "INSERT INTO notification_t (dateTime,status,staffName,addedData,staffID,category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
         db.get().query(sql, [commonName, scientificName, bodySite, result[0].animalTaxoID, image, status, journal,req.session.staffID], (err, result) => {
             if (err) return next(err);
-
-            res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
-
+            db.get().query(sql1,[status,name,scientificName,req.session.staffID,category,result.insertId,state],(err1,result1)=>{
+                if (err1) return next(err1); 
+                res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
+            });
         });
     }
 
