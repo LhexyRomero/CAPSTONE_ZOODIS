@@ -257,7 +257,7 @@ let updatePrevention = function(){
     if(error == 0){
         _data.preventions = _data.preventions.join(":");
         swal({
-            title: 'Edit Disease',
+            title: 'Edit Prevention',
             text: "Are you sure?",
             type: 'warning',
             showCancelButton: true,

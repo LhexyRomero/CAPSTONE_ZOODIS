@@ -1,6 +1,7 @@
 $(function () {
     notificationList();
     selectBacteria();
+    selectDisease();
 });
 isClicked = 0;
 function notificationList() {
@@ -32,7 +33,7 @@ function notificationList() {
                 row += "<td><a data-toggle='modal' href='#modalDisease'><button onclick ='viewDisease(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Prevention") {
-                row += "<td><a data-toggle='modal' href='#modalPrevention'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalPreventions'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Animal Taxonomy") {
                 row += "<td><a data-toggle='modal' href='#modalAnimalTaxo'><button onclick ='viewAnimalTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
@@ -817,6 +818,333 @@ function sendReasonToxin() {
     }
 }
 
+function selectDisease() {
+    $.get('/notificationSelectDisease', (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        console.log(data);
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
+        });
+        $('#toSelectDisease').html(html);
+    });
+}
+
+let viewPreventionID = 0;
+function viewPrevention(id) {
+    viewPreventionID = id;
+    let url = "/notificationViewPrevention/"+viewPreventionID;
+    console.log(url);
+
+    $.get(url,(response) =>{
+        if(response.success == false) {
+            $.notify("Error getting data form the server!");
+            return;
+        }
+
+        let data = response.data;
+        $('select[name=selectDisease]').val(data.diseaseID);
+        
+        $("#modalPreventionDisplay").html("");
+
+        data.preventions.forEach((element,index) => {
+            addFieldEdit2(element);
+        });
+
+        let html;
+        $('#modalPreventions').html(html);
+        preventionCount = data.preventions.length;
+    });
+}
+
+function approvedPrevention(eAdd) {
+    eAdd.preventDefault();
+
+    let formData = $('#modalPreventionForm').serializeArray();
+    let _data = {
+        preventions: [],
+    };
+    let error = 0;
+    formData.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+        if (element.value == "") {
+            error++;
+            return;
+        }
+        if (element.name.search("modalPrev") == -1) {
+            _data[element.name] = element.value;
+        } else {
+            _data.preventions.push(element.value);
+        }
+    });
+    if (error == 0) {
+        _data.preventions = _data.preventions.join(":");
+        swal({
+            title: 'Approved Preventions',
+            text: "Are you sure?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then(function (ok) {
+            if (ok) {
+                $.ajax({
+                    url: "/notificationApprovedPrevention/" + viewPreventionID,
+                    type: "POST",
+                    data: _data,
+                    success: function (res) {
+                        if (res.success) {
+                            swal({
+                                title: "Done!",
+                                text: res.detail,
+                                type: "success",
+                                confirmButtonColor: "#9c27b0",
+                                confirmButtonText: "Okay"
+                            });
+                            $('#modalPreventions').modal("hide");
+                            notificationList();
+                        } else {
+                            $.notify("Failed: " + res.detail, { type: "danger" });
+                        }
+                    },
+                    error: function (xhr) {
+                        $.notify("Failed: " + xhr.status + " " + xhr.statusText, { type: "danger" });
+                    }
+                });
+            }
+        });
+    } else {
+        $.notify("All field must be filled.", { type: "warning" });
+    }
+}
+
+function rejectPrevention(){
+    if (isClicked != 0) {
+        return;
+    }
+    isClicked++;
+    swal({
+        title: 'Reject Prevention',
+        text: "Are you sure?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $("#reasonsPrevention").modal('show');
+            sendReasonPrevention();
+        }
+        else {
+            $("#modalPraventions").modal('hide');
+        }
+    })
+}
+
+function sendReasonPrevention() {
+    let url = "/rejectPrevention/" + viewPreventionID;
+    let errCount = 0;
+    let invCount = 0;
+    let dataInsert = {};
+
+    console.log(url);
+    let data = $("#reasonsPreventionForm").serializeArray();
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+
+        if (element.value == "") {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+            dataInsert[element.name] = element.value;
+        }
+
+    });
+
+    if (errCount > 0) {
+        $.notify("Provide Reasons of Rejecting!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        $.post(url, dataInsert, function (response) {
+            if (response.success == false) {
+                swal({
+                    title: "Error!",
+                    text: "Error sending!",
+                    type: "error",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay"
+                });
+            }
+
+            else {
+                swal({
+                    title: "Done!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+                $("#modalPreventions").modal('hide');
+                $("#reasonsPrevention").modal('hide');
+                notificationList();
+            }
+        });
+    }
+}
+
+let viewAnimalID = 0;
+function viewAnimal(id){
+    viewAnimalID = id;
+    let url = "/notificationViewAnimal/"+viewAnimalID; 
+
+    $.get(url, (response) =>{
+        if(response.success == false ){
+            $.notify("Error getting data from the Server!",{type:"danger"});
+            return;
+        }
+
+        $('.animalEditPic').attr('src', response.data.image.replace('public','assets'))
+        $("input[name=modalCommonName]").val(response.data.animalName);
+        $("input[name=modalScientificName]").val(response.data.animalScientificName);
+        $("input[name=modalBodySite]").val(response.data.bodySite);
+
+        $('#toClassify').on('click', ()=>{
+            $("input[name=modalPhylum2]").val(response.data.phylum);
+            $("input[name=modalClass2]").val(response.data.classs);
+            $("input[name=modalOrder2]").val(response.data.order);
+            $("input[name=modalFamily2]").val(response.data.family);
+            $("input[name=modalGenus2]").val(response.data.genus);
+            $("input[name=modalSpecies2]").val(response.data.species);
+        });
+    });
+}
+
+function approvedAnimal(eAdd){
+    
+    eAdd.preventDefault();
+    let dataInsert = new FormData($("#modalAnimalForm")[0]);
+    let data = $("#modalAnimalForm").serializeArray();
+    let errCount = 0;
+    let invCount = 0;
+
+    data.forEach((element, index) => {
+
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+        }
+
+    });
+    
+    if (errCount > 0) {
+        $.notify("Fields must be filled out!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        let submit = function () {
+            $.ajax({
+                type: "POST",
+                url: "/approvedAnimal/"  + viewAnimalID,
+                data: dataInsert,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    isClicked = 0;
+                    if (response.success == false) {
+                        isClicked = 0;
+
+                        if (response.error == 1) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else if (response.error == 2) {
+                            $.notify(response.detail, { type: 'danger' });
+                        }
+
+                        else if (response.error == 3) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                    }
+                    else {
+
+                        if (response.data) {
+                            $("input[name=modalPhylum2]").val(response.data.phylum);
+                            $("input[name=modalClass2]").val(response.data.class);
+                            $("input[name=modalOrder2]").val(response.data.order);
+                            $("input[name=modalFamily2]").val(response.data.family);
+                            $("input[name=modalGenus2]").val(response.data.genus);
+                            $("input[name=modalSpecies2]").val(response.data.species);
+                            $("#toApprove").html("Approve");
+                            $.notify("Check before Approving!",{type:"warning"});
+                            isInsertAnimal = 1;
+                        }
+
+                        else {
+                            swal({
+                                title: "Success",
+                                text: response.detail,
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Okay",
+                            });
+                        }
+                    }
+                }
+            });
+        };
+        swal({
+            title: "Warning!",
+            text: "Are you sure?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+        }).then(function (isConfirmed) {
+            if(isConfirmed){
+                submit();
+            }
+        });
+    }
+}
+
 let count = 0;
 let sympCount = 0;
 let target = $(".symptomsTxt");
@@ -903,7 +1231,7 @@ let deleteFieldEdit = function (selected) {
     $('.sympEditDiv' + selected).remove();
 }
 
-let addFieldEdit2 = function (value) {
+let addFieldEdit2 = function (value) { 
     if ($('.preventionEditDiv').length >= 10) {
         $.notify("You reached the maximum numbers of field!", { type: "danger" });
         return;
@@ -917,7 +1245,7 @@ let addFieldEdit2 = function (value) {
 
     let newDiv = "<div class='preventionEditDiv prevEditDiv" + preventionCount + " row'>" + "<div class='col-sm-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
-    $("#modalPrevention").append(newDiv);
+    $("#modalPreventionDisplay").append(newDiv);
     preventionCount++;
 }
 

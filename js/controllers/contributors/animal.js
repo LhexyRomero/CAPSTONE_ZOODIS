@@ -62,8 +62,8 @@ exports.addAnimalTaxon = (req, res, next) => {
 
 exports.animalTaxonList = (req, res, next) => {
 
-    let sql = "SELECT * FROM animaltaxo_t";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM animaltaxo_t WHERE staffID = ?";
+    db.get().query(sql,[req.session.staffID],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, details: "", data: result });
@@ -178,8 +178,8 @@ exports.addAnimal = (req, res, next) => {
 
 exports.animalList = (req, res, next) => {
 
-    let sql = "SELECT * FROM animal_t";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM animal_t WHERE staffID = ?";
+    db.get().query(sql,[req.session.staffID],(err, result) => {
         if (err) return next(err);
         res.status(200).send({ success: true, detail: "", data: result });
     });

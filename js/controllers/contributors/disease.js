@@ -86,8 +86,8 @@ exports.addDisease = (req, res, next) => {
 
 exports.diseaseList = (req,res,next) =>{
 
-    let sql = "SELECT * FROM disease_t";
-    db.get().query(sql,(err,result)=>{
+    let sql = "SELECT * FROM disease_t WHERE staffID = ?";
+    db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success:true, detail:"", data:result});
