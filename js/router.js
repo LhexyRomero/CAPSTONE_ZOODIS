@@ -244,14 +244,6 @@ router.get('/contri_toSelectJournalDisease',contri_disease.toSelectJournalDiseas
 router.get('/contri_diseaseList',contri_disease.diseaseList);
 router.get('/contri_viewDisease/:id',contri_disease.viewDisease);
 
-router.get('/contri_DiseaseTable',(req,res,next)=>{
-    res.render('contri_DiseaseTable');
-});
-
-router.get('/contri_HostTable',(req,res,next)=>{
-    res.render('contri_HostTable');
-});
-
 router.get('/contri_Prevention',auth.authenticate,(req,res,next)=>{
     res.render('contri_Prevention');
 });
@@ -271,6 +263,10 @@ router.get('/contri_viewToxin/:id',contri_bacteria.viewToxin);
 
 router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{
     res.render('contri_Dashboard');
+});
+
+router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
+    res.render('contri_Notification');
 });
 
 /**
