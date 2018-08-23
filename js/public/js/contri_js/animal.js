@@ -114,8 +114,8 @@ function addAnimal(eAdd) {
                                 confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay"
                             });
-                            //animalTaxonList();
-                            //clearAnimalTaxon();
+                            animalList();
+                            clearAnimal();
                         }
                         
                     }
@@ -123,6 +123,14 @@ function addAnimal(eAdd) {
             }
         })
     }
+}
+
+function clearAnimal() {
+    $('input[name=strCommonName]').val("");
+    $('input[name=strScientificName]').val("");
+    $('input[name=strBodySite]').val("");
+    $('input[select=selectJournal]').val("");
+    isClicked = 0;
 }
 
 function addAnimalTaxon(eAdd) {

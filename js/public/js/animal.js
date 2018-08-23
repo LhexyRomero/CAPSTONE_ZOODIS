@@ -131,6 +131,7 @@ function addAnimal(e) {
                                 confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay"
                             });
+                            clearAnimal();
                         }
                     }
                 }
@@ -576,9 +577,10 @@ function updateAnimal(){
                                 title: "Success",
                                 text: "Animal Successfully Modify!",
                                 type: "success",
-                                confirmButtonColor: "#DD6B55",
+                                confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay",
                             });
+                            $("#exampleModalCenter2").modal("hide");
                         }
                     }
                 }

@@ -9,27 +9,55 @@ function notiCard(){
             return;
         }
 
+        let data = response.data;
+        let colPerRow = 3;
+        let colCount = 1;
+
+        let html = "<div class='row'>";
+        $("#placeholder").html("");
+        data.forEach((element,index) => {
+            let temphtml = "<div class='col-md-"+parseInt(12/colPerRow)+" div"+index+" card'>";
+            temphtml += "<div class='card-body'><label>Category</label>"  + "<p><em>"+ element.category +"</em><p>" 
+            + "<label>Added Data</label>"  +    "<p>"+ element.addedData +"</p>" 
+            + "<label>Date</label>"  +    "<p>"+ element.dateTime +"<p>" 
+            + "<label>status</label>"  +    "<p>"+ element.status +"<p>" 
+            + "<label>message</label>"  +    "<p>"+ element.message +"<p>" 
+            + "<button type='button' class='btn btn-primary pull-right' onclick='updateNotiCard("+element.notificationID+")'>Okay</button></div>"; 
+        
+            temphtml += "</div>";
+            html += temphtml;
+
+            if(colCount == colPerRow){
+                colCount = 1;
+                html += "</div><div class='row'>";
+            }
+            else {
+                colCount++;
+            }
+
+            if(index == data.length-1){
+                html += "</div>";
+                $('#placeholder').html(html);
+            }
+        });
+
         console.log("DITO AKO");
         console.log(response.data);
 
-        let data = response.data;
-        let html = "";
-        data.forEach((element, index) => {
-            let row = "<ul>";
-            row += "<li>" + element.dateTime + "</li>";
-            row += "<td>" + element.species + "</td>";
-            row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
-            if (element.status === "approved") {
-                row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
-            }
-            else if (element.status === "rejected"){
-                row += "<td><font color = red><em>" + element.status + "</em></font></td>";
-            }
-            else {
-                row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
-            }
-            row += "</tr>";
-            html += row;
-        });
+    });
+}
+
+let noti = 0;
+function updateNotiCard(id) {
+    noti = id;
+    let url = "/updateNotiCard/"+noti;
+
+    console.log(noti);
+    $.post(url,(response)=>{
+        if(response.success == false){
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+        notiCard();
     });
 }

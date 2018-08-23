@@ -92,6 +92,8 @@ function addBacteriaTaxon(eAdd) {
 }
 
 function clearBacteriaTaxon(eClear) {
+
+    $('input[select=selectJournal]').val("");
     $('input[name=strPhylum]').val("");
     $('input[name=strClass]').val("");
     $('input[name=strOrder]').val("");
@@ -146,7 +148,9 @@ function viewBacteriaTaxon(id) {
         let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
         let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
         let statusRejected = "<font color=red><em>" + response.data.status + "</em></font>";
-        if (response.data.status === 'approved') {
+        
+        console.log(response.data.status);
+        if (response.data.status == 'approved') {
             $('#status').html(statusApproved);
             $('#phylum').html(response.data.phylum);
             $('#classs').html(response.data.classs);
@@ -157,7 +161,7 @@ function viewBacteriaTaxon(id) {
             $('#name').html(response.data.title);
         }
 
-        else if (response.data.status === 'rejected') {
+        else if (response.data.status == 'rejected') {
             $('#status').html(statusRejected);
             $('#phylum').html(response.data.phylum);
             $('#classs').html(response.data.classs);
@@ -391,100 +395,6 @@ function toSelectJournal() {
     });
 };
 
-function addBacteria(eAdd) {
-    eAdd.preventDefault();
-
-    if (isClick != 0) {
-        return;
-    }
-    isClick++;
-
-    let data = $("#bacteriaForm").serializeArray();
-    let errCount = 0;
-    let invCount = 0;
-    let dataInsert = {};
-
-    data.forEach((element, index) => {
-        console.log(element.name + ":" + element.value);
-
-        isClick = 0;
-        if (element.value == "") {
-            $('input[name=' + element.name + ']').css("background", "#feebeb");
-            $('select[name=' + element.name + ']').css("background", "#feebeb");
-            errCount++;
-        }
-
-        else if (element.value.match(/[*#\/]/g) != null) {
-            $('input[name=' + element.name + ']').css("background", "#feebeb");
-            invCount++;
-            isClicked = 0;
-        }
-
-        else {
-            dataInsert[element.name] = element.value;
-        }
-    });
-
-    if (errCount > 0) {
-        $.notify("All fields must be filled!", { type: "danger" });
-    }
-
-    else if (invCount > 0) {
-        $.notify("Invalid Characters!", { type: "danger" });
-    }
-
-    else {
-        swal({
-            title: 'Add Bacteria',
-            text: "Are you sure?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes'
-        }).then((isConfirmed) => {
-            if (isConfirmed) {
-                $.post("/contri_bacteria", dataInsert, (response) => {
-                    isClick = 0;
-                    if (response.success == false) {
-                        isClick = 0;
-
-                        if (response.error == 1) {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                        else if (response.error == 2) {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                        else if (response.error == 3) {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                        else {
-                            swal({
-                                title: "Error!",
-                                text: response.detail,
-                                type: "error",
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Okay"
-                            });
-                        }
-                    }
-                    else {
-                        swal({
-                            title: "Success!",
-                            text: response.detail,
-                            type: "success",
-                            confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
-                        });
-                        clearBacteria();
-                    }
-                });
-            }
-        });
-    }
-}
 
 function clearBacteria() {
     $("select[name=toSelect]").val("");
@@ -670,6 +580,7 @@ function viewBacteria(id){
         let width ="<label>"+data.width+"</label>";
         let shape ="<label>"+data.shape+"</label>";
         let motility ="<label>"+data.motility+"</label>";
+        let status = "";
         if (data.status === "approved") {
             status = "<font color = #18ce0f><em>" + response.data.status + "</em></font>"
         }

@@ -39,8 +39,8 @@ function notificationList() {
             let row = "<tr>";
             row += "<td>" + element.dateTime + "</td>";
             row += "<td>" + element.staffName + "</td>";
-            row += "<td>" + element.addedData + "</td>";
             row += "<td>" + element.category + "</td>";
+            row += "<td>" + element.addedData + "</td>";
             if (element.category === "Bacteria") {
                 row += "<td><a data-toggle='modal' href='#modalBacteria'><button onclick ='viewBacteria(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }

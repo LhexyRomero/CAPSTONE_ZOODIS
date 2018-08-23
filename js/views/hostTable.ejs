@@ -265,121 +265,84 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content for-scroll">
                             <div class="modal-header">
-                                <h4 class="title title-up">BACTERIUM</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body body-scroll">
                                 <form id="editBacteriaForm" action="" method="POST">
+                                    <h5 class="card-title"><b>BACTERIA FORM</b></h5>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card-body">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group has-label">
-                                                                <label>Animal Name</label>
-                                                                <select class="form-control" name="toSelect" id="toSelectBacteria">
-                                                                </select>
-                                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6 class="card-title"> ANIMAL</h6>
+                                                    <div class="card-body ">
+                                                        <label>Animal Name</label>
+                                                        <select class="form-control" name="toSelect" id="toSelectBacteria">
+                                                        </select>
+                                                    </div>
+                                                    <h6 class="card-title">Bacterium Details</h6>
+                                                    <div class="card-body ">
+                                                        <div class="form-group has-label">
+                                                            <label>Species Name</label>
+                                                            <input class="form-control" name="modalSpeciesName" type="text">
+            
+                                                            <label>Genus Name</label>
+                                                            <input class="form-control" name="modalGenusName" type="text">
+            
+                                                            <label>Full Scientific Name</label>
+                                                            <input class="form-control" name="modalScientificName" type="text" disabled>
+            
+                                                            <label>Tissue Specifity</label>
+                                                            <input class="form-control" name="modalTissue" type="text">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h6 class="card-title">Bacterium Details</h6>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group has-label">
-                                                                <label>Species Name</label>
-                                                                <input class="form-control" name="modalSpeciesName" type="text">
-                                                            </div>
+                                                <div class="col-md-6">
+                                                    <h6 class="card-title">NAME AND TAXONOMIC CLASSIFICATION</h6>
+                                                    <div class="card-body ">
+                                                        <div class="form-group has-label">
+                                                            <label>Phylum</label>
+                                                            <input class="form-control" name="modalPhylum" type="text" disabled/>
+            
+                                                            <label>Class</label>
+                                                            <input class="form-control" name="modalClass" type="text" disabled/>
+            
+                                                            <label>Order</label>
+                                                            <input class="form-control" name="modalOrder" type="text" disabled/>
+            
+                                                            <label>Family</label>
+                                                            <input class="form-control" name="modalFamily" type="text" disabled/>
+            
+                                                            <label>Genus</label>
+                                                            <input class="form-control" name="modalGenus" type="text" disabled/>
+            
+                                                            <label>Species</label>
+                                                            <input class="form-control" name="modalSpecies" type="text" disabled/>
+            
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group has-label">
-                                                                <label>Genus Name</label>
-                                                                <input class="form-control" name="modalGenusName" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group has-label">
-                                                                <label>Full Scientific Name</label>
-                                                                <input class="form-control" name="modalScientificName" type="text" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group has-label">
-                                                        <label>Tissue Specifity</label>
-                                                        <input class="form-control" name="modalTissue" type="text">
                                                     </div>
                                                 </div>
-                                                <h6 class="card-title">ISOLATION, SAMPLING AND ENVIRONMENTAL INFORMATION</h6>
-                                                <div class="card-body">
-                                                    <div class="form-group has-label">
-                                                        <label>Sample Type</label>
-                                                        <input class="form-control" name="modalSample" type="text">
-
-                                                        <label>Method of Isolation</label>
-                                                        <input class="form-control" name="modalIsolation" type="text">
-
-                                                        <label>Method of Identification</label>
-                                                        <input class="form-control" name="modalIdentification" type="text">
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h6 class="card-title">TAXONOMIC CLASSIFICATION</h6>
-                                                        <div class="card-body ">
-
-                                                            <div class="form-group has-label">
-                                                                <label>Phylum</label>
-                                                                <input class="form-control" name="modalPhylum" type="text" disabled/>
-
-                                                                <label>Class</label>
-                                                                <input class="form-control" name="modalClass" type="text" disabled/>
-
-                                                                <label>Order</label>
-                                                                <input class="form-control" name="modalOrder" type="text" disabled/>
-
-                                                                <label>Family</label>
-                                                                <input class="form-control" name="modalFamily" type="text" disabled/>
-
-                                                                <label>Genus</label>
-                                                                <input class="form-control" name="modalGenus" type="text" disabled/>
-
-                                                                <label>Species</label>
-                                                                <input class="form-control" name="modalSpecies" type="text" disabled/>
-
-                                                            </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6 class="card-title">ISOLATION, SAMPLING AND ENVIRONMENTAL INFORMATION</h6>
+            
+                                                    <div class="card-body">
+                                                        <div class="form-group has-label">
+                                                            <label>Sample Type</label>
+                                                            <input class="form-control" name="modalSample" type="text">
+            
+                                                            <label>Method of Isolation</label>
+                                                            <input class="form-control" name="modalIsolation" type="text">
+            
+                                                            <label>Method of Identification</label>
+                                                            <input class="form-control" name="modalIdentification" type="text">
+            
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <h6 class="card-title">MORPHOLOGY AND PHYSIOLOGY</h6>
-                                                        <div class="card-body ">
-                                                            <div class="form-group has-label">
-                                                                <label>Gram Stain</label>
-                                                                <select class="form-control" name="modalGramStain" id="modalSelect" type="text" />
-                                                                <option value="">...</option>
-                                                                <option value="Positive">Positive</option>
-                                                                <option value="Negative">Negative</option>
-                                                                </select>
-
-                                                                <label>Cell Length</label>
-                                                                <input class="form-control" name="modalLength" type="number" />
-
-                                                                <label>Cell Width</label>
-                                                                <input class="form-control" name="modalWidth" type="number" />
-
-                                                                <label>Cell Shape</label>
-                                                                <input class="form-control" name="modalShape" type="text" />
-
-                                                                <label>Motility</label>
-                                                                <input class="form-control" name="modalMotility" type="text" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
+            
                                                 </div>
                                             </div>
                                         </div>

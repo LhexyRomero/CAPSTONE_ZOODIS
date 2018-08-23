@@ -72,7 +72,7 @@ exports.bacteriaTaxonList = (req, res, next) => {
 exports.viewBacteriaTaxon = (req, res, next) => {
     let id = req.params.id;
 
-    let sql = "SELECT * FROM bacteriataxo_t INNER JOIN journal_t ON bacteriataxo_t.journalID = journal_t.journalID WHERE bacteriumTaxoID = ?";
+    let sql = "SELECT * , bacteriataxo_t.status FROM bacteriataxo_t INNER JOIN journal_t ON bacteriataxo_t.journalID = journal_t.journalID WHERE bacteriumTaxoID = ?";
     db.get().query(sql, [id], (err, result) => {
 
         let dataDisplay = {
@@ -86,6 +86,7 @@ exports.viewBacteriaTaxon = (req, res, next) => {
             title: result[0].name
         }
 
+        console.log(dataDisplay);
         res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
 }
@@ -168,7 +169,7 @@ exports.toSelectJournal = (req, res, next) => {
 
 
 exports.toxinList = (req, res, next) => {
-    let sql = "SELECT * FROM toxin_t WHERE staffID =?";
+    let sql = "SELECT * FROM toxin_t";
     db.get().query(sql, [req.session.staffID],(err, result) => {
         if (err) return next(err);
 
@@ -328,7 +329,7 @@ exports.bacteriaList = (req, res, next) => {
 exports.viewBacteria = (req, res, next) => {
     let id = req.params.id;
 
-    let sql = "SELECT * FROM bacteria_t INNER JOIN animal_t ON bacteria_t.animalID = animal_t.animalID INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
+    let sql = "SELECT * , bacteria_t.status FROM bacteria_t INNER JOIN animal_t ON bacteria_t.animalID = animal_t.animalID INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
     db.get().query(sql, [id], (err, result) => {
         if (err) return next(err);
 

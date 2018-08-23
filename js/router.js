@@ -31,6 +31,7 @@ const disease = require('./controllers/admin/disease');
 const prevention = require('./controllers/admin/prevention');
 const notification = require('./controllers/admin/notification');
 const journal = require('./controllers/admin/journal');
+const reject = require('./controllers/admin/reject');
 
 const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
@@ -81,6 +82,8 @@ router.get('/diseaseTable', auth.authenticate,(req,res,next)=>{
 router.get('/rejectTable', auth.authenticate,(req,res,next)=>{
     res.render('rejectTable');
 });
+
+router.get('/rejectTableList',auth.authenticate,reject.rejectTable);
 
 router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
     res.render('animalTaxon');
@@ -275,6 +278,7 @@ router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
 });
 
 router.get('/notiCard',contri_notification.notiCard);
+router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
 
 /**
  * 404 error handler
