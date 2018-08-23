@@ -60,9 +60,9 @@ exports.addBacteriaTaxon = (req, res, next) => {
 }
 
 exports.bacteriaTaxonList = (req, res, next) => {
-    let sql = "SELECT * FROM bacteriataxo_t";
+    let sql = "SELECT * FROM bacteriataxo_t WHERE staffID =?";
 
-    db.get().query(sql, (err, result) => {
+    db.get().query(sql,[req.session.staffID], (err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -168,8 +168,8 @@ exports.toSelectJournal = (req, res, next) => {
 
 
 exports.toxinList = (req, res, next) => {
-    let sql = "SELECT * FROM toxin_t";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM toxin_t WHERE staffID =?";
+    db.get().query(sql, [req.session.staffID],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -317,8 +317,8 @@ exports.addBacteria = (req, res, next) => {
 }
 
 exports.bacteriaList = (req, res, next) => {
-    let sql = "SELECT * FROM bacteria_t";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM bacteria_t WHERE staffID =?";
+    db.get().query(sql,[req.session.staffID], (err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });

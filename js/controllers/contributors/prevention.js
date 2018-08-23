@@ -68,8 +68,8 @@ exports.addPrevention = (req,res,next) =>{
 }
 
 exports.preventionList = (req,res,next) => {
-    let sql = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID";
-    db.get().query(sql,(err,result)=>{
+    let sql = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE prevention_t.staffID = ?";
+    db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"", data:result});

@@ -211,7 +211,7 @@ exports.rejectToxin = (req, res, next) => {
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
 
-            res.status(200).send({ success: true, detail: "Successfully Approved!" });
+            res.status(200).send({ success: true, detail: "Data Rejected!" });
 
         });
     });
@@ -249,7 +249,7 @@ exports.approvedDisease = (req,res,next) =>{
     let category = "Disease";
     let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ?,status=? WHERE diseaseID = ?";
     let sql1 = "UPDATE bacteriadisease_t SET bacteriumID =? , diseaseID =? WHERE diseaseID = ?";
-    let sql2 = "UPDATE notification_t SET state =?,status =? WHERE category =? AND addedID =? "
+    let sql2 = "UPDATE notification_t SET state =?,status =? WHERE category =? AND addedID =? ";
     let error = 0;
 
     //Some validations here... 
@@ -298,8 +298,234 @@ exports.rejectDisease = (req, res, next) => {
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
 
-            res.status(200).send({ success: true, detail: "Successfully Approved!" });
+            res.status(200).send({ success: true, detail: "Data Rejected!" });
 
         });
+    });
+}
+
+exports.selectDisease = (req, res, next) => {
+
+    let sql = "SELECT diseaseID, diseaseName FROM disease_t";
+    db.get().query(sql, (err, result) => {
+        if (err) return next(err);
+
+        res.status(200).send({ success: true, detail: "", data: result });
+    });
+}
+
+exports.viewPrevention = (req,res,next) => {
+    let id = req.params.id;
+
+    let sql3 = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE preventionID = ?";
+    db.get().query(sql3,[id],(err3,result3)=>{
+        if(err3) return next(err3);
+
+        let splittedPreventions = result3[0].preventions.split(":");
+        let dataDisplay = {
+            
+            diseaseID       : result3[0].diseaseID,
+            diseaseName     : result3[0].diseaseName,
+            preventions     : splittedPreventions,
+        }
+
+        res.status(200).send({success: true, detail :"", data:dataDisplay});
+    });
+}
+
+exports.approvedPrevention = (req,res,next) =>{
+    
+    let id = req.params.id;
+    let data = req.body;
+    let status = "approved";
+    let state = "noticed";
+    let category = "Prevention";
+    let sql = "UPDATE prevention_t SET diseaseID = ?,  preventions = ?, status = ? WHERE preventionID = ?";
+    let sql1 = "UPDATE notification_t SET state =?,status =? WHERE category =? AND addedID =? ";
+    let error = 0;
+
+    //Some validations here... 
+    let queryData = [];
+    queryData.push(data.selectDisease);
+    queryData.push(data.preventions);
+    queryData.push("approved");
+    queryData.push(id);
+
+    queryData.forEach((e)=>{
+        if(e==undefined || e==null){
+            error++;
+        }
+    });
+
+    if(error == 0){
+        db.get().query(sql, queryData, function(err, result){
+            if(err) return next(err);
+            db.get().query(sql1,[state,status,category,id],(err1,result1)=>{
+                if(err1) return next(err1);
+
+                res.status(200).send({success: true, detail: "Successfully Approved!"});
+            });
+        });
+    }else{
+        res.status(200).send({success: false, detail: "Invalid Data"});
+    }
+}
+
+exports.rejectPrevention = (req, res, next) => {
+
+    let id = req.params.id;
+    let data = req.body;
+    let reasons = data.reasons;
+    let category = "Prevention";
+    let status = "rejected";
+    let state = "noticed";
+
+    let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE prevention_t SET status =?  WHERE preventionID = ?";
+    db.get().query(sql, [state, status, reasons, category , id], (err, result) => {
+        if (err) return next(err);
+        db.get().query(sql1, [status, id], (err1, return1) => {
+            if (err1) return next(err1);
+
+            res.status(200).send({ success: true, detail: "Data Rejected!" });
+
+        });
+    });
+}
+
+exports.viewAnimal = (req,res,next) =>{
+
+    let id = req.params.id;
+
+    let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID WHERE animalID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
+
+        let dataDisplay = {
+            animalName              :   result[0].animalName,
+            animalScientificName    :   result[0].animalScientificName,
+            bodySite                :   result[0].animalBodySite,
+            phylum                  :   result[0].phylum,
+            classs                  :   result[0].class,
+            order                   :   result[0].orderr,
+            family                  :   result[0].family,
+            genus                   :   result[0].genus,
+            species                 :   result[0].species,
+            image                   :   result[0].image
+        }
+
+        res.status(200).send({success:true, detail:"", data:dataDisplay});
+    });
+   
+}
+
+exports.approvedAnimal = function(req, res, next){
+
+    let image = req.file.path;
+    let data = req.body;
+    let commonName = data.modalCommonName+"";
+    let scientificName = data.modalScientificName+"";
+    let finalScienctific = scientificName.split(' ');
+    let genusName = finalScienctific[0];
+    let scienceName = data.strScientificName+"";
+    let speciesName = finalScienctific[finalScienctific.length-1];
+    let bodySite = data.modalBodySite;
+    let isInserting = 1;
+    
+    
+    if (!req.file) {
+        res.status(200).send({ success: false, detail: "No Image Provide" });
+        return;
+    }
+    
+    let checkAnimal = function (cb) {
+        let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
+        db.get().query(sql, [commonName, scienceName], (err, result) => {
+            if (err) return cb(err);
+            if (result.length == 0) {
+                return cb(null, true);
+            }
+            else {
+                return cb(null, false);
+            }
+        });
+    };
+
+    let noGenus = function () {
+        speciesName = "spp.";
+        let sql = "SELECT animalTaxoID, phylum, class, orderr, family, genus FROM animaltaxo_t WHERE genus = ?";
+        db.get().query(sql, [genusName], (err, result) => { //pagkuha ng result ng taxo classification by a genus
+            if (err) return next(err);
+
+            if (result.length == 0) {
+                res.status(200).send({ success: false, detail: "Genus not found", error: 1 });
+            }
+            else {
+                insertAnimal(result);
+            }
+        });
+    };
+
+    /**
+     * This Function: iinsert na ng system sa database yung ininput ng User
+     * @param result ResultSet object, containing taxonomy of the animal.
+     */
+    let insertAnimal = function (result) {
+        let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalBodySite = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
+        let dataDisplay = {
+            commonName: commonName,
+            scientificName: scientificName,
+            bodySite: bodySite,
+            phylum: result[0].phylum,
+            class: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: speciesName,
+            image   : image
+        };
+
+        if (isInserting) {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image, req.params.id], (error, result3) => {
+                if (error) return next(error);
+
+                res.status(200).send({ success: true, detail: "Successfully Added!", });
+            });
+        }
+
+        else {
+            res.status(200).send({ success: true, detail: "", data: dataDisplay });
+        }
+    };
+
+    checkAnimal((error, result) => {
+        if (error) return next(error);
+        if (result) {
+            if (scientificName.length > 1) {
+                if (speciesName == "spp") {
+                    noGenus();
+                }
+                else {
+
+                    //kapag kumpleto yung scientific name 
+                    let sql = "SELECT * FROM animaltaxo_t WHERE species = ?";
+                    db.get().query(sql, [speciesName], (err, result) => { //pagkuha ng result ng taxo classification by a species
+                        if (err) return next(err);
+                        if (result.length == 0) {
+                            res.status(200).send({ success: false, detail: "Species not found", error: 2});
+                        }
+                        else {
+                            insertAnimal(result);
+                        }
+                    })
+                }
+            }
+            else {
+                noGenus();
+            }
+        }
+        else {
+            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists" });
+        }
     });
 }
