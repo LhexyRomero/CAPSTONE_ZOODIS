@@ -43,8 +43,8 @@ exports.approvedAnimalTaxo = (req, res, next) => {
     let status = "approved";
     let category = "Animal Taxonomy"
 
-    let sql = "UPDATE notification_t SET state=?, status=? WHERE category =? AND addedID =?";
-    let sql1 = "UPDATE animaltaxo_t SET phylum=?, class=?, orderr=?, family=?, genus=?, species=?, status=? WHERE animalTaxoID = ?";
+    let sql = "UPDATE notification_t SET state=?, status=? , date = CURRENT_DATE WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE animaltaxo_t SET phylum=?, class=?, orderr=?, family=?, date = ?,genus=?, species=?, status=? WHERE animalTaxoID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [phylum, classs, order, family, genus, species, status, id], (err1, result1) => {
@@ -107,8 +107,8 @@ exports.approvedBacteriaTaxo = (req, res, next) => {
     let status = "approved";
     let category = "Bacteria Taxonomy"
 
-    let sql = "UPDATE notification_t SET state=?, status=? WHERE category =? AND addedID =?";
-    let sql1 = "UPDATE bacteriataxo_t SET phylum=?, class=?, orderr=?, family=?, genus=?, species=?, status=? WHERE bacteriumTaxoID = ?";
+    let sql = "UPDATE notification_t SET dateTime = CURRENT_DATE, state=?, status=? WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE bacteriataxo_t SET date = CURRENT_DATE, phylum=?, class=?, orderr=?, family=?, genus=?, species=?, status=? WHERE bacteriumTaxoID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [phylum, classs, order, family, genus, species, status, id], (err1, result1) => {
@@ -206,7 +206,7 @@ exports.rejectToxin = (req, res, next) => {
 
     let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE toxin_t SET status =?  WHERE toxinID = ?";
-    db.get().query(sql, [state, status, reasons, category , id], (err, result) => {
+    db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
@@ -217,30 +217,30 @@ exports.rejectToxin = (req, res, next) => {
     });
 }
 
-exports.viewDisease = (req,res,next) =>{
+exports.viewDisease = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
 
     let sql3 = "SELECT * FROM disease_t INNER JOIN bacteriadisease_t ON disease_t.diseaseID = bacteriadisease_t.diseaseID INNER JOIN bacteria_t ON bacteriadisease_t.bacteriumID = bacteria_t.bacteriumID WHERE disease_t.diseaseID = ?";
-    db.get().query(sql3,[id],(err3,result3)=>{
-        if(err3) return next(err3);
+    db.get().query(sql3, [id], (err3, result3) => {
+        if (err3) return next(err3);
 
         let splittedSymptoms = result3[0].symptoms.split(":");
         console.log(splittedSymptoms);
         let dataDisplay = {
-            
-            bacteriumID     : result3[0].bacteriumID,
-            bacteriumName   : result3[0].bacteriumScientificName,
-            diseaseName     : result3[0].diseaseName,
-            diseaseDesc     : result3[0].diseaseDesc,
-            symptoms        : splittedSymptoms,
+
+            bacteriumID: result3[0].bacteriumID,
+            bacteriumName: result3[0].bacteriumScientificName,
+            diseaseName: result3[0].diseaseName,
+            diseaseDesc: result3[0].diseaseDesc,
+            symptoms: splittedSymptoms,
         }
 
-        res.status(200).send({success: true, detail :"", data:dataDisplay});
+        res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
 }
 
-exports.approvedDisease = (req,res,next) =>{
+exports.approvedDisease = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
     let bacteriumID = data.selectBacteria1;
@@ -260,25 +260,25 @@ exports.approvedDisease = (req,res,next) =>{
     queryData.push("approved");
     queryData.push(id);
 
-    queryData.forEach((e)=>{
-        if(e==undefined || e==null){
+    queryData.forEach((e) => {
+        if (e == undefined || e == null) {
             error++;
         }
     });
 
-    if(error == 0){
-        db.get().query(sql, queryData, function(err, result){
-            if(err) return next(err);
-            db.get().query(sql1,[bacteriumID,id,id],(err1, result1)=>{
-                if(err1) return next(err1);
-                db.get().query(sql2,[state,status,category,id],(err2,result2)=>{
-                    if(err2) return next(err2);
-                    res.status(200).send({success: true, detail: "Successfully Approved"});
+    if (error == 0) {
+        db.get().query(sql, queryData, function (err, result) {
+            if (err) return next(err);
+            db.get().query(sql1, [bacteriumID, id, id], (err1, result1) => {
+                if (err1) return next(err1);
+                db.get().query(sql2, [state, status, category, id], (err2, result2) => {
+                    if (err2) return next(err2);
+                    res.status(200).send({ success: true, detail: "Successfully Approved" });
                 });
             });
         });
-    }else{
-        res.status(200).send({success: false, detail: "Invalid Data"});
+    } else {
+        res.status(200).send({ success: false, detail: "Invalid Data" });
     }
 }
 
@@ -293,7 +293,7 @@ exports.rejectDisease = (req, res, next) => {
 
     let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE disease_t SET status =?  WHERE diseaseID = ?";
-    db.get().query(sql, [state, status, reasons, category , id], (err, result) => {
+    db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
@@ -314,27 +314,27 @@ exports.selectDisease = (req, res, next) => {
     });
 }
 
-exports.viewPrevention = (req,res,next) => {
+exports.viewPrevention = (req, res, next) => {
     let id = req.params.id;
 
     let sql3 = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE preventionID = ?";
-    db.get().query(sql3,[id],(err3,result3)=>{
-        if(err3) return next(err3);
+    db.get().query(sql3, [id], (err3, result3) => {
+        if (err3) return next(err3);
 
         let splittedPreventions = result3[0].preventions.split(":");
         let dataDisplay = {
-            
-            diseaseID       : result3[0].diseaseID,
-            diseaseName     : result3[0].diseaseName,
-            preventions     : splittedPreventions,
+
+            diseaseID: result3[0].diseaseID,
+            diseaseName: result3[0].diseaseName,
+            preventions: splittedPreventions,
         }
 
-        res.status(200).send({success: true, detail :"", data:dataDisplay});
+        res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
 }
 
-exports.approvedPrevention = (req,res,next) =>{
-    
+exports.approvedPrevention = (req, res, next) => {
+
     let id = req.params.id;
     let data = req.body;
     let status = "approved";
@@ -351,23 +351,23 @@ exports.approvedPrevention = (req,res,next) =>{
     queryData.push("approved");
     queryData.push(id);
 
-    queryData.forEach((e)=>{
-        if(e==undefined || e==null){
+    queryData.forEach((e) => {
+        if (e == undefined || e == null) {
             error++;
         }
     });
 
-    if(error == 0){
-        db.get().query(sql, queryData, function(err, result){
-            if(err) return next(err);
-            db.get().query(sql1,[state,status,category,id],(err1,result1)=>{
-                if(err1) return next(err1);
+    if (error == 0) {
+        db.get().query(sql, queryData, function (err, result) {
+            if (err) return next(err);
+            db.get().query(sql1, [state, status, category, id], (err1, result1) => {
+                if (err1) return next(err1);
 
-                res.status(200).send({success: true, detail: "Successfully Approved!"});
+                res.status(200).send({ success: true, detail: "Successfully Approved!" });
             });
         });
-    }else{
-        res.status(200).send({success: false, detail: "Invalid Data"});
+    } else {
+        res.status(200).send({ success: false, detail: "Invalid Data" });
     }
 }
 
@@ -382,7 +382,7 @@ exports.rejectPrevention = (req, res, next) => {
 
     let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE prevention_t SET status =?  WHERE preventionID = ?";
-    db.get().query(sql, [state, status, reasons, category , id], (err, result) => {
+    db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
@@ -393,47 +393,247 @@ exports.rejectPrevention = (req, res, next) => {
     });
 }
 
-exports.viewAnimal = (req,res,next) =>{
+exports.viewAnimal = (req, res, next) => {
+
+    console.log("im here na");
+    let id = req.params.id;
+
+    let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID WHERE animalID = ?";
+    db.get().query(sql, [id], (err, result) => {
+        if (err) return next(err);
+
+        let dataDisplay = {
+            animalName: result[0].animalName,
+            animalScientificName: result[0].animalScientificName,
+            bodySite: result[0].animalBodySite,
+            phylum: result[0].phylum,
+            classs: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: result[0].species,
+            image: result[0].image
+        }
+
+        res.status(200).send({ success: true, detail: "", data: dataDisplay });
+    });
+
+
+}
+
+exports.selectAnimal = (req, res, next) => {
+    let sql = "SELECT * FROM animal_t";
+    db.get().query(sql, (err, result) => {
+        res.status(200).send({ success: true, detail: "", data: result });
+    });
+}
+
+exports.viewBacteria = (req, res, next) => {
 
     let id = req.params.id;
 
     let sql = "SELECT * FROM bacteria_t INNER JOIN animal_t ON bacteria_t.animalID = animal_t.animalID INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
-    db.get().query(sql,[id],(err,result)=>{
-        if(err) return next(err);
+    db.get().query(sql, [id], (err, result) => {
+        if (err) return next(err);
 
         let dataDisplay = {
-            animalID                : result[0].animalID,
-            animalName              : result[0].animalName,
-            genusName               : result[0].bacteriumGenusName,
-            speciesName             : result[0].bacteriumSpeciesName,
-            scientificName          : result[0].bacteriumScientificName,
-            tissueSpecifity         : result[0].bacteriumTissueSpecifity,
-            sampleType              : result[0].bacteriumSampleType,
-            isolation               : result[0].bacteriumIsolation,
-            identification          : result[0].bacteriumIdentification,
-            phylum                  : result[0].phylum,
-            class                   : result[0].class,
-            order                   : result[0].orderr,
-            family                  : result[0].family,
-            genus                   : result[0].genus,
-            species                 : result[0].species
+            animalID: result[0].animalID,
+            animalName: result[0].animalName,
+            genusName: result[0].bacteriumGenusName,
+            speciesName: result[0].bacteriumSpeciesName,
+            scientificName: result[0].bacteriumScientificName,
+            tissueSpecifity: result[0].bacteriumTissueSpecifity,
+            sampleType: result[0].bacteriumSampleType,
+            isolation: result[0].bacteriumIsolation,
+            identification: result[0].bacteriumIdentification,
+            phylum: result[0].phylum,
+            class: result[0].class,
+            order: result[0].orderr,
+            family: result[0].family,
+            genus: result[0].genus,
+            species: result[0].species
         }
 
-        res.status(200).send({success: true, detail:"", data:dataDisplay});
+        res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
-   
 }
 
-exports.selectAnimal = (req,res,next) =>{
-    let sql = "SELECT * FROM animal_t";
-    db.get().query(sql,(err,result)=>{
-        res.status(200).send({success: true, detail:"", data: result});
-    }); 
-}
-
-exports.viewBacteria = (req,res,next) =>{
+exports.approvedAnimal = function (req, res, next) {
 
     let id = req.params.id;
-    let sql = "SELECT * "
+    let data = req.body;
+    let scientificName = data.modalScientificName + "";
+    let finalScienctific = scientificName.split(' ');
+    let genusName = finalScienctific[0];
+    let scienceName = data.strScientificName + "";
+    let speciesName = finalScienctific[finalScienctific.length - 1];
+    let status = "approved";
+    let state = "noticed";
+    let category = "Animal";
 
+    let sql3 = "UPDATE animal_t SET date=CURRENT_DATE,status=? WHERE animalID = ?";
+    let sql1 = "UPDATE notification_t SET dateTime = CURRENT_DATE, state =?,status =? WHERE category =? AND addedID =? ";
+    db.get().query(sql3, [status, req.params.id], (error, result3) => {
+        if (error) return next(error);
+        db.get().query(sql1, [state, status, category, id], (err1, result1) => {
+            if (err1) return next(err1);
+
+            res.status(200).send({ success: true, detail: "Successfully Approved!", });
+        });
+    });
+}
+
+exports.rejectAnimal = (req, res, next) => {
+
+    let id = req.params.id;
+    let data = req.body;
+    let reasons = data.reasons;
+    let category = "Animal";
+    let status = "rejected";
+    let state = "noticed";
+
+    let sql = "UPDATE animal_t SET status = ?, date = CURRENT_DATE WHERE animalID = ?";
+    let sql1 = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    db.get().query(sql, [status, id], (err, result) => {
+        if (err) return next(err);
+        db.get().query(sql1, [state, status, reasons, category, id], (err1, result1) => {
+            if (err1) return next(err1);
+
+            res.status(200).send({ success: true, detail: "Data Rejected!" });
+        });
+    });
+}
+
+exports.approvedBacteria = (req, res, next) => {
+    let id = req.params.id;
+    let data = req.body;
+
+    let animalID = data.toSelect;
+    let speciesName = data.speciesName;
+    let genusName = data.genusName;
+    let scientificName = genusName + " " + speciesName;
+    let tissue = data.tissueSpecifity;
+    let sample = data.sampleType;
+    let isolation = data.isolation;
+    let identification = data.identification;
+    let status = "approved";
+    let state = "noticed";
+
+
+    let checkBacteria = (cb) => {
+        let sql11 = "SELECT * FROM bacteria_t WHERE bacteriumScientificName = ?";
+        db.get().query(sql11, [animalID, scientificName], (err11, result11) => {
+            if (err11) return cb(err11);
+
+            if (result11.length == 0) {
+                return cb(null, true);
+            }
+
+            else {
+                return cb(null, false);
+            }
+        });
+    }
+
+    let checkSpecies = (cb) => {
+        let sql = "SELECT * FROM bacteriataxo_t WHERE species = ?";
+        db.get().query(sql, [speciesName], (err, result) => {
+            if (err) return cb(err);
+
+            if (result.length == 0) {
+                return cb(null, undefined);
+            }
+            else {
+                return cb(null, result);
+            }
+        });
+    }
+
+    let checkGenus = (cb) => {
+        console.log("Check Genus");
+        let sql = "SELECT * FROM bacteriataxo_t WHERE genus =?";
+        db.get().query(sql, [genusName], (err, result) => {
+            if (err) return cb(err);
+
+            if (result.length == 0) {
+                return cb(null, undefined);
+            }
+            else {
+                return cb(null, result);
+            }
+        });
+    }
+
+    let updateBacteria = (result) => {
+        let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, animalID = ?,bacteriumTaxoID =?,staffID = ?,date=CURRENT_DATE,status=? WHERE bacteriumID = ?";
+        let sql1 = "UPDATE notification_t SET dateTime = CURRENT_DATE, status = ?,state = ? WHERE addedID = ?";
+        db.get().query(sql, [speciesName, genusName, scientificName, tissue, sample, isolation, identification, animalID, result[0].bacteriumTaxoID,  req.session.staffID, status,id], (err, result) => {
+            if (err) return next(err);
+            db.get().query(sql1, [status, state, id], (err1, result1) => {
+                if (err1) return next(err1);
+
+                res.status(200).send({ success: true, detail: "Batceria Successfully Updates", });
+            });
+
+        });
+    }
+
+
+    checkBacteria((error, result) => {
+        console.log("check niya muna bacteria");
+        if (error) return next(error);
+
+        if (result) {
+            checkGenus((error1, genus) => {
+                if (error1) return next(error1);
+
+                checkSpecies((error2, species) => {
+                    if (error2) return next(error2);
+
+                    if (!genus && !species) {
+                        res.status(200).send({ success: false, detail: "Genus and Species not found!", error: 1 });
+                    }
+
+                    else if (!genus && species) {
+                        console.log("genus error!");
+                        res.status(200).send({ success: false, detail: "Genus not found!", error: 2 });
+                    }
+
+                    else if (!species && genus) {
+                        console.log("species error!");
+                        res.status(200).send({ success: false, detail: "Species not found!", error: 3 });
+                    }
+
+                    else {
+                        updateBacteria(species);
+                    }
+                });
+            });
+            return;
+        }
+        else {
+            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
+        }
+    });
+}
+
+exports.rejectBacteria = (req, res, next) => {
+
+    let id = req.params.id;
+    let data = req.body;
+    let reasons = data.reasons;
+    let category = "Bacteria";
+    let status = "rejected";
+    let state = "noticed";
+
+    let sql = "UPDATE bacteria_t SET status = ?, date = CURRENT_DATE WHERE bacteriumID = ?";
+    let sql1 = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    db.get().query(sql, [status, id], (err, result) => {
+        if (err) return next(err);
+        db.get().query(sql1, [state, status, reasons, category, id], (err1, result1) => {
+            if (err1) return next(err1);
+
+            res.status(200).send({ success: true, detail: "Data Rejected!" });
+        });
+    });
 }

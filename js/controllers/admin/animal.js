@@ -233,7 +233,6 @@ exports.animalList = (req,res,next) =>{
     let sql = "SELECT * FROM animal_t WHERE status = ?";
     db.get().query(sql,[status],(err,result) =>{
         if(err) return next(err);
-
         res.status(200).send({success:true, detail:"", data:result});
 
     });

@@ -5,6 +5,9 @@ $(function () {
     selectAnimal();
 
     $('.toApprove').hide();
+    $('.toApprove1').hide();
+    $('.toReject1').hide();
+    $('.toReject').hide();
     $('.searchAnimal').autocomplete({
         source: (req, res) => {
             $.ajax({
@@ -20,20 +23,6 @@ $(function () {
         },
     });
 
-    $("input[name=strCommonName]").on("keyup", function () {
-        isInsertAnimal = 0;
-        $('.toClassify').hide();
-    });
-
-    $("input[name=strScientificName]").on("keyup", function () {
-        isInsertAnimal = 0;
-        $('.toClassify').hide();
-    });
-
-    $("input[name=strBodySite]").on("keyup", function () {
-        isInsertAnimal = 0;
-        $('.toClassify').hide();
-    });
 });
 isClicked = 0;
 function notificationList() {
@@ -972,7 +961,7 @@ function rejectPrevention() {
             sendReasonPrevention();
         }
         else {
-            $("#modalPraventions").modal('hide');
+            $("#modalPreventions").modal('hide');
         }
     })
 }
@@ -1068,45 +1057,234 @@ function viewAnimal(id) {
             $("input[name=modalSpecies2]").val(response.data.species);
 
             $('.toApprove').show();
+            $('.toReject').show();
             $('.toClassify').hide();
         });
     });
 }
 
-let viewBacteriaID = 0;
-function viewBacteria(id){
-    viewBacteriaID = id;    
-    let url = "/notificationViewBacteria/"+viewBacteriaID;
+function approvedAnimal(eAdd) {
+    eAdd.preventDefault();
+    let dataInsert = new FormData($("#modalAnimalForm")[0]);
+    let data = $("#modalAnimalForm").serializeArray();
+    let errCount = 0;
+    let invCount = 0;
 
-    $.get(url,(response)=>{
-        if(response.success == false) {
-            $.notify("Error getting data from the server!",{type:"danger"});
+    data.forEach((element, index) => {
+
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+            //dataInsert.append(element.name,element.value);
+        }
+
+    });
+
+    if (errCount > 0) {
+        $.notify("Fields must be filled out!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        swal({
+            title: "Warning!",
+            text: "Are you sure?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+        }).then(function (isConfirmed) {
+            if (isConfirmed) {
+            }
+            $.ajax({
+                type: "POST",
+                url: "/approvedAnimal/" + viewAnimalID,
+                data: dataInsert,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    isClicked = 0;
+                    if (response.success == false) {
+                        isClicked = 0;
+    
+                        if (response.error == 1) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+    
+                        else if (response.error == 2) {
+                            $.notify(response.detail, { type: 'danger' });
+                        }
+    
+                        else if (response.error == 3) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+    
+                        else {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+    
+                    }
+                    else {
+    
+                        swal({
+                            title: "Success",
+                            text: response.detail,
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay",
+                        });
+                        $("#modalAnimal").modal("hide");
+                        notificationList();
+                    }
+                }
+            });
+        });
+    }
+}
+
+function rejectAnimal() {
+console.log("SAMA");
+    if (isClicked != 0) {
+        return;
+    }
+    isClicked++;
+    swal({
+        title: 'Reject Animal',
+        text: "Are you sure?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $("#reasonsAnimal").modal('show');
+            sendReasonAnimal();
+        }
+        else {
+            $("#modalAnimal").modal('hide');
+        }
+    })
+
+}
+
+function sendReasonAnimal() {
+    let url = "/rejectAnimal/" + viewAnimalID;
+    let errCount = 0;
+    let invCount = 0;
+    let dataInsert = {};
+
+    console.log(url);
+    let data = $("#reasonsAForm").serializeArray();
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+
+        if (element.value == "") {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+            dataInsert[element.name] = element.value;
+        }
+
+    });
+
+    if (errCount > 0) {
+        $.notify("Provide Reasons of Rejecting!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        $.post(url, dataInsert, function (response) {
+            if (response.success == false) {
+                swal({
+                    title: "Error!",
+                    text: "Error sending!",
+                    type: "error",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay"
+                });
+            }
+
+            else {
+                swal({
+                    title: "Done!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+                $("#modalAnimal").modal('hide');
+                $("#reasonsAnimal").modal('hide');
+                notificationList();
+            }
+        });
+    }
+}
+let viewBacteriaID = 0;
+function viewBacteria(id) {
+    viewBacteriaID = id;
+    let url = "/notificationViewBacteria/" + viewBacteriaID;
+
+    $.get(url, (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
 
-        let data = response.data;
+        console.log(response.data);
+        console.log("Andito namana ko eh");
         $("select[name=toSelect]").val(response.data.animalID);
-        $('input[name=genusName]').val(response.data.genusName);
         $("input[name=speciesName]").val(response.data.speciesName);
+        $("input[name=genusName]").val(response.data.genusName);
         $("input[name=tissueSpecifity]").val(response.data.tissueSpecifity);
         $("input[name=sampleType]").val(response.data.sampleType);
         $("input[name=isolation]").val(response.data.isolation);
         $("input[name=identification]").val(response.data.identification);
-        
-        
-        $("input[name=bPhylum]").val(response.data.phylum);
-        $("input[name=bClass]").val(response.data.class);
-        $("input[name=bOrder]").val(response.data.order);
-        $("input[name=bFamily]").val(response.data.family);
-        $("input[name=bGenus]").val(response.data.genus);
-        $("input[name=bSpecies]").val(response.data.species);
-        $("input[name=modalScientificName]").val(response.data.scientificName);
 
-    });         
+        $('.toClassify1').on('click', () => {
+
+            $("input[name=bPhylum]").val(response.data.phylum);
+            $("input[name=bClass]").val(response.data.class);
+            $("input[name=bOrder]").val(response.data.order);
+            $("input[name=bFamily]").val(response.data.family);
+            $("input[name=bGenus]").val(response.data.genus);
+            $("input[name=bSpecies]").val(response.data.species);
+            $("input[name=scientificName]").val(response.data.scientificName);
+
+            $('.toApprove1').show();
+            $('.toReject1').show();
+            $('.toClassify1').hide();
+        });
+    });
 }
 
 function selectAnimal() {
-    $.get("/notificationSelectAnimal",(response)=>{
+    $.get("/notificationSelectAnimal", (response) => {
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
             return;
@@ -1119,6 +1297,201 @@ function selectAnimal() {
         });
         $('#toSelectAnimal').html(html);
     });
+}
+
+function approvedBacteria(eAdd) {
+    eAdd.preventDefault();
+
+    let url = "/approvedBacteria/" + viewBacteriaID;
+
+    let data = $("#modalBacteriaForm").serializeArray();
+    let errCount = 0;
+    let numCount = 0;
+    let strCount = 0;
+    let dataInsert = {};
+
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+
+        isClick = 0;
+        if (element.value == "") {
+            $('input[name=' + element.name + ']').css("background", "#feebeb");
+            $('select[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+        }
+
+        else if ($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null) {
+            $('select[name=toSelect]').css("background", "#feebeb");
+            $('input[type=number]').css("background", "#feebeb");
+            numCount++;
+        }
+
+        else if ($('input[type=text]').val().match(/[0-9*#\/]/g) != null) {
+            $('input[type=text]').css("background", "#feebeb");
+            strCount++;
+        }
+
+        else {
+            dataInsert[element.name] = element.value;
+        }
+    });
+
+    if (errCount > 0) {
+        $.notify("All fields must be filled!", { type: "danger" });
+    }
+
+    else if (numCount > 0) {
+        $.notify("Invalid input!", { type: "danger" });
+    }
+
+    else if (strCount > 0) {
+        $.notify("Invalid Characters!", { type: "danger" });
+    }
+
+    else {
+        swal({
+            title: 'Approved Bacteria',
+            text: "Are you sure?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, dataInsert, function (response) {
+                    isClick = 0;
+                    if (response.success == false) {
+                        isClick = 0;
+                        if (response.error == 1) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else if (response.error == 2) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else if (response.error == 3) {
+                            $.notify(response.detail, { type: "danger" });
+                        }
+
+                        else {
+                            swal({
+                                title: "Error!",
+                                text: response.detail,
+                                type: "error",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Okay"
+                            });
+                        }
+                    }
+
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: response.detail,
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+
+                        $("#modalBacteria").modal("hide");
+                        notificationList();
+                    }
+                });
+            }
+        });
+    }
+
+}
+
+function rejectBacteria() {
+
+    if (isClicked != 0) {
+        return;
+    }
+    isClicked++;
+    swal({
+        title: 'Reject Bacteria',
+        text: "Are you sure?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $("#reasonsBacteria").modal('show');
+            sendReasonBacteria();
+        }
+        else {
+            $("#modalBacteria").modal('hide');
+        }
+    })
+
+}
+
+function sendReasonBacteria() {
+    let url = "/rejectBacteria/" + viewBacteriaID;
+    let errCount = 0;
+    let invCount = 0;
+    let dataInsert = {};
+
+    console.log(url);
+    let data = $("#reasonsBForm").serializeArray();
+    data.forEach((element, index) => {
+        console.log(element.name + ":" + element.value);
+
+        if (element.value == "") {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            errCount++;
+            isClicked = 0;
+        }
+
+        else if (element.value.match(/[0-9*#\/]/g) != null) {
+            $('textarea[name=' + element.name + ']').css("background", "#feebeb");
+            invCount++;
+            isClicked = 0;
+        }
+
+        else {
+            dataInsert[element.name] = element.value;
+        }
+
+    });
+
+    if (errCount > 0) {
+        $.notify("Provide Reasons of Rejecting!", { type: "danger" });
+    }
+
+    else if (invCount > 0) {
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        $.post(url, dataInsert, function (response) {
+            if (response.success == false) {
+                swal({
+                    title: "Error!",
+                    text: "Error sending!",
+                    type: "error",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay"
+                });
+            }
+
+            else {
+                swal({
+                    title: "Done!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+                $("#modalBacteria").modal('hide');
+                $("#reasonsBacteria").modal('hide');
+                notificationList();
+            }
+        });
+    }
 }
 
 let count = 0;
@@ -1228,3 +1601,4 @@ let addFieldEdit2 = function (value) {
 let deleteFieldEdit2 = function (selected) {
     $('.prevEditDiv' + selected).remove();
 }
+

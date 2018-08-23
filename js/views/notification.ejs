@@ -257,7 +257,7 @@
                     </button>
                 </div>
                 <div class="modal-body body-scroll">
-                    <form id="editBacteriaForm" action="" method="POST">
+                    <form id="modalBacteriaForm" onsubmit="approvedBacteria(event)" method="POST">
                         <h5 class="card-title"><b>BACTERIA FORM</b></h5>
                         <div class="row">
                             <div class="col-md-12">
@@ -337,9 +337,9 @@
                 </div>
                 <div class="for-footer">
                     <div align="right">
-                        <button type="button" class="btn btn-primary toClassify" onclick="">Classify</button>
-                        <button type="button" class="btn btn-success" id="toApprove" onclick="">Approve</button>
-                        <button type="button" class="btn btn-danger" id="toReject" onclick="">Reject</button>
+                        <button type="button" class="btn btn-primary toClassify1">Classify</button>
+                        <button type="submit" class="btn btn-success toApprove1">Approve</button>
+                        <button type="button" class="btn btn-danger toReject1" onclick="rejectBacteria()">Reject</button>
                     </div>
                 </div>
                 </form>
@@ -382,7 +382,7 @@
                                             <input class="form-control animalAdd" name="modalCommonName" type="text" />
 
                                             <label>Scientific Name</label>
-                                            <input class="form-control animalAdd searchAnimal" name="modalScientificName" type="text" />
+                                            <input class="form-control animalAdd searchAnimal" name="modalScientificName" type="text" disabled/>
 
                                             <label>Body Site</label>
                                             <input class="form-control animalAdd" name="modalBodySite" type="text" />
@@ -422,7 +422,7 @@
                     <div align="right">
                         <button type="button" class="btn btn-primary toClassify" >Classify</button>
                         <button type="submit" class="btn btn-success toApprove">Approve</button>
-                        <button type="button" class="btn btn-danger" id="toReject" onclick="">Reject</button>
+                        <button type="button" class="btn btn-danger toReject" onclick="rejectAnimal()">Reject</button>
                     </div>
                 </div>
                 </form>
@@ -750,7 +750,7 @@
                                     <form id="reasonsBForm" method="POST">
                                         <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
-                                        <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                        <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteria()">Send</button></center>
                                     </form>
                                 </div>
                             </div>
@@ -776,7 +776,7 @@
                                     <form id="reasonsAForm" method="POST">
                                         <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
-                                        <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
+                                        <center><button type="button" class="btn btn-primary" onclick="sendReasonAnimal()">Send</button></center>
                                     </form>
                                 </div>
                             </div>
