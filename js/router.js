@@ -171,6 +171,10 @@ router.post('/notificationApprovedDisease/:id',notification.approvedDisease);
 router.post('/rejectDisease/:id',notification.rejectDisease);
 router.post('/notificationApprovedPrevention/:id',notification.approvedPrevention);
 router.post('/rejectPrevention/:id',notification.rejectPrevention);
+router.post('/approvedBacteria/:id',notification.approvedBacteria);
+router.post('/rejectBacteria/:id',notification.rejectBacteria);
+router.post('/approvedAnimal/:id',notification.approvedAnimal);
+router.post('/rejectAnimal/:id',notification.rejectAnimal);
 
 router.get('/journal',auth.authenticate,(req,res,next)=>{
     res.render('journal');
