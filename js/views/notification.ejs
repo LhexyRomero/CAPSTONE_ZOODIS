@@ -266,23 +266,23 @@
                                         <h6 class="card-title"> ANIMAL</h6>
                                         <div class="card-body ">
                                             <label>Animal Name</label>
-                                            <select class="form-control" name="toSelect" id="toSelectBacteria">
+                                            <select class="form-control" name="toSelect" id="toSelectAnimal">
                                             </select>
                                         </div>
                                         <h6 class="card-title">Bacterium Details</h6>
                                         <div class="card-body ">
                                             <div class="form-group has-label">
                                                 <label>Species Name</label>
-                                                <input class="form-control" name="strSpeciesName" type="text">
+                                                <input class="form-control" name="speciesName" type="text">
 
                                                 <label>Genus Name</label>
-                                                <input class="form-control" name="strGenusName" type="text">
+                                                <input class="form-control" name="genusName" type="text">
 
                                                 <label>Full Scientific Name</label>
-                                                <input class="form-control" name="strScientificName" type="text" disabled>
+                                                <input class="form-control" name="scientificName" type="text" disabled>
 
                                                 <label>Tissue Specifity</label>
-                                                <input class="form-control" name="strTissueSpecifity" type="text">
+                                                <input class="form-control" name="tissueSpecifity" type="text">
                                             </div>
                                         </div>
                                     </div>
@@ -291,22 +291,22 @@
                                         <div class="card-body ">
                                             <div class="form-group has-label">
                                                 <label>Phylum</label>
-                                                <input class="form-control" name="strPhylum" type="text" disabled/>
+                                                <input class="form-control" name="bPhylum" type="text" disabled/>
 
                                                 <label>Class</label>
-                                                <input class="form-control" name="strClass" type="text" disabled/>
+                                                <input class="form-control" name="bClass" type="text" disabled/>
 
                                                 <label>Order</label>
-                                                <input class="form-control" name="strOrder" type="text" disabled/>
+                                                <input class="form-control" name="bOrder" type="text" disabled/>
 
                                                 <label>Family</label>
-                                                <input class="form-control" name="strFamily" type="text" disabled/>
+                                                <input class="form-control" name="bFamily" type="text" disabled/>
 
                                                 <label>Genus</label>
-                                                <input class="form-control" name="strGenus" type="text" disabled/>
+                                                <input class="form-control" name="bGenus" type="text" disabled/>
 
                                                 <label>Species</label>
-                                                <input class="form-control" name="strSpecies" type="text" disabled/>
+                                                <input class="form-control" name="bSpecies" type="text" disabled/>
 
                                             </div>
                                         </div>
@@ -319,28 +319,17 @@
                                         <div class="card-body">
                                             <div class="form-group has-label">
                                                 <label>Sample Type</label>
-                                                <input class="form-control" name="strSampleType" type="text">
+                                                <input class="form-control" name="sampleType" type="text">
 
                                                 <label>Method of Isolation</label>
-                                                <input class="form-control" name="strMethodOfIsolation" type="text">
+                                                <input class="form-control" name="isolation" type="text">
 
                                                 <label>Method of Identification</label>
-                                                <input class="form-control" name="strMethodOfIdentification" type="text">
+                                                <input class="form-control" name="identification" type="text">
 
                                             </div>
                                         </div>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6 class="card-title">References</h6>
-                                        <div class="form-group has-label">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Journal Number</label>
-                                                    <select class="form-control" name="selectJournal" id="toSelectJournal"></select><br>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -432,7 +421,7 @@
                 <div class="for-footer">
                     <div align="right">
                         <button type="button" class="btn btn-primary toClassify" >Classify</button>
-                        <button type="submit" class="btn btn-success" id="toApprove" onclick="">Approve</button>
+                        <button type="submit" class="btn btn-success toApprove">Approve</button>
                         <button type="button" class="btn btn-danger" id="toReject" onclick="">Reject</button>
                     </div>
                 </div>
@@ -534,6 +523,7 @@
                 </form>
             </div>
         </div>
+    </div>
 
         <!-- Modal Bacteria Taxo -->
         <div class="modal fade" id="modalBacteriaTaxo" tabindex="-1" role="dialog" aria-labelledby="modalBacteriaTaxo" aria-hidden="true">

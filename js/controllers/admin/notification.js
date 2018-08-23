@@ -397,135 +397,43 @@ exports.viewAnimal = (req,res,next) =>{
 
     let id = req.params.id;
 
-    let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID WHERE animalID = ?";
+    let sql = "SELECT * FROM bacteria_t INNER JOIN animal_t ON bacteria_t.animalID = animal_t.animalID INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
     db.get().query(sql,[id],(err,result)=>{
         if(err) return next(err);
 
         let dataDisplay = {
-            animalName              :   result[0].animalName,
-            animalScientificName    :   result[0].animalScientificName,
-            bodySite                :   result[0].animalBodySite,
-            phylum                  :   result[0].phylum,
-            classs                  :   result[0].class,
-            order                   :   result[0].orderr,
-            family                  :   result[0].family,
-            genus                   :   result[0].genus,
-            species                 :   result[0].species,
-            image                   :   result[0].image
+            animalID                : result[0].animalID,
+            animalName              : result[0].animalName,
+            genusName               : result[0].bacteriumGenusName,
+            speciesName             : result[0].bacteriumSpeciesName,
+            scientificName          : result[0].bacteriumScientificName,
+            tissueSpecifity         : result[0].bacteriumTissueSpecifity,
+            sampleType              : result[0].bacteriumSampleType,
+            isolation               : result[0].bacteriumIsolation,
+            identification          : result[0].bacteriumIdentification,
+            phylum                  : result[0].phylum,
+            class                   : result[0].class,
+            order                   : result[0].orderr,
+            family                  : result[0].family,
+            genus                   : result[0].genus,
+            species                 : result[0].species
         }
 
-        res.status(200).send({success:true, detail:"", data:dataDisplay});
+        res.status(200).send({success: true, detail:"", data:dataDisplay});
     });
    
 }
 
-exports.approvedAnimal = function(req, res, next){
+exports.selectAnimal = (req,res,next) =>{
+    let sql = "SELECT * FROM animal_t";
+    db.get().query(sql,(err,result)=>{
+        res.status(200).send({success: true, detail:"", data: result});
+    }); 
+}
 
-    let image = req.file.path;
-    let data = req.body;
-    let commonName = data.modalCommonName+"";
-    let scientificName = data.modalScientificName+"";
-    let finalScienctific = scientificName.split(' ');
-    let genusName = finalScienctific[0];
-    let scienceName = data.strScientificName+"";
-    let speciesName = finalScienctific[finalScienctific.length-1];
-    let bodySite = data.modalBodySite;
-    let isInserting = 1;
-    
-    
-    if (!req.file) {
-        res.status(200).send({ success: false, detail: "No Image Provide" });
-        return;
-    }
-    
-    let checkAnimal = function (cb) {
-        let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
-        db.get().query(sql, [commonName, scienceName], (err, result) => {
-            if (err) return cb(err);
-            if (result.length == 0) {
-                return cb(null, true);
-            }
-            else {
-                return cb(null, false);
-            }
-        });
-    };
+exports.viewBacteria = (req,res,next) =>{
 
-    let noGenus = function () {
-        speciesName = "spp.";
-        let sql = "SELECT animalTaxoID, phylum, class, orderr, family, genus FROM animaltaxo_t WHERE genus = ?";
-        db.get().query(sql, [genusName], (err, result) => { //pagkuha ng result ng taxo classification by a genus
-            if (err) return next(err);
+    let id = req.params.id;
+    let sql = "SELECT * "
 
-            if (result.length == 0) {
-                res.status(200).send({ success: false, detail: "Genus not found", error: 1 });
-            }
-            else {
-                insertAnimal(result);
-            }
-        });
-    };
-
-    /**
-     * This Function: iinsert na ng system sa database yung ininput ng User
-     * @param result ResultSet object, containing taxonomy of the animal.
-     */
-    let insertAnimal = function (result) {
-        let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalBodySite = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
-        let dataDisplay = {
-            commonName: commonName,
-            scientificName: scientificName,
-            bodySite: bodySite,
-            phylum: result[0].phylum,
-            class: result[0].class,
-            order: result[0].orderr,
-            family: result[0].family,
-            genus: result[0].genus,
-            species: speciesName,
-            image   : image
-        };
-
-        if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image, req.params.id], (error, result3) => {
-                if (error) return next(error);
-
-                res.status(200).send({ success: true, detail: "Successfully Added!", });
-            });
-        }
-
-        else {
-            res.status(200).send({ success: true, detail: "", data: dataDisplay });
-        }
-    };
-
-    checkAnimal((error, result) => {
-        if (error) return next(error);
-        if (result) {
-            if (scientificName.length > 1) {
-                if (speciesName == "spp") {
-                    noGenus();
-                }
-                else {
-
-                    //kapag kumpleto yung scientific name 
-                    let sql = "SELECT * FROM animaltaxo_t WHERE species = ?";
-                    db.get().query(sql, [speciesName], (err, result) => { //pagkuha ng result ng taxo classification by a species
-                        if (err) return next(err);
-                        if (result.length == 0) {
-                            res.status(200).send({ success: false, detail: "Species not found", error: 2});
-                        }
-                        else {
-                            insertAnimal(result);
-                        }
-                    })
-                }
-            }
-            else {
-                noGenus();
-            }
-        }
-        else {
-            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists" });
-        }
-    });
 }

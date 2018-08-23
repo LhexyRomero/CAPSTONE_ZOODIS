@@ -8,8 +8,9 @@
 
     <title>Zoonotic Disease Identification </title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
-    
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
+
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
     <link href="../assets/css/all.css" rel="stylesheet">
@@ -17,7 +18,7 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
-    <link href="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -28,18 +29,22 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    
-                        <li>
-                                <a href="notification">
-                                    <i class="now-ui-icons ui-1_bell-53"></i>
-                                    <p>Notifications</p>
-                                </a>
-                            </li>
-
+                    <li>
+                        <a href="notification">
+                            <i class="now-ui-icons ui-1_bell-53"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
                     <li>
                         <a href="dashboard">
                             <i class="now-ui-icons design_app"></i>
                             <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="journal">
+                            <i class="now-ui-icons education_agenda-bookmark"></i>
+                            <p>Journal</p>
                         </a>
                     </li>
                     <li class="active">
@@ -69,7 +74,7 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="#maintenance" aria-expanded="true" >
+                        <a data-toggle="collapse" href="#maintenance" aria-expanded="true">
                             <i class="now-ui-icons ui-2_settings-90"></i>
                             <p>
                                 Maintenance
@@ -117,13 +122,13 @@
                         </a>
                     </li>
                     <li>
-                            <a href="disease">
-                                <i>
-                                    <img src="../assets/img/disease.png" height="28px" width="28px">
-                                </i>
-                                <p>Disease</p>
-                            </a>
-                        </li>
+                        <a href="disease">
+                            <i>
+                                <img src="../assets/img/disease.png" height="28px" width="28px">
+                            </i>
+                            <p>Disease</p>
+                        </a>
+                    </li>
                     <li>
                         <a href="prevention">
                             <i>
@@ -160,18 +165,18 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                         <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="http://example.com/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i class="now-ui-icons media-1_button-power"></i>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Some Actions</span>
-                                            </p>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="/logout">Log-Out</a>
-                                        </div>
-                                    </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="now-ui-icons media-1_button-power"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Some Actions</span>
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="/logout">Log-Out</a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -184,60 +189,60 @@
                     <div class="col-md-7">
                         <div class="card">
                             <div class="card-header">
-                                        <h4 class="card-title"> Disease Table</h4>
+                                <h4 class="card-title"> Disease Table</h4>
                             </div>
                             <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table" id="diseaseTable">
-                                                <thead class="text-primary">
-                                                    <th>
-                                                        <small>
-                                                            <b>DISEASE</b>
-                                                        </small>
-                                                    </th>
-                                                    <th>
-                                                        <small>
-                                                            <b>DESCRIPTION</b>
-                                                        </small>
-                                                    </th>
-                                                    <th>
-                                                        <small>
-                                                            <b>ACTION</b>
-                                                        </small>
-                                                    </th>
-                                                </thead>
-                                                <tbody id="diseaseTableList">
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="diseaseTable">
+                                        <thead class="text-primary">
+                                            <th>
+                                                <small>
+                                                    <b>DISEASE</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>DESCRIPTION</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>ACTION</b>
+                                                </small>
+                                            </th>
+                                        </thead>
+                                        <tbody id="diseaseTableList">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="col-md-5">
                         <div class="card">
-                                <div class="card-header">
-                                        <h4 class="card-title"> Prevention Table</h4>
+                            <div class="card-header">
+                                <h4 class="card-title"> Prevention Table</h4>
                             </div>
                             <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table" id="preventionTable">
-                                                <thead class="text-primary">
-                                                    <th>
-                                                        <small>
-                                                            <b>DISEASE</b>
-                                                        </small>
-                                                    </th>
-                                                    <th>
-                                                        <small>
-                                                            <b>ACTION</b>
-                                                        </small>
-                                                    </th>
-                                                </thead>
-                                                <tbody id="preventionTableList">
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="preventionTable">
+                                        <thead class="text-primary">
+                                            <th>
+                                                <small>
+                                                    <b>DISEASE</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>ACTION</b>
+                                                </small>
+                                            </th>
+                                        </thead>
+                                        <tbody id="preventionTableList">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
@@ -251,7 +256,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content for-scroll">
                         <div class="modal-header">
-                                <h4 class="title title-up">Disease</h4>
+                            <h4 class="title title-up">Disease</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -262,11 +267,11 @@
                                     <div class="col-md-12">
                                         <div class="card-body">
                                             <div class="form-group has-label">
-                                                
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label>Bacteria Name</label>
-                                                        <select class="form-control" name="selectBacteria" id = "toSelectBacteria"></select>                
+                                                        <select class="form-control" name="selectBacteria" id="toSelectBacteria"></select>
                                                     </div>
                                                 </div>
 
@@ -278,10 +283,10 @@
 
                                                 <div class="row">
                                                     <div class="col-sm-10"><br>
-                                                            <label class="modalLabel">Symptoms</label>
+                                                        <label class="modalLabel">Symptoms</label>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                            <button type='button' onclick="addFieldEdit()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                        <button type='button' onclick="addFieldEdit()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
                                                     </div>
                                                 </div>
                                                 <div id="modalSymptoms">
@@ -290,120 +295,122 @@
                                         </div>
                                     </div>
                                 </div>
+                        </div>
+                        <div class="for-footer">
+                            <div align="right">
+                                <button type="button" class="btn btn-primary" onclick="updateDisease()">Save changes</button>
                             </div>
-                            <div class="for-footer">
-                                <div align="right">
-                                    <button type="button" class="btn btn-primary" onclick="updateDisease()">Save changes</button>
-                                </div>
-                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
             </div>
 
             <!--View Modal-->
-            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                            <div class="modal-header justify-content-center">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="title title-up">DISEASE INFORMATION</h4>
+                        <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="title title-up">DISEASE INFORMATION</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h6 id="viewDiseaseName"></h6>
+                            <p id="viewSelected"></p>
+                            <p id="viewDiseaseDesc"></p>
+
+                            <label><b>Symptoms</b></label>
+                            <div id="viewSymptoms"></div>
+
+                            <div class="row">
+
                             </div>
-                            <div class="modal-body">
-                                <h6 id ="viewDiseaseName"></h6>
-                                <p id ="viewSelected"></p>
-                                <p id ="viewDiseaseDesc"></p>
 
-                                <label><b>Symptoms</b></label>
-                                <div id ="viewSymptoms"></div>
 
-                                <div class="row">
-
-                                </div>
-
-                                
-                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content for-scroll">
-                            <div class="modal-header">
-                                    <h4 class="title title-up">Prevention</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body body-scroll">
-                                <form id="editPreventionForm" action="/updatePrevention" method="POST">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card-body">
-                                                <div class="form-group has-label">
-                                                    <label class="modalLabel">Disease Name</label>
-                                                    <select class="form-control" name="selectDisease" id = "toSelectDisease"></select>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-10"><br>
-                                                                <label class="modalLabel">Prevention</label>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                                <button type='button' onclick="addFieldEdit2()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <div id="modalPrevention">
-                                                    </div>
-                                            
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="for-footer">
-                                    <div align="right">
-                                        <button type="button" class="btn btn-primary" onclick="updatePrevention()">Save changes</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-            </div>
-    
-            <!--View Modal-->
-            <div class="modal fade" id="viewModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                                <div class="modal-header justify-content-center">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="title title-up">PREVENTION INFORMATION</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <h6 id ="viewPreventionName"></h6>
-    
-                                    <label><b>Prevention</b></label>
-                                    <div id ="viewPrevention"></div>
-    
-                                    <div class="row">
-    
-                                    </div>
-    
-                                    
-                                </div>
-                            </div>
-                        </div>
                 </div>
             </div>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content for-scroll">
+                    <div class="modal-header">
+                        <h4 class="title title-up">Prevention</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body body-scroll">
+                        <form id="editPreventionForm" action="/updatePrevention" method="POST">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <div class="form-group has-label">
+                                            <label class="modalLabel">Disease Name</label>
+                                            <select class="form-control" name="selectDisease" id="toSelectDisease"></select>
+
+                                            <div class="row">
+                                                <div class="col-sm-10"><br>
+                                                    <label class="modalLabel">Prevention</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type='button' onclick="addFieldEdit2()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                </div>
+                                            </div>
+
+                                            <div id="modalPrevention">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="for-footer">
+                        <div align="right">
+                            <button type="button" class="btn btn-primary" onclick="updatePrevention()">Save changes</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--View Modal-->
+        <div class="modal fade" id="viewModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="title title-up">PREVENTION INFORMATION</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h6 id="viewPreventionName"></h6>
+
+                        <label><b>Prevention</b></label>
+                        <div id="viewPrevention"></div>
+
+                        <div class="row">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
 
     <!--   Core JS Files   -->
@@ -492,4 +499,5 @@
         });
     </script>
 </body>
+
 </html>
