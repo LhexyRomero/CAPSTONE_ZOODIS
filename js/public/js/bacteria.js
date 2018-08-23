@@ -537,7 +537,6 @@ function editToxin(toxinID) {
         if (response.success == false) {
             S.notify("Error getting data from the server!");
         }
-
         else {
             $('select[name=modalSelect]').val(response.data.bacteriumID);
             $('input[name=modalToxinName]').val(response.data.name);

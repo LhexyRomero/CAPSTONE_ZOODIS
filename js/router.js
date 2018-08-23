@@ -30,6 +30,7 @@ const search = require('./controllers/admin/search');
 const disease = require('./controllers/admin/disease');
 const prevention = require('./controllers/admin/prevention');
 const notification = require('./controllers/admin/notification');
+const journal = require('./controllers/admin/journal');
 
 const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
@@ -157,6 +158,8 @@ router.get('/notificationViewDisease/:id',notification.viewDisease);
 router.get('/notificationSelectDisease',notification.selectDisease);
 router.get('/notificationViewPrevention/:id',notification.viewPrevention);
 router.get('/notificationViewAnimal/:id',notification.viewAnimal);
+router.get('/notificationSelectAnimal',notification.selectAnimal);
+router.get('/notificationViewBacteria/:id',notification.viewBacteria);
 
 router.post('/approvedAnimalTaxo/:id',notification.approvedAnimalTaxo);
 router.post('/rejectAnimalTaxo/:id',notification.rejectAnimalTaxo);
@@ -168,11 +171,13 @@ router.post('/notificationApprovedDisease/:id',notification.approvedDisease);
 router.post('/rejectDisease/:id',notification.rejectDisease);
 router.post('/notificationApprovedPrevention/:id',notification.approvedPrevention);
 router.post('/rejectPrevention/:id',notification.rejectPrevention);
-router.post('/approvedAnimal/:id',notification.approvedAnimal);
 
 router.get('/journal',auth.authenticate,(req,res,next)=>{
     res.render('journal');
 });
+
+router.get('/journalList',journal.journalList);
+router.post('/addJournal',journal.addJournal);
 
 router.get('/', (req,res)=>{
     res.redirect('/dashboard');
@@ -188,7 +193,7 @@ router.get('/contri_*', auth.authenticate, (req,res,next)=>{
 }); 
 //BELOW THIS ALL ROUTE NEEDS AUTHENTICATION
 
-router.get('/contri_Animal',(req,res,next)=>{
+router.get('/contri_Animal',auth.authenticate,(req,res,next)=>{
     res.render('contri_Animal');
 });
 
@@ -197,7 +202,7 @@ router.post('/contri_animal',upload.single("contri_animalImg"),contri_animal.add
 router.get('/contri_viewAnimal/:id',contri_animal.viewAnimal);
 router.get('/contri_animalList',contri_animal.animalList);
 
-router.get('/contri_animalTaxon',(req,res,next)=>{
+router.get('/contri_animalTaxon',auth.authenticate,(req,res,next)=>{
     res.render('contri_AnimalTaxon');
 });
 
@@ -207,7 +212,7 @@ router.get('/contri_animalTaxonList',contri_animal.animalTaxonList);
 router.get('/contri_viewAnimalTaxon/:id',contri_animal.viewAnimalTaxon);
 router.get('/contri_toSelectJournal',contri_animal.toSelectJournal);
 
-router.get('/contri_Bacteria',(req,res,next)=>{
+router.get('/contri_Bacteria',auth.authenticate,(req,res,next)=>{
     res.render('contri_Bacteria');
 });
 
@@ -221,11 +226,11 @@ router.get('/contri_toSelectJournal1',contri_bacteria.toSelectJournal);
 router.get('/contri_toSelectAnimal',contri_bacteria.toSelectAnimal);
 router.get('/contri_viewBacteria/:id',contri_bacteria.viewBacteria);
 
-router.get('/contri_BacteriaTaxon',(req,res,next)=>{
+router.get('/contri_BacteriaTaxon',auth.authenticate,(req,res,next)=>{
     res.render('contri_BacteriaTaxon');
 });
 
-router.get('/contri_Disease',(req,res,next)=>{
+router.get('/contri_Disease',auth.authenticate,(req,res,next)=>{
     res.render('contri_Disease');
 });
 
@@ -243,7 +248,7 @@ router.get('/contri_HostTable',(req,res,next)=>{
     res.render('contri_HostTable');
 });
 
-router.get('/contri_Prevention',(req,res,next)=>{
+router.get('/contri_Prevention',auth.authenticate,(req,res,next)=>{
     res.render('contri_Prevention');
 });
 
@@ -251,11 +256,11 @@ router.post('/contri_addPrevention',contri_prevention.addPrevention);
 router.get('/contri_toSelectDisease',contri_prevention.toSelectDisease);
 router.get('/contri_preventionList',contri_prevention.preventionList);
 
-router.get('/contri_Toxin',(req,res,next)=>{
+router.get('/contri_Toxin',auth.authenticate,(req,res,next)=>{
     res.render('contri_Toxin');
 });
 
-router.post('/contri_toxin',contri_bacteria.addToxin);
+router.post('/contri_toxin',auth.authenticate,contri_bacteria.addToxin);
 
 router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
 router.get('/contri_viewToxin/:id',contri_bacteria.viewToxin);

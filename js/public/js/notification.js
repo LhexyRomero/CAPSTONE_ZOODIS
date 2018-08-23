@@ -2,6 +2,38 @@ $(function () {
     notificationList();
     selectBacteria();
     selectDisease();
+    selectAnimal();
+
+    $('.toApprove').hide();
+    $('.searchAnimal').autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/animal/?data=" + req.term,
+                success: function (response) {
+                    res(response.data);
+                },
+                error: function (response) {
+                    console.log(response.detail);
+                },
+            });
+        },
+    });
+
+    $("input[name=strCommonName]").on("keyup", function () {
+        isInsertAnimal = 0;
+        $('.toClassify').hide();
+    });
+
+    $("input[name=strScientificName]").on("keyup", function () {
+        isInsertAnimal = 0;
+        $('.toClassify').hide();
+    });
+
+    $("input[name=strBodySite]").on("keyup", function () {
+        isInsertAnimal = 0;
+        $('.toClassify').hide();
+    });
 });
 isClicked = 0;
 function notificationList() {
@@ -539,7 +571,7 @@ function approvedDisease(eAdd) {
     }
 }
 
-function rejectDisease(){
+function rejectDisease() {
     if (isClicked != 0) {
         return;
     }
@@ -837,21 +869,21 @@ function selectDisease() {
 let viewPreventionID = 0;
 function viewPrevention(id) {
     viewPreventionID = id;
-    let url = "/notificationViewPrevention/"+viewPreventionID;
+    let url = "/notificationViewPrevention/" + viewPreventionID;
     console.log(url);
 
-    $.get(url,(response) =>{
-        if(response.success == false) {
+    $.get(url, (response) => {
+        if (response.success == false) {
             $.notify("Error getting data form the server!");
             return;
         }
 
         let data = response.data;
         $('select[name=selectDisease]').val(data.diseaseID);
-        
+
         $("#modalPreventionDisplay").html("");
 
-        data.preventions.forEach((element,index) => {
+        data.preventions.forEach((element, index) => {
             addFieldEdit2(element);
         });
 
@@ -922,7 +954,7 @@ function approvedPrevention(eAdd) {
     }
 }
 
-function rejectPrevention(){
+function rejectPrevention() {
     if (isClicked != 0) {
         return;
     }
@@ -1011,22 +1043,22 @@ function sendReasonPrevention() {
 }
 
 let viewAnimalID = 0;
-function viewAnimal(id){
+function viewAnimal(id) {
     viewAnimalID = id;
-    let url = "/notificationViewAnimal/"+viewAnimalID; 
+    let url = "/notificationViewAnimal/" + viewAnimalID;
 
-    $.get(url, (response) =>{
-        if(response.success == false ){
-            $.notify("Error getting data from the Server!",{type:"danger"});
+    $.get(url, (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the Server!", { type: "danger" });
             return;
         }
 
-        $('.animalEditPic').attr('src', response.data.image.replace('public','assets'))
+        $('.animalEditPic').attr('src', response.data.image.replace('public', 'assets'))
         $("input[name=modalCommonName]").val(response.data.animalName);
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
         $("input[name=modalBodySite]").val(response.data.bodySite);
 
-        $('.toClassify').on('click', ()=>{
+        $('.toClassify').on('click', () => {
             console.log('asd')
             $("input[name=modalPhylum2]").val(response.data.phylum);
             $("input[name=modalClass2]").val(response.data.classs);
@@ -1034,116 +1066,59 @@ function viewAnimal(id){
             $("input[name=modalFamily2]").val(response.data.family);
             $("input[name=modalGenus2]").val(response.data.genus);
             $("input[name=modalSpecies2]").val(response.data.species);
+
+            $('.toApprove').show();
+            $('.toClassify').hide();
         });
     });
 }
 
-function approvedAnimal(eAdd){
-    
-    eAdd.preventDefault();
-    let dataInsert = new FormData($("#modalAnimalForm")[0]);
-    let data = $("#modalAnimalForm").serializeArray();
-    let errCount = 0;
-    let invCount = 0;
+let viewBacteriaID = 0;
+function viewBacteria(id){
+    viewBacteriaID = id;    
+    let url = "/notificationViewBacteria/"+viewBacteriaID;
 
-    data.forEach((element, index) => {
-
-        if (element.value == "") {
-            $('input[name=' + element.name + ']').css("background", "#feebeb");
-            errCount++;
-            isClicked = 0;
+    $.get(url,(response)=>{
+        if(response.success == false) {
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
         }
 
-        else if (element.value.match(/[0-9*#\/]/g) != null) {
-            $('input[name=' + element.name + ']').css("background", "#feebeb");
-            invCount++;
-            isClicked = 0;
+        let data = response.data;
+        $("select[name=toSelect]").val(response.data.animalID);
+        $('input[name=genusName]').val(response.data.genusName);
+        $("input[name=speciesName]").val(response.data.speciesName);
+        $("input[name=tissueSpecifity]").val(response.data.tissueSpecifity);
+        $("input[name=sampleType]").val(response.data.sampleType);
+        $("input[name=isolation]").val(response.data.isolation);
+        $("input[name=identification]").val(response.data.identification);
+        
+        
+        $("input[name=bPhylum]").val(response.data.phylum);
+        $("input[name=bClass]").val(response.data.class);
+        $("input[name=bOrder]").val(response.data.order);
+        $("input[name=bFamily]").val(response.data.family);
+        $("input[name=bGenus]").val(response.data.genus);
+        $("input[name=bSpecies]").val(response.data.species);
+        $("input[name=modalScientificName]").val(response.data.scientificName);
+
+    });         
+}
+
+function selectAnimal() {
+    $.get("/notificationSelectAnimal",(response)=>{
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
         }
-
-        else {
-        }
-
-    });
-    
-    if (errCount > 0) {
-        $.notify("Fields must be filled out!", { type: "danger" });
-    }
-
-    else if (invCount > 0) {
-        $.notify("Invalid Character!", { type: "danger" });
-    }
-
-    else {
-        let submit = function () {
-            $.ajax({
-                type: "POST",
-                url: "/approvedAnimal/"  + viewAnimalID,
-                data: dataInsert,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    isClicked = 0;
-                    if (response.success == false) {
-                        isClicked = 0;
-
-                        if (response.error == 1) {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                        else if (response.error == 2) {
-                            $.notify(response.detail, { type: 'danger' });
-                        }
-
-                        else if (response.error == 3) {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                        else {
-                            $.notify(response.detail, { type: "danger" });
-                        }
-
-                    }
-                    else {
-
-                        if (response.data) {
-                            $("input[name=modalPhylum2]").val(response.data.phylum);
-                            $("input[name=modalClass2]").val(response.data.class);
-                            $("input[name=modalOrder2]").val(response.data.order);
-                            $("input[name=modalFamily2]").val(response.data.family);
-                            $("input[name=modalGenus2]").val(response.data.genus);
-                            $("input[name=modalSpecies2]").val(response.data.species);
-                            $("#toApprove").html("Approve");
-                            $.notify("Check before Approving!",{type:"warning"});
-                            isInsertAnimal = 1;
-                        }
-
-                        else {
-                            swal({
-                                title: "Success",
-                                text: response.detail,
-                                type: "success",
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Okay",
-                            });
-                        }
-                    }
-                }
-            });
-        };
-        swal({
-            title: "Warning!",
-            text: "Are you sure?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-        }).then(function (isConfirmed) {
-            if(isConfirmed){
-                submit();
-            }
+        let data = response.data;
+        console.log(data);
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.animalID + ">" + element.animalScientificName + "</option>";
         });
-    }
+        $('#toSelectAnimal').html(html);
+    });
 }
 
 let count = 0;
@@ -1232,7 +1207,7 @@ let deleteFieldEdit = function (selected) {
     $('.sympEditDiv' + selected).remove();
 }
 
-let addFieldEdit2 = function (value) { 
+let addFieldEdit2 = function (value) {
     if ($('.preventionEditDiv').length >= 10) {
         $.notify("You reached the maximum numbers of field!", { type: "danger" });
         return;

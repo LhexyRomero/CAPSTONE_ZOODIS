@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
@@ -8,9 +7,9 @@
     <link rel="icon" type="image/png" href="../assets/img/zoo.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Zoonotic Disease Identification</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
-    />
+    <title>Zoonotic Disease Identification System</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -18,22 +17,24 @@
 
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
     <link href="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
     <div class="wrapper ">
+
         <div class="sidebar" data-color="blue">
             <div class="logo">
-                &nbsp;<img width="240px" height="110px" src="../assets/img/zoodis.png">
+                &nbsp;
+                <img width="240px" height="110px" src="../assets/img/zoodis.png">
             </div>
 
             <div class="sidebar-wrapper">
-
                 <ul class="nav">
 
-                    <li class="active">
+                    <li>
                         <a href="notification">
                             <i class="now-ui-icons ui-1_bell-53"></i>
                             <p>Notifications</p>
@@ -46,7 +47,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="journal">
                             <i class="now-ui-icons education_agenda-bookmark"></i>
                             <p>Journal</p>
@@ -80,8 +81,8 @@
                         </div>
                     </li>
 
-                    <li class="active">
-                        <a data-toggle="collapse" href="#maintenance" aria-expanded="true">
+                    <li>
+                        <a data-toggle="collapse" href="#maintenance">
                             <i class="now-ui-icons ui-2_settings-90"></i>
                             <p>
                                 Maintenance
@@ -89,9 +90,9 @@
                             </p>
                         </a>
 
-                        <div class="collapse show" id="maintenance">
+                        <div class="collapse " id="maintenance">
                             <ul class="nav">
-                                <li class="active">
+                                <li>
                                     <a href="animalTaxon">
                                         <span class="sidebar-mini-icon">AX</span>
                                         <span class="sidebar-normal"> Animal Taxonomy </span>
@@ -104,6 +105,7 @@
                                         <span class="sidebar-normal"> Bacterium Taxonomy </span>
                                     </a>
                                 </li>
+
                                 <li>
                                     <a href="toxin">
                                         <span class="sidebar-mini-icon">T</span>
@@ -148,7 +150,6 @@
                     </li>
                 </ul>
             </div>
-
         </div>
 
 
@@ -164,7 +165,9 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo"><h5>ANIMAL TAXONOMY</h5></a>
+                        <a class="navbar-brand" href="#pablo">
+                            <h5>JOURNAL</h5>
+                        </a>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
@@ -196,144 +199,77 @@
             <!-- End Navbar -->
             <div class="panel-header panel-header-sm">
             </div>
+
             <div class="content">
-                <div class="row">
-                    <div class="col-md-12">
+                <form id="journalForm" method="POST" onsubmit="addJournal(event)">
+                    <div class = "row">
+                    <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title"> ANIMAL TAXONOMIC CLASSIFICATION</h5>
+                            <div class="card-header ">
+                                <h4 class="card-title"> JOURNAL FORM</h4>
                             </div>
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group has-label">
+                                            <label>Journal Code</label>
+                                            <input class="form-control" name="strJournalCode" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <div class="form-group has-label">
+                                    <div class="journalTxt">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <label>Journal Name</label>
+                                                <input class="form-control" name="strJournalName" type="text" />
+                                            </div>
+                                            <div class="col-md-10">
+                                                <label>DOI</label>
+                                                <input class="form-control" name="strDoi" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer" align="right">
+                                <button type="button" class="btn btn-warning" onclick="clearJournal()">Clear</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table" id="animalTaxonTable">
+                                    <table class="table" id="journalTable">
                                         <thead class="text-primary">
-                                            <th><small><b>PHYLUM</b></small></th>
-                                            <th><small><b>CLASS</b></small></th>
-                                            <th><small><b>ORDER</b></small></th>
-                                            <th><small><b>FAMILY</b></small></th>
-                                            <th><small><b>GENUS</b></small></th>
-                                            <th><small><b>SPECIES</b></small></th>
-                                            <th><small><b>ACTION</b></small></th>
+                                            <th>
+                                                <small>
+                                                    <b>JOURNAL NAME</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>ACTION</b>
+                                                </small>
+                                            </th>
                                         </thead>
-                                        <tbody id="animaltaxonTableList">
+                                        <tbody id="journalTableList">
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="card-button">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#AddCollapse" role="button" aria-expanded="true"
-                                        aria-controls="AddCollapse">Add</button>
-                                    <br>
-                                    <br>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="collapse" id="AddCollapse">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <form id="animalTaxonForm" method="POST" action="/animalTaxon" onsubmit="addAnimalTaxon(event)">
-
-                                    <div class="card-header ">
-                                        <button type="button" class="close" aria-label="Close" data-toggle="collapse" href="#AddCollapse">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h5 class="card-title">Animal taxonomic Classification</h5>
-                                    </div>
-
-                                    <div class="card-body ">
-
-                                        <div class="form-group has-label">
-                                            <label>Phylum</label>
-                                            <input class="form-control" name="strPhylum" type="text" />
-
-                                            <label>Class</label>
-                                            <input class="form-control" name="strClass" type="text" />
-
-                                            <label>Order</label>
-                                            <input class="form-control" name="strOrder" type="text" />
-
-                                            <label>Family</label>
-                                            <input class="form-control" name="strFamily" type="text" />
-
-                                            <label>Genus</label>
-                                            <input class="form-control" name="strGenus" type="text" />
-
-                                            <label>Species</label>
-                                            <input class="form-control" name="strSpecies" type="text" />
-
-                                        </div>
-                                        <h6 class="card-title">References</h6>
-                                        <div class="form-group has-label"><br>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Journal Number</label>
-                                                    <select class="form-control" name="selectJournal" id="toSelectJournal"></select><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" align="right">
-                                        <button type="button" class="btn btn-warning " onclick="clearAnimalTaxon(event)">Clear</button>
-                                        <button type="submit" class="btn btn-primary ">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-
-                </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editAnimalTaxonForm" action="/updateAnimalTaxon" method="POST">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="form-group has-label">
-                                                <label class="modalLabel">Phylum</label>
-                                                <input class="form-control" name="modalPhylum" type="text" />
-
-                                                <label class="modalLabel">Class</label>
-                                                <input class="form-control" name="modalClass" type="text" />
-
-                                                <label class="modalLabel">Order</label>
-                                                <input class="form-control" name="modalOrder" type="text" />
-
-                                                <label class="modalLabel">Family</label>
-                                                <input class="form-control" name="modalFamily" type="text" />
-
-                                                <label class="modalLabel">Genus</label>
-                                                <input class="form-control" name="modalGenus" type="text" />
-
-                                                <label class="modalLabel">Species</label>
-                                                <input class="form-control" name="modalSpecies" type="text" />
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div align="right">
-                                    <button type="button" class="btn btn-primary" onclick="updateAnimalTaxon()">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
             <footer class="footer">
+
                 <div class="container-fluid">
                     <nav>
                         <ul>
@@ -356,22 +292,23 @@
                     </nav>
                     <div class="copyright" id="copyright">
                         &copy;
-                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>,
-                        Designed by
+                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>, Designed by
                         <a href="https://www.invisionapp.com/" target="_blank">Invision</a>. Coded by
                         <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a>.
                     </div>
                 </div>
+
+
+
             </footer>
         </div>
-    </div>
 
+    </div>
 
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
-
 
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
@@ -427,7 +364,8 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
-    <script src="../assets/js/animal.js"></script>
+    <script src="../assets/js/journal.js"></script>
+
     <script>
         $(document).ready(function () {
             $sidebar = $('.sidebar');
@@ -441,8 +379,8 @@
             window_width = $(window).width();
 
             fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
             var $btn = $(this);
+
             // we simulate the window Resize so the charts will get updated in realtime.
             var simulateWindowResize = setInterval(function () {
                 window.dispatchEvent(new Event('resize'));
