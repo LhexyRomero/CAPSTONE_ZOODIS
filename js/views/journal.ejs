@@ -9,7 +9,8 @@
 
     <title>Zoonotic Disease Identification System</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -32,6 +33,44 @@
             </div>
 
             <div class="sidebar-wrapper">
+
+                <div class="user">
+                    <div class="photo">
+                        <img src="../assets/img/james.jpg" />
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            <span>
+                                James Amos
+                                <b class="caret"></b>
+                            </span>
+                        </a>
+                        <div class="clearfix"></div>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">MP</span>
+                                        <span class="sidebar-normal">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">EP</span>
+                                        <span class="sidebar-normal">Edit Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">S</span>
+                                        <span class="sidebar-normal">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="nav">
 
                     <li>
@@ -47,12 +86,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="journal">
-                            <i class="now-ui-icons education_agenda-bookmark"></i>
-                            <p>Journal</p>
-                        </a>
-                    </li>
+
                     <li>
                         <a data-toggle="collapse" href="#tableList">
                             <i class="now-ui-icons files_paper"></i>
@@ -143,9 +177,17 @@
                     <li>
                         <a href="prevention">
                             <i>
-                                <img src="../assets/img/prevention.png" height="28px" width="28px">
+                                <img src="../assets/img/preventionactive.png" height="28px" width="28px">
                             </i>
                             <p>Prevention</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="journal">
+                            <i>
+                                <img src="../assets/img/preventionactive.png" height="28px" width="28px">
+                            </i>
+                            <p>Journals</p>
                         </a>
                     </li>
                 </ul>
@@ -230,6 +272,7 @@
                                                 <label>DOI</label>
                                                 <input class="form-control" name="strDoi" type="text" />
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -268,6 +311,112 @@
                     </div>
                     </div>
             </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal" role="document">
+                                    <div class="modal-content for-scroll">
+                                        <div class="modal-header">
+                                            <h4 class="title title-up">JOURNAL DETAILS</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editJournal" action="/updateJournal" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card-body">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group has-label">
+                                                                            <label>Journal Code</label>
+                                                                            <input class="form-control" name="modalJournalCode" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                    <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group has-label">
+                                                                            <label>Journal Name</label>
+                                                                            <input class="form-control" name="modalJournalName" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group has-label">
+                                                                            <label>DOI</label>
+                                                                            <input class="form-control" name="modalDoi" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                 </div>
+                                                            
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="for-footer">
+                                                        <div align="right">
+                                                            <button type="button" class="btn btn-primary" id ="toSave" onclick="updateJournal()">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                        </div>
+<!--View Modal-->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content for-scroll">
+                    <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="title title-up">JOURNAL INFORMATION</h4> 
+                    </div>
+                    <div class="modal-body">
+                        <br><h6 id ="modalViewName"></h6>
+
+                        <div class="card-body">
+                            <div class="form-group has-label">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Journal Code</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="modalViewCode"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>DOI</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="modalViewDoi"></label>
+                                    </div>
+                                </div>
+                               
+                               
+                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+            </div>
+    
+
             <footer class="footer">
 
                 <div class="container-fluid">
@@ -303,6 +452,71 @@
             </footer>
         </div>
 
+    </div>
+
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Background</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger background-color">
+                        <div class="badge-colors text-center">
+                            <span class="badge filter badge-yellow" data-color="yellow"></span>
+                            <span class="badge filter badge-blue" data-color="blue"></span>
+                            <span class="badge filter badge-green" data-color="green"></span>
+                            <span class="badge filter badge-orange active" data-color="orange"></span>
+                            <span class="badge filter badge-red" data-color="red"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+
+
+                <li class="header-title">
+                    Sidebar Mini
+                </li>
+                <li class="adjustments-line">
+
+                    <div class="togglebutton switch-sidebar-mini">
+                        <span class="label-switch">OFF</span>
+                        <input type="checkbox" name="checkbox" checked class="bootstrap-switch" data-on-label="" data-off-label="" />
+                        <span class="label-switch label-right">ON</span>
+                    </div>
+                </li>
+
+                <li class="button-container">
+                    <a href="https://www.creative-tim.com/product/now-ui-dashboard-pro" target="_blank" class="btn btn-primary btn-block btn-round">Buy Now</a>
+                    <a href="https://demos.creative-tim.com/now-ui-dashboard-pro/docs/1.0/getting-started/introduction.html" target="_blank"
+                        class="btn btn-default btn-block btn-round">
+                        <i class="now-ui-icons files_single-copy-04"></i>
+                        Documentation
+                    </a>
+                    <a href="https://www.creative-tim.com/product/now-ui-dashboard" target="_blank" class="btn btn-info btn-block btn-round">
+                        <i class="now-ui-icons files_single-copy-04"></i>
+                        Get Free Demo!
+                    </a>
+                </li>
+
+
+
+
+                <li class="header-title">Thank you for 95 shares!</li>
+
+                <li class="button-container text-center">
+                    <button id="twitter" class="btn btn-round btn-info">
+                        <i class="fab fa-twitter"></i> &middot; 45</button>
+                    <button id="facebook" class="btn btn-round btn-info">
+                        <i class="fab fa-facebook-f"></i> &middot; 50</button>
+                    <br>
+                    <br>
+                    <a class="github-button" href="https://github.com/creativetimofficial/ct-now-ui-dashboard-pro" data-icon="octicon-star" data-size="large"
+                        data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!--   Core JS Files   -->

@@ -83,7 +83,7 @@ router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
 router.post('/animalTaxon', animal.addAnimalTaxon);
 router.post('/updateAnimalTaxon/:id',animal.updateAnimalTaxon);
 router.get('/animalTaxonList',animal.animalTaxonList);
-router.get('/editAnimalTaxon/:id',animal.editAnimalTaxon);
+router.get('/AnimalTaxon/:id',animal.editAnimalTaxon);
 
 router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('bacteriaTaxon');
@@ -178,6 +178,11 @@ router.get('/journal',auth.authenticate,(req,res,next)=>{
 
 router.get('/journalList',journal.journalList);
 router.post('/addJournal',journal.addJournal);
+router.get('/editJournal/:id',journal.editJournal);
+router.get('/viewJournal/:id',journal.viewJournal);
+router.post('/updateJournal/:id',journal.updateJournal);
+
+
 
 router.get('/', (req,res)=>{
     res.redirect('/dashboard');
