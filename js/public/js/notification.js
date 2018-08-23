@@ -1026,7 +1026,8 @@ function viewAnimal(id){
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
         $("input[name=modalBodySite]").val(response.data.bodySite);
 
-        $('#toClassify').on('click', ()=>{
+        $('.toClassify').on('click', ()=>{
+            console.log('asd')
             $("input[name=modalPhylum2]").val(response.data.phylum);
             $("input[name=modalClass2]").val(response.data.classs);
             $("input[name=modalOrder2]").val(response.data.order);
