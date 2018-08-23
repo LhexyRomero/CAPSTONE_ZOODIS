@@ -110,12 +110,29 @@ function addPrevention(eAdd) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
             });
+            clearPrevention();
             preventionList();
         });
 
     })
 
     
+}
+
+function clearPrevention() {
+    $('select[name=selectDisease]').val("");
+    $('input[name=strPrevention]').val("");
+    $('input[name=prevention0]').val("");
+    $('input[name=prevention1]').val("");
+    $('input[name=prevention2]').val("");
+    $('input[name=prevention3]').val("");
+    $('input[name=prevention4]').val("");
+    $('input[name=prevention5]').val("");
+    $('input[name=prevention6]').val("");
+    $('input[name=prevention7]').val("");
+    $('input[name=prevention8]').val("");
+    isClick=0;
+
 }
 
 function toSelectDisease() {

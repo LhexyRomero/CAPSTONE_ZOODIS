@@ -281,11 +281,7 @@ exports.updateAnimal = function(req, res, next){
     let speciesName = finalScienctific[finalScienctific.length-1];
     let bodySite = data.modalBodySite;
     let isInserting = 1;
-    
-    /**
-     * This function: ichecheck kung existing na ba yung ilalagay ng user sa may database
-     * @param cb Callback function
-     */
+
     let checkAnimal = function (cb) {
         let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
         db.get().query(sql, [commonName, scienceName], (err, result) => {
@@ -299,10 +295,6 @@ exports.updateAnimal = function(req, res, next){
         });
     };
 
-    /**
-     * This function run when no species provided in the scientific name, 
-     * also return set of suggestion to the client if ever a non-existing genus is provided.
-     */
     let noGenus = function () {
         //kapag walang prinovide yung user ng species
         speciesName = "spp.";
@@ -319,10 +311,6 @@ exports.updateAnimal = function(req, res, next){
         });
     };
 
-    /**
-     * This Function: iinsert na ng system sa database yung ininput ng User
-     * @param result ResultSet object, containing taxonomy of the animal.
-     */
     let insertAnimal = function (result) {
         let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalBodySite = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
         let dataDisplay = {

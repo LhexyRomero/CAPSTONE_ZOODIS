@@ -406,11 +406,6 @@ exports.updateBacteria = (req,res,next) => {
     let sample = data.modalSample;
     let isolation = data.modalIsolation;
     let identification = data.modalIdentification;
-    let gramStain = data.modalGramStain;
-    let length = data.modalLength;
-    let width = data.modalWidth;
-    let shape = data.modalShape;
-    let motility = data.modalMotility;
 
     let checkBacteria = (cb) => {
         console.log("checking function to boi");
@@ -459,8 +454,8 @@ exports.updateBacteria = (req,res,next) => {
     }
 
     let updateBacteria = (result) => {
-        let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, bacteriumGramStain =?,bacteriumCellLength =?, bacteriumCellWidth = ?, bacteriumCellShape = ?, bacteriumMotility =? , animalID = ?,bacteriumTaxoID =? WHERE bacteriumID = ?";
-        db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,gramStain,length,width,shape,motility,animalID,result[0].bacteriumTaxoID,id],(err,result) =>{
+        let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, animalID = ?,bacteriumTaxoID =? WHERE bacteriumID = ?";
+        db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,animalID,result[0].bacteriumTaxoID,id],(err,result) =>{
             if(err) return next(err);
 
             res.status(200).send({success: true, detail:"Batceria Successfully Updates",});

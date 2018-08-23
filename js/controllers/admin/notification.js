@@ -43,8 +43,8 @@ exports.approvedAnimalTaxo = (req, res, next) => {
     let status = "approved";
     let category = "Animal Taxonomy"
 
-    let sql = "UPDATE notification_t SET state=?, status=? , date = CURRENT_DATE WHERE category =? AND addedID =?";
-    let sql1 = "UPDATE animaltaxo_t SET phylum=?, class=?, orderr=?, family=?, date = ?,genus=?, species=?, status=? WHERE animalTaxoID = ?";
+    let sql = "UPDATE notification_t SET state=?, status=? , dateTime = CURRENT_DATE WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE animaltaxo_t SET phylum=?, class=?, orderr=?, family=?, date = CURRENT_DATE,genus=?, species=?, status=? WHERE animalTaxoID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [phylum, classs, order, family, genus, species, status, id], (err1, result1) => {
