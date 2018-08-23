@@ -36,6 +36,7 @@ const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
 const contri_disease = require('./controllers/contributors/disease');
 const contri_prevention = require('./controllers/contributors/prevention');
+const contri_notification = require('./controllers/contributors/notification');
 
 router.get('/', (_,res,__)=>{
     res.redirect('/dashboard');
@@ -75,6 +76,10 @@ router.get('/hostTable', auth.authenticate,(req,res,next)=>{
 
 router.get('/diseaseTable', auth.authenticate,(req,res,next)=>{
     res.render('diseaseTable');
+});
+
+router.get('/rejectTable', auth.authenticate,(req,res,next)=>{
+    res.render('rejectTable');
 });
 
 router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
@@ -268,6 +273,8 @@ router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{
 router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
     res.render('contri_Notification');
 });
+
+router.get('/notiCard',contri_notification.notiCard);
 
 /**
  * 404 error handler
