@@ -32,6 +32,7 @@ const prevention = require('./controllers/admin/prevention');
 const notification = require('./controllers/admin/notification');
 const journal = require('./controllers/admin/journal');
 const reject = require('./controllers/admin/reject');
+const staff = require('./controllers/admin/staff');
 
 const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
@@ -194,7 +195,12 @@ router.get('/editJournal/:id',journal.editJournal);
 router.get('/viewJournal/:id',journal.viewJournal);
 router.post('/updateJournal/:id',journal.updateJournal);
 
+router.get('/staffTable',auth.authenticate, (req,res,next)=>{
+    res.render('staff');
+});
 
+router.get('/staffList',staff.staffList);
+router.post('/code',staff.code);
 
 router.get('/', (req,res)=>{
     res.redirect('/dashboard');

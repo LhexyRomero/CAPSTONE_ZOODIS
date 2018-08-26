@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../assets/img/zoo.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Zoonotic Disease Identification</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
+
+    <!--     Fonts and icons     -->
+    <link href="../assets/css/font.css" rel="stylesheet" />
+    <link href="../assets/css/all.css" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.min69ea.css?v=1.1.2" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper ">
+
+        <div class="sidebar" data-color="blue">
+            <div class="logo">
+                &nbsp;
+                <img width="240px" height="110px" src="../assets/img/zoodis.png">
+            </div>
+
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <div class="user">
+                        <div class="photo">
+                            <img src="../assets/img/james.jpg" />
+                        </div>
+                        <div class="info">
+                            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                                <span>
+                                    James Amos
+                                    <b class="caret"></b>
+                                </span>
+                            </a>
+                            <div class="clearfix"></div>
+                            <div class="collapse" id="collapseExample">
+                                <ul class="nav">
+                                    <li>
+                                        <a href="#">
+                                            <span class="sidebar-mini-icon">MP</span>
+                                            <span class="sidebar-normal">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="staffTable">
+                                            <span class="sidebar-mini-icon">ST</span>
+                                            <span class="sidebar-normal">Staff Table</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <span class="sidebar-mini-icon">CA</span>
+                                            <span class="sidebar-normal">Create Account</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <li>
+                        <a href="notification">
+                            <i class="now-ui-icons ui-1_bell-53"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="dashboard">
+                            <i class="now-ui-icons design_app"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="journal">
+                            <i class="now-ui-icons education_agenda-bookmark"></i>
+                            <p>Journal</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#tableList">
+                            <i class="now-ui-icons files_paper"></i>
+                            <p>
+                                Table List
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse " id="tableList">
+                            <ul class="nav">
+                                <li>
+                                    <a href="hostTable">
+                                        <span class="sidebar-mini-icon">HT</span>
+                                        <span class="sidebar-normal"> Hosts Table </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="diseaseTable ">
+                                        <span class="sidebar-mini-icon">D</span>
+                                        <span class="sidebar-normal"> Disease Table </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="rejectTable">
+                                        <span class="sidebar-mini-icon">RT</span>
+                                        <span class="sidebar-normal"> Reject Table </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#maintenance" aria-expanded="true">
+                            <i class="now-ui-icons ui-2_settings-90"></i>
+                            <p>
+                                Maintenance
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+
+                        <div class="collapse" id="maintenance">
+                            <ul class="nav">
+                                <li>
+                                    <a href="animalTaxon ">
+                                        <span class="sidebar-mini-icon">AX</span>
+                                        <span class="sidebar-normal"> Animal Taxonomy </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="bacteriaTaxon ">
+                                        <span class="sidebar-mini-icon">BX</span>
+                                        <span class="sidebar-normal"> Bacterium Taxonomy </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="toxin ">
+                                        <span class="sidebar-mini-icon">T</span>
+                                        <span class="sidebar-normal"> Toxins </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="animal ">
+                            <i>
+                                <img src="../assets/img/animal.png" height="28px" width="28px">
+                            </i>
+                            <p>Animal</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bacteria ">
+                            <i>
+                                <img src="../assets/img/bacteria.png" height="28px" width="28px">
+                            </i>
+                            <p>Bacteria</p>
+                        </a>
+                    </li>
+                    <li class>
+                        <a href="disease">
+                            <i>
+                                <img src="../assets/img/disease.png" height="28px" width="28px">
+                            </i>
+                            <p>Disease</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="prevention">
+                            <i>
+                                <img src="../assets/img/prevention.png" height="28px" width="28px">
+                            </i>
+                            <p>Prevention</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo">
+                            <h5>STAFF TABLE</h5>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="now-ui-icons media-1_button-power"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Some Actions</span>
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="/logout">Log-Out</a>
+                                </div>
+
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-sm">
+            </div>
+            <div class="content">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-12 ml-auto mr-auto">
+                            <div class="card-body ">
+                                <div class="card-header">
+                                    <label>To create Account: </label> &nbsp;
+                                    <a data-toggle='modal' href='#generate'>
+                                        <button type="submit" class="btn btn-primary" onclick="generate()">Generate Code</button>
+                                    </a>
+                                    <br>
+                                    <br>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="staffTable">
+                                        <thead class="text-primary">
+                                            <th>
+                                                <small>
+                                                    <b>STAFF NAME</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>USERNAME</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>EMAIL</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>CONTACT</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>ACTION</b>
+                                                </small>
+                                            </th>
+                                        </thead>
+                                        <tbody id="staffList">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Generate Code-->
+            <div class="modal fade" id="generate" tabindex="-1" role="dialog" aria-labelledby="generate" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="form-group has-label">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form id="codeForm" method="POST" onsubmit="code(event)">
+                                            <h4>
+                                                <b>
+                                                    <center>CODE</center>
+                                                </b>
+                                            </h4>
+                                            <input class="form-control" name="generate" id="generate" />
+                                            <center>
+                                                <button type="submit" class="btn btn-primary">Okay</button>
+                                            </center>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <footer class="footer">
+
+                <div class="container-fluid">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="https://www.creative-tim.com/">
+                                    Creative Tim
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://presentation.creative-tim.com/">
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://blog.creative-tim.com/">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright" id="copyright">
+                        &copy;
+                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>, Designed by
+                        <a href="https://www.invisionapp.com/" target="_blank">Invision</a>. Coded by
+                        <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a>.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
+
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+
+    <!--  Plugin for Sweet Alert -->
+    <script src="../assets/js/plugins/sweetalert2.min.js"></script>
+
+    <!-- Forms Validations Plugin -->
+    <script src="../assets/js/plugins/jquery.validate.min.js"></script>
+
+    <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
+
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script>
+
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+    <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
+
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
+
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../assets/js/plugins/nouislider.min.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="../../../../buttons.github.io/buttons.js"></script>
+
+    <!-- Chart JS -->
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/now-ui-dashboard.min69ea.js?v=1.1.2" type="text/javascript"></script>
+
+    <!-- Sharrre libray -->
+    <script src="../assets/demo/jquery.sharrre.js"></script>
+    <script src="../assets/js/staff.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $sidebar = $('.sidebar');
+            $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+            $full_page = $('.full-page');
+
+            $sidebar_responsive = $('body > .navbar-collapse');
+            sidebar_mini_active = true;
+
+            window_width = $(window).width();
+
+            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+            var $btn = $(this);
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+                window.dispatchEvent(new Event('resize'));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+                clearInterval(simulateWindowResize);
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
