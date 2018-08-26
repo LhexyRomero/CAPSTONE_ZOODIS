@@ -4,7 +4,13 @@ const router = express.Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
-        cb(null, "public/image_upload");
+        let file_extension = file.mimetype.split('/')[1];
+        if(file_extension == "jpg" || file_extension == "png"){
+            cb(null, "public/image_upload");
+        }
+        else {
+            cb(null, "public/others");
+        }
     },
     filename: (req, file, cb)=>{
         let generateToken = function(size){
@@ -51,7 +57,7 @@ router.route('/login')
         res.render('login', res.locals);
     });
 
-router.get('/logout', auth.logout);
+router.get('/logout', auth.logout); 
 
 router.get('/register',(req,res,next)=>{
     var result = req.query.error || false;
@@ -189,11 +195,15 @@ router.get('/journal',auth.authenticate,(req,res,next)=>{
     res.render('journal');
 });
 
+router.get('/toSelectStaffName',journal.toSelectStaffName);
+router.get('/toSelectJournal1',journal.toSelectJournal);
 router.get('/journalList',journal.journalList);
-router.post('/addJournal',journal.addJournal);
 router.get('/editJournal/:id',journal.editJournal);
 router.get('/viewJournal/:id',journal.viewJournal);
+
+router.post('/addJournal',upload.single('myfile'),journal.addJournal);
 router.post('/updateJournal/:id',journal.updateJournal);
+router.post('/assignedJournal',journal.assignedJournal);
 
 router.get('/staffTable',auth.authenticate, (req,res,next)=>{
     res.render('staff');
@@ -201,6 +211,8 @@ router.get('/staffTable',auth.authenticate, (req,res,next)=>{
 
 router.get('/staffList',staff.staffList);
 router.post('/code',staff.code);
+router.post('/updateTypeToAdmin/:id',staff.updateTypeToAdmin);
+router.post('/updateTypeToContributor/:id',staff.updateTypeToContributor);
 
 router.get('/', (req,res)=>{
     res.redirect('/dashboard');
@@ -289,6 +301,9 @@ router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
 });
 
 router.get('/notiCard',contri_notification.notiCard);
+router.get('/notifyJournal',contri_notification.notifyJournal);
+
+router.post('/setJournal',contri_notification.setJournal);
 router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
 
 /**

@@ -1,5 +1,6 @@
 $(function(){
     notiCard();
+    notificationJournal();
 });
 
 function notiCard(){
@@ -59,5 +60,48 @@ function updateNotiCard(id) {
             return;
         }
         notiCard();
+    });
+}
+
+function notificationJournal(){
+    
+    return $.get('/notifyJournal',(response)=>{
+        console.log("here");
+        if(response.success == false){
+            return;
+        }
+        $("#journalCode").val(response.data.code);
+        $("#journalName").val(response.data.name);
+        swal({
+            title: 'Journal',
+            text: response.detail,
+            type: 'success',
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Okay'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post("/setJournal", (response) =>{
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Error Accepting Journal!",
+                            type: "error",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: response.detail,
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+                });
+            }
+        })
     });
 }
