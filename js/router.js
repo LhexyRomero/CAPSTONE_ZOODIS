@@ -67,7 +67,7 @@ router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('dashboard');
 });
 
-router.get('/user',(req,res,next)=>{
+router.get('/user',auth.authenticate,(req,res,next)=>{
     res.render('user');
 });
 
