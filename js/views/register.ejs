@@ -37,6 +37,16 @@
                             </div>
                             <div class="card-body ">
                                 <form class="form" method="POST">
+                                    
+                                        <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="now-ui-icons users_circle-08"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="code" class="form-control" placeholder="Code">
+                                            </div>
+        
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -45,7 +55,6 @@
                                         </div>
                                         <input type="text" name="fname" class="form-control" placeholder="First Name">
                                     </div>
-
 
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -79,9 +88,6 @@
                                     <h6>
                                         <a href="login">LOGIN?</a>
                                     </h6>
-                                    <h6>
-                                        <a href="dashboard">DASHBOARD</a>
-                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -112,9 +118,11 @@
     <%
         var script = "";
         if(regError==1){
-            script = "<script type='text/javascript'>alert('Invalid Input')</script>";
+            script = "<script type='text/javascript'>alert('All fields must be filled!')</script>";
         }else if(regError==2){
             script = "<script type='text/javascript'>alert('Register Successful')</script>";
+        }else if(regError==3){
+            script = "<script type='text/javascript'>alert('Invalid Code!')</script>";
         }else{
             script;
         }

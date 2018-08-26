@@ -16,15 +16,50 @@ function staffList() {
             row += "<td>" + element.firstName +" "+ element.lastName+ "</td>";
             row += "<td>" + element.userName + "</td>";
             row += "<td>" + element.email + "</td>";
-            row += "<td>" + element.contact + "</td>";
-            row += "<td onclick='(" + element.animalTaxoID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
+            row += "<td>" + element.contact + "</td>"; //I need ID of this specific user... is it element.id?
+            if(element.type == 2){
+                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "admin" type="checkbox" value='+ element.staffID +' checked=""><span class="form-check-sign"></span></label></td>';
+            }
+            else{
+                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "contributor" type="checkbox" value='+ element.staffID +' ><span class="form-check-sign"></span></label></td>';
+            }
             row += "</tr>";
             html += row;
         });
         $('#staffList').html(html);
+        $('.admin-switch').on('click', adminSwitch);
         $('#staffTable').dataTable();
-
     });
+}
+
+function adminSwitch(event){
+    if(this.checked){
+        let staffID = this.value;
+        console.log("CHECKED"+staffID);
+
+        let url = "/updateTypeToAdmin/" + staffID;
+        $.post(url,(response)=>{
+            if(response.success == false){
+                $.notify("Error changing Contributor to Admin!",{type:"danger"});
+                return;
+            }
+            $.notify(response.detail,{type:"success"});
+        });
+    }
+
+    else{
+        let staffID = this.value;
+        console.log("UNCHECKED"+staffID);
+
+        let url = "/updateTypeToContributor/" + staffID;
+        $.post(url,(response)=>{
+            if(response.success == false){
+                $.notify("Error changing Admin to Contributor!",{type:"danger"});
+                return;
+            }
+            $.notify(response.detail,{type:"success"});
+        });
+    }
 }
 
 function generate(){

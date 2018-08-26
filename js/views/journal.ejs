@@ -198,6 +198,7 @@
 
 
         <div class="main-panel">
+
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary ">
                 <div class="container-fluid">
@@ -241,11 +242,11 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div class="panel-header panel-header-sm">
-            </div>
+            <div class="panel-header panel-header-sm"></div>
+
 
             <div class="content">
-                <form id="journalForm" method="POST" onsubmit="addJournal(event)">
+                <form enctype="multipart/form-data" id="journalForm" method="POST" onsubmit="addJournal(event)">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
@@ -261,20 +262,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-header">
-                                    <div class="form-group has-label">
-                                        <div class="journalTxt">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <label>Journal Name</label>
-                                                    <input class="form-control" name="strJournalName" type="text" />
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <label>DOI</label>
-                                                    <input class="form-control" name="strDoi" type="text" />
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group has-label">
+                                                <label>Journal Name</label>
+                                                <input class="form-control" name="strJournalName" type="text" />
 
+                                                <label>DOI</label>
+                                                <input class="form-control" name="strDoi" type="text" />
+
+                                                <br>
+                                                <div class="form-group form-file-upload form-file-simple">
+                                                    <input type="text" name="inputfile" class="form-control inputFileVisible" placeholder="Select a File">
+                                                    <input type="file" name="myfile" class="inputFileHidden" style="z-index: -1;">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -290,6 +291,14 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
+                            <div class="card-header">
+                                <label>To Assign Journal: </label> &nbsp;
+                                <a data-toggle='modal' href='#journal'>
+                                    <button type="submit" class="btn btn-primary" onclick="">Assign Journal</button>
+                                </a>
+                                <br>
+                                <br>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table" id="journalTable">
                                     <thead class="text-primary">
@@ -313,150 +322,179 @@
                 </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal" role="document">
-                    <div class="modal-content for-scroll">
-                        <div class="modal-header">
-                            <h4 class="title title-up">JOURNAL DETAILS</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editJournal" action="/updateJournal" method="POST">
-                                <div class="row">
-                                    <div class="col-md-12">
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal" role="document">
+                <div class="modal-content for-scroll">
+                    <div class="modal-header">
+                        <h4 class="title title-up">JOURNAL DETAILS</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editJournal" action="/updateJournal" method="POST">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-body">
                                         <div class="card-body">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group has-label">
-                                                            <label>Journal Code</label>
-                                                            <input class="form-control" name="modalJournalCode" type="text">
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group has-label">
+                                                        <label>Journal Code</label>
+                                                        <input class="form-control" name="modalJournalCode" type="text">
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group has-label">
-                                                            <label>Journal Name</label>
-                                                            <input class="form-control" name="modalJournalName" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group has-label">
-                                                            <label>DOI</label>
-                                                            <input class="form-control" name="modalDoi" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group has-label">
+                                                        <label>Journal Name</label>
+                                                        <input class="form-control" name="modalJournalName" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group has-label">
+                                                        <label>DOI</label>
+                                                        <input class="form-control" name="modalDoi" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                    </div>
+                    <div class="for-footer">
+                        <div align="right">
+                            <button type="button" class="btn btn-primary" id="toSave" onclick="updateJournal()">Save changes
+                            </button>
                         </div>
-                        <div class="for-footer">
-                            <div align="right">
-                                <button type="button" class="btn btn-primary" id="toSave" onclick="updateJournal()">Save
-                                    changes</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <!--View Modal-->
+        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content for-scroll">
+                    <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="title title-up">JOURNAL INFORMATION</h4>
+                    </div>
+                    <div class="modal-body">
+                        <br><h6 id="modalViewName"></h6>
+
+                        <div class="card-body">
+                            <div class="form-group has-label">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Journal Code</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="modalViewCode"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>DOI</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>:</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label id="modalViewDoi"></label>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-                </form>
+
             </div>
         </div>
-    </div>
-    <!--View Modal-->
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content for-scroll">
-                <div class="modal-header justify-content-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="title title-up">JOURNAL INFORMATION</h4>
-                </div>
-                <div class="modal-body">
-                    <br><h6 id="modalViewName"></h6>
 
-                    <div class="card-body">
+        <!-- Modal Assigned Journal-->
+        <div class="modal fade" id="journal" tabindex="-1" role="dialog" aria-labelledby="journal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h6 class="title title-up">JOURNAL</h6>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <label>Journal Code</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>:</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label id="modalViewCode"></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>DOI</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>:</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label id="modalViewDoi"></label>
+                                <div class="col-md-12">
+                                    <form id="assignedJournalForm" method="POST" onsubmit="assignedJournal(event)">
+                                        <div class="form-group has-label">
+                                            <label>Staff Name</label>
+                                            <select class="form-control" name="selectStaffName" id="toSelectStaffName"></select>
+                                            
+                                            <label>Journal Name</label>
+                                            <select class="form-control" name="selectJournalName" id="toSelectJournal"></select>
+                                        </div>
+                                        <center>
+                                            <button type="submit" class="btn btn-primary">Assign</button>
+                                        </center>
+                                    </form>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
+        <footer class="footer">
 
-
-    <footer class="footer">
-
-        <div class="container-fluid">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com/">
-                            Creative Tim
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://presentation.creative-tim.com/">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://blog.creative-tim.com/">
-                            Blog
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright" id="copyright">
-                &copy;
-                <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>,
-                Designed by
-                <a href="https://www.invisionapp.com/" target="_blank">Invision</a>. Coded by
-                <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a>.
+            <div class="container-fluid">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com/">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://presentation.creative-tim.com/">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com/">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright" id="copyright">
+                    &copy;
+                    <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>,
+                    Designed by
+                    <a href="https://www.invisionapp.com/" target="_blank">Invision</a>. Coded by
+                    <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a>.
+                </div>
             </div>
-        </div>
 
 
 
-    </footer>
-    </div>
-
+        </footer>
     </div>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
