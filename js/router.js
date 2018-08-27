@@ -39,6 +39,7 @@ const notification = require('./controllers/admin/notification');
 const journal = require('./controllers/admin/journal');
 const reject = require('./controllers/admin/reject');
 const staff = require('./controllers/admin/staff');
+const sample = require('./controllers/admin/sample');
 
 const contri_auth = require('./controllers/contributors/auth');
 const contri_animal = require('./controllers/contributors/animal');
@@ -78,6 +79,8 @@ router.get('/dashboard', auth.authenticate,(req,res,next)=>{
 router.get('/sampleAlgo',auth.authenticate,(req,res,next)=>{
     res.render('sampleAlgo');
 });
+
+router.post('/sample',sample.sample);
 
 router.get('/user',auth.authenticate,(req,res,next)=>{
     res.render('user');
