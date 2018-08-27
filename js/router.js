@@ -302,6 +302,7 @@ router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
 
 router.get('/notiCard',contri_notification.notiCard);
 router.get('/notifyJournal',contri_notification.notifyJournal);
+router.get('/downloadJournal/:filename',contri_notification.downloadJournal);
 
 router.post('/setJournal',contri_notification.setJournal);
 router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
