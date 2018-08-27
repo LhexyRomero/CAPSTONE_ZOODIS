@@ -40,6 +40,7 @@ const journal = require('./controllers/admin/journal');
 const reject = require('./controllers/admin/reject');
 const staff = require('./controllers/admin/staff');
 
+const contri_auth = require('./controllers/contributors/auth');
 const contri_animal = require('./controllers/contributors/animal');
 const contri_bacteria = require('./controllers/contributors/bacteria');
 const contri_disease = require('./controllers/contributors/disease');
@@ -232,7 +233,7 @@ router.get('/contri_Animal',auth.authenticate,(req,res,next)=>{
     res.render('contri_Animal');
 });
 
-router.post('/contri_animal',upload.single("contri_animalImg"),contri_animal.addAnimal);
+router.post('/contri_animal',upload.single("contri_animalImg"), contri_auth, contri_animal.addAnimal);
 
 router.get('/contri_viewAnimal/:id',contri_animal.viewAnimal);
 router.get('/contri_animalList',contri_animal.animalList);
@@ -241,7 +242,7 @@ router.get('/contri_animalTaxon',auth.authenticate,(req,res,next)=>{
     res.render('contri_AnimalTaxon');
 });
 
-router.post('/contri_animalTaxon',contri_animal.addAnimalTaxon);
+router.post('/contri_animalTaxon', contri_auth, contri_animal.addAnimalTaxon);
 
 router.get('/contri_animalTaxonList',contri_animal.animalTaxonList);
 router.get('/contri_viewAnimalTaxon/:id',contri_animal.viewAnimalTaxon);
@@ -251,8 +252,8 @@ router.get('/contri_Bacteria',auth.authenticate,(req,res,next)=>{
     res.render('contri_Bacteria');
 });
 
-router.post('/contri_bacteriaTaxon',contri_bacteria.addBacteriaTaxon);
-router.post('/contri_bacteria',contri_bacteria.addBacteria);
+router.post('/contri_bacteriaTaxon', contri_auth, contri_bacteria.addBacteriaTaxon);
+router.post('/contri_bacteria', contri_auth, contri_bacteria.addBacteria);
 
 router.get('/contri_bacteriaList',contri_bacteria.bacteriaList);
 router.get('/contri_bacteriaTaxonList',contri_bacteria.bacteriaTaxonList);
@@ -269,7 +270,7 @@ router.get('/contri_Disease',auth.authenticate,(req,res,next)=>{
     res.render('contri_Disease');
 });
 
-router.post('/contri_disease',contri_disease.addDisease);
+router.post('/contri_disease', contri_auth, contri_disease.addDisease);
 router.get('/contri_toSelectBacteriaDisease',contri_disease.toSelectBacteriaDisease);
 router.get('/contri_toSelectJournalDisease',contri_disease.toSelectJournalDisease);
 router.get('/contri_diseaseList',contri_disease.diseaseList);
@@ -279,7 +280,7 @@ router.get('/contri_Prevention',auth.authenticate,(req,res,next)=>{
     res.render('contri_Prevention');
 });
 
-router.post('/contri_addPrevention',contri_prevention.addPrevention);
+router.post('/contri_addPrevention', contri_auth, contri_prevention.addPrevention);
 router.get('/contri_toSelectDisease',contri_prevention.toSelectDisease);
 router.get('/contri_preventionList',contri_prevention.preventionList);
 
@@ -287,7 +288,7 @@ router.get('/contri_Toxin',auth.authenticate,(req,res,next)=>{
     res.render('contri_Toxin');
 });
 
-router.post('/contri_toxin',contri_bacteria.addToxin);
+router.post('/contri_toxin', contri_auth, contri_bacteria.addToxin);
 
 router.get('/contri_toxinList',contri_bacteria.toxinList);
 router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
