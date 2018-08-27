@@ -9,6 +9,8 @@ exports.addJournal = (req, res, next) => {
     let name = data.strJournalName;
     let doi = data.strDoi;
     let status = "Incomplete";
+    let state = "notify";
+    let message = "Assigned journal is ready to download!";
 
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No File Provided!" });
@@ -35,8 +37,8 @@ exports.addJournal = (req, res, next) => {
 
     let insertJournal = () => {
 
-        let sql = "INSERT INTO journal_t (code,name,doi,status,file) VALUES (?,?,?,?,?)";
-        db.get().query(sql, [code, name, doi, status, pdf], (err, result) => {
+        let sql = "INSERT INTO journal_t (code,name,doi,status,file,state,message) VALUES (?,?,?,?,?,?,?)";
+        db.get().query(sql, [code, name, doi, status,pdf,state,message], (err, result) => {
 
             if (err) return next(err);
 
