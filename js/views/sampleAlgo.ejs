@@ -9,7 +9,8 @@
 
     <title>Zoonotic Disease Identification</title>
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'
+    />
 
     <!--     Fonts and icons     -->
     <link href="../assets/css/font.css" rel="stylesheet" />
@@ -19,7 +20,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.min69ea.css" rel="stylesheet" />
     <link href="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
-    <link href="../assets/css/login.css" rel="stylesheet"/>
+    <link href="../assets/css/login.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                 <ul class="nav">
                     <li class="active">
                         <a href="contri_Notification">
-                            <i class="now-ui-icons ui-1_bell-53"></i>
+                            <i class="now-ui-icons design_app"></i>
                             <p>Notification</p>
                         </a>
                     </li>
@@ -141,7 +142,7 @@
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <a class="navbar-brand" href="#pablo">
-                            <h5>NOTIFICATION</h5>
+                            <h5>SEARCHING BACTERIA</h5>
                         </a>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -165,12 +166,27 @@
             <!-- End Navbar -->
             <div class="panel-header panel-header-sm">
             </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="content" id="placeholder">
-                        </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="content" id="placeholder">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group has-label"><br>
+                                            <input type= "text" name = "searchBacteria" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group has-label">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
             <!--   Core JS Files   -->
             <script src="../assets/js/core/jquery.min.js"></script>
             <script src="../assets/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
@@ -215,7 +231,6 @@
 
             <!-- Sharrre libray -->
             <script src="../assets/demo/jquery.sharrre.js"></script>
-            <script src="../assets/js/contri_js/notification.js"></script>
 
             <script>
                 $(document).ready(function () {

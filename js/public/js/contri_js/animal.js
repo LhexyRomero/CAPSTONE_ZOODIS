@@ -330,7 +330,7 @@ function animalList() {
             let html = "";
             data.forEach((element, index) => {
                 let row = "<tr>";
-                row += "<td>" + element.animalScientificName + "</td>";
+                row += "<td>" + element.animalName + "</td>";
                 row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";

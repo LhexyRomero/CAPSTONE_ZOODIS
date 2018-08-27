@@ -60,7 +60,7 @@ exports.addDisease = (req, res, next) => {
         let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_DATE)";
         let sql2 = "INSERT INTO bacteriadisease_t (bacteriumID,diseaseID) VALUES (?,?)";
         let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
-        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,req.session.staffData.staffID,status,req.session.staffID], (err1, result1) => {
+        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,req.session.staffData.journalID,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
                 db.get().query(sql2,[bacteriumID,result1.insertId],(err,result) => {
                     if (err) return next(err);
