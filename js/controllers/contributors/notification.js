@@ -25,19 +25,36 @@ exports.updateNotiCard = (req,res,next) =>{
 
 exports.notifyJournal = (req,res,next) =>{
 
-    let state = "notify";
-    let sql = "SELECT * FROM journal_t INNER JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE state =? AND staff_t.staffID=?";
-    db.get().query(sql,[state,req.session.staffID],(err,result)=>{
+
+    let sql = "SELECT journal_t.code,name, doi,file,state,status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
+    db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
         console.log(result);
-        
-
-        res.status(200).send({success:true, detail:"Journal are ready to download!"});
+        let dataDisplay = {
+            code        : result[0].code,
+            name        : result[0].name,
+            file        : result[0].file,
+            state       : result[0].state
+        }
+        res.status(200).send({success:true, detail:"Journal are ready to download!",data:dataDisplay});
     });
 }
 exports.setJournal = (req,res,next) =>{
 
     let state = "noticed";
-    let sql = "";
+    let sql = "UPDATE journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID SET state=? WHERE staff_t.staffID =?";
+    db.get().query(sql,[state,req.session.staffID],(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success: true, detail:"Journal Successfully Set!"});
+    });
+
+}
+
+exports.downloadJournal = (req,res,next) =>{
+    let fileName = req.params.filename;
+
+    res.status(200).sendFile(fileName,{root: './public/others'});
+
 }
