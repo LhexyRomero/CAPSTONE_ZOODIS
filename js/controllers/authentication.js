@@ -55,6 +55,7 @@ exports.register = function (req, res, next) {
     let password = req.body.password;
     let code = req.body.code;
     let type = 1;
+    let journal = 10;
 
     let data = [fname, lname, username, email, password, 1,code];
     console.log(data);
@@ -78,9 +79,9 @@ exports.register = function (req, res, next) {
     }
 
     let insertStaff = () => {
-        let sql = "UPDATE staff_t SET firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? WHERE code = ?";
+        let sql = "UPDATE staff_t SET firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? ,journalID = ? WHERE code = ?";
 
-        db.get().query(sql,[fname,lname,username,email,password,type,code], function (err) {
+        db.get().query(sql,[fname,lname,username,email,password,type,journal,code], function (err) {
             if (err) return next(err);
             res.status(200).redirect('/register?error=2');
         });

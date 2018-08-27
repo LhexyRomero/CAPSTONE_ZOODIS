@@ -120,6 +120,13 @@ function notificationJournal() {
             $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
         }
 
+        else if (data.state == "none" && data.status == "none") {
+            let code = "<h6> No Journal Assigned by the Admin</h6>";
+            $("#journalCode").html(code);
+            $("#download").hide();
+            $("#finish").hide();
+        }
+
         else {
             let code = "<h6> No Journal Assigned by the Admin</h6>";
             $("#journalCode").html(code);

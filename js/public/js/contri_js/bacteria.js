@@ -210,7 +210,7 @@ function toSelectAnimal() {
         console.log(data);
         let html = "<option value=''>...</option>";
         data.forEach((element, index) => {
-            html += "<option value=" + element.animalID + ">" + element.animalScientificName + "</option>";
+            html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
         });
         $('#toSelectAnimal').html(html);
     });

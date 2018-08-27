@@ -196,7 +196,7 @@ exports.viewToxin = (req, res, next) => {
 
 exports.toSelectAnimal = (req, res, next) => {
 
-    let sql = "SELECT animalID, animalScientificName FROM animal_t";
+    let sql = "SELECT animalID, animalName FROM animal_t";
     db.get().query(sql, (err, result) => {
         if (err) return next(err);
 
