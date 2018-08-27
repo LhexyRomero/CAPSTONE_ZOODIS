@@ -1,13 +1,21 @@
 function sample(e){
     e.preventDefault();
 
-    let data = $("#sample").val();
+    let data = $("input[name=searchBacteria]").val();
 
-    $.post("/sample",data,(response)=>{
+    $.post("/sample",{searchBacteria: data.trim()},(response)=>{
         if(response.success == false){
-            $.notify("Err",{type:"danger"});
+            $.notify(response.detail,{type:"danger"});
             return;
+        }else{
+            console.log(response.data);
+            $('#searchResults').html("");
+            response.data.forEach(element => {
+                var html = "<tr>";
+                html += "<td>"+ element.diseaseName +"</td>";
+                html += "</tr>";
+                $('#searchResults').append(html);
+            });
         }
-
     });
 }

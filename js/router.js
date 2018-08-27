@@ -5,7 +5,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         let file_extension = file.mimetype.split('/')[1];
-        if(file_extension == "jpg" || file_extension == "png"){
+        if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png"){
             cb(null, "public/image_upload");
         }
         else {
