@@ -28,11 +28,6 @@ function addJournal(eAdd) {
             errCount++;
         }
 
-        else if (element.value.match(/[*#\/]/g) != null) {
-            $('input[name=' + element.name + ']').css("background", "#feebeb");
-            invCount++;
-        }
-
         else {
             // dataInsert[element.name] = element.value;
         }
@@ -86,6 +81,7 @@ function addJournal(eAdd) {
                         confirmButtonText: "Okay"
                     });
                     clearJournal();
+                    journalList();
                 }
             }
         });
