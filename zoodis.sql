@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2018 at 01:39 AM
+-- Generation Time: Aug 28, 2018 at 12:25 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -45,12 +45,11 @@ CREATE TABLE `animaltaxo_t` (
 --
 
 INSERT INTO `animaltaxo_t` (`animalTaxoID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`, `status`, `journalID`, `date`, `staffID`) VALUES
-(1, 'a', 'a', 'a', 'a', 'a', 'a', 'rejected', 1, '2018-08-23', 1),
-(2, 'b', 'b', 'b', 'b', 'b', 'b', 'approved', 1, '2018-08-23', 4),
-(3, 'c', 'c', 'c', 'c', 'c', 'c', 'pending', 1, '2018-08-23', 1),
-(4, 'f', 'f', 'f', 'f', 'ff', 'f', 'rejected', 2, '2018-08-23', 1),
-(5, 'd', 'd', 'd', 'd', 'd', 'd', 'approved', 1, '2018-08-24', 1),
-(6, 'qw', 'qw', 'qwq', 'qw', 'qw', 'qw', 'pending', 2, '2018-08-24', 1);
+(14, 'Chordata', 'Aves', 'Galliformes', 'Phasianidae', 'Gallus', 'gallus', 'approved', 7, '2018-08-27', 1),
+(15, 'Chordata', 'Mammalia', 'Rodentia', 'unranked', 'Rattus', 'rattus', 'pending', 9, '2018-08-27', 6),
+(16, 'Chordata', 'Mammalia', 'Carnivora', 'Canidae', 'Canis', 'lupus', 'pending', 8, '2018-08-27', 7),
+(17, 'Cordata', 'Aves', 'Anseriformes', 'Anatidae', 'Anas', 'platyrhynchos', 'pending', 5, '2018-08-27', 1),
+(18, 'Chordata', 'Aves', 'Psottaciformes', 'Cacatuidae', 'Cacatua', 'galerita', 'pending', 6, '2018-08-27', 1);
 
 -- --------------------------------------------------------
 
@@ -76,11 +75,11 @@ CREATE TABLE `animal_t` (
 --
 
 INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `animalBodySite`, `animalTaxoID`, `image`, `status`, `journalID`, `staffID`, `date`) VALUES
-(2, 'Dog', 'c c', 'Gut', 3, 'public\\image_upload\\8692d59c38d9ad8.jpeg', 'pending', 1, 1, '2018-08-22'),
-(3, 'a', 'a a', 'a', 1, 'public\\image_upload\\2ea8a4d82664b93.jpeg', 'pending', 1, 4, '2018-08-23'),
-(4, 'leki', 'ff f', 'j', 4, 'public\\image_upload\\7b487a38fe86b59.png', 'rejected', 1, 1, '2018-08-24'),
-(5, 'ew', 'd d', 'edd', 5, 'public\\image_upload\\c175b62d4c4e26a.jpeg', 'approved', 2, 1, '2018-08-24'),
-(6, 'Dog', 'qw qw', 'd', 6, 'public\\image_upload\\3d4c0277c237dcd.png', 'approved', 2, 4, '2018-08-24 06:33:03');
+(13, 'Chicken', 'Gallus gallus', 'Gut, Feces', 14, 'public\\others\\ea048baf270523f.jpeg', 'approved', 7, 1, '2018-08-27'),
+(14, 'Rat', 'Rattus rattus', 'Urine', 15, 'public\\others\\39af267f7cf7dc4.jpeg', 'pending', 9, 6, '2018-08-27'),
+(15, 'Dog', 'Canis lupus', 'Saliva', 16, 'public\\others\\bcf5bbb664679e7.jpeg', 'pending', 8, 7, '2018-08-27'),
+(16, 'Duck', 'Anas platyrhynchos', 'Gut', 17, 'public\\others\\b9c5ace9e9d2646.jpeg', 'approved', 5, 1, '2018-08-27'),
+(17, 'Parrot', 'Cacatua galerita', 'Gut', 18, 'public\\others\\28042b2f061349a.jpeg', 'pending', 6, 1, '2018-08-27');
 
 -- --------------------------------------------------------
 
@@ -99,9 +98,11 @@ CREATE TABLE `bacteriadisease_t` (
 --
 
 INSERT INTO `bacteriadisease_t` (`bacteriaDiseaseID`, `bacteriumID`, `diseaseID`) VALUES
-(2, 2, 2),
-(3, 2, 3),
-(4, 3, 4);
+(11, 11, 13),
+(12, 12, 14),
+(13, 13, 15),
+(14, 14, 16),
+(15, 15, 17);
 
 -- --------------------------------------------------------
 
@@ -128,10 +129,11 @@ CREATE TABLE `bacteriataxo_t` (
 --
 
 INSERT INTO `bacteriataxo_t` (`bacteriumTaxoID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`, `status`, `journalID`, `staffID`, `date`) VALUES
-(1, 'a', 'a', 'cb', 'a', 'a', 'a', 'rejected', 1, 1, '2018-08-22'),
-(2, 'c', 'c', 'c', 'c', 'c', 'c', 'rejected', 1, 1, '2018-08-23'),
-(3, 'w', 'w', 'w', 'w', 'w', 'w', 'approved', 1, 1, '2018-08-24'),
-(4, 'e', 'e', 'e', 'e', 'e', 'e', 'pending', 1, 1, '2018-08-24');
+(11, 'Firmicutes', 'Clostridia', 'Clostridiales', 'Peptostreptococcaceae', 'Clostridioides', 'difficile', 'approved', 7, 1, '2018-08-27'),
+(12, 'Spirochaetes', 'Spirochaetes', 'Spirochaetales', 'Leptospiraceae', 'Leptospira', 'interrogans', 'pending', 9, 6, '2018-08-27'),
+(13, 'Bacteroidetes', 'Flavobacteria', 'Flavobacteriales', 'Flavobacteriaceae', 'Capnocytophaga', 'canimorsus', 'pending', 8, 7, '2018-08-27'),
+(14, 'Proteobacteria', 'Gammaproteobacteria', 'Enterobacteriales', 'Enterobacteriaceae', 'Salmonella', 'bongori', 'pending', 5, 1, '2018-08-27'),
+(15, 'Chlamydiae', 'unranked', 'Chlyamydiales', 'Chlamydiaceae', 'Chlamydia', 'psittaci', 'pending', 6, 1, '2018-08-27');
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,13 @@ CREATE TABLE `bacteriatoxin_t` (
 --
 
 INSERT INTO `bacteriatoxin_t` (`bacteriaToxinID`, `bacteriumID`, `toxinID`) VALUES
-(1, 2, 1);
+(9, 11, 9),
+(10, 11, 10),
+(11, 12, 11),
+(12, 13, 12),
+(13, 14, 13),
+(14, 14, 14),
+(15, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -180,9 +188,11 @@ CREATE TABLE `bacteria_t` (
 --
 
 INSERT INTO `bacteria_t` (`bacteriumID`, `bacteriumSpeciesName`, `bacteriumGenusName`, `bacteriumScientificName`, `bacteriumTissueSpecifity`, `bacteriumSampleType`, `bacteriumIsolation`, `bacteriumIdentification`, `animalID`, `bacteriumTaxoID`, `journalID`, `status`, `staffID`, `date`) VALUES
-(2, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 2, 1, 1, 'rejected', 1, '2018-08-23'),
-(3, 'w', 'w', 'w w', 'bb', 'b', 'b', 'ba', 4, 3, 1, 'approved', 4, '2018-08-24'),
-(4, 'c', 'c', 'c c', 's', 's', 's', 's', 4, 2, 1, 'pending', 1, '2018-08-24');
+(11, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 13, 11, 7, 'approved', 4, '2018-08-27'),
+(12, 'interrogans', 'Leptospira', 'Leptospira interrogans', 'a', 'a', 'a', 'a', 14, 12, 9, 'pending', 6, '2018-08-27'),
+(13, 'canimorsus', 'Capnocytophaga', 'Capnocytophaga canimorsus', 'a', 'a', 'a', 'a', 15, 13, 8, 'pending', 7, '2018-08-27'),
+(14, 'bongori', 'Salmonella', 'Salmonella bongori', 'a', 'a', 'a', 'a', 16, 14, 5, 'pending', 1, '2018-08-27'),
+(15, 'psittaci', 'Chlamydia', 'Chlamydia psittaci', 'a', 'a', 'a', 'a', 17, 15, 6, 'pending', 1, '2018-08-27');
 
 -- --------------------------------------------------------
 
@@ -206,9 +216,11 @@ CREATE TABLE `disease_t` (
 --
 
 INSERT INTO `disease_t` (`diseaseID`, `diseaseName`, `diseaseDesc`, `symptoms`, `journalID`, `status`, `staffID`, `date`) VALUES
-(2, 'Sugat Mo', 'Malaking Sugat', 'a:a:a:a:a', 1, 'rejected', 1, '2018-08-22'),
-(3, 'Ubo', 'Pahinga ka lang', 'ubo:tatahol', 1, 'pending', 1, '2018-08-23'),
-(4, 'High Fever', 'a', 'a:a:a', 1, 'pending', 1, '2018-08-24');
+(13, ' Clostridium difficile Infection', 'Clostridium difficile infection is spread by bacterial spores found within feces. Surfaces may become contaminated with the spores with further spread occurring via the hands of healthcare workers. Diagnosis is by stool culture or testing for the bacteria\'s DNA or toxins known as Clostridium difficile toxin A and Clostridium difficile toxin B.', 'Diarrhea:Fever:Abdominal pain', 7, 'approved', 1, '2018-08-27'),
+(14, 'Leptospirosis', 'Leptospirosis is a rare bacterial infection we get from animals. It\'s spread through their urine that contain leptospira where haemolysin toxin is present, especially from dogs, rodents, and farm animals. They may not have any symptoms, but they can be carriers. In most cases, leptospirosis is unpleasant but not life-threatening, like a case of the flu.', 'High Fever:Head ache and Muscles ache:Vomiting:Jaundice(yellow skin and eyes):Abdominal Pain:Rash', 9, 'pending', 6, '2018-08-27'),
+(15, 'Capnocytophaga canimorsus Infection', '\r\n\r\n\r\nCapnocytophaga canimorsus infection may be complicated by thrombotic microangiopathy, for which plasma exchange should be considered prior to definitive diagnosis of thrombotic microangiopathy.Thrombotic microangiopathy syndrome includes ADAMTS13 deficiency?, Shiga toxin?, and complement?mediated TMA. ADAMTS13 activity is severely decreased in patients with ADAMTS13 deficiency?mediated TMA (<5% in most patients), and Shiga toxin?mediated TMA is mainly caused by enterohemorrhagic Escherichia coli infection.', 'Blisters around the bite wound within hours of the bite.:Redness, swelling, draining pus, or pain at the bite wound.:Fever,   Diarrhea and stomach pain.:Vomiting,   Headache and confusion., Muscle or joint pain.', 8, 'pending', 7, '2018-08-27'),
+(16, 'Salmonellosis', 'Salmonella infection (salmonellosis) is a common bacterial disease from Salmonella bongori that affects the intestinal tract.  Salnonella produces Cytolethal distending toxin B (CdtB), Salmonella plasmid virulence A (SpvA), & Salmonella plasmid virulence B (SpvB) and typically lives in animal and human intestines and are shed through feces. Humans become infected most frequently through contaminated water or food.', 'Nausea:Vomiting:Abdominal Cramps:Diarrhea:Fever:Chills:Headache:Blood in the stool', 5, 'pending', 1, '2018-08-27'),
+(17, 'Psittacosis', 'Psittacosis—also known as parrot fever, and ornithosis—is a zoonotic infectious disease caused by a bacterium called Chlamydia psittaci producing a toxin called Chlamydial cytotoxin and contracted from infected parrots. The incidence of infection in canaries and finches is believed to be lower than in psittacine birds.', ' In the first week of psittacosis the symptoms mimic typhoid fever: prostrating high fevers, joint pains, diarrhea, conjunctivitis, nose bleeds and low level of white blood cells in the blood.:Rose spots can appear and these are called Horder\'s spots.:Spleen enlargement is common towards the end of the first week.:Headache can be so severe that it suggests meningitis and some nuchal rigidity is not unusual.', 6, 'pending', 1, '2018-08-27');
 
 -- --------------------------------------------------------
 
@@ -221,16 +233,23 @@ CREATE TABLE `journal_t` (
   `code` varchar(25) NOT NULL,
   `name` varchar(255) NOT NULL,
   `doi` varchar(25) NOT NULL,
-  `status` varchar(25) NOT NULL
+  `status` varchar(25) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `state` varchar(25) NOT NULL,
+  `message` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `journal_t`
 --
 
-INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`) VALUES
-(1, 'ZOODIS#1', 'Zoonotic Disease', '', '0'),
-(2, 'ZOODIS#2', 'Microbial', '123-45', '0');
+INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `state`, `message`) VALUES
+(5, 'ZOODIS#83', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', ' 10.3389/fmicb.2016.02125', 'Incomplete', 'public\\others\\ae3c0cc7dfcfbb2.pdf', 'notify', 'Assigned journal is ready to download!'),
+(6, 'BASILIO#173', 'Zoonotic Diseases of Common Pet Birds: Psittacine, Passerine, and Columbiform Species', '10.1016/j.cvex.2011.05.00', 'Incomplete', 'public\\others\\579d0a1530eecdf.pdf', 'noticed', 'Assigned journal is ready to download!'),
+(7, 'BASILIO#24', 'Microbial Shifts in the Intestinal Microbiota of Salmonella Infected Chickens in Response to Enrofloxacin', '10.3389/fmicb.2017.01711', 'Incomplete', 'public\\others\\95f25a4515dfd82.pdf', 'notify', 'Assigned journal is ready to download!'),
+(8, 'ZOODIS#101', 'Capnocytophaga canimorsus: an emerging cause of sepsis, meningitis, and post-splenectomy infection after dog bites', '10.1007/s10096-015-2360-7', 'completed', 'public\\others\\c3e3f5c8ef3a078.pdf', 'noticed', 'Assigned journal is ready to download!'),
+(9, 'ZOODIS#102', 'Ecology of Leptospira interrogans in Norway Rats (Rattus norvegicus) in an Inner-City Neighborhood of Vancouver, Canada', '10.1371/journal.pntd.0002', 'Incomplete', 'public\\others\\c156f82ef274e01.pdf', 'noticed', 'Assigned journal is ready to download!'),
+(10, 'none', 'none', 'none', 'none', 'none', 'none', 'Assigned journal is ready to download!');
 
 -- --------------------------------------------------------
 
@@ -256,26 +275,42 @@ CREATE TABLE `notification_t` (
 --
 
 INSERT INTO `notification_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `notificationID`, `category`, `addedID`, `state`, `message`) VALUES
-('2018-08-23', 'rejected', 'lhexy romero', 'a a', 1, 1, 'Animal Taxonomy', 1, 'noticed', 'Mali kasi eh'),
-('2018-08-23', 'rejected', 'lhexy romero', 'a a', 1, 2, 'Bacteria Taxonomy', 1, 'noticed', 'Itama mo naman'),
-('2018-08-23', 'rejected', 'lhexy romero', 'a a', 1, 12, 'Bacteria', 2, 'noticed', 'Mali kasi qrrrrrrrrr'),
-('2018-08-23', 'rejected', 'lhexy romero', 'a', 1, 13, 'Toxin', 1, 'noticed', 'Maganda ka pero mali '),
-('2018-08-23', 'approved', 'lhexy romero', 'Sugat', 1, 14, 'Disease', 2, 'noticed', 'panget mo talaga'),
-('2018-08-23', 'approved', 'lhexy romero', 'hugas kamay', 1, 15, 'Prevention', 2, 'read', 'Itama mo naman'),
-('2018-08-24', 'approved', 'lhexy romero', 'c c', 1, 16, 'Animal Taxonomy', 3, 'noticed', ''),
-('2018-08-23', 'approved', 'lhexy romero', 'c c', 1, 17, 'Bacteria Taxonomy', 2, 'noticed', 'pangit kase'),
-('2018-08-23', 'rejected', 'lhexy romero', 'ff f', 1, 18, 'Animal Taxonomy', 4, 'noticed', 'mali'),
-('2018-08-24', 'approved', 'lhexy romero', 'Ubo', 1, 19, 'Disease', 3, 'read', ''),
-('2018-08-24', 'rejected', 'lhexy romero', 'ff f', 1, 20, 'Animal', 4, 'noticed', 'gaga'),
-('2018-08-24', 'approved', 'lhexy romero', 'd d', 1, 21, 'Animal Taxonomy', 5, 'noticed', ''),
-('2018-08-24', 'approved', 'lhexy romero', 'd d', 1, 22, 'Animal', 5, 'noticed', ''),
-('2018-08-24', 'approved', 'lhexy romero', 'w w', 1, 23, 'Bacteria Taxonomy', 3, 'noticed', ''),
-('2018-08-24', 'approved', 'lhexy romero', 'w w', 1, 24, 'Bacteria', 3, 'noticed', ''),
-('2018-08-24', 'pending', 'lhexy romero', 'c c', 1, 25, 'Bacteria', 4, 'notify', ''),
-('2018-08-24', 'pending', 'lhexy romero', 'e e', 1, 26, 'Bacteria Taxonomy', 4, 'notify', ''),
-('2018-08-24', 'pending', 'lhexy romero', 'qw qw', 1, 27, 'Animal Taxonomy', 6, 'notify', ''),
-('2018-08-24', 'pending', 'lhexy romero', 'High Fever', 1, 28, 'Disease', 4, 'notify', ''),
-('2018-08-24', 'pending', 'lhexy romero', 'Learn how to take a rest:Eat healthy Foods', 1, 29, 'Prevention', 3, 'notify', '');
+('2018-08-27', 'approved', 'lhexy romero', 'Gallus gallus', 1, 73, 'Animal Taxonomy', 14, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 74, 'Bacteria Taxonomy', 11, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Gallus gallus', 1, 75, 'Animal', 13, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 76, 'Bacteria', 11, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin A', 1, 77, 'Toxin', 9, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin B', 1, 78, 'Toxin', 10, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', ' Clostridium difficile Infection', 1, 79, 'Disease', 13, 'noticed', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.', 1, 80, 'Prevention', 9, 'noticed', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Rattus rattus', 6, 81, 'Animal Taxonomy', 15, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Leptospira interrogans', 6, 82, 'Bacteria Taxonomy', 12, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Rattus rattus', 6, 83, 'Animal', 14, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Leptospira interrogans', 6, 84, 'Bacteria', 12, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Haemolysins', 6, 85, 'Toxin', 11, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Leptospirosis', 6, 86, 'Disease', 14, 'notify', ''),
+('2018-08-27', 'pending', 'Ibrahim Samson', 'Avoid contaminated water.: Keep away from infected animals, especially wild rats.:Be aware of your surroundings, especially when you travel. ', 6, 87, 'Prevention', 10, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Canis lupus', 7, 88, 'Animal Taxonomy', 16, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 89, 'Bacteria Taxonomy', 13, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Canis lupus', 7, 90, 'Animal', 15, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 91, 'Bacteria', 13, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Shiga Toxin', 7, 92, 'Toxin', 12, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'Capnocytophaga canimorsus Infection', 7, 93, 'Disease', 15, 'notify', ''),
+('2018-08-27', 'pending', 'Flor Castillo', 'If you have been bitten by a dog or cat, call your doctor right away, even if you don’t feel sick.', 7, 94, 'Prevention', 11, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Anas platyrhynchos', 1, 95, 'Animal Taxonomy', 17, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Salmonella bongori', 1, 96, 'Bacteria Taxonomy', 14, 'notify', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Anas platyrhynchos', 1, 97, 'Animal', 16, 'noticed', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Salmonella bongori', 1, 98, 'Bacteria', 14, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Typhoid Toxin SpvA', 1, 99, 'Toxin', 13, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Typhoid Toxin CdtB ', 1, 100, 'Toxin', 14, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Salmonellosis', 1, 101, 'Disease', 16, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Cacatua galerita', 1, 102, 'Animal Taxonomy', 18, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Chlamydia psittaci', 1, 103, 'Bacteria Taxonomy', 15, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Cacatua galerita', 1, 104, 'Animal', 17, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Chlamydia psittaci', 1, 105, 'Bacteria', 15, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Chlamydial cytotoxin', 1, 106, 'Toxin', 15, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Psittacosis', 1, 107, 'Disease', 17, 'notify', ''),
+('2018-08-27', 'pending', 'lhexy romero', 'Antibiotics:Oral Therapy', 1, 108, 'Prevention', 12, 'notify', '');
 
 -- --------------------------------------------------------
 
@@ -297,8 +332,10 @@ CREATE TABLE `prevention_t` (
 --
 
 INSERT INTO `prevention_t` (`preventionID`, `preventions`, `diseaseID`, `status`, `staffID`, `date`) VALUES
-(2, 'hugas:kamay:ka', 2, 'rejected', 1, '2018-08-22'),
-(3, 'Learn how to take a rest:Eat healthy Foods', 4, 'pending', 1, '2018-08-24');
+(9, 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.:People who are infected with C. difficile should have their own room and toilet facilities to avoid passing the infection onto others.', 13, 'approved', 1, '2018-08-27'),
+(10, 'Avoid contaminated water.: Keep away from infected animals, especially wild rats.:Be aware of your surroundings, especially when you travel. ', 14, 'pending', 6, '2018-08-27'),
+(11, 'If you have been bitten by a dog or cat, call your doctor right away, even if you don’t feel sick.', 15, 'pending', 7, '2018-08-27'),
+(12, 'Antibiotics:Oral Therapy', 17, 'pending', 1, '2018-08-27');
 
 -- --------------------------------------------------------
 
@@ -316,16 +353,22 @@ CREATE TABLE `staff_t` (
   `contact` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` varchar(11) NOT NULL
+  `type` varchar(11) NOT NULL,
+  `code` varchar(25) NOT NULL,
+  `journalID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `staff_t`
 --
 
-INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `type`) VALUES
-(1, 'lhexy', 'romero', '', 'contributor', 'contributor', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1'),
-(4, 'leki', 'lekay', '', 'admin', 'admin', '', '', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2');
+INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `type`, `code`, `journalID`) VALUES
+(1, 'lhexy', 'romero', '', 'contributor', 'contributor', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', '', 6),
+(4, 'leki', 'lekay', '', 'admin', 'admin', '09227686712', '', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2', '', 0),
+(5, 'LhexyKhrystelle', 'Romero', '', 'lhexyromero', 'lhexyromero', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'q4n1pkildqe', 0),
+(6, 'Ibrahim', 'Samson', '', 'ibsamson', 'ibsamson', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'kcp8wkzo6a', 9),
+(7, 'Flor', 'Castillo', '', 'florcastillo', 'florcastillo', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', '88ok05jcmi8', 8),
+(9, 'Pyke', 'Bio', '', 'pykebio', 'pykebio', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'ddyhi58e4e', 10);
 
 -- --------------------------------------------------------
 
@@ -348,7 +391,13 @@ CREATE TABLE `toxin_t` (
 --
 
 INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `status`, `staffID`, `date`) VALUES
-(1, 'a', 'abc', 'a', 'rejected', 1, '2018-08-22');
+(9, 'Clostridium difficile toxin A', 'Clostridium difficile toxin A (TcdA) is a toxin generated by Clostridium difficile. It is similar to Clostridium difficile Toxin B. The toxins are the main virulence factors produced by the gram positive, anaerobic, Clostridium difficile bacteria. The toxins function by damaging the intestinal mucosa and cause the symptoms of C. difficile infection, including pseudomembranous colitis.', 'The toxin acts by modifying host cell GTPase proteins by glucosylation, leading to changes in cellular activities. Risk factors for C. difficile infection include antibiotic treatment, which can disrupt normal intestinal microbiota and lead to colonization of C. difficile bacteria.', 'approved', 1, '2018-08-27'),
+(10, 'Clostridium difficile toxin B', 'Clostridium difficile toxin B is a toxin produced by the bacteria Clostridium difficile. C. difficile produces two major kinds of toxins that are very potent and lethal; an enterotoxin (Toxin A) and a cytotoxin (Toxin B, this protein).', 'When the catalytic threonine residue of glucosyltransferase deactivates a family of small GTPases,e.g. the Rho family; Rac, and Cdc42 inside the target cells disturb signal transduction mechanisms, which leads to dysfunctioning of actin cytoskeleton, cell-cell junction, and apoptosis. Rho induces the activity of actin stress fibers. Rac proteins controls the activities of membrane ruffling and NADPH-oxidase neutrophil. Cdc42 regulates the F-actin filament formation in filopodia.', 'approved', 1, '2018-08-27'),
+(11, 'Haemolysins', 'Hemolysins or Haemolysins are molecules that have the ability to lyse red blood cells (RBCs). There are primarily two types of hemolysins: alpha (?) and beta (?). Alpha hemolysins cause a partial lysis of the RBCs, resulting in a darkening of the media around a colony on sheep\'s blood agar (SBA). Beta hemolysins produce a complete lysis of the RBCs, resulting in a clearing around the colony growing on SBA. The chapter discusses the biochemistry of hemolysins. Hemolysins are produced by many of the common indoor fungi. ', 'Hemolysins or haemolysins are lipids and proteins that cause lysis of red blood cells by destroying their cell membrane.', 'pending', 6, '2018-08-27'),
+(12, 'Shiga Toxin', 'Shiga toxin (Stx) is one of the most potent bacterial toxins known. Stx is found in Shigella dysenteriae 1 and in some serogroups of Escherichia coli (called Stx1 in E. coli).', 'Shiga Toxin acts as an N-glycosidase, removing an adenine from the 28S ribosomal rRNA of a target cell which leads to inhibition of protein elongation and ultimately cellular apoptosis. The B subunit is necessary for binding to globo series glycolipid globotriaosylceramide (Gb3), a eukaryotic membrane receptor, where it is then endocytosed and proteolytically cleaved into an active A subunit and a B subunit. The B subunit is not active in the depurination of of 28S rRNA, but is essential for GB3 binding and therefore essential for toxicity. Once in the cytosol the A subunit is free to interact with and inactivate 28S rRNA. On the A subunit Tyr77, Tyr114, Glu167, Arg170, and Trp203 are all essential in glycosidic activity. This mechanism (B subunit binding to globotriaosylceramide and A subunit depurinating 28S rRNA) is conserved amongst the Stx family as well as the ricin toxin.', 'pending', 7, '2018-08-27'),
+(13, 'Typhoid Toxin SpvA', 'Signals for the expression of the spv locus are growth restriction, reduced nutrient supply or lowered pH.', 'Promote the survival and rapid growth of Salmonella in the host', 'pending', 1, '2018-08-27'),
+(14, 'Typhoid Toxin CdtB ', 'Classic cytolethal distending toxins (CDTs) are three component AB toxins, composed of CdtA, CdtB and CdtC. CdtA and CdtC mediate target cell binding and membrane translocation of CdtB, which then induces DNA damage, most probably through its nuclease activity', 'Involving chromatin disruption, which leads to G2M-phase growth arrest of the target cell and ultimately cell death', 'pending', 1, '2018-08-27'),
+(15, 'Chlamydial cytotoxin', 'Original cytotoxic reports involved lymphogranuloma venereum isolates that apparently do not possess the actual putative cytotoxin gene.', 'Chlamydial cytotoxin does share amino acid sequence similarities to the clostridial toxin B protein and there is one report demonstrating that the ectopically expressed chlamydial protein glycosylates the small GTPase, Rac1, in HeLa cells and causes actin reorganization in a manner similar to ectopically expressed authentic clostridial toxin B.', 'pending', 1, '2018-08-27');
 
 --
 -- Indexes for dumped tables
@@ -455,62 +504,62 @@ ALTER TABLE `toxin_t`
 -- AUTO_INCREMENT for table `animaltaxo_t`
 --
 ALTER TABLE `animaltaxo_t`
-  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `animal_t`
 --
 ALTER TABLE `animal_t`
-  MODIFY `animalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `animalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `bacteriadisease_t`
 --
 ALTER TABLE `bacteriadisease_t`
-  MODIFY `bacteriaDiseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bacteriaDiseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `bacteriataxo_t`
 --
 ALTER TABLE `bacteriataxo_t`
-  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `bacteriatoxin_t`
 --
 ALTER TABLE `bacteriatoxin_t`
-  MODIFY `bacteriaToxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bacteriaToxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `bacteria_t`
 --
 ALTER TABLE `bacteria_t`
-  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `disease_t`
 --
 ALTER TABLE `disease_t`
-  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `journal_t`
 --
 ALTER TABLE `journal_t`
-  MODIFY `journalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `journalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `notification_t`
 --
 ALTER TABLE `notification_t`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT for table `prevention_t`
 --
 ALTER TABLE `prevention_t`
-  MODIFY `preventionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `preventionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `staff_t`
 --
 ALTER TABLE `staff_t`
-  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `toxin_t`
 --
 ALTER TABLE `toxin_t`
-  MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Constraints for dumped tables
 --
