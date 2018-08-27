@@ -43,7 +43,7 @@ exports.addDisease = (req, res, next) => {
 
     let checkDisease = function (cb) {
         let sql = "SELECT diseaseName, bacteriadisease_t.bacteriumID ,disease_t.journalID FROM disease_t INNER JOIN bacteriadisease_t ON disease_t.diseaseID = bacteriadisease_t.diseaseID INNER JOIN journal_t ON journal_t.journalID = disease_t.journalID WHERE diseaseName = ? AND bacteriadisease_t.bacteriumID = ? AND disease_t.journalID = ?";
-        db.get().query(sql, [diseaseName,bacteriumID,journal], (err, result) => {
+        db.get().query(sql, [diseaseName,bacteriumID,req.session.staffData.journalID], (err, result) => {
             if (err) return cb(err);
 
             if (result.length == 0) {
@@ -60,7 +60,7 @@ exports.addDisease = (req, res, next) => {
         let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_DATE)";
         let sql2 = "INSERT INTO bacteriadisease_t (bacteriumID,diseaseID) VALUES (?,?)";
         let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
-        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,journal,status,req.session.staffID], (err1, result1) => {
+        db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,req.session.staffData.staffID,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
                 db.get().query(sql2,[bacteriumID,result1.insertId],(err,result) => {
                     if (err) return next(err);

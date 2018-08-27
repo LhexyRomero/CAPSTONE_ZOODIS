@@ -112,6 +112,12 @@ function journalList() {
             let row = "<tr>";
             row += "<td>" + element.name + "</td>";
             row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editJournal(" + element.journalID + ") type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewJournal(" + element.journalID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            if(element.status == "Incomplete"){
+                row += "<td><font color='red'><em>" + element.status + "</em></font></td>";
+            }
+            else{
+                row += "<td><font color='#18ce0f'><em>" + element.status + "</em></font></td>";
+            }
             row += "</tr>";
             html += row;
         });

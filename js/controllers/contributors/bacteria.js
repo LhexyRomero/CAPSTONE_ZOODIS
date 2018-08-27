@@ -10,7 +10,6 @@ exports.addBacteriaTaxon = (req, res, next) => {
     let strGenus = data.strGenus;
     let strSpecies = data.strSpecies;
     let status = 'pending';
-    let journal = data.selectJournal;
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
     let category = 'Bacteria Taxonomy';
     let state = 'notify';
@@ -18,7 +17,7 @@ exports.addBacteriaTaxon = (req, res, next) => {
     let insertBacteriaTaxon = function () {
         let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_DATE)";
         let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE, ?, ?, ?, ?, ?,?,?)";
-        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, journal, req.session.staffID], (err, result) => {
+        db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, req.session.staffData.journalID, req.session.staffID], (err, result) => {
             if (err) return next(err);
             db.get().query(sql2, [status, name, strGenus + " " + strSpecies, req.session.staffID, category, result.insertId, state], (err2, result2) => {
                 if (err2) return next(err2);
@@ -31,7 +30,7 @@ exports.addBacteriaTaxon = (req, res, next) => {
 
     let checkBacteriaTaxon = function (cb) {
         let sql = "SELECT genus, species, bacteriataxo_t.journalID FROM bacteriataxo_t INNER JOIN journal_t ON bacteriataxo_t.journalID=journal_t.journalID WHERE species = ? AND genus = ? AND bacteriataxo_t.journalID = ?";
-        db.get().query(sql, [strSpecies, strGenus, journal], (err, result) => {
+        db.get().query(sql, [strSpecies, strGenus, req.session.staffData.journalID], (err, result) => {
             if (err) return cb(err);
 
 
@@ -170,7 +169,7 @@ exports.toSelectJournal = (req, res, next) => {
 
 exports.toxinList = (req, res, next) => {
     let sql = "SELECT * FROM toxin_t";
-    db.get().query(sql, [req.session.staffID],(err, result) => {
+    db.get().query(sql,(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -269,7 +268,7 @@ exports.addBacteria = (req, res, next) => {
     let insertBacteria = (result) => {
         let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_DATE)";
         let sql1 = "INSERT INTO notification_t (dateTime,status,staffName, addedData, staffID,category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
-        db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, journal, status, req.session.staffID], (err, resulta) => {
+        db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
             if (err) return next(err);
             console.log("1st queyr");
             db.get().query(sql1, [status, name, strScientificName, req.session.staffID,category,resulta.insertId,state], (err1, result1) => {

@@ -287,8 +287,9 @@ router.get('/contri_Toxin',auth.authenticate,(req,res,next)=>{
     res.render('contri_Toxin');
 });
 
-router.post('/contri_toxin',auth.authenticate,contri_bacteria.addToxin);
+router.post('/contri_toxin',contri_bacteria.addToxin);
 
+router.get('/contri_toxinList',contri_bacteria.toxinList);
 router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
 router.get('/contri_viewToxin/:id',contri_bacteria.viewToxin);
 
@@ -306,7 +307,7 @@ router.get('/downloadJournal/:filename',contri_notification.downloadJournal);
 
 router.post('/setJournal',contri_notification.setJournal);
 router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
-
+router.post('/finishedJournal',contri_notification.finishedJournal);
 /**
  * 404 error handler
  */

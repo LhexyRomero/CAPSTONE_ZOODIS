@@ -25,7 +25,6 @@ exports.updateNotiCard = (req,res,next) =>{
 
 exports.notifyJournal = (req,res,next) =>{
 
-
     let sql = "SELECT journal_t.code,name, doi,file,state,status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
     db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
@@ -35,7 +34,8 @@ exports.notifyJournal = (req,res,next) =>{
             code        : result[0].code,
             name        : result[0].name,
             file        : result[0].file,
-            state       : result[0].state
+            state       : result[0].state,
+            status      : result[0].status
         }
         res.status(200).send({success:true, detail:"Journal are ready to download!",data:dataDisplay});
     });
@@ -54,7 +54,17 @@ exports.setJournal = (req,res,next) =>{
 
 exports.downloadJournal = (req,res,next) =>{
     let fileName = req.params.filename;
-
     res.status(200).sendFile(fileName,{root: './public/others'});
+}
+
+exports.finishedJournal = (req,res,next) =>{
+
+    let status = "completed";
+    let sql = "UPDATE journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID SET journal_t.status=? WHERE staff_t.staffID =?";
+    db.get().query(sql,[status,req.session.staffID],(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success: true, detail:"Journal Successfully Completed!"});
+    });
 
 }

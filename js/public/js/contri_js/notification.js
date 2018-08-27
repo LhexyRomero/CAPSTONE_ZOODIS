@@ -73,15 +73,15 @@ function notificationJournal() {
         let data = response.data;
         console.log(data);
 
-        if (data.state == "noticed") {
+        if (data.state == "noticed" && data.status == "Incomplete") {
             let code = "<h6>" + data.code + "</h6>";
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('//')[2]);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
 
         }
-        else {
+        else if (data.state == "notify" && data.status == "Incomplete") {
             swal({
                 title: 'Journal',
                 text: response.detail,
@@ -117,8 +117,31 @@ function notificationJournal() {
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('//')[2]);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
         }
+
+        else {
+            let code = "<h6> No Journal Assigned by the Admin</h6>";
+            $("#journalCode").html(code);
+            $("#download").hide();
+            $("#finish").hide();
+        }
+    });
+}
+
+function finishedJournal() {
+    $.post("/finishedJournal",(response)=>{
+        if(response.success == false){
+            return;
+        }
+
+        $.notify(response.detail, {type:"success"});
+
+        let code = "<h6>Job well Done</h6>";
+        let name = "<h6>Journal Completed!</h6>";
+        $("#journalCode").html(code);
+        $("#journalName").html(name);
+        $("#download").hide();
     });
 }
 
