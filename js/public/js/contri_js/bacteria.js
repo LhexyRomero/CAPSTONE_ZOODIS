@@ -309,7 +309,7 @@ function clearToxin() {
 }
 
 function toxinList() {
-    $.get("/toxinList", function (response) {
+    $.get("/contri_toxinList", function (response) {
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
         }
@@ -334,7 +334,7 @@ function toxinList() {
                 row += "</tr>";
                 html += row;
             });
-            $('#toxinTableList').html(html);
+            $('#toxinList').html(html);
             $('#toxinTable').dataTable();
         }
     });
@@ -495,6 +495,8 @@ function addBacteria(eAdd) {
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
+                    clearBacteria();
+                    bacteriaList();
                     }
                 });
             }
