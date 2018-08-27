@@ -169,18 +169,15 @@
             <div class="card">
                 <div class="card-body">
                     <div class="content" id="placeholder">
-                        <form>
+                        <form onsubmit="sample(event)" id="sample">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group has-label"><br>
-                                            <input type= "text" name = "searchBacteria" class="form-control">
+                                        <input type="text" name="searchBacteria" class="form-control" placeholder="Bacteria">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="form-group has-label">
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                    </div>
-
+                                    <button type="submit" class="btn btn-warning">Search</button>
                                 </div>
                             </div>
                         </form>
@@ -231,6 +228,7 @@
 
             <!-- Sharrre libray -->
             <script src="../assets/demo/jquery.sharrre.js"></script>
+            <script src = "../assets/js/sample.js"></script>
 
             <script>
                 $(document).ready(function () {
