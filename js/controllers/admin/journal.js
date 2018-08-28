@@ -138,8 +138,9 @@ exports.toSelectStaffName = (req, res, next) => {
 
 exports.toSelectJournal = (req, res, next) => {
 
-    let sql = "SELECT * FROM journal_t";
-    db.get().query(sql, (err, result) => {
+    let status = "Incomplete";
+    let sql = "SELECT * FROM journal_t WHERE status = ?";
+    db.get().query(sql,[status],(err, result) => {
         if (err) return next(err);
         
         res.status(200).send({ success: true, detail: "", data: result });

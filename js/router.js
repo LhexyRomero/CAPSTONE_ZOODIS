@@ -106,7 +106,7 @@ router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
 router.post('/animalTaxon', animal.addAnimalTaxon);
 router.post('/updateAnimalTaxon/:id',animal.updateAnimalTaxon);
 router.get('/animalTaxonList',animal.animalTaxonList);
-router.get('/AnimalTaxon/:id',animal.editAnimalTaxon);
+router.get('/editAnimalTaxon/:id',animal.editAnimalTaxon);
 
 router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('bacteriaTaxon');
