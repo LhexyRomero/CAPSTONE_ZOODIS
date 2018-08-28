@@ -5,6 +5,36 @@ $(function () {
     toSelectBacteria();
     toxinList();
     bacteriaList();
+
+    $("input[name=strSpeciesName]").autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/bacteriaSpecies/?data=" + req.term,
+                success: (response) => {
+                    res(response.data);
+                },
+                error: (response) => {
+                    console.log(response.detail);
+                }
+            });
+        },
+    });
+
+    $("input[name=strGenusName]").autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/bacteriaGenus/?data=" + req.term + "&species=" + $('input[name=strSpeciesName').val() + "",
+                success: (response) => {
+                    res(response.data);
+                },
+                error: (response) => {
+                    console.log(response.detail);
+                },
+            });
+        },
+    });
 });
 let isClick = 0;
 
