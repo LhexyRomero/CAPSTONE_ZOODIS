@@ -118,8 +118,9 @@ exports.addToxin = (req, res, next) => {
     let status = "approved";
 
     let checkToxin = function (cb) {
+        let name = "not"
         let sql5 = "SELECT * FROM toxin_t WHERE name =?"; //undecided
-        db.get().query(sql5, [strToxinName], (err5, result5) => {
+        db.get().query(sql5, [name], (err5, result5) => {
             if (err5) return cb(err5);
 
             if (result5.length == 0) {
