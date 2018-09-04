@@ -62,3 +62,7 @@ typings/
 
 js/public/image_upload
 js/public/others
+js/public/img
+js/public/scss
+js/public/css/bootstrap
+js/public/fonts
