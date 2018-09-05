@@ -1,20 +1,10 @@
 	<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
-		<!-- Mobile Specific Meta -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
-		<!-- Author Meta -->
-		<meta name="author" content="colorlib">
-		<!-- Meta Description -->
-		<meta name="description" content="">
-		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
-		<!-- meta character set -->
-		<meta charset="UTF-8">
-		<!-- Site Title -->
-		<title>Travel</title>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="../assets/img/zoo.ico">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Zoonotic Disease Identification</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -33,32 +23,17 @@
 		<body>	
 			<header id="header">
 				<div class="container main-menu">
-					<div class="row align-items-center justify-content-between d-flex">
-				      <div id="logo">
-				        <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
-				      </div>
+					<div class="row align-items-center justify-content-between d-flex"><br>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
 				          <li><a href="index.html">Home</a></li>
-				          <li><a href="about.html">About</a></li>
-				          <li><a href="packages.html">Packages</a></li>
-				          <li><a href="hotels.html">Hotels</a></li>
-				          <li><a href="insurance.html">Insurence</a></li>
-				          <li class="menu-has-children"><a href="">Blog</a>
+				          <li><a href="packages.html">Microbiota</a></li>
+				          <li><a href="about">About</a></li>
+				          <li class="menu-has-children"><a href="">Di ko alam</a>
 				            <ul>
-				              <li><a href="blog-home.html">Blog Home</a></li>
-				              <li><a href="blog-single.html">Blog Single</a></li>
-				            </ul>
-				          </li>	
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-				            	  <li><a href="elements.html">Elements</a></li>
-						          <li class="menu-has-children"><a href="">Level 2 </a>
-						            <ul>
-						              <li><a href="#">Item One</a></li>
-						              <li><a href="#">Item Two</a></li>
-						            </ul>
-						          </li>					                		
+				              <li><a href="blog-home.html">Animal</a></li>
+				              <li><a href="blog-single.html">Bacteria</a></li>
+				              <li><a href="blog-single.html">Disease</a></li>
 				            </ul>
 				          </li>					          					          		          
 				          <li><a href="contact.html">Contact</a></li>
@@ -70,60 +45,49 @@
 			
 			<!-- start banner Area -->
 			<section class="banner-area relative">
-				<div class="overlay overlay-bg"></div>				
+				<div class="overlay overlay-bg"></div><br><br>		
 				<div class="container">
 					<div class="row fullscreen align-items-center justify-content-between">
 						<div class="col-lg-6 col-md-6 banner-left">
-							<h6 class="text-white">Away from monotonous life</h6>
+							<h6 class="text-white">Zoonotic Disease Identification</h6>
 							<h1 class="text-white">ZooDis</h1>
 							<p class="text-white">
-								If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for as low as $.17 each.
+								Zoonotic Disease Identification System was developed as a data portal rich in information generated from published researches around the globe, focusing on animal microbiota. The identity, isolation techniques, profiles, chemotaxonomic characteristics will be included in the presentation.
 							</p>
 							<a href="#" class="primary-btn text-uppercase">Get Started</a>
 						</div>
 						<div class="col-lg-4 col-md-6 banner-right">
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 							  <li class="nav-item">
-							    <a class="nav-link active" id="animal-tab" data-toggle="tab" href="#animal" role="tab" aria-controls="animal" aria-selected="true">Animal</a>
+							    <a class="nav-link" id="animal-tab" data-toggle="tab" href="#animal" role="tab" aria-controls="animal" aria-selected="true">Animal</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link" id="bacteria-tab" data-toggle="tab" href="#bacteria" role="tab" aria-controls="bacteria" aria-selected="false">Bacteria</a>
+							    <a class="nav-link active" id="bacteria-tab" data-toggle="tab" href="#bacteria" role="tab" aria-controls="bacteria" aria-selected="false">Bacteria</a>
 							  </li>
 							  <li class="nav-item">
 							    <a class="nav-link" id="disease-tab" data-toggle="tab" href="#disease" role="tab" aria-controls="disease" aria-selected="false">Disease</a>
 							  </li>
 							</ul>
 							<div class="tab-content" id="myTabContent">
-							  <div class="tab-pane fade show active" id="animal" role="tabpanel" aria-labelledby="animal-tab">
+							  <div class="tab-pane fade" id="animal" role="tabpanel" aria-labelledby="animal-tab">
 								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
+									<p>Access information about animals, and their characteristics.</p><br>
+									<input type="text" class="form-control" name="animalName" placeholder="Name " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
+									<input type="text" class="form-control" name="animalScientificName" placeholder="Scientific Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
 									<a href="#" class="primary-btn text-uppercase">Search Animal</a>									
 								</form>
 							  </div>
-							  <div class="tab-pane fade" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
+							  <div class="tab-pane fade show active" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
 								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">						
+									<p>View bacteria details such as their taxonomic classification and their physiological characteristics.</p><br>
+									<input type="text" class="form-control" name="bacteriaScientificName" placeholder="Scientific Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
 									<a href="#" class="primary-btn text-uppercase">Search Bacteria</a>									
 								</form>							  	
 							  </div>
 							  <div class="tab-pane fade" id="disease" role="tabpanel" aria-labelledby="disease-tab">
 								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
+									<p>Access disease information together with its causes, its symptoms, and preventions.</p>
+									<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">																
 									<a href="#" class="primary-btn text-uppercase">Search Disease</a>									
 								</form>							  	
 							  </div>
