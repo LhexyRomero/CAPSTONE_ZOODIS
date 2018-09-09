@@ -13,6 +13,10 @@ router.get('/contact',(req,res,next)=>{
     res.render('researcher/contact');
 });
 
+router.get('/collab',(req,res,next)=>{
+    res.render('researcher/collab');
+});
+
 router.get('/microbiota',(req,res,next)=>{
     res.render('researcher/microbiota');
 });

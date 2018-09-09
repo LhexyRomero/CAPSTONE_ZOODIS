@@ -2,6 +2,8 @@
 /* =================================== */
 /*  Basic Style 
 /* =================================== */
+
+
 ::-moz-selection {
   /* Code for Firefox */
   background-color: #9c27b0;
@@ -371,7 +373,7 @@ td, th {
 }
 
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .mb-25 {
@@ -2316,7 +2318,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /*  Homepage Styles
 /* =================================== */
 .section-gap {
-  padding: 120px 0;
+  padding: 50px 0;
 }
 
 .alert-msg {
@@ -4120,16 +4122,17 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .contact-page-area .form-area .form-control:focus {
   box-shadow: none !important;
-  border-color: #ced4da !important;
+  border-color: #fafafa !important;
 }
 
 .contact-page-area .form-area input {
-  padding: 15px;
+  padding: 10px;
+  padding-left: 25px;
 }
 
 .contact-page-area .form-area input,
 .contact-page-area .form-area textarea {
-  border-radius: 0;
+  border-radius: 15px;
   font-size: 13px !important;
 }
 
