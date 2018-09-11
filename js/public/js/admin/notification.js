@@ -25,6 +25,7 @@ $(function () {
 
 });
 isClicked = 0;
+
 function notificationList() {
     $.get("/notificationList", (response) => {
         if (response.success == false) {

@@ -934,10 +934,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .genric-btn {
+  border-radius: 3px !important;
   display: inline-block;
   outline: none;
-  line-height: 40px;
-  padding: 0 30px;
+  line-height: 37px;
+  padding: 0px 30px;
   font-size: .8em;
   text-align: center;
   text-decoration: none;
@@ -1122,7 +1123,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .genric-btn.danger-border {
-  color: #f44a40;
+  color: #ff0d00;
   border: 1px solid #f44a40;
   background: #fff;
 }
@@ -4137,7 +4138,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .contact-page-area .form-area textarea {
-  height: 190px;
+  height: 169.5px;
   margin-top: 0px;
   padding: 15px;
 }
@@ -4147,7 +4148,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  border-radius: 0 !important;
+  border-radius: 0;
   font-size: 14px;
   text-transform: uppercase !important;
 }
