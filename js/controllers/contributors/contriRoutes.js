@@ -79,7 +79,6 @@ router.get('/contri_Toxin',auth.authenticate,(req,res,next)=>{
 router.post('/contri_toxin', contri_auth, contri_bacteria.addToxin);
 
 router.get('/contri_toxinList',contri_bacteria.toxinList);
-router.get('/contri_toSelectBacteria' , contri_bacteria.toSelectBacteria);
 router.get('/contri_viewToxin/:id',contri_bacteria.viewToxin);
 
 router.get('/contri_Dashboard', auth.authenticate, (req,res,next)=>{

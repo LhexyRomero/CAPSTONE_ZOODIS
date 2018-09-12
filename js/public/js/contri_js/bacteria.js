@@ -2,7 +2,6 @@ $(function () {
     toSelectAnimal();
     bacteriaTaxonList();
     toSelectJournal();
-    toSelectBacteria();
     toxinList();
     bacteriaList();
 
@@ -214,21 +213,6 @@ function viewBacteriaTaxon(id) {
         }
     });
 }
-
-function toSelectBacteria() {
-    $.get("/contri_toSelectBacteria", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
-            return;
-        }
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
-        });
-        $('#toSelectBacteria').html(html);
-    });
-};
 
 function toSelectAnimal() {
     $.get("/contri_toSelectAnimal", (response) => {

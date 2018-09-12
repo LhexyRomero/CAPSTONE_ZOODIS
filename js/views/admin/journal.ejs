@@ -12,9 +12,9 @@
             <% include ../partials/navbar %>
             <div class="panel-header panel-header-sm"></div>
             <div class="content">
-                <form enctype="multipart/form-data" id="journalForm" method="POST" onsubmit="addJournal(event)">
-                    <div class="row">
-                        <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form enctype="multipart/form-data" id="journalForm" method="POST" onsubmit="addJournal(event)">
                             <div class="card">
                                 <div class="card-header ">
                                     <h4 class="card-title"> JOURNAL FORM</h4>
@@ -53,41 +53,42 @@
                                 </div>
                             </div>
 
-                        </div>
-                </form>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <label>To Assign Journal: </label> &nbsp;
-                                <a data-toggle='modal' href='#journal'>
-                                    <button type="submit" class="btn btn-primary" onclick="">Assign Journal</button>
-                                </a>
-                                <br>
-                                <br>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table" id="journalTable">
-                                    <thead class="text-primary">
-                                        <th>
-                                            <small>
-                                                <b>JOURNAL NAME</b>
-                                            </small>
-                                        </th>
-                                        <th>
-                                            <small>
-                                                <b>ACTION</b>
-                                            </small>
-                                        </th>
-                                        <th>
-                                            <small>
-                                                <b>STATUS</b>
-                                            </small>
-                                        </th>
-                                    </thead>
-                                    <tbody id="journalTableList">
-                                    </tbody>
-                                </table>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <label>To Assign Journal: </label> &nbsp;
+                                    <a data-toggle='modal' href='#journal'>
+                                        <button type="submit" class="btn btn-primary" onclick="">Assign Journal</button>
+                                    </a>
+                                    <br>
+                                    <br>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="journalTable">
+                                        <thead class="text-primary">
+                                            <th>
+                                                <small>
+                                                    <b>JOURNAL NAME</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>ACTION</b>
+                                                </small>
+                                            </th>
+                                            <th>
+                                                <small>
+                                                    <b>STATUS</b>
+                                                </small>
+                                            </th>
+                                        </thead>
+                                        <tbody id="journalTableList">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,8 +107,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form id="editJournal" action="/updateJournal" method="POST">
+                <form id="editJournal" action="/updateJournal" method="POST">
+                    <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card-body">
@@ -135,24 +136,23 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                </div>
-                <div class="for-footer">
-                    <div align="right">
-                        <button type="button" class="btn btn-primary" id="toSave" onclick="updateJournal()">Save
-                            changes
-                        </button>
                     </div>
-                </div>
+                    <div class="for-footer">
+                        <div align="right">
+                            <button type="button" class="btn btn-primary" id="toSave" onclick="updateJournal()">Save
+                                changes
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        </form>
     </div>
     <!--View Modal-->
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;"
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal" style="display: none;"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -190,14 +190,10 @@
                                     <label id="modalViewDoi"></label>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

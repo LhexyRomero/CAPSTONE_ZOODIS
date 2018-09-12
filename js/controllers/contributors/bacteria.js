@@ -148,15 +148,6 @@ exports.addToxin = (req, res, next) => {
 
 }
 
-exports.toSelectBacteria = (req, res, next) => {
-    let sql10 = "SELECT bacteriumID, bacteriumScientificName FROM bacteria_t";
-    db.get().query(sql10, (err10, result10) => {
-        if (err10) return next(err10);
-
-        res.status(200).send({ success: true, detail: "", data: result10 });
-    });
-}
-
 exports.toSelectJournal = (req, res, next) => {
     let sql = "SELECT journalID, code FROM journal_t";
     db.get().query(sql, (err, result) => {

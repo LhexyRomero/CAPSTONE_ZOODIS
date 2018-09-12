@@ -135,13 +135,9 @@ exports.addToxin = (req, res, next) => {
 
     let insertToxin = function () {
         let sql6 = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql7 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
         db.get().query(sql6, [strToxinName, strStructureFeature, strFunction,status,req.session.staffID], (err6, result6) => {
             if (err6) return next(err6);
-            db.get().query(sql7,[selectBacteria,result6.insertId],(err,result)=>{
-
-                res.status(200).send({ success: true, detail: ""});
-            });
+            res.status(200).send({ success: true, detail: ""});
         });
     }
 
@@ -161,28 +157,27 @@ exports.addToxin = (req, res, next) => {
 
 exports.toxinList = (req, res, next) => {
     let status = "approved";
-    let sql7 = "SELECT * FROM toxin_t WHERE status =?";
-    db.get().query(sql7,[status],(err7, result7) => {
-        if (err7) return next(err7);
+    let sql = "SELECT * FROM toxin_t WHERE status =?";
+    db.get().query(sql,[status],(err, result) => {
+        if (err) return next(err);
 
-        res.status(200).send({ success: true, detail: "", data: result7 });
+        res.status(200).send({ success: true, detail: "", data: result});
     });
 }
 
 exports.editToxin = (req, res, next) => {
     id = req.params.id;
 
-    let sql8 = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID WHERE toxin_t.toxinID = ?";
-    db.get().query(sql8, [id], (err8, result8) => {
-        if (err8) return next(err8);
+    let sql = "SELECT * FROM toxin_t WHERE toxin_t.toxinID = ?";
+    db.get().query(sql, [id], (err, result) => {
+        if (err) return next(err);
 
-        console.log(result8);
         let dataDisplay = {
 
-            bacteriumID : result8[0].bacteriumID,
-            name: result8[0].name,
-            structureFeature: result8[0].structureFeature,
-            toxinFunction: result8[0].function
+            bacteriumID : result[0].bacteriumID,
+            name: result[0].name,
+            structureFeature: result[0].structureFeature,
+            toxinFunction: result[0].function
         }
 
         res.status(200).send({ success: true, detail: "", data: dataDisplay });
@@ -194,20 +189,14 @@ exports.updateToxin = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
 
-    let bacteriumID = data.modalSelect;
     let strToxinName = data.modalToxinName;
     let strStructureFeature = data.modalStructureFeature;
     let strFunction = data.modalFunction;
 
     let sql9 = "UPDATE toxin_t SET name = ?, structureFeature = ?, function = ?  WHERE toxinID = ?";
-    let sql10 = "UPDATE bacteriatoxin_t SET bacteriumID = ? , toxinID = ? WHERE toxinID = ?";
-    db.get().query(sql9, [strToxinName, strStructureFeature, strFunction, id], (err9, result9) => {
-        if (err9) return next(err9);
-        db.get().query(sql10,[bacteriumID,id,id],(err,result)=>{
-            if(err) return next(err);
-
-            res.status(200).send({ success: true, detail: "Successfully Updated!" });
-        });
+    db.get().query(sql, [strToxinName, strStructureFeature, strFunction, id], (err, result) => {
+        if (err) return next(err);
+        res.status(200).send({ success: true, detail: "Successfully Updated!" });
     });
 }
 
@@ -500,16 +489,6 @@ exports.updateBacteria = (req,res,next) => {
         else {
             res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
         }
-    });
-}
-
-exports.toSelectBacteria2 = (req,res,next) =>{
-    
-    let sql = "SELECT bacteriumID, bacteriumScientificName FROM bacteria_t";
-    db.get().query(sql,(err,result)=>{
-        if(err) return next(err);
-
-        res.status(200).send({success: true, detail:"", data:result});
     });
 }
 
