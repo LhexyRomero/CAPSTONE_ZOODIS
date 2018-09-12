@@ -17,7 +17,7 @@ const staff = require('../admin/staff');
 const sample = require('../admin/sample');
 
 router.get('/', (_,res,__)=>{
-    res.redirect('/dashboard');
+    res.redirect('/index');
 });
 
 router.route('/login')

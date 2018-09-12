@@ -4,22 +4,22 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-sm-6 col-6 header-top-left">
                     <ul>
-                        <li><a href="#"><span class="lnr lnr-user"></span></a></li>
-                        <li><a href="#">Name</a></li>
+                        <li><a href=""><span class="lnr lnr-user"></span></a></li>
+                        <li><a href="">Name</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-sm-6 col-6 header-top-right">
                     <div class="header-social">
-                        <a href="#login" data-toggle="modal">Login</i></a>
-                        <a href="#">|</i></a>
-                        <a href="#">Register</i></a>
+                        <a href="#modalLogin" data-toggle="modal">Login</a>
+                        <a href="">|</a>
+                        <a href="#modalRegister" data-toggle="modal">Register</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container main-menu">
-        <div class="row align-items-center justify-content-between d-flex">
+        <div class="row align-items-center justify-content-between d-flex"><br>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li><a href="index">Home</a></li>
@@ -38,3 +38,126 @@
         </div>
     </div>
 </header>
+
+<!-- Login Modal -->
+<div class="modal fade" id="modalLogin" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Login</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <img src="../../assets/img/zoo.ico" width="65px" height="65px" alt="">
+                    <h3 class="modal-title">ZOODIS</h3>
+                    <p>Zoonotic Disease Identification</p>
+                </center>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-user"></span>
+                        </div>
+                    </span>
+                    <input type="text" name="username" class="form-control" placeholder="Email/User Name">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-lock"></span>
+                        </div>
+                    </span>
+                    <input type="password" name="username" class="form-control" placeholder="Password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="genric-btn primary" style="float: right;">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="modalRegister" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Register Account</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <img src="../../assets/img/zoo.ico" width="65px" height="65px" alt="">
+                    <h3 class="modal-title">ZOODIS</h3>
+                    <p>Zoonotic Disease Identification</p>
+                </center>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-user"></span>
+                        </div>
+                    </span>
+                    <input type="text" name="firstName" class="form-control" placeholder="First Name">
+                    <input type="text" name="middleInitial" class="form-control" placeholder="Middle Initial">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-user"></span>
+                        </div>
+                    </span>
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-user"></span>
+                        </div>
+                    </span>
+                    <input type="text" name="userName" class="form-control" placeholder="User Name">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-envelope"></span>
+                        </div>
+                    </span>
+                    <input type="text" name="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="form-control" placeholder="Email">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-lock"></span>
+                        </div>
+                    </span>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="input-group no-border form-control-lg">
+                    <span class="input-group-prepend">
+                        <div class="input-group-text">
+                            <span class="lnr lnr-lock"></span>
+                        </div>
+                    </span>
+                    <input type="password" name="rePassword" class="form-control" placeholder="Re-Enter Password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="genric-btn primary" style="float: right;">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%
+    var script = "";
+    if(regError==1){
+        script = "<script type='text/javascript'>alert('All fields must be filled!')</script>";
+    }else if(regError==2){
+        script = "<script type='text/javascript'>alert('Password didnt match!')</script>";
+    }else if(regError==3){
+        script = "<script type='text/javascript'>alert('Successfully Registered!')</script>";
+    }else{
+        script;
+    }
+%>
+    <%-script%>

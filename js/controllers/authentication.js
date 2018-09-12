@@ -3,7 +3,9 @@ const db = require('../connection');
 exports.authenticate = function (req, res, next) {
     if (req.session.staffID) {
         next();
-    } else {
+    } 
+    
+    else {
         res.status(401);
         if (req.xhr) {
             res.send({ success: false, detail: "unathorize" });

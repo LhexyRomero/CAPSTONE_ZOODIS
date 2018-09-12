@@ -14,7 +14,7 @@ module.exports = function(req, res, next){
             if(state == "noticed" && status == "Incomplete"){
                 next();
             }else{
-                res.status(200).send({success: false, detail: "No Journal Assigned!"}); // Change this message.
+                res.status(200).send({success: false, detail: "No Journal Assigned!"}); 
             }
         });
     });
