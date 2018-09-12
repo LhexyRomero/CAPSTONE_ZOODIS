@@ -1,6 +1,5 @@
 $(function () { //onload
     toSelectBacteria();
-    toSelectBacteria2();
     bacteriaTaxonList();
     toSelectJournalBacteria();
     toxinList();
@@ -114,36 +113,6 @@ function toSelectBacteria() {
         //$('#toSelectBacteria').val();//kinukuha niya yung selected value
     });
 };
-
-function toSelectBacteria2() {
-    $.get("/toSelectBacteria2", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
-            return;
-        }
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
-        });
-        $('#toSelectBacteria2').html(html);
-    });
-}
-
-function toModalSelect() {
-    $.get("/toModalSelect", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
-            return;
-        }
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
-        });
-        $('#toModalSelect').html(html);
-    });
-}
 
 function toSelectJournalBacteria() {
     $.get("/toSelectJournalBacteria", (response) => {
@@ -510,7 +479,6 @@ function toxinList() {
                 let row = "<tr>";
                 row += "<td>" + element.name + "</td>";
                 row += "<td>" + element.structureFeature + "</td>";
-                row += "<td>" + element.function + "</td>";
                 row += "<td onclick='editToxin(" + element.toxinID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
@@ -607,7 +575,6 @@ function updateToxin() {
                             confirmButtonText: "Okay"
                         });
                     }
-
                     else {
                         swal({
                             title: "Done!",
@@ -617,6 +584,7 @@ function updateToxin() {
                             confirmButtonText: "Okay"
                         });
                         toxinList();
+                        $("#exampleModalCenter").modal("hide");
                     }
                 });
             }

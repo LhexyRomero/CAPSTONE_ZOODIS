@@ -14,7 +14,34 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <form id="toxinForm" method="POST" action="/toxin" onsubmit="addToxin(event)">
+                                <div class="card-header ">
+                                    <h5 class="card-title">Toxin</h5>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="form-group has-label">
+
+                                        <label>Toxin Name</label>
+                                        <input class="form-control" name="strToxinName" type="text" />
+
+                                        <label>Structure Feature</label>
+                                        <textarea class="form-control" name="strStructureFeature"></textarea>
+
+                                        <label>Function</label>
+                                        <textarea class="form-control" name="strFunction"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer" align="right">
+                                    <button type="button" class="btn btn-warning " onclick="clearToxin()">Clear</button>
+                                    <button type="submit" class="btn btn-primary ">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 <small>
@@ -43,50 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse" id="AddCollapse">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <form id="toxinForm" method="POST" action="/toxin" onsubmit="addToxin(event)">
-
-                                    <div class="card-header ">
-                                        <button type="button" class="close" aria-label="Close" data-toggle="collapse"
-                                            href="#AddCollapse">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h5 class="card-title">Toxin</h5>
-                                    </div>
-
-                                    <div class="card-body ">
-
-                                        <div class="form-group has-label">
-
-                                            <label>Bacteria</label>
-                                            <select class="form-control" name="selectBacteria" id="toSelectBacteria"></select>
-
-                                            <label>Toxin Name</label>
-                                            <input class="form-control" name="strToxinName" type="text" />
-
-                                            <label>Structure Feature</label>
-                                            <textarea class="form-control" name="strStructureFeature"></textarea>
-
-                                            <label>Function</label>
-                                            <textarea class="form-control" name="strFunction"></textarea>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" align="right">
-                                        <button type="button" class="btn btn-warning " onclick="clearToxin()">Clear</button>
-                                        <button type="submit" class="btn btn-primary ">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
-
         </div>
     </div>
     <!--View Modal-->
@@ -135,4 +119,5 @@
         $("#toxin").addClass("active");
     </script>
 </body>
+
 </html>

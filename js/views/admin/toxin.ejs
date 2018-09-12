@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><% include ../partials/head %></head>
+
+<head>
+    <% include ../partials/head %>
+</head>
 
 <body>
     <div class="wrapper ">
@@ -11,10 +14,39 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <form id="toxinForm" method="POST" action="/toxin" onsubmit="addToxin(event)">
+
+                                <div class="card-header ">
+                                    <h5 class="card-title">Toxin</h5>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="form-group has-label">
+                                        <label>Toxin Name</label>
+                                        <input class="form-control" name="strToxinName" type="text" />
+
+                                        <label>Structure Feature</label>
+                                        <textarea class="form-control" name="strStructureFeature"></textarea>
+
+                                        <label>Function</label>
+                                        <textarea class="form-control" name="strFunction"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer" align="right">
+                                    <button type="button" class="btn btn-warning " onclick="clearToxin()">Clear</button>
+                                    <button type="submit" class="btn btn-primary ">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <small><h4 class="card-title"> BACTERIA TOXINS</h4></small>
+                                <small>
+                                    <h4 class="card-title"> BACTERIA TOXINS</h4>
+                                </small>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -22,7 +54,6 @@
                                         <thead class="text-primary">
                                             <th><small><b>TOXINS</b></small></th>
                                             <th><small><b>STRUCTURE FEATURE</b></small></th>
-                                            <th><small><b>FUNCTION</b></small></th>
                                             <th><small><b>ACTION</b></small></th>
                                         </thead>
                                         <tbody id="toxinTableList">
@@ -31,8 +62,8 @@
                                 </div>
 
                                 <div class="card-button">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="collapse" href="#AddCollapse" role="button" aria-expanded="true"
-                                        aria-controls="AddCollapse">Add</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="collapse"
+                                        href="#AddCollapse" role="button" aria-expanded="true" aria-controls="AddCollapse">Add</button>
                                     <br>
                                     <br>
                                 </div>
@@ -42,54 +73,14 @@
 
                     </div>
                 </div>
-                <div class="collapse" id="AddCollapse">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <form id="toxinForm" method="POST" action="/toxin" onsubmit="addToxin(event)">
-
-                                    <div class="card-header ">
-                                        <button type="button" class="close"  aria-label="Close" data-toggle="collapse" href="#AddCollapse">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h5 class="card-title">Toxin</h5>
-                                    </div>
-
-                                    <div class="card-body ">
-
-                                        <div class="form-group has-label">
-
-                                            <label>Bacteria</label>
-                                            <select class="form-control" name="selectBacteria2" id="toSelectBacteria2"></select>
-
-                                            <label>Toxin Name</label>
-                                            <input class="form-control" name="strToxinName" type="text" />
-
-                                            <label>Structure Feature</label>
-                                            <textarea class="form-control" name="strStructureFeature"></textarea>
-
-                                            <label>Function</label>
-                                            <textarea class="form-control" name="strFunction"></textarea>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" align="right">
-                                        <button type="button" class="btn btn-warning " onclick="clearToxin()">Clear</button>
-                                        <button type="submit" class="btn btn-primary ">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
+                            <h6 class="modal-title" id="exampleModalLongTitle">BACTERIA TOXIN</h6>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -101,9 +92,6 @@
                                         <div class="card-body">
                                             <div class="form-group has-label">
 
-                                                <label>Bacteria</label>
-                                                <select class="form-control" name="modalSelect" id="toModalSelect"></select>
-
                                                 <label class="modalLabel">Toxin Name</label>
                                                 <input class="form-control" name="modalToxinName" type="text" />
 
@@ -112,12 +100,12 @@
 
                                                 <label class="modalLabel">Function</label>
                                                 <textarea class="form-control" name="modalFunction"></textarea>
-            
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div align ="right">
+                                <div align="right">
                                     <button type="button" class="btn btn-primary" onclick="updateToxin()">Save changes</button>
                                 </div>
                             </form>
@@ -137,4 +125,5 @@
         $("#toxin").addClass("active");
     </script>
 </body>
+
 </html>
