@@ -7,12 +7,14 @@ router.use((req,res,next)=>{ //Add initial middleware to ensure all request belo
     next();
 });
 
-router.get('/registerResearcher',(req,res,next)=>{
-    var result = req.query.error || false;
-    res.render('researcher/index',{regError: result});
-});
+router.route('/registerResearcher')
+    .get((req,res,next)=>{
+        var result = req.query.error || false;
+        res.render('researcher/index',{regError: result});
+    })
+    .post(auth.researcherRegister);
 
-router.post('/registerResearcher',auth.researcherRegister);
+router.post('/verify', auth.researcherConfirm);
 
 router.get('/index',(req,res,next)=>{
     res.render('researcher/index');

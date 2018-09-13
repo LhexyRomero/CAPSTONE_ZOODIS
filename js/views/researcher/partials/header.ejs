@@ -189,9 +189,9 @@
     var loginErr = locals.regError || 0;
     if(loginErr){
         if(loginErr==1){
-            script = "<script type='text/javascript'>alert('All fields must be filled!')</script>";
+            script = "<script type='text/javascript'>alert('All fields must be filled!'); window.onload = ()=>{$('#modalRegister').modal('show');}</script>";
         }else if(loginErr==2){
-            script = "<script type='text/javascript'>alert('Successfully Registered!')</script>";
+            script = "<script type='text/javascript'>alert('Successfully Registered!'); window.onload = ()=>{$('#modalVerify').modal('show');}</script>";
         }else{
             script;
         }

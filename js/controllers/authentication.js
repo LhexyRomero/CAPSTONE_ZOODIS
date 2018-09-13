@@ -1,4 +1,7 @@
 const db = require('../connection');
+const emailer = require('../emailer');
+
+var pendingRegistration = [];
 
 exports.authenticate = function (req, res, next) {
     if (req.session.staffID) {
@@ -133,19 +136,47 @@ exports.researcherRegister = (req, res, next) => {
     let data = [firstName, lastName, middleInitial, userName, email, password];
 
     data.forEach((e, i) => {
-        if (e == null || e  == undefined) {
-            res.redirect('/registerResearcher?error=1');
+        if (e == null || e  == undefined || e == '') {
+            return res.redirect('/registerResearcher?error=1');
         }
-
         if (i == data.length - 1) {
             let sql = "INSERT INTO user_t (firstName,lastName,mi,userName,email,password) VALUES (?,?,?,?,?,?)";
-
             db.get().query(sql, [firstName, lastName, middleInitial, userName, email, password], (err, result) => {
                 if (err) return next(err);
                 res.status(200).redirect('/registerResearcher?error=2');
+                let code = Math.random().toString(36).replace('0.','');
+                emailer(email, {
+                    subject: 'Email Verification Aspiring Researcher!',
+                    body: '<center><h1>Zoodis Account Verification</h1><hr><p>Welcome aspiring Researcher!\nTo verify you account use this code on verification box: '+ code +'</p><center>',
+                }, function(err, detail){
+                    if(err) return next(err);
+                    pendingRegistration.push({
+                        id: result.insertId,
+                        code: code
+                    });
+                    setTimeout(()=>{
+                        var id = result.insertId;
+                        var index = pendingRegistration.findIndex(x=>x.id == id);
+                        pendingRegistration.splice(index,1);
+                    },3600000);
+                    console.log(detail);
+                });
             });
-
         }
-
     });
+}
+
+exports.researcherConfirm = (req, res, next) => {
+    let code = req.body.code;
+    let index = pendingRegistration.findIndex(x=>x.code == code);
+    if(index != -1){
+        let id = pendingRegistration[index].id;
+        let sql = "UPDATE user_t SET status = 1 WHERE userID = ?";
+        db.get().query(sql, [id], function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true});
+        });
+    }else{
+        res.status(200).send({success: false, detail: 'Invalid Verification Code'});
+    }
 }
