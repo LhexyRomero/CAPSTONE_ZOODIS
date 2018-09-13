@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
+    res.locals.staffData = req.session.staffData;
+    next();
+});
+
 router.get('/index',(req,res,next)=>{
     res.render('researcher/index');
 });

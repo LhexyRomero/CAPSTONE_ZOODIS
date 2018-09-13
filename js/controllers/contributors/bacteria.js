@@ -61,7 +61,7 @@ exports.addBacteriaTaxon = (req, res, next) => {
 exports.bacteriaTaxonList = (req, res, next) => {
     let sql = "SELECT * FROM bacteriataxo_t WHERE staffID =?";
 
-    db.get().query(sql,[req.session.staffID], (err, result) => {
+    db.get().query(sql, [req.session.staffID], (err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -104,8 +104,8 @@ exports.addToxin = (req, res, next) => {
     console.log(name);
 
     let checkToxin = function (cb) {
-        let sql = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID WHERE toxin_t.toxinID = ? AND name = ?";
-        db.get().query(sql, [selectBacteria, strToxinName], (err, result) => {
+        let sql = "SELECT * FROM toxin_t AND name = ?";
+        db.get().query(sql, [strToxinName], (err, result) => {
             if (err) return cb(err);
 
             if (result.length == 0) {
@@ -120,16 +120,12 @@ exports.addToxin = (req, res, next) => {
 
     let insertToxin = function () {
         let sql = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,date) VALUES (?,?,?,?,?,CURRENT_DATE)";
-        let sql1 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
         let sql2 = "INSERT INTO notification_t (dateTime, status,staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
         db.get().query(sql, [strToxinName, strStructureFeature, strFunction, status, req.session.staffID], (err, result) => {
             if (err) return next(err);
-            db.get().query(sql1, [selectBacteria, result.insertId], (err1, result1) => {
-                if (err1) return next(result1);
-                db.get().query(sql2, [status, name, strToxinName, req.session.staffID, category, result.insertId, state], (err2, result2) => {
-                    if (err2) return next(err2);
-                    res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
-                });
+            db.get().query(sql2, [status, name, strToxinName, req.session.staffID, category, result.insertId, state], (err2, result2) => {
+                if (err2) return next(err2);
+                res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
             });
         });
     }
@@ -160,7 +156,7 @@ exports.toSelectJournal = (req, res, next) => {
 
 exports.toxinList = (req, res, next) => {
     let sql = "SELECT * FROM toxin_t";
-    db.get().query(sql,(err, result) => {
+    db.get().query(sql, (err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -262,7 +258,7 @@ exports.addBacteria = (req, res, next) => {
         db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
             if (err) return next(err);
             console.log("1st queyr");
-            db.get().query(sql1, [status, name, strScientificName, req.session.staffID,category,resulta.insertId,state], (err1, result1) => {
+            db.get().query(sql1, [status, name, strScientificName, req.session.staffID, category, resulta.insertId, state], (err1, result1) => {
                 if (err1) return next(err1);
                 console.log("2nd query");
                 res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
@@ -309,7 +305,7 @@ exports.addBacteria = (req, res, next) => {
 
 exports.bacteriaList = (req, res, next) => {
     let sql = "SELECT * FROM bacteria_t WHERE staffID =?";
-    db.get().query(sql,[req.session.staffID], (err, result) => {
+    db.get().query(sql, [req.session.staffID], (err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });

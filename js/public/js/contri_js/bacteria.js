@@ -356,10 +356,8 @@ function toxinList() {
 
 let viewToxinID = 0;
 function viewToxin(id) {
-    console.log("LEKI");
     viewToxinID = id;
     let url = "/contri_viewToxin/" + viewToxinID;
-    console.log(url);
 
     $.get(url, (response) => {
         if (response.success === false) {
@@ -371,14 +369,14 @@ function viewToxin(id) {
         let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
         let statusRejected = "<font color=red><em>" + response.data.status + "</em></font>";
 
-        if (response.data.status === 'approved') {
+        if (response.data.status == "approved") {
             $('#viewToxinName').html(response.data.name);
             $('#status').html(statusApproved);
             $('#structureFeature').html(response.data.feature);
-            $('#function').html(response.data.function);
+            $('#function').html(response.data.func);
         }
 
-        else if (response.data.status === 'rejected') {
+        else if (response.data.status == "rejected") {
             $('#viewToxinName').html(response.data.name);
             $('#status').html(statusRejected);
             $('#structureFeature').html(response.data.feature);

@@ -3,7 +3,9 @@ const db = require('../connection');
 exports.authenticate = function (req, res, next) {
     if (req.session.staffID) {
         next();
-    } else {
+    } 
+    
+    else {
         res.status(401);
         if (req.xhr) {
             res.send({ success: false, detail: "unathorize" });
@@ -16,17 +18,35 @@ exports.authenticate = function (req, res, next) {
 exports.login = function (req, res, next) {
     let username = req.body.username || "";
     let password = req.body.password || "";
+    let type = req.body.type || false;
 
     let sql = "SELECT * FROM staff_t WHERE userName = ? AND password = SHA1(?)";
 
     db.get().query(sql, [username, password], function (err, result) {
         if (err) return next(err);
         if (result.length != 0) {
-            req.session.staffID = result[0].staffID;
-            req.session.accType = result[0].type;
-            req.session.staffData = result[0];
+            if(type){
+                if(type == result[0].type){
+                    req.session.staffID = result[0].staffID;
+                    req.session.accType = result[0].type;
+                    req.session.staffData = result[0];
+                }else{
+                    fail();
+                }
+            }else{
+                req.session.staffID = result[0].staffID;
+                req.session.accType = result[0].type;
+                req.session.staffData = result[0];
+            }
             next();
         } else {
+            fail();
+        }
+        
+        function fail(){
+            if(req.xhr){
+                return res.status(200).send({success: false, detail: "Invalid Username/Password"});
+            }
             res.redirect('/login?failed=1');
         }
     });
@@ -38,11 +58,16 @@ exports.logout = function (req, res, next) {
 }
 
 exports.authRedirect = function (req, res, next) {
+    if(req.xhr){
+        return res.status(200).send({success: true});   
+    }
     if (req.session.accType == 2) {
         res.redirect('/dashboard');
     } else if (req.session.accType == 1) {
         res.redirect('/contri_Dashboard');
-    } else {
+    } else if(req.session.accType == 3){
+        res.redirect('/index');
+    }else {
         next();
     }
 }
