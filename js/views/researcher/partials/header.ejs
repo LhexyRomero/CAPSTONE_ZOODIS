@@ -20,7 +20,7 @@
                             var account = '';
                             var out = '';
 
-                            if(locals.staffData != null) {
+                            if(locals.staffData) {
                                 out = '<a href="#">Logout</a>';
                             }
 
@@ -51,7 +51,20 @@
                             <li><a href="researcher_disease">Disease</a></li>
                         </ul>
                     </li>
-                    <li><a href="contact">Contact</a></li>
+                    <% 
+                        var contact = '';
+                        var collab = '';
+
+                        if(locals.staffData) {
+                            collab = '<li><a href="collab">Contact</a></li>';
+                        }
+
+                        else {
+                            contact = '<li><a href="contact">Contact</a></li>';
+                        }
+                    %>
+                    <%-contact%>
+                    <%-collab%>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

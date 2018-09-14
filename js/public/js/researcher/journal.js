@@ -1,4 +1,5 @@
 let isClicked = 0;
+
 function uploadJournal(e){
     e.preventDefault();
 
@@ -26,11 +27,6 @@ function uploadJournal(e){
             invCount++;
             isClicked = 0;
         }
-
-        else {
-            //dataInsert.append(element.name,element.value);
-        }
-
     });
 
     if (errCount > 0) {
