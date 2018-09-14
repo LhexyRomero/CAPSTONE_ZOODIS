@@ -1,6 +1,9 @@
 const express = require('express');
+
 const router = express.Router();
 const auth = require('../authentication');
+const upload = require('../../fileUpload');
+const journal = require('../researcher/journal');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -28,9 +31,11 @@ router.get('/contact',(req,res,next)=>{
     res.render('researcher/contact');
 });
 
-router.get('/collab',(req,res,next)=>{
+router.get('/collab',auth.authenticate,(req,res,next)=>{
     res.render('researcher/collab');
 });
+
+router.post('/uploadJournal',upload.single('myfile'),journal.uploadJournal);
 
 router.get('/microbiota',(req,res,next)=>{
     res.render('researcher/microbiota');

@@ -132,6 +132,8 @@ exports.researcherRegister = (req, res, next) => {
     let userName = req.body.userName;
     let email = req.body.email;
     let password = req.body.password;
+    let status = 2;
+    let type = 3;
 
     let data = [firstName, lastName, middleInitial, userName, email, password];
 
@@ -140,14 +142,14 @@ exports.researcherRegister = (req, res, next) => {
             return res.redirect('/registerResearcher?error=1');
         }
         if (i == data.length - 1) {
-            let sql = "INSERT INTO user_t (firstName,lastName,mi,userName,email,password) VALUES (?,?,?,?,?,?)";
-            db.get().query(sql, [firstName, lastName, middleInitial, userName, email, password], (err, result) => {
+            let sql = "INSERT INTO staff_t (firstName,lastName,middleInitial,userName,email,password,status,type) VALUES (?,?,?,?,?,SHA(?),?,?)";
+            db.get().query(sql, [firstName, lastName, middleInitial, userName, email, password,status,type], (err, result) => {
                 if (err) return next(err);
                 res.status(200).redirect('/registerResearcher?error=2');
                 let code = Math.random().toString(36).replace('0.','');
                 emailer(email, {
                     subject: 'Email Verification Aspiring Researcher!',
-                    body: '<center><h1>Zoodis Account Verification</h1><hr><p>Welcome aspiring Researcher!\nTo verify you account use this code on verification box: '+ code +'</p><center>',
+                    body: '<center><h1>Zoodis Account Verification</h1><hr><p>Welcome aspiring Researcher!\nTo verify your account use this code on verification box: '+ code +'</p><center>',
                 }, function(err, detail){
                     if(err) return next(err);
                     pendingRegistration.push({
@@ -171,7 +173,7 @@ exports.researcherConfirm = (req, res, next) => {
     let index = pendingRegistration.findIndex(x=>x.code == code);
     if(index != -1){
         let id = pendingRegistration[index].id;
-        let sql = "UPDATE user_t SET status = 1 WHERE userID = ?";
+        let sql = "UPDATE staff_t SET status = 1 WHERE staffID = ?";
         db.get().query(sql, [id], function(err){
             if(err) return next(err);
             res.status(200).send({success: true});

@@ -16,9 +16,22 @@
                 </div>
                 <div class="col-lg-6 col-sm-6 col-6 header-top-right">
                     <div class="header-social">
-                        <a href="#modalLogin" data-toggle="modal">Login</a>
-                        <a href="">|</a>
-                        <a href="#modalRegister" data-toggle="modal">Register</a>
+                        <% 
+                            var account = '';
+                            var out = '';
+
+                            if(locals.staffData != null) {
+                                out = '<a href="#">Logout</a>';
+                            }
+
+                            else {
+                                account += '<a href="#modalLogin" data-toggle="modal">Login</a>';
+                                account += '<a href="">|</a>';
+                                account += '<a href="#modalRegister" data-toggle="modal">Register</a>';
+                            }
+                        %>
+                        <%-account%>
+                        <%-out%>
                     </div>
                 </div>
             </div>
@@ -90,10 +103,10 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form action="/registerResearcher" method="POST">
-            <div class="modal-header">
-                <h6 class="modal-title">Register Account</h6>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                <div class="modal-header">
+                    <h6 class="modal-title">Register Account</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 <div class="modal-body">
                     <center>
                         <img src="../../assets/img/zoo.ico" width="65px" height="65px" alt="">
@@ -191,7 +204,7 @@
         if(loginErr==1){
             script = "<script type='text/javascript'>alert('All fields must be filled!'); window.onload = ()=>{$('#modalRegister').modal('show');}</script>";
         }else if(loginErr==2){
-            script = "<script type='text/javascript'>alert('Successfully Registered!'); window.onload = ()=>{$('#modalVerify').modal('show');}</script>";
+            script = "<script type='text/javascript'>window.onload = () => { $('#modalVerify').modal('show'); }</script>";
         }else{
             script;
         }
