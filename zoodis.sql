@@ -432,8 +432,9 @@ CREATE TABLE `user_t` (
   `mi` varchar(2) NOT NULL,
   `userName` varchar(30) NOT NULL,
   `email` varchar(70) NOT NULL,
-  `password` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(30) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '2'
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -523,6 +524,12 @@ ALTER TABLE `staff_t`
 ALTER TABLE `toxin_t`
   ADD PRIMARY KEY (`toxinID`),
   ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `user_t`
+--
+ALTER TABLE `user_t`
+ ADD PRIMARY KEY (`userID`), ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
