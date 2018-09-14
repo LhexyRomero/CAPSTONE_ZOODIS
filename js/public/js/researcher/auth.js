@@ -48,6 +48,7 @@ $(function(){
             }else{
                 alert('Login!');
                 $('#modalLogin').modal('hide');
+                window.location = '/collab';
             }
         });
     });
@@ -62,7 +63,7 @@ $(function(){
                 if(detail){
                     alert(detail);
                 }else{
-                    alert('Successfully Register');
+                    alert('Successfully Registered!');
                     window.location = '/collab';
                 }
             }

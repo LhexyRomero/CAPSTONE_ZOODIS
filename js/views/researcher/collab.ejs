@@ -31,6 +31,8 @@
 				<div class="col-lg-6">
 					<form class="form-area contact-form" id="collabForm" method="POST" enctype="multipart/form-data" onsubmit="uploadJournal(event)">
 						<h2>Journal Form</h2><br>
+						<div class="notif"></div>
+						<div class="info"></div>
 						<div class="row">
 							<div class="col-lg-12 form-group">
 								<input name="name" placeholder="Journal Name" class="common-input mb-20 form-control" type="text">
@@ -43,7 +45,7 @@
 								</div>
 							</div>
 							<div class="col-lg-12">
-								<button type="submit" class="genric-btn primary" style="float: right;">Upload</button>
+								<button type="submit" class="genric-btn primary" style="float: right;">Submit</button>
 							</div>
 						</div>
 					</form>
@@ -51,6 +53,7 @@
 				<div class="col-lg-6">
 					<form class="form-area contact-form" id="collabContactForm" method="POST">
 						<div class="row">
+							<div class="messageNotif"></div>
 							<div class="col-lg-12 form-group">
 								<input name="subject" placeholder="Subject" class="common-input mb-20 form-control" type="text">
 								<textarea class="common-textarea form-control" name="message" placeholder="Enter Messege"></textarea>

@@ -21,7 +21,7 @@ function uploadJournal(e){
             isClicked = 0;
         }
 
-        else if (element.value.match(/[*#\/]/g) != null) {
+        else if (element.value.match(/[*#]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClicked = 0;
@@ -34,10 +34,43 @@ function uploadJournal(e){
     });
 
     if (errCount > 0) {
-        $.notify("Fields must be filled out!", { type: "danger" });
+        let html = "<label><font color='red'>All fields must be filled!</font></label>";
+        $(".notif").html(html);
+        return;
     }
 
     else if (invCount > 0) {
-        $.notify("Invalid Character!", { type: "danger" });
+        let html = "<label><font color='red'>Invalid Character!</font></label>";
+        $(".notif").html(html);
+        return;
     }
+
+    $.ajax({
+        type: "POST",
+        url: "/uploadJournal",
+        data: dataInsert,
+        processData: false,
+        contentType: false,
+        success: (response) =>{
+            isClicked = 0;
+            if(response.success == false) {
+                let html = "<label><font color='red'>"+response.detail+"</font></label>";
+                $(".notif").html(html);
+                return;
+            }
+
+            //green
+            let html = "<label><font color='#24bb01'>"+response.detail+"</font></label>";
+            let info = "<label>Check your email after 2-3 days, Thankyou!<label>";
+            $(".notif").html(html);
+            $(".info").html(info);
+            clearJournal();
+        }
+    });
+}
+
+function clearJournal() {
+    $("input[name=name]").val("");
+    $("input[name=doi]").val("");
+    $("input[type=file]").val("");
 }
