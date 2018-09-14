@@ -4,6 +4,7 @@ const router = express.Router();
 const auth = require('../authentication');
 const upload = require('../../fileUpload');
 const journal = require('../researcher/journal');
+const contact = require('../researcher/contact');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -36,6 +37,7 @@ router.get('/collab',auth.authenticate,(req,res,next)=>{
 });
 
 router.post('/uploadJournal',upload.single('myfile'),journal.uploadJournal);
+router.post('/collabMessage',contact.collabMessage);
 
 router.get('/microbiota',(req,res,next)=>{
     res.render('researcher/microbiota');
