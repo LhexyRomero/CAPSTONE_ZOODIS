@@ -23,7 +23,18 @@ var auth = {
     },
     register: (data, cb)=>{
 
-    }
+    },
+    verify: (code, cb)=>{
+        $.post('/verify', {code: code}, function(res){
+            if(res.success){
+                cb(null, res.detail);
+            }else{
+                cb(null, res.detail);
+            }
+        }).fail(xhr=>{
+            cb(new Error(xhr.status + ":" + xhr.statusText))
+        });
+    },
 }
 
 $(function(){
@@ -37,6 +48,23 @@ $(function(){
             }else{
                 alert('Login!');
                 $('#modalLogin').modal('hide');
+            }
+        });
+    });
+    $('#codeForm').submit(function(event){
+        event.preventDefault();
+        var data = $(this).serializeArray();
+        console.log(data);
+        auth.verify(data[0].value, function(err, detail){
+            if(err){
+                alert(err.message);
+            }else{
+                if(detail){
+                    alert(detail);
+                }else{
+                    alert('Successfully Register');
+                    window.location = '/collab';
+                }
             }
         });
     });

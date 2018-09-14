@@ -12,10 +12,10 @@ exports.ZOODIS = 'zoodis_mode';
 exports.connect = ((mode, done) => {
     dbstate.pool = mysql.createPool({
         connection: 20,
-        host: '127.0.0.1',
-        user : 'root',
-        password : '',
-        database: 'zoodis'
+        host: process.env.DB_HOST || '127.0.0.1',
+        user : process.env.DB_USER || 'root',
+        password : process.env.DB_PASS || '',
+        database: process.env.DB || 'zoodis'
     });
 
     dbstate.mode = mode;

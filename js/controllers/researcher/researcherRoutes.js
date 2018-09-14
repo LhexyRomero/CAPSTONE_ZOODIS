@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../authentication');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
     next();
 });
+
+router.route('/registerResearcher')
+    .get((req,res,next)=>{
+        var result = req.query.error || false;
+        res.render('researcher/index',{regError: result});
+    })
+    .post(auth.researcherRegister);
+
+router.post('/verify', auth.researcherConfirm);
 
 router.get('/index',(req,res,next)=>{
     res.render('researcher/index');
