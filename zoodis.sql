@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2018 at 03:52 PM
+-- Generation Time: Sep 15, 2018 at 05:47 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -83,7 +83,7 @@ INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `anima
 (13, 'Chicken', 'Gallus gallus', 'Gut, Feces', 14, 'public\\others\\ea048baf270523f.jpeg', 'approved', 7, 1, '2018-08-27'),
 (14, 'Rat', 'Rattus rattus', 'Urine', 15, 'public\\others\\39af267f7cf7dc4.jpeg', 'approved', 9, 6, '2018-08-29'),
 (15, 'Dog', 'Canis lupus', 'Saliva', 16, 'public\\others\\bcf5bbb664679e7.jpeg', 'approved', 8, 7, '2018-08-29'),
-(16, 'Duck', 'Anas platyrhynchos', 'Gut', 17, 'public\\others\\b9c5ace9e9d2646.jpeg', 'approved', 5, 1, '2018-08-27'),
+(16, 'Duck', 'Anas platyrhynchos', 'Gut', 17, 'public\\others\\b9c5ace9e9d2646.jpeg', 'pending', 5, 1, '2018-08-27'),
 (17, 'Parrot', 'Cacatua galerita', 'Gut', 18, 'public\\others\\28042b2f061349a.jpeg', 'approved', 6, 1, '2018-08-29'),
 (18, 'Cat', 'Felis silvestris', 'Skin', 19, 'public\\image_upload\\ebf117e021e408a.jpeg', 'approved', 11, 4, '2018-08-29 09:35:40'),
 (19, 'Asian Elephant', 'Elephas maximus', 'Feces, Elephant Sneezes', 20, 'public\\image_upload\\e60a030c6c9e107.jpeg', 'approved', 12, 4, '2018-08-29 09:49:31'),
@@ -286,12 +286,12 @@ CREATE TABLE `notification_t` (
 INSERT INTO `notification_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `notificationID`, `category`, `addedID`, `state`, `message`) VALUES
 ('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 73, 'Animal Taxonomy', 14, 'read', ''),
 ('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 74, 'Bacteria Taxonomy', 11, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 75, 'Animal', 13, 'noticed', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 76, 'Bacteria', 11, 'noticed', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin A', 1, 77, 'Toxin', 9, 'noticed', ''),
+('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 75, 'Animal', 13, 'read', ''),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 76, 'Bacteria', 11, 'read', ''),
+('2018-08-27', 'rejected', 'lhexy romero', 'Clostridium difficile toxin A', 1, 77, 'Toxin', 9, 'noticed', ''),
 ('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin B', 1, 78, 'Toxin', 10, 'noticed', ''),
 ('2018-08-29', 'approved', 'lhexy romero', ' Clostridium difficile Infection', 1, 79, 'Disease', 13, 'noticed', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.', 1, 80, 'Prevention', 9, 'noticed', ''),
+('2018-08-27', 'rejected', 'lhexy romero', 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.', 1, 80, 'Prevention', 9, 'noticed', ''),
 ('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 81, 'Animal Taxonomy', 15, 'noticed', ''),
 ('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospira interrogans', 6, 82, 'Bacteria Taxonomy', 12, 'noticed', ''),
 ('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 83, 'Animal', 14, 'noticed', ''),
@@ -366,6 +366,7 @@ CREATE TABLE `staff_t` (
   `contact` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
   `type` varchar(11) NOT NULL,
   `code` varchar(25) NOT NULL,
   `journalID` int(11) NOT NULL
@@ -375,14 +376,16 @@ CREATE TABLE `staff_t` (
 -- Dumping data for table `staff_t`
 --
 
-INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `type`, `code`, `journalID`) VALUES
-(1, 'lhexy', 'romero', '', 'contributor', 'contributor', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', '', 6),
-(4, 'leki', 'lekay', '', 'admin', 'admin', '09227686712', '', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2', '', 0),
-(5, 'LhexyKhrystelle', 'Romero', '', 'lhexyromero', 'lhexyromero', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'q4n1pkildqe', 0),
-(6, 'Ibrahim', 'Samson', '', 'ibsamson', 'ibsamson', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'kcp8wkzo6a', 9),
-(7, 'Flor', 'Castillo', '', 'florcastillo', 'florcastillo', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', '88ok05jcmi8', 8),
-(9, 'Pyke', 'Bio', '', 'pykebio', 'pykebio', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'ddyhi58e4e', 10),
-(10, 'Bryan', 'Castillo', '', 'bryan', 'bryan', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', '1', 'fo3uzesk6yd', 5);
+INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `status`, `type`, `code`, `journalID`) VALUES
+(1, 'lhexy', 'romero', '', 'contributor', 'contributor', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', '', 6),
+(4, 'leki', 'lekay', '', 'admin', 'admin', '09227686712', '', 'd033e22ae348aeb5660fc2140aec35850c4da997', 0, '2', '', 0),
+(5, 'LhexyKhrystelle', 'Romero', '', 'lhexyromero', 'lhexyromero', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'q4n1pkildqe', 0),
+(6, 'Ibrahim', 'Samson', '', 'ibsamson', 'ibsamson', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'kcp8wkzo6a', 9),
+(7, 'Flor', 'Castillo', '', 'florcastillo', 'florcastillo', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', '88ok05jcmi8', 8),
+(9, 'Pyke', 'Bio', '', 'pykebio', 'pykebio', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'ddyhi58e4e', 10),
+(10, 'Bryan', 'Castillo', '', 'bryan', 'bryan', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'fo3uzesk6yd', 5),
+(12, 'Lhexy', 'Romero', 'B', 'zoodis', 'zoodissystem@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 1, '3', '', 0),
+(14, 'No', 'Account', '', '', '', '', '', '', 2, '3', '', 10);
 
 -- --------------------------------------------------------
 
@@ -422,19 +425,48 @@ INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `statu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_t`
+-- Table structure for table `userjournal_t`
 --
 
-CREATE TABLE `user_t` (
-  `userID` int(11) NOT NULL,
-  `firstName` varchar(30) NOT NULL,
-  `lastName` varchar(30) NOT NULL,
-  `mi` varchar(2) NOT NULL,
-  `userName` varchar(30) NOT NULL,
-  `email` varchar(70) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '2'
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+CREATE TABLE `userjournal_t` (
+  `title` varchar(255) NOT NULL,
+  `doi` varchar(50) NOT NULL,
+  `file` varchar(100) NOT NULL,
+  `staffID` int(11) NOT NULL,
+  `state` int(11) NOT NULL,
+  `userjournalID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userjournal_t`
+--
+
+INSERT INTO `userjournal_t` (`title`, `doi`, `file`, `staffID`, `state`, `userjournalID`) VALUES
+('RUMINANT', '3333', 'public\\others\\5cb7d805be8b98c.pdf', 12, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usermessage_t`
+--
+
+CREATE TABLE `usermessage_t` (
+  `usermessageID` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `state` int(11) NOT NULL,
+  `staffID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usermessage_t`
+--
+
+INSERT INTO `usermessage_t` (`usermessageID`, `name`, `email`, `subject`, `message`, `state`, `staffID`) VALUES
+(1, '', '', 'a', 'a', 1, 12),
+(4, 'a', 'a@gmail.com', 'a', 'a', 1, 14);
 
 --
 -- Indexes for dumped tables
@@ -526,10 +558,18 @@ ALTER TABLE `toxin_t`
   ADD KEY `staffID` (`staffID`);
 
 --
--- Indexes for table `user_t`
+-- Indexes for table `userjournal_t`
 --
-ALTER TABLE `user_t`
- ADD PRIMARY KEY (`userID`), ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `userjournal_t`
+  ADD PRIMARY KEY (`userjournalID`),
+  ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `usermessage_t`
+--
+ALTER TABLE `usermessage_t`
+  ADD PRIMARY KEY (`usermessageID`),
+  ADD KEY `staffID` (`staffID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -593,13 +633,25 @@ ALTER TABLE `prevention_t`
 -- AUTO_INCREMENT for table `staff_t`
 --
 ALTER TABLE `staff_t`
-  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `toxin_t`
 --
 ALTER TABLE `toxin_t`
   MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `userjournal_t`
+--
+ALTER TABLE `userjournal_t`
+  MODIFY `userjournalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `usermessage_t`
+--
+ALTER TABLE `usermessage_t`
+  MODIFY `usermessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -668,6 +720,18 @@ ALTER TABLE `prevention_t`
 --
 ALTER TABLE `toxin_t`
   ADD CONSTRAINT `toxin_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `userjournal_t`
+--
+ALTER TABLE `userjournal_t`
+  ADD CONSTRAINT `userjournal_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `usermessage_t`
+--
+ALTER TABLE `usermessage_t`
+  ADD CONSTRAINT `usermessage_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
