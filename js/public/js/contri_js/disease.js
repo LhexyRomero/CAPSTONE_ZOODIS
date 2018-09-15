@@ -188,15 +188,15 @@ function diseaseList() {
         data.forEach((element, index) => {
             let row = "<tr>";
             row += "<td>" + element.diseaseName + "</td>";
-            row += "<td>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if (element.status === "approved") {
-                row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
             }
             else if (element.status === "rejected"){
-                row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-danger'>"+element.status+"</span></td>";
             }
             else {
-                row += "<td><font color = #c92ae4><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-default'>"+element.status+"</span></td>";
             }
             row += "</tr>";
             html += row;
@@ -225,6 +225,9 @@ function viewDisease(id) {
         let selectedBacteria = "<p>"+data.bacteriumName+"</p>";
         let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
         let diseaseDesc = "<p>" + data.diseaseDesc + "</p>";
+        let approved = "<span class='badge badge-success'>"+data.status+"</span>";
+        let rejected = "<span class='badge badge-danger'>"+data.status+"</span>";
+        let pending = "<span class='badge badge-default'>"+data.status+"</span>";
 
         data.symptoms.forEach((element, index) => {
             let list = "<ul>";
@@ -234,6 +237,17 @@ function viewDisease(id) {
 
         });
 
+        if(data.status == 'rejected') {
+            $("#status").html(rejected);
+        }
+
+        else if(data.status == 'approved') {
+            $("#status").html(approved);
+        }
+
+        else if(data.status == 'pending') {
+            $("#status").html(pending);
+        }
         $("#name").html(data.title);
         $("#viewSelected").html(selectedBacteria);
         $("#viewDiseaseName").html(diseaseName);

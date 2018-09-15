@@ -92,6 +92,17 @@
                     <h4 class="title title-up">PREVENTION INFORMATION</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Status</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="status"></label>
+                        </div>
+                    </div>
                     <h6 id="viewPreventionName"></h6>
 
                     <label><b>Prevention</b></label>
@@ -106,11 +117,11 @@
     </div>
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
-    <script src="../assets/js/contri_js/prevention.js"></script>
+    <script src="../../assets/js/contri_js/prevention.js"></script>
     <script>
         $(".navbarName").html("Prevention");
         $("#prevention").addClass("active");
-        $("#pImg").attr("src","/assets/img/preventionactive.png");
+        $("#pImg").attr("src", "/assets/img/preventionactive.png");
     </script>
 
 </body>

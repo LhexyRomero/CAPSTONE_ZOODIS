@@ -335,15 +335,15 @@ function toxinList() {
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.name + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewToxin(" + element.toxinID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewToxin(" + element.toxinID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
-                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
                 else if (element.status === "rejected") {
-                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-danger'>"+element.status+"</span></td>";
                 }
                 else {
-                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-default'>"+element.status+"</span></td>";
                 }
                 row += "</tr>";
                 html += row;
@@ -365,9 +365,9 @@ function viewToxin(id) {
             return;
         }
 
-        let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
-        let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
-        let statusRejected = "<font color=red><em>" + response.data.status + "</em></font>";
+        let statusApproved = "<span class='badge badge-success'>"+response.data.status+"</span>";
+        let statusPending = "<span class='badge badge-default'>"+response.data.status+"</span>";
+        let statusRejected = "<span class='badge badge-danger'>"+response.data.status+"</span>";
 
         if (response.data.status == "approved") {
             $('#viewToxinName').html(response.data.name);
@@ -546,15 +546,15 @@ function bacteriaList() {
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.bacteriumScientificName + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
-                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
                 else if(element.status === "rejected") {
-                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-danger'>"+element.status+"</span></td>";
                 }
                 else {
-                    row += "<td><font color = #c934e7><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-default'>"+element.status+"</span></td>";
                 }
                 row += "</tr>";
                 html += row;
@@ -596,15 +596,15 @@ function viewBacteria(id){
         let motility ="<label>"+data.motility+"</label>";
         let status = "";
         if (data.status === "approved") {
-            status = "<font color = #18ce0f><em>" + response.data.status + "</em></font>"
+            status = "<span class='badge badge-success'>"+response.data.status+"</span>"
         }
 
         else if (data.status === "pending") {
-            status = "<font color = #c934e7><em>" + response.data.status + "</em></font>"
+            status = "<span class='badge badge-default'>"+response.data.status+"</span>"
         }
 
         else {
-            status = "<font color = red><em>" + response.data.status + "</em></font>"
+            status = "<span class='badge badge-danger'>"+response.data.status+"</span>"
         }
 
         $("#status").html(status);

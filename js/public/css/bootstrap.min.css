@@ -5016,7 +5016,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .close:focus, .close:hover {
-    color: #000;
+    color: #f5152b;
     text-decoration: none;
     opacity: .75
 }

@@ -13,7 +13,7 @@ exports.authenticate = function (req, res, next) {
         if (req.xhr) {
             res.send({ success: false, detail: "unathorize" });
         } else {
-            res.redirect('/login');
+            res.redirect('/');
         }
     }
 }

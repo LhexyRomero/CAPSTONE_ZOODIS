@@ -325,21 +325,19 @@ function animalList() {
 
         else {
             let data = response.data;
-            console.log("LEKi");
-            console.log(data);
             let html = "";
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.animalName + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
-                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
                 else if(element.status === "rejected") {
-                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-danger'>"+element.status+"</span></td>";
                 }
                 else {
-                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-default'>" + element.status + "</em></font></td>";
                 }
                 row += "</tr>";
                 html += row;
@@ -363,7 +361,6 @@ function viewAnimal(id){
             $.notify("Error getting data from the server!",{type:"danger"});
             return;
         }
-        console.log(response.data);
 
         let animalName  = "<label>"+response.data.animalName+"</label>";
         let scientificName = "<label>"+response.data.animalScientificName+"</label>";
@@ -377,15 +374,15 @@ function viewAnimal(id){
         let status ="";
 
         if(response.data.status === "approved"){
-            status = "<label><font color='#18ce0f'><em>"+response.data.status+"</em></font></label>";
+            status = "<td><span class='badge badge-success'>"+response.data.status+"</span></td>";
         }
 
         else if(response.data.status === "pending"){
-            status = "<label><font color='#f96332'><em>"+response.data.status+"</em></font></label>";
+            status = "<td><span class='badge badge-default'>"+response.data.status+"</span></td>";
         }
         
         else {
-            status = "<label><font color='red'><em>"+response.data.status+"</em></font></label>";
+            status = "<td><span class='badge badge-danger'>"+response.data.status+"</span></td>";
         }
 
         $('.contri_animalPic').attr('src',response.data.image.replace('public','assets'));

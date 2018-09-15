@@ -38,6 +38,7 @@ router.get('/collab',auth.authenticate,(req,res,next)=>{
 
 router.post('/uploadJournal',upload.single('myfile'),journal.uploadJournal);
 router.post('/collabMessage',contact.collabMessage);
+router.post('/contactMessage',contact.contactMessage);
 
 router.get('/microbiota',(req,res,next)=>{
     res.render('researcher/microbiota');

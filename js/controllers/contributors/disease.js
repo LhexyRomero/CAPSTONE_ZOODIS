@@ -2,7 +2,6 @@ const db = require("../../connection");
 
 exports.toSelectBacteriaDisease = (req,res,next) =>{
 
-    console.log("DITO AKO");
     let sql = "SELECT * FROM bacteria_t"
     db.get().query(sql,(err,result)=>{
         res.status(200).send({success: true, detail:"", data:result});
@@ -98,12 +97,11 @@ exports.viewDisease = (req,res,next) => {
     let id = req.params.id;
     let data = req.body;
 
-    let sql = "SELECT * FROM disease_t INNER JOIN bacteriadisease_t ON disease_t.diseaseID = bacteriadisease_t.diseaseID INNER JOIN bacteria_t ON bacteriadisease_t.bacteriumID = bacteria_t.bacteriumID INNER JOIN journal_t ON journal_t.journalID = disease_t.journalID WHERE disease_t.diseaseID = ?";
+    let sql = "SELECT *,disease_t.status FROM disease_t INNER JOIN bacteriadisease_t ON disease_t.diseaseID = bacteriadisease_t.diseaseID INNER JOIN bacteria_t ON bacteriadisease_t.bacteriumID = bacteria_t.bacteriumID INNER JOIN journal_t ON journal_t.journalID = disease_t.journalID WHERE disease_t.diseaseID = ?";
     db.get().query(sql,[id],(err,result)=>{
         if(err) return next(err);
 
         let splittedSymptoms = result[0].symptoms.split(":");
-        console.log(splittedSymptoms);
         let dataDisplay = {
             
             bacteriumID     : result[0].bacteriumID,
@@ -111,6 +109,7 @@ exports.viewDisease = (req,res,next) => {
             diseaseName     : result[0].diseaseName,
             diseaseDesc     : result[0].diseaseDesc,
             title           : result[0].name,
+            status          : result[0].status,
             symptoms        : splittedSymptoms,
         }
 

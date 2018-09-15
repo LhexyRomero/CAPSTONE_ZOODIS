@@ -11,22 +11,36 @@ function notiCard() {
         }
 
         let data = response.data;
-        let colPerRow = 3;
+        let colPerRow = 1;
         let colCount = 1;
 
         let html = "<div class='row'>";
         $("#placeholder").html("");
         data.forEach((element, index) => {
-            let temphtml = "<div class='col-md-" + parseInt(12 / colPerRow) + " div" + index + " card'>";
-            temphtml += "<div class='card-body'><label>Category</label>" + "<p><em>" + element.category + "</em><p>"
-                + "<label>Added Data</label>" + "<p>" + element.addedData + "</p>"
-                + "<label>Date</label>" + "<p>" + element.dateTime + "<p>"
-                + "<label>status</label>" + "<p>" + element.status + "<p>"
-                + "<label>message</label>" + "<p>" + element.message + "<p>"
-                + "<button type='button' class='btn btn-primary pull-right' onclick='updateNotiCard(" + element.notificationID + ")'>Okay</button></div>";
 
-            temphtml += "</div>";
-            html += temphtml;
+            if(element.status == 'approved'){
+                let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
+                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
+                    + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
+                    + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
+                    + "<span class='badge badge-success'>" + element.status + "</span><br>"
+                    + "<label>" + element.dateTime + "</label><br>"
+                    + "<label class='text-danger'>" + element.message + "</label><p></p>"
+                temphtml += "</div>";
+                html += temphtml;
+            }
+
+            else if(element.status == 'rejected'){
+                let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
+                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
+                    + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
+                    + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
+                    + "<span class='badge badge-danger'>" + element.status + "</span><br>"
+                    + "<label>" + element.dateTime + "</label><br>"
+                    + "<label class='text-danger'>" + element.message + "</label><p></p>"
+                temphtml += "</div>";
+                html += temphtml;
+            }
 
             if (colCount == colPerRow) {
                 colCount = 1;
@@ -137,12 +151,12 @@ function notificationJournal() {
 }
 
 function finishedJournal() {
-    $.post("/finishedJournal",(response)=>{
-        if(response.success == false){
+    $.post("/finishedJournal", (response) => {
+        if (response.success == false) {
             return;
         }
 
-        $.notify(response.detail, {type:"success"});
+        $.notify(response.detail, { type: "success" });
 
         let code = "<h6>Job well Done</h6>";
         let name = "<h6>Journal Completed!</h6>";
