@@ -17,6 +17,10 @@ router.get('/contri_*', auth.authenticate, (req,res,next)=>{
     res.redirect('/login');
 }); 
 
+router.get('/contri_user',auth.authenticate,(req,res,next)=>{
+    res.render('contributor/contri_user');
+});
+
 router.get('/contri_Animal',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_Animal');
 });

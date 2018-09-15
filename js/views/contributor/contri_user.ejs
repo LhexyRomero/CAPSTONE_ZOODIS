@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    <div class="wrapper">
+        <% include ../partials/contri_sidebar %>
+        <div class="main-panel">
+            <% include ../partials/navbar %>
+            <div class="panel-header panel-header-sm">
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title">Profile</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="profileForm" method="POST" onsubmit="updateProfile(event)">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Home Address"
+                                                    value="PUP: ISTR-Center for Life Sciences Research" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>Username<star>*</star></label>
+                                                <input type="text" class="form-control" name="userName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Contact</label>
+                                                <input type="text" class="form-control" name="contact">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" name="firstName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 px-1">
+                                            <div class="form-group">
+                                                <label>Middle Initial</label>
+                                                <input type="text" class="form-control" name="middleInitial">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 pl-1">
+                                            <div class="form-group">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control" name="lastName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control" name="email" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input type="text" class="form-control" name="address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" align="right">
+                                        <button type="submit" class="btn btn-primary" id="toSubmitProfile">Update
+                                            Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-user">
+                            <div class="card-body">
+                                <div class="author">
+                                    <a href="#"><br><br><br><br>
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail img-circle">
+                                                <img src="../../assets/img/placeholder.jpg" alt="...">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail img-circle" style=""></div>
+                                            <div>
+                                                <span class="btn btn-round btn-rose btn-file">
+                                                    <span class="fileinput-new">Add Photo</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="hidden"><input type="file" name="..."></span>
+                                                <br>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                                    data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+                                        <h5 name="fullName" class="title"></h5>
+                                    </a>
+                                    <p name="userN" class="description"></p>
+                                </div>
+                                <p class="description text-center">
+                                    I can do all this through him<br>
+                                    who gives me strength.<br>
+                                    <strong class="modalLabel">PHILIPPIANS 4:13</strong>
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <% include ../partials/core_js %>
+    <script src="../../assets/js/contri_js/profile.js"></script>
+    <script>
+        $(".navbarName").html("Contributor / User Profile");
+        $("#collapseExample").addClass("show");
+        $("#myProfile").addClass("active");
+        //$("#aImg").attr("src", "/assets/img/animalactive.png");
+    </script>
+</body>
