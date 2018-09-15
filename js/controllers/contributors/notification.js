@@ -25,7 +25,7 @@ exports.updateNotiCard = (req,res,next) =>{
 
 exports.notifyJournal = (req,res,next) =>{
 
-    let sql = "SELECT journal_t.code,name, doi,file,state,status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
+    let sql = "SELECT journal_t.code,name, doi,file,state,journal_t.status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
     db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 

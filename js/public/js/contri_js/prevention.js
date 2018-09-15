@@ -155,7 +155,7 @@ let viewPreventionID = 0;
 function viewPrevention(id) {
 
     viewPreventionID = id;
-    let url = "/viewPrevention/" + viewPreventionID;
+    let url = "/contri_viewPrevention/" + viewPreventionID;
     console.log(url);
 
     $.get(url, (response) => {
@@ -164,11 +164,14 @@ function viewPrevention(id) {
             return;
         }
 
-        console.log("here");
         let data = response.data;
         let html = "";
         let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
+        let approved = "<span class='badge badge-success'>"+data.status+"</span>";
+        let rejected = "<span class='badge badge-danger'>"+data.status+"</span>";
+        let pending = "<span class='badge badge-default'>"+data.status+"</span>";
 
+        console.log(pending);
         data.preventions.forEach((element, index) => {
             let list = "<ul>";
             list += "<li>" + element + "</li>";
@@ -176,6 +179,18 @@ function viewPrevention(id) {
             html += list;
 
         });
+
+        if(data.status == 'rejected') {
+            $("#status").html(rejected);
+        }
+
+        else if(data.status == 'approved') {
+            $("#status").html(approved);
+        }
+
+        else if(data.status == 'pending') {
+            $("#status").html(pending);
+        }
 
         $("#viewPreventionName").html(diseaseName);
         $("#viewPrevention").html(html);
@@ -196,13 +211,13 @@ function preventionList() {
             row += "<td>" +element.diseaseName+"</td>";
             row += "<td><a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if (element.status === "approved") {
-                row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
             }
             else if (element.status === "rejected"){
-                row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-danger'>"+element.status+"</span></td>";
             }
             else {
-                row += "<td><font color = #c92ae4><em>" + element.status + "</em></font></td>";
+                row += "<td><span class='badge badge-default'>"+element.status+"</span></td>";
             }
             row += "</tr>";
             html += row;

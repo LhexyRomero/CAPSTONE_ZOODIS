@@ -68,7 +68,7 @@ exports.addPrevention = (req,res,next) =>{
 }
 
 exports.preventionList = (req,res,next) => {
-    let sql = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE prevention_t.staffID = ?";
+    let sql = "SELECT *,prevention_t.status FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE prevention_t.staffID = ?";
     db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
@@ -79,18 +79,18 @@ exports.preventionList = (req,res,next) => {
 exports.viewPrevention = (req,res,next) => {
     let id = req.params.id;
 
-    let sql3 = "SELECT * FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE preventionID = ?";
-    db.get().query(sql3,[id],(err3,result3)=>{
-        if(err3) return next(err3);
+    let sql = "SELECT *, prevention_t.status FROM prevention_t INNER JOIN disease_t ON prevention_t.diseaseID = disease_t.diseaseID WHERE preventionID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
 
-        let splittedPreventions = result3[0].preventions.split(":");
+        let splittedPreventions = result[0].preventions.split(":");
         let dataDisplay = {
             
-            diseaseID       : result3[0].diseaseID,
-            diseaseName     : result3[0].diseaseName,
-            preventions     : splittedPreventions,
+            diseaseID       : result[0].diseaseID,
+            diseaseName     : result[0].diseaseName,
+            status          : result[0].status,
+            preventions     : splittedPreventions
         }
-
         res.status(200).send({success: true, detail :"", data:dataDisplay});
     });
 }

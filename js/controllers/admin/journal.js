@@ -10,7 +10,6 @@ exports.addJournal = (req, res, next) => {
     let doi = data.strDoi;
     let status = "Incomplete";
     let state = "notify";
-    let message = "Assigned journal is ready to download!";
 
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No File Provided!" });
@@ -37,8 +36,8 @@ exports.addJournal = (req, res, next) => {
 
     let insertJournal = () => {
 
-        let sql = "INSERT INTO journal_t (code,name,doi,status,file,state,message) VALUES (?,?,?,?,?,?,?)";
-        db.get().query(sql, [code, name, doi, status,pdf,state,message], (err, result) => {
+        let sql = "INSERT INTO journal_t (code,name,doi,status,file,state) VALUES (?,?,?,?,?,?)";
+        db.get().query(sql, [code, name, doi, status,pdf,state], (err, result) => {
 
             if (err) return next(err);
 
@@ -127,9 +126,10 @@ exports.viewJournal = (req, res, next) => {
 }
 
 exports.toSelectStaffName = (req, res, next) => {
+    let type = 1;
 
-    let sql = "SELECT * FROM staff_t";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM staff_t WHERE type =?";
+    db.get().query(sql,[type],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });

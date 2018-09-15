@@ -2,9 +2,12 @@ const db = require("../../connection");
 
 exports.staffList = (req,res,next) =>{
 
-    let sql = "SELECT * FROM staff_t";
+    let admin = 2;
+    let contri = 1;
+    
+    let sql = "SELECT * FROM staff_t WHERE type = ? OR type = ?";
 
-    db.get().query(sql,(err,result)=>{
+    db.get().query(sql,[admin,contri],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success:true, detail:"", data:result});

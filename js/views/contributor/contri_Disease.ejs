@@ -96,6 +96,17 @@
                     <h4 class="title title-up">DISEASE INFORMATION</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Status</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="status"></label>
+                        </div>
+                    </div>
                     <h6 id="viewDiseaseName"></h6>
                     <p id="viewSelected"></p>
                     <p id="viewDiseaseDesc"></p>
@@ -115,7 +126,7 @@
     <script>
         $(".navbarName").html("Disease");
         $("#disease").addClass("active");
-        $("#dImg").attr("src","/assets/img/diseaseactive.png");
+        $("#dImg").attr("src", "/assets/img/diseaseactive.png");
     </script>
 </body>
 

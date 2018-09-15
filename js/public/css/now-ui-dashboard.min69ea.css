@@ -19,6 +19,10 @@
     font-size: 11px;
 }
 
+.pLabel {
+    margin-bottom: 0 !important;
+}
+
 .btnPosition {
     position: absolute;
     top: 15px;
@@ -1335,7 +1339,8 @@ a, a:focus, a:hover {
 .h5, h5 {
     font-size: 1.57em;
     line-height: 1.4em;
-    margin-bottom: 15px
+    margin-bottom: 2px;
+    text-transform: uppercase
 }
 
 .h6, h6 {

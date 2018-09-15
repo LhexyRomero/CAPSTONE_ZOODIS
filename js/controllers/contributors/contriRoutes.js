@@ -71,6 +71,7 @@ router.get('/contri_Prevention',auth.authenticate,(req,res,next)=>{
 router.post('/contri_addPrevention', contri_auth, contri_prevention.addPrevention);
 router.get('/contri_toSelectDisease',contri_prevention.toSelectDisease);
 router.get('/contri_preventionList',contri_prevention.preventionList);
+router.get('/contri_viewPrevention/:id',contri_prevention.viewPrevention);
 
 router.get('/contri_Toxin',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_Toxin');
