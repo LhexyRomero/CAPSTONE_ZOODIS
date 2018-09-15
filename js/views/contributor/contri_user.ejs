@@ -32,13 +32,13 @@
                                     <div class="row">
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
-                                                <label>Username<star>*</star></label>
+                                                <label>Username</label>
                                                 <input type="text" class="form-control" name="userName">
                                             </div>
                                         </div>
                                         <div class="col-md-6 pl-1">
                                             <div class="form-group">
-                                                <label>Contact</label>
+                                                <label>Contact<star>*</star></label>
                                                 <input type="text" class="form-control" name="contact">
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                                     <div class="row">
                                         <div class="col-md-5 pr-1">
                                             <div class="form-group">
-                                                <label>First Name</label>
+                                                <label>First Name<star>*</star></label>
                                                 <input type="text" class="form-control" name="firstName">
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="col-md-5 pl-1">
                                             <div class="form-group">
-                                                <label>Last Name</label>
+                                                <label>Last Name<star>*</star></label>
                                                 <input type="text" class="form-control" name="lastName">
                                             </div>
                                         </div>
@@ -67,8 +67,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" class="form-control" name="email" disabled>
+                                                <label>Email<star>*</star></label>
+                                                <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                                                class="form-control" name="email">
                                             </div>
                                         </div>
                                     </div>
@@ -80,6 +81,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="notif"></div>
                                     <div class="card-footer" align="right">
                                         <button type="submit" class="btn btn-primary" id="toSubmitProfile">Update
                                             Profile</button>
