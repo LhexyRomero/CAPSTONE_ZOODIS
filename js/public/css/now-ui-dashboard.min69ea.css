@@ -1217,7 +1217,7 @@ star {
 
 textarea.form-control {
     max-width: 100%;
-    max-height: 80px;
+    max-height: 100%;
     padding: 10px 10px 0 0;
     resize: none;
     border-bottom: 1px solid #e3e3e3;
@@ -3433,8 +3433,8 @@ img {
 }
 
 .pagination .page-item.active>.page-link, .pagination .page-item.active>.page-link:focus, .pagination .page-item.active>.page-link:hover {
-    background-color: #f96332;
-    border-color: #f96332;
+    background-color: #9c27b0;
+    border-color: #9c27b0;
     color: #fff
 }
 
@@ -3710,7 +3710,7 @@ img {
 }
 
 .nav-pills.nav-pills-primary .nav-item .nav-link.active, .nav-pills.nav-pills-primary .nav-item .nav-link.active:focus, .nav-pills.nav-pills-primary .nav-item .nav-link.active:hover {
-    background-color: #f96332
+    background-color: #b833cf
 }
 
 .nav-pills.nav-pills-info .nav-item .nav-link.active, .nav-pills.nav-pills-info .nav-item .nav-link.active:focus, .nav-pills.nav-pills-info .nav-item .nav-link.active:hover {
