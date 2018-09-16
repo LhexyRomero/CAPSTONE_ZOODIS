@@ -10,7 +10,12 @@ const contri_bacteria = require('../contributors/bacteria');
 const contri_disease = require('../contributors/disease');
 const contri_prevention = require('../contributors/prevention');
 const contri_notification = require('../contributors/notification');
+const contri_profile = require('../contributors/profile');
 
+router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
+    res.locals.staffData = req.session.staffData;
+    next();
+});
 
 router.get('/contri_*', auth.authenticate, (req,res,next)=>{
     if(req.session.accType == 1) return next();
@@ -20,6 +25,9 @@ router.get('/contri_*', auth.authenticate, (req,res,next)=>{
 router.get('/contri_user',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_user');
 });
+
+router.get('/contri_viewProfile',contri_profile.viewProfile);
+router.post('/contri_updateProfile',contri_profile.updateProfile);
 
 router.get('/contri_Animal',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_Animal');

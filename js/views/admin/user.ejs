@@ -7,7 +7,7 @@
 
 <body>
     <div class="wrapper">
-        <% include ../partials/contri_sidebar %>
+        <% include ../partials/admin_sidebar %>
         <div class="main-panel">
             <% include ../partials/navbar %>
             <div class="panel-header panel-header-sm">
@@ -117,11 +117,10 @@
     </div>
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
-    <script src="../../assets/js/contri_js/profile.js"></script>
+    <script src="../../assets/js/admin/profile.js"></script>
     <script>
-        $(".navbarName").html("Contributor / User Profile");
+        $(".navbarName").html("Admin / User Profile");
         $("#collapseExample").addClass("show");
         $("#myProfile").addClass("active");
-        //$("#aImg").attr("src", "/assets/img/animalactive.png");
     </script>
 </body>
