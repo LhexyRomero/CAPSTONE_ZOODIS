@@ -1,6 +1,6 @@
 isClicked = 0;
 
-$(function () {;
+$(function () {
     animalTaxonList();
     toSelectJournal();
     animalList();

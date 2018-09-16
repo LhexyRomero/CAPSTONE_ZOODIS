@@ -14,7 +14,13 @@ const notification = require('../admin/notification');
 const journal = require('../admin/journal');
 const reject = require('../admin/reject');
 const staff = require('../admin/staff');
+const profile = require('../admin/profile');
 const sample = require('../admin/sample');
+
+router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
+    res.locals.staffData = req.session.staffData;
+    next();
+});
 
 router.get('/', (_,res,__)=>{
     res.redirect('/index');
@@ -53,6 +59,9 @@ router.post('/sample',sample.sample);
 router.get('/user',auth.authenticate,(req,res,next)=>{
     res.render('admin/user');
 });
+
+router.get('/viewProfile',profile.viewProfile);
+router.post('/updateProfile',profile.updateProfile);
 
 router.get('/hostTable', auth.authenticate,(req,res,next)=>{
     res.render('admin/hostTable');

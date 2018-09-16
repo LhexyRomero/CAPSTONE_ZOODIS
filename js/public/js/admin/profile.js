@@ -83,7 +83,7 @@ function updateProfile(e) {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
-            $.post("/contri_updateProfile", dataInsert,(response) =>{
+            $.post("/updateProfile", dataInsert,(response) =>{
                 console.log(response);
                 if (response.success == false) {
                     swal({
@@ -111,7 +111,7 @@ function updateProfile(e) {
 }
 
 function viewProfile() {
-    $.get("/contri_viewProfile", (response) => {
+    $.get("/viewProfile", (response) => {
         if (response.success == false) {
             $.notify("Error getting data from th server!", { type: "danger" });
             return;

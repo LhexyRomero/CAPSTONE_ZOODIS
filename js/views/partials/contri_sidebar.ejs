@@ -6,14 +6,18 @@
     <div class="sidebar-wrapper">
         <div class="user">
             <div class="photo">
-                <img src="../assets/img/james.jpg" />
+                <img src="../assets/img/profile.png" />
             </div>
             <div class="info">
                 <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                    <span>
-                        James Amos
-                        <b class="caret"></b>
-                    </span>
+                    <%
+                        var html = '';
+                        console.log(locals.staffData);
+                        if(locals.staffData){
+                            html ='<span><b class="caret"></b>'+ locals.staffData.firstName + ' ' + locals.staffData.lastName +'</span>';
+                        }
+                        %>
+                    <%-html%>
                 </a>
                 <div class="clearfix"></div>
                 <div class="collapse" id="collapseExample">
