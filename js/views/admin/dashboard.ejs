@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><% include ../partials/head %></head>
+
+<head>
+    <% include ../partials/head %>
+</head>
 
 <body>
     <div class="wrapper ">
@@ -67,230 +70,81 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-chart">
-                            <div class="card-header">
-                                <h5 class="card-category">Active Users</h5>
-                                <h2 class="card-title">34,252</h2>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                                        <i class="now-ui-icons loader_gear"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                                    </div>
-                                </div>
+                    <div class="col-md-7">
+                        <div class="card  card-tasks">
+                            <div class="card-header ">
+                                <h6 class="card-title">Researcher's Journal</h6>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="activeUsers"></canvas>
-                                </div>
-                                <div class="table-responsive">
+                            <div class="card-body ">
+                                <div class="table-full-width table-responsive">
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/US.png">
-                                                    </div>
-                                                </td>
-                                                <td>USA</td>
-                                                <td class="text-right">
-                                                    2.920
-                                                </td>
-                                                <td class="text-right">
-                                                    53.23%
-                                                </td>
+                                                <td>Ganda</td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/DE.png">
-                                                    </div>
+                                                    Ganda safjejge frfjenfenfnen ceokffekrtnfkmdkwkdmwmdddd
                                                 </td>
-                                                <td>Germany</td>
-                                                <td class="text-right">
-                                                    1.300
-                                                </td>
-                                                <td class="text-right">
-                                                    20.43%
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/AU.png">
-                                                    </div>
-                                                </td>
-                                                <td>Australia</td>
-                                                <td class="text-right">
-                                                    760
-                                                </td>
-                                                <td class="text-right">
-                                                    10.35%
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/GB.png">
-                                                    </div>
-                                                </td>
-                                                <td>United Kingdom</td>
-                                                <td class="text-right">
-                                                    690
-                                                </td>
-                                                <td class="text-right">
-                                                    7.87%
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/RO.png">
-                                                    </div>
-                                                </td>
-                                                <td>Romania</td>
-                                                <td class="text-right">
-                                                    600
-                                                </td>
-                                                <td class="text-right">
-                                                    5.94%
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="../assets/img/BR.png">
-                                                    </div>
-                                                </td>
-                                                <td>Brasil</td>
-                                                <td class="text-right">
-                                                    550
-                                                </td>
-                                                <td class="text-right">
-                                                    4.34%
-                                                </td>
+                                                <td class="text-right"><a data-toggle="modal" href="#exampleModalCenter"><button
+                                                            onclick="editBacteria(17)" type="button" rel="tooltip"
+                                                            class="btn btn-info btn-icon btn-sm"><i class="now-ui-icons ui-2_settings-90"></i></button></a>&nbsp;<a
+                                                        data-toggle="modal" href="#viewModal"><button onclick="viewBacteria(17)"
+                                                            type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm"><i
+                                                                class="now-ui-icons travel_info"></i></button></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-chart">
-                            <div class="card-header">
-                                <h5 class="card-category">Summer Email Campaign</h5>
-                                <h2 class="card-title">55,300</h2>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                                        <i class="now-ui-icons loader_gear"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                                    </div>
-                                </div>
+                    <div class="col-md-5">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h5 class="card-title pLabel"><strong>
+                                        <i class="now-ui-icons icon icon-success ui-1_email-85"></i>
+                                        <br>MESSAGES</strong></h5>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="emailsCampaignChart"></canvas>
-                                </div>
-
-                                <div class="card-progress">
-                                    <div class="progress-container">
-                                        <span class="progress-badge">Delivery Rate</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                                                <span class="progress-value">90%</span>
-                                            </div>
+                            <div class="card-body ">
+                                <form method="#" action="#">
+                                    <p>[No Subject]</p>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>From</label>
                                         </div>
-                                    </div>
-
-                                    <div class="progress-container progress-success">
-                                        <span class="progress-badge">Open Rate</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 60%;">
-                                                <span class="progress-value">60%</span>
-                                            </div>
+                                        <div class="col-md-1">
+                                            <label>:</label>
                                         </div>
-                                    </div>
-
-                                    <div class="progress-container progress-info">
-                                        <span class="progress-badge">Click Rate</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 12%;">
-                                                <span class="progress-value">12%</span>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label>lhexyromero@gmail.com</label>
                                         </div>
-                                    </div>
-
-                                    <div class="progress-container progress-warning">
-                                        <span class="progress-badge">Hard Bounce</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 5%;">
-                                                <span class="progress-value">5%</span>
-                                            </div>
+                                    </div><br>
+                                    <label>Message</label><br>
+                                    <p>GANDA KO</p>
+                                    <a href="#">Download Attachment</a><br><br>
+                                    <div class="collapse" id="AddCollapse">
+                                        <label>&nbsp;&nbsp;zoodissystem@gmail.com</label>
+                                        <div class="form-group">
+                                            <textarea rows="4" cols="60" class="form-control" name="strDiseaseDesc"
+                                                type="text"></textarea>
                                         </div>
-                                    </div>
-
-                                    <div class="progress-container progress-danger">
-                                        <span class="progress-badge">Spam Report</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 0.11%;">
-                                                <span class="progress-value">0.11%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-chart">
-                            <div class="card-header">
-                                <h5 class="card-category">Active Countries</h5>
-                                <h2 class="card-title">105</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="activeCountries"></canvas>
-                                </div>
-                                <div id="worldMap" class="map"></div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
-                                </div>
+                            <div class="card-footer" align="right">
+                                <!-- //<i class="now-ui-icons shopping_tag-content"></i> -->
+                                <button type="button" class="btn btn-primary" onclick="clearJournal()" data-toggle="collapse"
+                                    href="#AddCollapse" role="button" aria-expanded="true" aria-controls="AddCollapse">Reply</button>
+                                <button type="button" class="btn btn-success" onclick="clearJournal()"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+    </div>
 
     </div>
     <!--   Core JS Files   -->
@@ -413,7 +267,7 @@
             !function (f, b, e, v, n, t, s) {
                 if (f.fbq) return; n = f.fbq = function () {
                     n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
                 }; if (!f._fbq) f._fbq = n;
                 n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
                 t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
@@ -590,4 +444,5 @@
         });
     </script>
 </body>
+
 </html>
