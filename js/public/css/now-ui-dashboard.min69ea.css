@@ -15,16 +15,17 @@
 
  */
 
+.hov:hover {
+    box-shadow: 0 0 1px rgba(197, 197, 197, 1);
+    cursor: pointer;
+}
+
 star {
-    color: red;
+    color: rgb(197, 197, 197);
 }
 
 .modalLabel {
     font-size: 11px;
-}
-
-.strong {    
-    font-weight: 600; 
 }
 
 .unread {
