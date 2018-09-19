@@ -1,5 +1,6 @@
 $(function () {
     $("#btnSend").hide();
+    messageList();
 });
 
 function viewMessages(e) {
@@ -20,16 +21,26 @@ function messageList() {
         let data = response.data;
         let html = "";
         data.forEach((element, index) => {
-            /* let row = "<tr>";
-            row += "<td>" + element.phylum + "</td>";
-            row += "<td>" + element.class + "</td>";
-            row += "<td>" + element.orderr + "</td>";
-            row += "<td>" + element.family + "</td>";
-            row += "<td>" + element.genus + "</td>";
-            row += "<td>" + element.species + "</td>";
-            row += "<td onclick='editAnimalTaxon(" + element.animalTaxoID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
-            row += "</tr>";
-            html += row; */
+            if (element.state == 1) {
+                let row = "<tr class='unread strong'>";
+                row += "<td><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
+                row += "<td>" + element.name + "</td>";
+                row += "<td>" + element.subject + "</td>";
+                row += "<td><label>" + element.date + "</label></td>";
+                row += "<td><a href='#'>view</a></td>";
+                row += "</tr>";
+                html += row;
+            }
+            else {
+                let row = "<tr>";
+                row += "<td><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
+                row += "<td>" + element.name + "</td>";
+                row += "<td>" + element.subject + "</td>";
+                row += "<td><label>" + element.date + "</label></td>";
+                row += "<td><a href='#'>view</a></td>";
+                row += "</tr>";
+                html += row;
+            }
         });
         $('#messageList').html(html);
     });

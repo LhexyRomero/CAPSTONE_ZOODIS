@@ -7,11 +7,19 @@ exports.collabMessage = (req,res,next) =>{
     let message = data.message;
     let state = 1;
 
-    let sql = "INSERT INTO usermessage_t (subject,message,state,staffID) VALUES (?,?,?,?)";
-    db.get().query(sql,[subject,message,state,req.session.staffID],(err,result)=>{
-        if(err) return next(err);
+    let sql1 = "SELECT * FROM staff_t WHERE staffID = ?";
+    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,date,time) VALUES (?,?,?,?,?,?,CURRENT_DATE,CURRENT_TIME)";
+    db.get().query(sql1,[req.session.staffID],(err1,result1)=>{
+        if(err1) return next(err1);
 
-        res.status(200).send({success: true, detail:"Message Sent!"});
+        let name = result1[0].firstName + " " + result1[0].lastName;
+        let email = result1[0].email;
+
+        db.get().query(sql,[name,email,subject,message,state,req.session.staffID],(err,result)=>{
+            if(err) return next(err);
+    
+            res.status(200).send({success: true, detail:"Message Sent!"});
+        });
     });
 }
 
@@ -24,7 +32,7 @@ exports.contactMessage = (req,res,next) =>{
     let state = 1;
     let staffID = 14;
 
-    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID) VALUES (?,?,?,?,?,?)";
+    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,date,time) VALUES (?,?,?,?,?,?,CURRENT_DATE,CURRENT_TIME)";
     db.get().query(sql,[name,email,subject,message,state,staffID],(err,result)=>{
         if(err) return next(err);
 

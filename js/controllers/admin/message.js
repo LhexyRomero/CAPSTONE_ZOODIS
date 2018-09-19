@@ -13,4 +13,11 @@ exports.viewMessage = (res, req, next) => {
     });
 }
 exports.messageList = (req, res, next) => {
+
+    let sql = "SELECT * FROM usermessage_t";
+    db.get().query(sql,(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success: true, detail:"", data:result});
+    });
 }
