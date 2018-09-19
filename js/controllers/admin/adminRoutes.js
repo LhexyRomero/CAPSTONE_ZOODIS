@@ -55,7 +55,7 @@ router.get('/message',auth.authenticate,(req,res,next)=>{
     res.render('admin/message');
 });
 
-router.get('/viewMessage',message.viewMessage);
+router.get('/viewMessage/:id/:member',message.viewMessage);
 router.get('/messageList',message.messageList);
 
 router.get('/sampleAlgo',auth.authenticate,(req,res,next)=>{
