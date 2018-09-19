@@ -23,6 +23,15 @@ star {
     font-size: 11px;
 }
 
+td {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.unread {
+    background-color: #eeeeee;
+}
+
 .pLabel {
     margin-bottom: 0 !important;
 }

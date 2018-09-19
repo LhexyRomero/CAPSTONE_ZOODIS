@@ -16,6 +16,7 @@ const reject = require('../admin/reject');
 const staff = require('../admin/staff');
 const profile = require('../admin/profile');
 const sample = require('../admin/sample');
+const message = require('../admin/message');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -49,6 +50,9 @@ router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
 router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('admin/dashboard');
 });
+
+router.get('/viewMessage',message.viewMessage);
+router.get('/messageList',message.messageList);
 
 router.get('/sampleAlgo',auth.authenticate,(req,res,next)=>{
     res.render('admin/sampleAlgo');

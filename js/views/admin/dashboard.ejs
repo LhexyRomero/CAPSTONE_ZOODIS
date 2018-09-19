@@ -79,20 +79,34 @@
                             <div class="card-body ">
                                 <div class="table-full-width table-responsive">
                                     <table class="table">
-                                        <tbody>
+                                        <tbody id="messageList">
                                             <tr>
                                                 <td>Ganda</td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Ganda safjejge frfjenfenfnen ceokffekrtnfkmdkwkdmwmdddd
+                                                    Lhexy Romero
                                                 </td>
-                                                <td class="text-right"><a data-toggle="modal" href="#exampleModalCenter"><button
-                                                            onclick="editBacteria(17)" type="button" rel="tooltip"
-                                                            class="btn btn-info btn-icon btn-sm"><i class="now-ui-icons ui-2_settings-90"></i></button></a>&nbsp;<a
-                                                        data-toggle="modal" href="#viewModal"><button onclick="viewBacteria(17)"
-                                                            type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm"><i
-                                                                class="now-ui-icons travel_info"></i></button></a></td>
+                                                <td>
+                                                    (no Subject)
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="#">view</a>
+                                                </td>
+                                            </tr>
+                                            <tr class="unread">
+                                                <td>
+                                                    Lhexy Romero
+                                                </td>
+                                                <td>
+                                                    <strong>(no Subject) Gand ni Leki</strong>
+                                                </td>
+                                                <td>
+                                                <label>Date</label>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="#">view</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -133,10 +147,9 @@
                                 </form>
                             </div>
                             <div class="card-footer" align="right">
-                                <!-- //<i class="now-ui-icons shopping_tag-content"></i> -->
-                                <button type="button" class="btn btn-primary" onclick="clearJournal()" data-toggle="collapse"
-                                    href="#AddCollapse" role="button" aria-expanded="true" aria-controls="AddCollapse">Reply</button>
-                                <button type="button" class="btn btn-success" onclick="clearJournal()"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
+                                <button type="button" class="btn btn-primary" data-toggle="collapse"
+                                    href="#AddCollapse" role="button" aria-expanded="true" aria-controls="AddCollapse" id="btnReply">Reply</button>
+                                <button type="button" class="btn btn-success" onclick="" id="btnSend"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
                             </div>
                         </div>
                     </div>
@@ -193,6 +206,7 @@
 
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+
     <script>
         $(".navbarName").html("Dashboard");
         $("#dashboard").addClass("active");
@@ -443,6 +457,7 @@
 
         });
     </script>
+    <script src="../../assets/js/admin/message.js"></script>
 </body>
 
 </html>
