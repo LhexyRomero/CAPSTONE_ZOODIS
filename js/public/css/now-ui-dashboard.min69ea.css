@@ -23,9 +23,8 @@ star {
     font-size: 11px;
 }
 
-td {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+.strong {    
+    font-weight: 600; 
 }
 
 .unread {
