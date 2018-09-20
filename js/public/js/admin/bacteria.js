@@ -4,7 +4,7 @@ $(function () { //onload
     toSelectJournalBacteria();
     toxinList();
     bacteriaList();
-    toModalSelect();
+    //toModalSelect(); leki: error
 
     $("input[name=strSpeciesName]").autocomplete({
         source: (req, res) => {
@@ -95,7 +95,60 @@ $(function () { //onload
         isInsertBacteria = 0;
         $("#toSubmitBacteria").html("Add");
     });
+
+    $('input[name=strSpecies]').on('focus', function(){
+        if($('input[name=strGenus]').val() != ""){
+            taxoBacSearch = true;
+        }
+    });
+
+    let loading = null
+    $('input[name=strSpecies]').on('change', function(){
+        if(!loading){
+            let genus = $('input[name=strGenus]').val();
+            let species =  $('input[name=strSpecies]').val();
+            loading = $.ajax({
+                type: "GET",
+                url: "/search/bacteriaSpeciesTaxoData/?species=" + species + "&genus=" + genus,
+                success: (response) => {
+                    loading = false;
+                    if(Object.keys(response.data).length != 0){
+                        $("input[name=strFamily]").val(response.data.family);
+                        $("input[name=strOrder]").val(response.data.ordo);
+                        $("input[name=strClass]").val(response.data.class);
+                        $("input[name=strPhylum]").val(response.data.phylum);
+                    }
+                    
+                },
+                error: (response) => {
+                    console.log(response.detail);
+                    loading = false;
+                }
+            });
+        }
+    });
+
+    $('input[name=strSpecies]').autocomplete({
+        source: (req, res) => {
+            if(taxoBacSearch){
+                let genus = $('input[name=strGenus]').val();
+                $.ajax({
+                    type: "GET",
+                    url: "/search/bacteriaSpeciesTaxo/?data=" + req.term + "&genus=" + genus,
+                    success: (response) => {
+                        res(response.data);
+                    },
+                    error: (response) => {
+                        console.log(response.detail);
+                    }
+                });
+            }else{
+                res([]);
+            }
+        },
+    });
 });
+let taxoBacSearch = false;
 
 let isClick = 0;
 function toSelectBacteria() {
