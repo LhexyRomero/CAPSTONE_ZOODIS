@@ -1,3 +1,4 @@
+let isClick = 0;
 $(function(){
     staffList();
 });
@@ -64,31 +65,44 @@ function adminSwitch(event){
 
 function generate(){
     let code = Math.random().toString(36).replace('0.','');
-    $('input[name=generate]').val(code);
+    $('.generate').val(code);
 }
 
 function code(e) {
-    e.preventDefault();
+    if(isClick != 0){
+        return;
+    }
+    isClick++;
 
+    e.preventDefault();
     let data = $("#codeForm").serializeArray();
+    let errCount = 0;
     let dataInsert = {};
 
     data.forEach((element,index) => {
         console.log(element.name + ":" + element.value);
-
         
-        dataInsert[element.name] = element.value;
-        
+        if(element.value == ""){
+            $('input[name=emailAdd]').css("background", "#feebeb");
+            errCount++;
+            isClick = 0;
+        }
+        else {
+            dataInsert[element.name] = element.value;
+        }
         
     });
+
+    if(errCount>0){
+        $.notify("Provide an Email!",{type:"danger"});
+        return;
+    }
 
     $.post("/code",dataInsert,(response)=>{ 
         if(response.success == false){
             $.notify("Error generating code!",{type:"danger"});
             return;
         }
-
-        $("#generate").modal("hide");
     });
 }
 

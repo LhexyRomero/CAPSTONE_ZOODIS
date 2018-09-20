@@ -37,8 +37,8 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <form method="#" action="#">
-                                    <p>[No Subject]</p>
+                                <form method="POST" id="sendMessage">
+                                    <div id="sub"></div>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>From</label>
@@ -54,19 +54,20 @@
                                     <div id="message"></div>
                                     <div align="right" id="dateTime">
                                     </div>
-                                    <a href="#">Download Attachment</a><br><br>
                                     <div class="collapse" id="AddCollapse">
                                         <label>&nbsp;&nbsp;zoodissystem@gmail.com</label>
                                         <div class="form-group">
-                                            <textarea rows="4" cols="60" class="form-control" name="strDiseaseDesc"
+                                            <textarea rows="4" cols="60" class="form-control" name="replyMessage"
                                                 type="text"></textarea>
                                         </div>
                                 </form>
                             </div>
                             <div class="card-footer" align="right">
                                 <button type="button" class="btn btn-primary" data-toggle="collapse" href="#AddCollapse"
-                                    role="button" aria-expanded="true" aria-controls="AddCollapse" id="btnReply">Reply</button>
-                                <button type="button" class="btn btn-success" onclick="" id="btnSend"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
+                                    role="button" aria-expanded="true" aria-controls="AddCollapse" id="btnReply" onclick="reply()">Reply</button>
+                                    <button type="button" class="btn btn-warning" data-toggle="collapse" href="#AddCollapse"
+                                        role="button" aria-expanded="false" aria-controls="AddCollapse" id="btnCancel" onclick="cancel()">Cancel</button>
+                                <button type="button" class="btn btn-success" onclick="send()" id="btnSend"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
                             </div>
                         </div>
                     </div>

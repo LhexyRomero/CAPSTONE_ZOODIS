@@ -16,7 +16,7 @@ router.use((req,res)=>{
 });
 
 router.use((err,req,res,next)=>{
-    console.error(err);
+    console.error(err.message, err.stack);
     let response;
     if(req.xhr){
         response = {success: false};

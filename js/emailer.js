@@ -28,7 +28,6 @@ module.exports = (recipient,content,cb) => {
     transporter.sendMail(mail,(err,info)=>{
         if(err) return cb(err);
         cb(null,info.response);
-
     });
     // setTimeout(()=>{
     // },5000);
