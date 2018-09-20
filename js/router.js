@@ -5,6 +5,15 @@ router.use('/',require("./controllers/admin/adminRoutes"));
 router.use('/',require("./controllers/contributors/contriRoutes"));
 router.use('/',require("./controllers/researcher/researcherRoutes"));
 
+router.get('/test', (req, res, next)=>{
+    let bacdive = require('./bacdive');
+    if(!req.query.genus) return res.status(404).end();
+    bacdive.searchSpecies(req.query.genus, function(err, data){
+        if(err) return next(err);
+        res.send(data);
+    })
+});
+
 router.use((req,res)=>{
     let response;
     if(req.xhr){
