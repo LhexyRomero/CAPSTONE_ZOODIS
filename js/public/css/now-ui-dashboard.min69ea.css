@@ -15,6 +15,10 @@
 
  */
 
+.statsDesign {
+    color: #9b1489 !important;
+}
+
 .hov:hover {
     box-shadow: 0 0 1px rgba(197, 197, 197, 1);
     cursor: pointer;

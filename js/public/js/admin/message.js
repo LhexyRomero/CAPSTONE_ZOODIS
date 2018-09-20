@@ -1,8 +1,18 @@
 $(function () {
     $("#btnSend").hide();
     $("#btnCancel").hide();
-    messageList();
+    messageList(messageLimit,messageNext);
+    $('.nextPage').on('click', function(){
+        messageList(messageLimit,messageNext);
+    });
+    $('.prevPage').on('click', function(){
+        console.log('ho')
+        messageList(messageLimit,messageNext - messageLimit);
+    });
 });
+
+let messageNext = 0;
+let messageLimit = 2;
 
 function viewMessage(e, id, member) {
     let url = "/viewMessage/" + id + "/" + member;
@@ -31,7 +41,7 @@ function viewMessage(e, id, member) {
     });
 }
 
-function messageList() {
+function messageList(limit, offset) {
     $.get("/messageList", (response) => {
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
@@ -39,7 +49,9 @@ function messageList() {
         }
         let data = response.data;
         let html = "";
-        data.forEach((element, index) => {
+        for(let x=0; x<limit; x++){
+            let element = data[x+offset];
+            if(!element) return;
             if (element.state == 1) {
                 let row = "<tr class='unread hov' onclick='viewMessage(this," + element.usermessageID + "," + element.staffID + ")'>";
                 row += "<td><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
@@ -58,7 +70,10 @@ function messageList() {
                 row += "</tr>";
                 html += row;
             }
-        });
+            if(x==limit-1){
+                messageNext = x+offset;
+            }
+        }
         $('#messageList').html(html);
     });
 }
