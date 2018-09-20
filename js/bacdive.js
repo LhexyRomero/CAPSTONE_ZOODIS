@@ -3,9 +3,8 @@ let loggedIn = 0;
 
 exports.searchSpecies = function(genus, cb){
     let getList = new Promise(function(resolve, reject){
-        sendReq("GET", "bacdive_id/?format=json", {}, function(err, data){
+        sendReq("GET", "taxon/"+ genus +"/?format=json", {}, function(err, data){
             if(err) return reject(err);
-            console.log(data);
             resolve(data.results);
         });
     });
