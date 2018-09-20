@@ -46,6 +46,8 @@ router.post('/register', auth.register);
 router.get('/search/animal', search.animal);
 router.get('/search/bacteriaGenus',search.bacteriaGenus);
 router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
+router.get('/search/bacteriaSpeciesTaxo',search.bacteriaSpeciesTaxo);
+router.get('/search/bacteriaSpeciesTaxoData',search.bacteriaSpeciesTaxoData);
 
 router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('admin/dashboard');
