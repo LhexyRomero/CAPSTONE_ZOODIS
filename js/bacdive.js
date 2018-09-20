@@ -1,7 +1,7 @@
 const request = require('request');
+let loggedIn = 0;
 
 exports.searchSpecies = function(genus, cb){
-    console.log("start searching: " + genus);
     let getList = new Promise(function(resolve, reject){
         sendReq("GET", "bacdive_id/?format=json", {}, function(err, data){
             if(err) return reject(err);
@@ -39,17 +39,20 @@ exports.searchSpecies = function(genus, cb){
 }
 
 function sendReq(method, query, data, cb){
-    var req = request({
+    request({
+        auth: {
+            user: process.env.TAXO_API_USER,
+            pass: process.env.TAXO_API_PASS
+        },
         method: method,
         uri: process.env.TAXO_API_URL + query,
         json: data,
     }, function(err, response, body){
         if(err) return cb(err);
-        console.log(response, body);
-        if(response.statusCode == 200){
-            cb(null, body);
-        }else{
+        if(response.statusCode >= 400){
             cb(new Error(response.statusCode + ":" + response.statusMessage));
+        }else{
+            cb(null, body);
         }
     });
 }
