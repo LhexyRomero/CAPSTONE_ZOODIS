@@ -29,7 +29,6 @@ exports.messageList = (req, res, next) => {
 }
 exports.send = (req,res,next) =>{
     let data = req.body;
-    console.log(data, "THIS IS SHIT");
     let message = data.replyMessage;
     let email = data.emailAdd;
     let subject = data.subject;
@@ -42,7 +41,7 @@ exports.send = (req,res,next) =>{
             if(err) return next(err);
             res.status(200).send({success: true, detail:"Message Sent!"});
         }
-    )
+    );
 }
 
 

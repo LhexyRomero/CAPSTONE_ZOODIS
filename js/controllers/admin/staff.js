@@ -1,4 +1,5 @@
 const db = require("../../connection");
+const emailer = require("../../emailer");
 
 exports.staffList = (req,res,next) =>{
 
@@ -20,13 +21,21 @@ exports.code = (req,res,next) =>{
 
     let data = req.body;
     let code = data.generate;
+    let email = data.emailAdd;
     let type = 3;
+    console.log(data);
     console.log(type);
     let sql = "INSERT INTO staff_t (type,code) VALUES (?,?)";
     db.get().query(sql,[type,code],(err,result)=>{
         if(err) return next(err);
-
-        res.status(200).send({success: true, detail:""});
+        emailer(email,{
+            subject: 'Re:',
+            body: 'ganda' + code,
+            }, (err1,detail) =>{
+                if(err1) return next(err1);
+                res.status(200).send({success: true, detail:"Key Token Sent!"});
+            }
+        );
     });
 }
 
