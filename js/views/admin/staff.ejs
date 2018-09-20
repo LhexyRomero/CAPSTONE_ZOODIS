@@ -62,21 +62,27 @@
             </div>
             <!-- Modal Generate Code-->
             <div class="modal fade" id="generate" tabindex="-1" role="dialog" aria-labelledby="generate" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="card-title"><strong>CODE</strong></h5>
+                            </div>
                         <div class="modal-body">
                             <div class="form-group has-label">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form id="codeForm" method="POST" onsubmit="code(event)">
-                                            <h4>
-                                                <b>
-                                                    <center>CODE</center>
-                                                </b>
-                                            </h4>
-                                            <input class="form-control" name="generate" id="generate" />
+                                                <label class="modalLabel">Key Token</label>
+                                                <input type="hidden" class="form-control generate" name="generate"/>
+                                                <input class="form-control generate" name="generateDisplay" disabled/>
+                                                <label class="modalLabel">Email<star>&nbsp;*</star></label>
+                                                <input class="form-control" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                                                type="email" name="emailAdd"/>
                                             <center>
-                                                <button type="submit" class="btn btn-primary">Okay</button>
+                                                <button type="submit" class="btn btn-primary">Send</button>
                                             </center>
                                         </form>
                                     </div>
