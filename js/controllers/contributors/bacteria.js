@@ -104,7 +104,7 @@ exports.addToxin = (req, res, next) => {
     console.log(name);
 
     let checkToxin = function (cb) {
-        let sql = "SELECT * FROM toxin_t AND name = ?";
+        let sql = "SELECT * FROM toxin_t name = ?";
         db.get().query(sql, [strToxinName], (err, result) => {
             if (err) return cb(err);
 

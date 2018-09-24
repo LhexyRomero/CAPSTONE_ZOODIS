@@ -154,12 +154,11 @@ exports.assignedJournal = (req,res,next) =>{
     let journalID = data.selectJournalName;
     let state = "notify";
     let status = "Incomplete"
-    let message = "Assigned journal is ready to download!";
 
     console.log(data);
 
-    let sql = "UPDATE staff_t LEFT JOIN journal_t ON staff_t.journalID = journal_t.journalID SET staff_t.journalID = ?, journal_t.status = ?, journal_t.state=?, journal_t.message=? WHERE staffID =?";
-    db.get().query(sql,[journalID,status,state,message,staffID],(err,result)=>{
+    let sql = "UPDATE staff_t LEFT JOIN journal_t ON staff_t.journalID = journal_t.journalID SET staff_t.journalID = ?, journal_t.status = ?, journal_t.state=? WHERE staffID =?";
+    db.get().query(sql,[journalID,status,state,staffID],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"Journal Successfully Assigned!"});
