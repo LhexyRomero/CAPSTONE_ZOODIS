@@ -24,7 +24,7 @@
                                     <div class="form-group has-label">
 
                                         <label>Toxin Name</label>
-                                        <input class="form-control" name="strToxinName" type="text" />
+                                        <input autocomplete="off" class="form-control" name="strToxinName" type="text" />
 
                                         <label>Structure Feature</label>
                                         <textarea class="form-control" name="strStructureFeature"></textarea>
@@ -82,22 +82,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h6 class="title title-up">TOXIN INFORMATION</h6>
+                    <h4 class="title title-up">TOXIN INFORMATION</h6>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>STATUS</label>
-                            </div>
-                            <div class="col-md-3">
-                                <label>:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <label id="status"></label>
-                            </div>
-                        </div>
-                        <h6 id="viewToxinName"></h6><br>
+                        <h5 id="viewToxinName"></font></h6><br>
+                        <label id="status"></label><br>
                         <label>Structure Feature</label><br>
                         <label id="structureFeature"></label><br><br>
                         <label>Function</label><br>
