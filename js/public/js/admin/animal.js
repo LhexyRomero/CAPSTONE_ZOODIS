@@ -401,6 +401,7 @@ function updateAnimalTaxon() {
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
+                        $('#exampleModalCenter').modal("hide");
                         animalTaxonList();
                     }
                 });

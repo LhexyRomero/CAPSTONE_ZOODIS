@@ -412,6 +412,7 @@ function updateBacteriaTaxon() {
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
+                        $('#exampleModalCenter').modal("hide");
                         bacteriaTaxonList();
                     }
                 });
@@ -809,9 +810,6 @@ function bacteriaList() {
                 row += "<td>" + element.animalName + "</td>";
                 row += "<td>" + element.bacteriumScientificName + "</td>";
                 row += "<td>" + element.bacteriumTissueSpecifity + "</td>";
-                row += "<td>" + element.bacteriumSampleType + "</td>";
-                row += "<td>" + element.bacteriumIsolation + "</td>";
-                row += "<td>" + element.bacteriumIdentification + "</td>";
                 row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = 'editBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 row += "</tr>";
                 html += row;

@@ -19,7 +19,7 @@ function addField() {
 
     let boxName = "symptoms" + count;
     let buttonName = "button" + count;
-    let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
+    let html = '<input type="text" autocomplete="off" class="form-control" name="' + boxName + '""/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
 
     let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-9'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";

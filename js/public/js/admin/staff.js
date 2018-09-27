@@ -107,7 +107,7 @@ function code(e) {
 
         $.notify("Key token already sent!", { type: "success" });
         $(".stats").hide();
-
+        $('#generate').modal("hide");
     });
 }
 

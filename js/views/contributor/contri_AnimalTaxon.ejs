@@ -96,12 +96,12 @@
     <!-- Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content"><br>
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLongTitle">ANIMAL TAXONOMY CLASSIFICATION</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>TAXONOMY CLASSIFICATION</b></h5>
                 </div>
                 <div class="modal-body">
                     <form id="editAnimalTaxonForm" action="/updateAnimalTaxon" method="POST">
@@ -116,7 +116,7 @@
                                             <div class="col-md-3">
                                                 <label>:</label>
                                             </div>
-                                            <div class="col-status-5">
+                                            <div class="col-md-5">
                                                 <label id="status"></label>
                                             </div>
                                         </div>
@@ -199,7 +199,7 @@
 
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
-    <script src="../../assets/js/contri_sidebar.js"></script>
+    <script src="../../assets/js/contri_js/animal.js"></script>
     <script>
         $(".navbarName").html("Maintenance / Animal Taxonomy");
         $("#main").addClass("active");

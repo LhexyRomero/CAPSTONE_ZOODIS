@@ -166,7 +166,7 @@ function updateJournal() {
             isClicked = 0;
         }
 
-        else if (element.value.match(/[*#\/]/g) != null) {
+        else if (element.value.match(/[*]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             invCount++;
             isClicked = 0;
@@ -218,6 +218,7 @@ function updateJournal() {
                             confirmButtonText: "Okay"
                         });
                         journalList();
+                        $('#exampleModalCenter').modal("hide");
                     }
                 });
             }

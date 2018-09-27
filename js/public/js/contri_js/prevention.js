@@ -16,7 +16,7 @@ function addFieldPrevention() {
 
     let boxName = "prevention" + count1;
     let buttonName = "button" + count1;
-    let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
+    let html = '<input type="text" autocomplete="off" class="form-control" name="' + boxName + '""/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count1 + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
     let newDiv = "<div class='preventionDiv" + count1 + " row'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
@@ -209,7 +209,7 @@ function preventionList() {
         data.forEach((element,index) => {
             let row = "<tr>";
             row += "<td>" +element.diseaseName+"</td>";
-            row += "<td><a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td><a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if (element.status === "approved") {
                 row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
             }

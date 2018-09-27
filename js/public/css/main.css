@@ -3,6 +3,10 @@
 /*  Basic Style 
 /* =================================== */
 
+.li {
+  padding-bottom: 10px;
+}
+
 ::-moz-selection {
   /* Code for Firefox */
   background-color: #9c27b0;
