@@ -29,8 +29,8 @@ exports.code = (req,res,next) =>{
     db.get().query(sql,[type,code],(err,result)=>{
         if(err) return next(err);
         emailer(email,{
-            subject: 'Re:',
-            body: 'ganda' + code,
+            subject: 'ZOODIS Contributor:Key Code',
+            body: '<center><div align="center" style="width: 600px; height: 400px; padding: 10px;"><h1 style="color: #9c27b0;"><b>Zoodis Account Verification</b></h1><hr>\n<p style="padding-left:10px;" align="left">Hi Future Contributor!</p><p>ZOODIS will require you to verify your account setup.</p>\n<p>Your Verification Code is:</p><h1><b><u>' + code + '</u><b></h1></div></center>',
             }, (err1,detail) =>{
                 if(err1) return next(err1);
                 res.status(200).send({success: true, detail:"Key Token Sent!"});

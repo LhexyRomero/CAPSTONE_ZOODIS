@@ -148,8 +148,8 @@ exports.researcherRegister = (req, res, next) => {
                 res.status(200).redirect('/registerResearcher?error=2');
                 let code = Math.random().toString(36).replace('0.','');
                 emailer(email, {
-                    subject: 'Email Verification Aspiring Researcher!',
-                    body: '<center><h1>Zoodis Account Verification</h1><hr><p>Welcome aspiring Researcher!\nTo verify your account use this code on verification box: '+ code +'</p><center>',
+                    subject: 'Email Verification Researcher!',
+                    body: '<center><div align="center" style="width: 600px; height: 400px; padding: 10px;"><h1 style="color: #9c27b0;"><b>Zoodis Account Verification</b></h1><hr>\n<p style="padding-left:10px;" align="left">Welcome, Researcher!</p><p style="padding:20px; text-align:justify; text-justify:inter-word">ZOODIS will require you to verify your account setup. The verification code given will be needed in order to finalize setting up you account.Your <b>VERIFICATION CODE</b> is:</p><h1><b><u>' + code + '</u><b></h1></div></center>',
                 }, function(err, detail){
                     if(err) return next(err);
                     pendingRegistration.push({
