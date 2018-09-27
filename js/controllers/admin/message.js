@@ -35,8 +35,8 @@ exports.send = (req,res,next) =>{
 
 
     emailer(email,{
-        subject: 'Re:'+subject,
-        body: message,
+        subject: 'Re: '+subject,
+        body: '<center><div align="center" style="width: 600px; height: 400px; padding: 10px;"><h1 style="color: #9c27b0;"><b>Zoonotic Disease Identification System</b></h1><hr>\n<p style="padding-left:10px;" align="left">Greetings,Researcher!</p>\n<p style="padding:20px; text-align:justify; text-justify:inter-word">' + message + '</p><hr><p><em>Please do not reply to this message. Replies to this message are routed to unmonitored mailbox</em></p></div></center>',
         }, (err,detail) =>{
             if(err) return next(err);
             res.status(200).send({success: true, detail:"Message Sent!"});
