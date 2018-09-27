@@ -5,6 +5,8 @@ const auth = require('../authentication');
 const upload = require('../../fileUpload');
 const journal = require('../researcher/journal');
 const contact = require('../researcher/contact');
+const search = require('../researcher/search');
+const animalSearching = require('../researcher/searchingAnimal');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -55,5 +57,12 @@ router.get('/researcher_bacteria',(req,res,next)=>{
 router.get('/researcher_disease',(req,res,next)=>{
     res.render('researcher/researcher_disease');
 });
+
+//Searching
+router.post('/searchingAnimal',animalSearching.searchingAnimal);
+
+
+//Autocomplete
+router.get('/search/animalName',search.animalName);
 
 module.exports = router;

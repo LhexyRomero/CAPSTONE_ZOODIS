@@ -37,28 +37,28 @@
 						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade" id="animal" role="tabpanel" aria-labelledby="animal-tab">
-							<form class="form-wrap">
+						<div class="tab-pane" id="animal" role="tabpanel" aria-labelledby="animal-tab">
+							<form class="form-wrap" method="POST" id="searchAnimal">
 								<p>Access information about animals, and their characteristics.</p><br>
-								<input type="text" class="form-control" name="animalName" placeholder="Name " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">
-								<input type="text" class="form-control" name="animalScientificName" placeholder="Scientific Name" onfocus="this.placeholder = ''"
-								 onblur="this.placeholder = 'To '">
-								<a href="#" class="primary-btn text-uppercase">Search Animal</a>
+								<input type="text" class="form-control" name="animalName" placeholder="Name">
+								<div class="animalNotif"></div><br><br>
+								<button type="button" onclick="searchAnimal()"class="genric-btn primary">Search Animal&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
-						<div class="tab-pane fade show active" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
-							<form class="form-wrap">
+						<div class="tab-pane show active" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
+							<form class="form-wrap" method="POST" id="searchBacteria">
 								<p>View bacteria details such as their taxonomic classification and their physiological characteristics.</p><br>
-								<input type="text" class="form-control" name="bacteriaScientificName" placeholder="Scientific Name" onfocus="this.placeholder = ''"
-								 onblur="this.placeholder = 'From '">
-								<a href="#" class="primary-btn text-uppercase">Search Bacteria</a>
+								<input type="text" class="form-control" name="bacteriaScientificName" placeholder="Scientific Name">
+								<div class="bacteriaNotif"></div>
+								<button type="button" onclick="searchBacteria()" class="genric-btn primary">Search Bacteria&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
-						<div class="tab-pane fade" id="disease" role="tabpanel" aria-labelledby="disease-tab">
-							<form class="form-wrap">
+						<div class="tab-pane" id="disease" role="tabpanel" aria-labelledby="disease-tab">
+							<form class="form-wrap" method="POST" id="searchDisease"> 
 								<p>Access disease information together with its causes, its symptoms, and preventions.</p>
-								<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">
-								<a href="#" class="primary-btn text-uppercase">Search Disease</a>
+								<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name">
+								<div class="diseaseNotif"></div>
+								<button type="button" onclick="searchDisease()" class="genric-btn primary">Search Disease&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
 					</div>
@@ -435,6 +435,7 @@
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<!-- End footer Area -->
+	<script src="../../assets/js/researcher/animalSearch.js"></script>
 </body>
 
 </html>

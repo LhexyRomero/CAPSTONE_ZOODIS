@@ -146,12 +146,12 @@ function bacteriaTaxonList() {
                 let row = "<tr>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteriaTaxon(" + element.bacteriumTaxoID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteriaTaxon(" + element.bacteriumTaxoID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
-                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
                 else {
-                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-default'>" + element.status + "</span></td>";
                 }
                 row += "</tr>";
                 html += row;
@@ -173,12 +173,11 @@ function viewBacteriaTaxon(id) {
             $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
-
-        let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
-        let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
-        let statusRejected = "<font color=red><em>" + response.data.status + "</em></font>";
+        //<span class='badge badge-success'>approved</span>
+        let statusApproved = "<span class='badge badge-success'>" + response.data.status + "</span>";
+        let statusPending = "<span class='badge badge-default'>" + response.data.status + "</span>";
+        let statusRejected = "<span class='badge badge-danger'>" + response.data.status + "</span>";
         
-        console.log(response.data.status);
         if (response.data.status == 'approved') {
             $('#status').html(statusApproved);
             $('#phylum').html(response.data.phylum);

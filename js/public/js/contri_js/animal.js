@@ -231,6 +231,7 @@ function clearAnimalTaxon(eClear) {
 
 function animalTaxonList() {
     $.get("/contri_animalTaxonList", function (response) {
+        console.log('im here SA TAXON');
 
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
@@ -244,15 +245,15 @@ function animalTaxonList() {
                 let row = "<tr>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
-                    row += "<td><font color = #18ce0f><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-success'>" + element.status + "</span>";
                 }
                 else if (element.status === "rejected"){
-                    row += "<td><font color = red><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-danger'>" + element.status + "</span>";
                 }
                 else {
-                    row += "<td><font color = #f96332><em>" + element.status + "</em></font></td>";
+                    row += "<td><span class='badge badge-default'>" + element.status + "</span>";
                 }
                 row += "</tr>";
                 html += row;
@@ -275,10 +276,22 @@ function viewAnimalTaxon(id) {
             return;
         }
 
-        let statusApproved = "<font color = #18ce0f><em>" + response.data.status + "</em></font>";
-        let statusPending = "<font color = #f96332><em>" + response.data.status + "</em></font>";
-        if (response.data.status === 'approved') {
+        let statusApproved = "<span class='badge badge-success'>" + response.data.status + "</span>";
+        let statusPending = "<span class='badge badge-default'>" + response.data.status + "</span>";
+        let statusReject = "<span class='badge badge-danger'>" + response.data.status + "</span>";
+        if (response.data.status == 'approved') {
             $('#status').html(statusApproved);
+            $('#phylum').html(response.data.phylum);
+            $('#classs').html(response.data.classs);
+            $('#order').html(response.data.order);
+            $('#family').html(response.data.family);
+            $('#genus').html(response.data.genus);
+            $('#species').html(response.data.species);
+            $('#name').html(response.data.title);
+        }
+
+        else if(response.data.status == 'rejected') {
+            $('#status').html(statusReject);
             $('#phylum').html(response.data.phylum);
             $('#classs').html(response.data.classs);
             $('#order').html(response.data.order);

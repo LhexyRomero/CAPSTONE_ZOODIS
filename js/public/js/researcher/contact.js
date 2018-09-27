@@ -28,7 +28,6 @@ function collabMessage() {
     else {
         dataInsert[data[0].name] = data[0].value;
         dataInsert[data[1].name] = data[1].value;
-        console.log(dataInsert);
     }
 
     if (errCount > 0) {

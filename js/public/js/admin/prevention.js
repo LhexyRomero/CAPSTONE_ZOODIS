@@ -18,7 +18,7 @@ function addFieldPrevention() {
 
     let boxName = "prevention" + count1;
     let buttonName = "button" + count1;
-    let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
+    let html = '<input type="text" autocomplete="off" class="form-control" name="' + boxName + '""/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count1 + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
     let newDiv = "<div class='preventionDiv" + count1 + " row'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
@@ -129,6 +129,7 @@ function addPrevention(eAdd) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
             });
+            clearPrevention();
             preventionList();
         });
 
