@@ -1,6 +1,7 @@
 $(function () { //onload
     toSelectBacteria();
     bacteriaTaxonList();
+    toSelectBacteria2();
     toSelectJournalBacteria();
     toxinList();
     bacteriaList();
@@ -1009,4 +1010,19 @@ function updateBacteria() {
     }
 
 
+}
+
+function toSelectBacteria2() {
+    $.get("/toSelectBacteria2", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
+        });
+        $('#toSelectBacteria2').html(html);
+    });
 }

@@ -9,7 +9,6 @@ exports.addAnimal = (req, res, next) => {
     let genusName = finalScienctific[0];
     let scienceName = data.strScientificName+"";
     let speciesName = finalScienctific[1];
-    let bodySite = data.strBodySite;
     let isInserting = data.isInserting;
     let journal      = data.selectJournal;
     let status      = "approved";
@@ -49,11 +48,10 @@ exports.addAnimal = (req, res, next) => {
     };
 
     let insertAnimal = function (result) {
-        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let dataDisplay = {
             commonName: commonName,
             scientificName: scientificName,
-            bodySite: bodySite,
             phylum: result[0].phylum,
             class: result[0].class,
             order: result[0].orderr,
@@ -65,7 +63,7 @@ exports.addAnimal = (req, res, next) => {
         };
 
         if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID,image,status,journal,req.session.staffID], (error, result3) => {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, result[0].animalTaxoID,image,status,journal,req.session.staffID], (error, result3) => {
                 if (error) return next(error);
 
                 res.status(200).send({ success: true, detail: "Successfully Added!", });
@@ -250,7 +248,6 @@ exports.viewAnimal = (req,res,next) =>{
         let dataDisplay = {
             animalName              :   result[0].animalName,
             animalScientificName    :   result[0].animalScientificName,
-            bodySite                :   result[0].animalBodySite,
             phylum                  :   result[0].phylum,
             classs                  :   result[0].class,
             order                   :   result[0].orderr,
@@ -312,11 +309,10 @@ exports.updateAnimal = function(req, res, next){
     };
 
     let insertAnimal = function (result) {
-        let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalBodySite = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
+        let sql3 = "UPDATE animal_t SET animalName = ?, animalScientificName = ?, animalTaxoID = ?,image = ? WHERE animalID = ?";
         let dataDisplay = {
             commonName: commonName,
             scientificName: scientificName,
-            bodySite: bodySite,
             phylum: result[0].phylum,
             class: result[0].class,
             order: result[0].orderr,
@@ -327,7 +323,7 @@ exports.updateAnimal = function(req, res, next){
         };
 
         if (isInserting) {
-            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, bodySite, result[0].animalTaxoID, image, req.params.id], (error, result3) => {
+            db.get().query(sql3, [commonName, genusName + ' ' + speciesName, result[0].animalTaxoID, image, req.params.id], (error, result3) => {
                 if (error) return next(error);
 
                 res.status(200).send({ success: true, detail: "Successfully Added!", });

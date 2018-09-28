@@ -1,10 +1,6 @@
-
 $(function () {
-    toSelectBacteriaDisease();
-    toSelectJournalDisease();
     diseaseList();
 });
-
 
 let isClicked = 0;
 let count = 0;
@@ -39,22 +35,6 @@ function deleteField(count) {
     console.log(count + "lol");
 }// End: Adding field
 
-
-function toSelectBacteriaDisease() {
-    $.get("/contri_toSelectBacteriaDisease", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
-            return;
-        }
-        console.log("DITO NA");
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
-        });
-        $('#toSelectBacteria').html(html);
-    });
-};
 
 function addDisease(eAdd) {
     eAdd.preventDefault();
@@ -157,23 +137,6 @@ function clearDisease() {
     $('input[name=symptoms7').val("");
     $('input[name=symptoms8').val("");
     isClick = 0;
-}
-
-function toSelectJournalDisease() {
-    $.get("/contri_toSelectJournalDisease", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
-            return;
-        }
-        console.log("DITO NA");
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.journalID + ">" + element.code + "</option>";
-        });
-        $('#toSelectJournal').html(html);
-    });
-
 }
 
 function diseaseList() {

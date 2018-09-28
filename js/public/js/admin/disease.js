@@ -1,6 +1,5 @@
 $(function () { //onload
     diseaseList();
-    toSelectBacteriaDisease();
     toSelectJournalDisease2();
 });
 //Start: Adding field
@@ -83,7 +82,6 @@ function addDisease(eAdd) {
         return;
     }
 
-    console.log("Yieeee accpeted");
     swal({
         title: 'Add Disease',
         text: "Are you sure?",
@@ -124,8 +122,8 @@ function addDisease(eAdd) {
 
 function clearDisease() {
     
-    $('select[name=selectBacteria]').val("");
     $('select[name=selectJournal]').val("");
+    $('input[name=bodySite]').val("");
     $('input[name=strDiseaseName]').val("");
     $('textarea[name=strDiseaseDesc]').val("");
     $('input[name=strSymptoms]').val("");
@@ -181,7 +179,7 @@ function viewDisease(vDiseaseID) {
         let data = response.data;
         let html = "";
        // let selectedBacteria = "<option value ="+element.bacteriumID+">"+element.bacteriumName+"<option>";
-        let selectedBacteria = "<p>"+data.bacteriumName+"</p>";
+        let bodySite = "<p>"+data.bodySite+"</p>";
         let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
         let diseaseDesc = "<p>" + data.diseaseDesc + "</p>";
 
@@ -193,12 +191,10 @@ function viewDisease(vDiseaseID) {
 
         });
 
-        $("#viewSelected").html(selectedBacteria);
+        $("#viewSite").html(bodySite);
         $("#viewDiseaseName").html(diseaseName);
         $("#viewDiseaseDesc").html(diseaseDesc);
         $("#viewSymptoms").html(html);
-
-
     });
 };
 
@@ -216,7 +212,7 @@ function editDisease(id) {
 
         //console.log("meron");   
         let data = response.data;
-        $('select[name=selectBacteria').val(data.bacteriumID);
+        $('input[name=modalSite').val(data.bodySite);
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
         
@@ -308,22 +304,6 @@ let addFieldEdit = function(value){
 
 let deleteFieldEdit = function(selected) {
     $('.sympEditDiv' + selected).remove();
-}
-
-function toSelectBacteriaDisease() {
-    $.get("/toSelectBacteriaDisease",(response)=>{
-        if (response.success == false) {
-            $.notify("Erro getting data from the Server!",{type:"danger"});
-            return;
-        }
-
-        let data = response.data;
-        let html = "<option value=''>...</option>";
-        data.forEach((element, index) => {
-            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
-        });
-        $('#toSelectBacteria').html(html);
-    });
 }
 
 function toSelectJournalDisease2() {
