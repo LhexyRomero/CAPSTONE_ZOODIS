@@ -423,7 +423,6 @@ function animalList() {
             let row = "<tr>";
             row += "<td>" + element.animalName + "</td>";
             row += "<td>" + element.animalScientificName + "</td>";
-            row += "<td>" + element.animalBodySite + "</td>";
             row += "<td><a data-toggle='modal' href='#exampleModalCenter2'><button onclick ='editAnimal("+element.animalID+")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal2'><button onclick = 'viewAnimal("+element.animalID+")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             row += "</tr>";
             html += row;
@@ -440,17 +439,14 @@ function viewAnimal(id){
     globalAnimalID = id;
     let url = "/viewAnimal/"+globalAnimalID;
 
-    
     $.get(url,(response)=>{
         if(response.success == false) {
             $.notify("Error getting data from the server!",{type:"danger"});
             return;
         }
-        console.log(response.data);
 
         let animalName  = "<label>"+response.data.animalName+"</label>";
         let scientificName = "<label>"+response.data.animalScientificName+"</label>";
-        let bodySite = "<label>"+response.data.bodySite+"</label>";
         let phylum = "<label>"+response.data.phylum+"</label>";
         let classs = "<label>"+response.data.classs+"</label>";
         let order = "<label>"+response.data.order+"</label>";
@@ -462,7 +458,6 @@ function viewAnimal(id){
         $('.animalPic').attr('src',response.data.image.replace('public','assets'));
         $("#animalName2").html(animalName);
         $("#scientificName").html(scientificName);
-        $("#bodySite").html(bodySite);
         $("#phylum2").html(phylum);
         $("#classs2").html(classs);
         $("#order2").html(order);
@@ -485,7 +480,6 @@ function editAnimal(id) {
         $('.animalEditPic').attr('src', response.data.image.replace('public','assets'))
         $("input[name=modalCommonName]").val(response.data.animalName);
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
-        $("input[name=modalBodySite]").val(response.data.bodySite);
         $("input[name=modalPhylum2]").val(response.data.phylum);
         $("input[name=modalClass2]").val(response.data.classs);
         $("input[name=modalOrder2]").val(response.data.order);

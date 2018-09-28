@@ -121,6 +121,7 @@ router.post('/bacteria',bacteria.addBacteria);
 router.post('/updateBacteria/:id',bacteria.updateBacteria);
 router.get('/bacteriaList',bacteria.bacteriaList);
 router.get('/toSelectBacteria',bacteria.toSelectBacteria);
+router.get('/toSelectBacteria2',bacteria.toSelectBacteria2);
 router.get('/toSelectJournalBacteria',bacteria.toSelectJournalBacteria);
 router.get('/viewBacteria/:id',bacteria.viewBacteria);
 router.get('/editBacteria/:id',bacteria.viewBacteria);
@@ -130,7 +131,6 @@ router.get('/disease', auth.authenticate,(req,res,next)=>{
 });
 router.post('/disease',disease.addDisease);
 router.get('/diseaseList',disease.diseaseList);
-router.get('/toSelectBacteriaDisease',disease.toSelectBacteriaDisease);
 router.get('/viewDisease/:id',disease.viewDisease);
 router.get('/toSelectJournalDisease2',disease.toSelectJournalDisease);
 router.post('/editDisease/:id',disease.editDisease);

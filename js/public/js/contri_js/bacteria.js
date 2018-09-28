@@ -1,5 +1,6 @@
 $(function () {
     toSelectAnimal();
+    toSelectBacteria();
     bacteriaTaxonList();
     toSelectJournal();
     toxinList();
@@ -213,6 +214,21 @@ function viewBacteriaTaxon(id) {
     });
 }
 
+function toSelectBacteria() {
+    $.get("/contri_toSelectBacteria", (response) => {
+        if (response.success == false) {
+            $.notify("Error getting data from the server!", { type: "danger" });
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
+        });
+        $('#toSelectBacteria').html(html);
+    });
+}
+
 function toSelectAnimal() {
     $.get("/contri_toSelectAnimal", (response) => {
         if (response.success == false) {
@@ -275,6 +291,7 @@ function addToxin(eAdd) {
     }
 
     else {
+        isClick = 0;
         swal({
             title: 'Add Bacteria Toxin',
             text: "Are you sure?",
@@ -308,6 +325,9 @@ function addToxin(eAdd) {
                         clearToxin();
                     }
                 });
+            }
+            else {
+                isClick =0;
             }
         })
     }

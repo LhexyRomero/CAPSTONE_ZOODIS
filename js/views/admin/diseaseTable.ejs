@@ -96,15 +96,11 @@
                                         <div class="card-body">
                                             <div class="form-group has-label">
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label>Bacteria Name</label>
-                                                        <select class="form-control" name="selectBacteria" id="toSelectBacteria"></select>
-                                                    </div>
-                                                </div>
-
                                                 <label class="modalLabel">Disease Name</label>
                                                 <input class="form-control" name="modalName" type="text" />
+                                                
+                                                <label class="modalLabel">Body Site</label>
+                                                <input class="form-control" name="modalSite" type="text" />
 
                                                 <label class="modalLabel">Disease Description</label>
                                                 <textarea class="form-control" name="modalDesc"></textarea>
@@ -147,7 +143,7 @@
                         </div>
                         <div class="modal-body">
                             <h6 id="viewDiseaseName"></h6>
-                            <p id="viewSelected"></p>
+                            <p id="viewSite"></p>
                             <p id="viewDiseaseDesc"></p>
 
                             <label><b>Symptoms</b></label>
