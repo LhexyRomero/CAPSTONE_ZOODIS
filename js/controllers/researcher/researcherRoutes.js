@@ -59,7 +59,9 @@ router.get('/researcher_disease',(req,res,next)=>{
 });
 
 //Searching
-router.post('/searchingAnimal',animalSearching.searchingAnimal);
+router.post('/researcher_animal',animalSearching.searchingAnimal,(req,res,next)=>{
+    res.render('researcher/researcher_animal');
+});
 
 
 //Autocomplete

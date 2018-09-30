@@ -35,11 +35,11 @@
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane" id="animal" role="tabpanel" aria-labelledby="animal-tab">
-							<form class="form-wrap" method="POST" id="searchAnimal">
+							<form class="form-wrap" method="POST" action="/researcher_animal" id="searchAnimal">
 								<p>Access information about animals, and their characteristics.</p><br>
-								<input type="text" class="form-control" name="animalName" placeholder="Name">
-								<div class="animalNotif"></div><br><br>
-								<button type="button" onclick="searchAnimal()"class="genric-btn primary">Search Animal&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+								<input type="text" class="form-control" name="animalName" placeholder="Animal Name">
+								<div class="animalNotif"></div>
+								<button type="submit" class="genric-btn primary">Search Animal&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
 						<div class="tab-pane show active" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
@@ -51,11 +51,11 @@
 							</form>
 						</div>
 						<div class="tab-pane" id="disease" role="tabpanel" aria-labelledby="disease-tab">
-							<form class="form-wrap" method="POST" id="searchDisease"> 
+							<form class="form-wrap" method="POST" action="/researcher_disease" id="searchDisease"> 
 								<p>Access disease information together with its causes, its symptoms, and preventions.</p>
 								<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name">
 								<div class="diseaseNotif"></div>
-								<button type="button" onclick="searchDisease()" class="genric-btn primary">Search Disease&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+								<button type="submit" class="genric-btn primary">Search Disease&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
 					</div>

@@ -24,8 +24,7 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-
-	<section class="post-content-area">
+	<section id="animalSearch" class="post-content-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -40,7 +39,7 @@
 							<h4>Taxonomy Classification</h4>
 							<hr>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-3">
 									<ul class="tags">
 										<li class="li">Phylum</li>
 										<li class="li">Class</li>
@@ -60,56 +59,69 @@
 										<li class="li">:</li>
 									</ul>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="animalTaxon">
 									<ul class="tags">
-										<li class="li"></li>
-										<li class="li">:</li>
-										<li class="li">:</li>
-										<li class="li">:</li>
-										<li class="li">:</li>
-										<li class="li">:</li>
+										<li id="phylum" class="li"><%=(locals.phylum?phylum :"")%></li>
+										<li class="li"><%=(locals.classs?classs:"")%></li>
+										<li class="li"><%=(locals.orderr?orderr:"")%></li>
+										<li class="li"><%=(locals.family?family:"")%></li>
+										<li class="li"><%=(locals.genus?genus:"")%></li>
+										<li class="li"><%=(locals.species?species:"")%></li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7">
 							<div class="feature-img">
-								<img class="img-fluid" src="../../assets/img/blog/feature-img1.jpg" alt="">
+								<img width="300" height="200" src="<%=(locals.image?image.replace('public','assets'):"")%>" class="img-fluid animalPic"/>
 							</div>
-							<a class="posts-title" href="blog-single.html">
-								<h3>Dog</h3>
+							<a class="posts-title">
+								<h3><%=(locals.name?name:"")%></h3>
 							</a>
-							<p class="excert">
-								MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to
-								spend money
-								on boot camp when you can get the MCSE study materials yourself at a fraction.
-							</p>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Scientific Name:</p>
+								</div>
+								<div class="col-md-6" id="scientificName">
+									<p class="excert"><em><%=(locals.scientificName?scientificName:"")%></em></p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4 sidebar-widgets">
 					<div class="widget-wrap">
-						<div class="single-sidebar-widget tag-cloud-widget">
+						<div class="single-sidebar-widget tag-cloud-widget" id="bacteria">
 							<h4 class="tagcloud-title">Bacteria</h4>
 							<ul>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Architecture</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Art</a></li>
-								<li><a href="#">Adventure</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Adventure</a></li>
+							<%
+								var bacTags = "";
+								if(locals.bacteria){
+									bacteria.forEach((element, index) => {
+										bacTags += "<li><a href='#'>" + element.bacteriumScientificName + "</a></li>";
+									});
+								}
+							%>
+							<%-bacTags%>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section id="noResults" class="post-content-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="menu-content pb-70"><br><br>
+							<h4>
+							<b>No results Found &nbsp; <span class="lnr lnr-sad"></span></b></h4>
+						</div>
+					</div>
+				</div>
+			</div>
 	</section>
 
 	<section class="recent-blog-area section-gap">
@@ -265,6 +277,7 @@
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<!-- End footer Area -->
+	<script src="../../assets/js/researcher/animalSearch.js"></script>
 </body>
 
 </html>
