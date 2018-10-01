@@ -32,67 +32,12 @@
 					<div class="menu-content pb-70">
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-8 posts-list">
-						<div class="row single-post">
-							<div class="col-lg-7 col-md-7">
-									<a class="posts-title" href="blog-single.html">
-											<h3>MYCOBACTERIUM TUBERCULOSIS </h3>
-										</a>
-										<div class="single-sidebar-widget popular-post-widget">
-												<h4 class="popular-title">Animal Host/s :</h4>
-												<div class="popular-post-list">
-													<div class="single-post-list d-flex flex-row align-items-center">
-														<div class="thumb">
-															<img class="img-fluid" src="../../assets/img/blog/pp1.jpg" alt="" height="90px" width="90px">
-														</div>&nbsp;&nbsp;&nbsp;
-														<div class="details">
-																<br><a href="blog-single.html"><h6>Cow</h6></a>
-															<p>It produces 5 bacteria.</p>
-														</div>
-													</div><br>
-												</div>
-											</div>
-									</div>
-							<div class="col-lg-5 col-md-5">
-									<h4><br>Taxonomy Classification</h4>
-									<hr>
-									<div class="row">
-										<div class="col-md-3">
-											<ul class="tags">
-												<li class="li">Phylum</li>
-												<li class="li">Class</li>
-												<li class="li">Order</li>
-												<li class="li">Family</li>
-												<li class="li">Genus</li>
-												<li class="li">Species</li>
-											</ul>
-										</div>
-										<div class="col-md-1">
-											<ul class="tags">
-												<li class="li">:</li>
-												<li class="li">:</li>
-												<li class="li">:</li>
-												<li class="li">:</li>
-												<li class="li">:</li>
-												<li class="li">:</li>
-											</ul>
-										</div>
-										<div class="col-md-5">
-												<ul class="tags">
-													<li class="li">Actinobacteria</li>
-													<li class="li">Actinobacteria</li>
-													<li class="li">Actinomycetales</li>
-													<li class="li">Mycobacteriaceae</li>
-													<li class="li">Mycobacterium</li>
-													<li class="li">tuberculosis</li>
-												</ul>
-											</div>
-									</div>
-							</div>
-						</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					<div class="row single-post">
 						<div class="col-lg-5 col-md-5">
-							<h4><br>Taxonomy Classification</h4>
+							<h4>Taxonomy Classification</h4>
 							<hr>
 							<div class="row">
 								<div class="col-md-3">
@@ -115,15 +60,80 @@
 										<li class="li">:</li>
 									</ul>
 								</div>
-								<div class="col-md-5">
+								<div class="col-md-6" id="animalTaxon">
 									<ul class="tags">
-										<li class="li">Actinobacteria</li>
-										<li class="li">Actinobacteria</li>
-										<li class="li">Actinomycetales</li>
-										<li class="li">Mycobacteriaceae</li>
-										<li class="li">Mycobacterium</li>
-										<li class="li">tuberculosis</li>
+										<li id="phylum" class="li">
+											<%=(locals.phylum?phylum :"")%>
+										</li>
+										<li class="li">
+											<%=(locals.classs?classs:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.orderr?orderr:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.family?family:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.genus?genus:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.species?species:"")%>
+										</li>
 									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7 col-md-7">
+							<h3>MYCOBACTERIUM TUBERCULOSIS </h3>
+							<a class="posts-title">
+								<h3>
+									<%=(locals.name?name:"")%>
+								</h3>
+							</a>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Scientific Name:</p>
+								</div>
+								<div class="col-md-6" id="scientificName">
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Tissue Specifity:</p>
+								</div>
+								<div class="col-md-6" id="scientificName">
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Sample Type:</p>
+								</div>
+								<div class="col-md-6">
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Method of Isolation:</p>
+								</div>
+								<div class="col-md-6">
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Method of Identification:</p>
+								</div>
+								<div class="col-md-6">
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
 								</div>
 							</div>
 						</div>
@@ -132,49 +142,39 @@
 				<div class="col-md-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget tag-cloud-widget" id="bacteria">
-							<h4 class="tagcloud-title">Bacteria</h4>
+							<h4 class="tagcloud-title">Possible Diseases</h4>
 							<ul>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Architecture</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Art</a></li>
-								<li><a href="#">Adventure</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Adventure</a></li>
+								<%
+								var bacTags = "";
+								if(locals.bacteria){
+									bacteria.forEach((element, index) => {
+										bacTags += "<li><a href='#'>" + element.bacteriumScientificName + "</a></li>";
+									});
+								}
+							%>
+								<%-bacTags%>
 							</ul>
+						</div>
+					</div><br>
+					<div class="widget-wrap">
+						<div class="single-sidebar-widget tag-cloud-widget">
+							<h4 class="tagcloud-title">Animal Host/s</h4>
+							<div class="single-post-list d-flex flex-row align-items-center">
+								<div class="thumb">
+									<img class="img-fluid" src="../../assets/img/blog/pp1.jpg" alt="" height="90px" width="90px">
+								</div>&nbsp;&nbsp;&nbsp;
+								<div class="details">
+									<br><a href="blog-single.html">
+										<h6>Cow</h6>
+									</a>
+									<p>It produces 5 bacteria.</p>
+								</div>
+							</div><br>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
-
-	<section class="other-issue-area section-gap">
-		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="menu-content pb-70 col-lg-12">
-					<h3> Bacteria List : </h3><br>
-					<div class="row">
-						<div class="col-md-3">
-							<ul class="tags">
-								<li class="li">Class</li>
-								<li class="li">Order</li>
-								<li class="li">Family</li>
-								<li class="li">Genus</li>
-								<li class="li">Species</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<section class="recent-blog-area section-gap">
 		<div class="container">
 			<div class="row d-flex justify-content-center">

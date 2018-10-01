@@ -1,9 +1,9 @@
 $(function(){
-    $("input[name=animalName").autocomplete({
+    $("input[name=diseaseName]").autocomplete({
         source: (req,res) => {
             $.ajax({
                 type: "GET",
-                url: "/search/animalName/?data=" + req.term,
+                url: "/search/diseaseName/?data=" + req.term,
                 success: function (response) {
                     res(response.data);
                 },
@@ -13,6 +13,7 @@ $(function(){
             });
         }
     });
+    console.log("WHE");
 });
 
 let diseaseIsClick = 0;
