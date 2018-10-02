@@ -147,7 +147,7 @@ function bacteriaTaxonList() {
                 let row = "<tr>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteriaTaxon(" + element.bacteriumTaxoID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteriaTaxon(" + element.bacteriumTaxoID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
@@ -354,7 +354,7 @@ function toxinList() {
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.name + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewToxin(" + element.toxinID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewToxin(" + element.toxinID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
@@ -565,7 +565,7 @@ function bacteriaList() {
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.bacteriumScientificName + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }

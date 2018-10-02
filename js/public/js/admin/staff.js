@@ -20,7 +20,7 @@ function staffList() {
             row += "<td>" + element.email + "</td>";
             row += "<td>" + element.contact + "</td>"; //I need ID of this specific user... is it element.id?
             if (element.type == 2) {
-                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "admin" type="checkbox" value=' + element.staffID + ' checked=""><span class="form-check-sign"></span></label></td>';
+                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "admin" type="checkbox" value=' + element.staffID + ' checked><span class="form-check-sign"></span></label></td>';
             }
             else {
                 row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "contributor" type="checkbox" value=' + element.staffID + ' ><span class="form-check-sign"></span></label></td>';
@@ -40,26 +40,80 @@ function adminSwitch(event) {
         console.log("CHECKED" + staffID);
 
         let url = "/updateTypeToAdmin/" + staffID;
-        $.post(url, (response) => {
-            if (response.success == false) {
-                $.notify("Error changing Contributor to Admin!", { type: "danger" });
-                return;
+        swal({
+            title: 'Are you sure?',
+            text: "Allow this staff to have admin privileges?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, (response) => {
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Aborted!",
+                            type: "error",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Mission Complete!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+
+                });
             }
-            $.notify(response.detail, { type: "success" });
+        }).catch(()=>{
+            $("input[type=checkbox][value="+ staffID +"]").removeAttr('checked');
         });
     }
+
 
     else {
         let staffID = this.value;
         console.log("UNCHECKED" + staffID);
 
         let url = "/updateTypeToContributor/" + staffID;
-        $.post(url, (response) => {
-            if (response.success == false) {
-                $.notify("Error changing Admin to Contributor!", { type: "danger" });
-                return;
+
+        swal({
+            title: 'Are you sure?',
+            text: "Remove the admin privileges to this staff?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, (response) => {
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Aborted!",
+                            type: "error",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Mission Complete!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+
+                });
             }
-            $.notify(response.detail, { type: "success" });
         });
     }
 }

@@ -152,7 +152,7 @@ function diseaseList() {
             let row = "<tr>";
             row += "<td>" + element.diseaseName + "</td>";
             row += "<td>" + element.diseaseDesc + "</td>";
-            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editDisease(" + element.diseaseID + ") type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editDisease(" + element.diseaseID + ") type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             row += "</tr>";
             html += row;
         });

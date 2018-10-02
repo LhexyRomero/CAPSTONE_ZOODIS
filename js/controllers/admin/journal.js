@@ -78,7 +78,7 @@ exports.updateJournal = (req, res, next) => {
 
 exports.journalList = (req, res, next) => {
 
-    let sql = "SELECT * FROM journal_t";
+    let sql = "SELECT J.name, J.journalID, S.staffID FROM staff_t S, journal_t J WHERE S.journalID = J.journalID";
     db.get().query(sql, (err, result) => {
 
         if (err) return next(err);
@@ -110,7 +110,7 @@ exports.viewJournal = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
 
-    let sql3 = "SELECT * FROM journal_t WHERE journalID = ?";
+    let sql3 = "SELECT J.journalId, J.code, J.name, J.doi, S.staffID, S.firstName, S.lastName, S.middleInitial FROM staff_t S, journal_t J WHERE S.journalID = J.journalID AND J.journalID = ?";
     db.get().query(sql3, [id], (err3, result3) => {
         if (err3) return next(err3);
 
@@ -119,6 +119,7 @@ exports.viewJournal = (req, res, next) => {
             code: result3[0].code,
             name: result3[0].name,
             doi: result3[0].doi,
+            assignee : result3[0].firstName + " " + result3[0].middleInitial + " " + result3[0].lastName,
         }
 
         res.status(200).send({ success: true, detail: "", data: dataDisplay });

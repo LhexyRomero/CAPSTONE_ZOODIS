@@ -297,7 +297,7 @@ function bacteriaTaxonList() {
                 row += "<td>" + element.family + "</td>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td onclick='editBacteriaTaxon(" + element.bacteriumTaxoID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
+                row += "<td onclick='editBacteriaTaxon(" + element.bacteriumTaxoID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
             });
@@ -534,7 +534,7 @@ function toxinList() {
                 let row = "<tr>";
                 row += "<td>" + element.name + "</td>";
                 row += "<td>" + element.structureFeature + "</td>";
-                row += "<td onclick='editToxin(" + element.toxinID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
+                row += "<td onclick='editToxin(" + element.toxinID + ")'><a data-toggle='modal' href='#exampleModalCenter'><button type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
             });
@@ -811,7 +811,7 @@ function bacteriaList() {
                 row += "<td>" + element.animalName + "</td>";
                 row += "<td>" + element.bacteriumScientificName + "</td>";
                 row += "<td>" + element.bacteriumTissueSpecifity + "</td>";
-                row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = 'editBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = 'editBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewBacteria(" + element.bacteriumID + ")' type='button' rel='tooltip' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 row += "</tr>";
                 html += row;
             });
