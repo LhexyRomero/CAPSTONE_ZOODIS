@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    <div class="wrapper ">
+        <% include ../partials/admin_sidebar %>
+        <div class="main-panel">
+            <% include ../partials/admin_navbar %>
+            <div class="panel-header panel-header-sm">
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-tasks">
+                            <div class="card-header bg-default">
+                                <a href="message">
+                                    <button type="button" rel="tooltip" title="" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral"
+                                        data-original-title="Back to Inbox">
+                                        <i class="now-ui-icons arrows-1_minimal-left"></i>
+                                    </button>
+                                </a>
+                            </div>
+                            <form method="POST" id="sendMessage">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-md-11 ml-auto mr-auto">
+                                            <span class="badge badge-default">Inbox!</span>
+                                            <h5 class="card-title" id="subject">
+                                                <%=subject%></h5>
+    
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="pLabel"><b id="emailAdd">
+                                                            <%=email%></b></p>
+                                                    <label>to me: zoodissystem@gmail.com</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="pull-right">
+                                                        <%=date%></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10 ml-auto mr-auto"><br><br>
+                                            <p>
+                                                <%=message%>
+                                            </p>
+                                            <%
+                                                if(locals.file){ %>
+                                                    <a id="downloadJournal" href="/downloadJournal/<%=file.split('\\')[2]%>">
+                                                        <button style="padding: 0; border:0;" type="button" id="download" rel="tooltip" class="btn btn-neutral btn-warning">
+                                                            <img width ="13" height="13" src="/assets/img/attachment.png">
+                                                            &nbsp; Download Attachment
+                                                        </button>
+                                                    </a> <%
+                                                }
+                                            %>                                                
+                                            <div class="stats statsDesign" align="right"><br>
+                                                <i class="now-ui-icons loader_refresh spin"></i>&nbsp;&nbsp;Sending Message
+                                            </div>
+                                            <div class="collapse" id="AddCollapse"><br>
+                                                <label>&nbsp;&nbsp;lhexyromero@gmail.com</label>
+                                                <div class="form-group">
+                                                    <textarea style="border-radius:0;" rows="5" cols="60" class="form-control"
+                                                        name="replyMessage" type="text"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" align="right">
+                                        <button type="button" class="btn btn-default" data-toggle="collapse" href="#AddCollapse"
+                                            role="button" aria-expanded="true" aria-controls="AddCollapse" id="btnReply"
+                                            onclick="reply()">Reply</button>
+                                        <button type="button" class="btn btn-default" data-toggle="collapse" href="#AddCollapse"
+                                            role="button" aria-expanded="false" aria-controls="AddCollapse" id="btnCancel"
+                                            onclick="cancel()">Cancel</button>
+                                        <button type="button" class="btn btn-info" onclick="send()" id="btnSend"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--   Core JS Files   -->
+        <% include ../partials/core_js %>
+        <script src="../../assets/js/admin/message.js"></script>
+        <script>
+            $(".navbarName").html("Messages");
+        </script>
+</body>
+
+</html>
