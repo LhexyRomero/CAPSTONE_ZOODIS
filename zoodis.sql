@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2018 at 09:09 AM
--- Server version: 10.1.35-MariaDB
--- PHP Version: 7.2.9
+-- Generation Time: Oct 02, 2018 at 09:40 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -488,14 +488,14 @@ INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `statu
 --
 
 CREATE TABLE `userjournal_t` (
-  `title` varchar(255) NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `message` text NOT NULL,
-  `doi` varchar(50) NOT NULL,
-  `file` varchar(100) NOT NULL,
+  `jTitle` varchar(255) NOT NULL,
+  `jSubject` varchar(100) NOT NULL,
+  `jMessage` text NOT NULL,
+  `jDoi` varchar(50) NOT NULL,
+  `jFile` varchar(100) NOT NULL,
   `staffID` int(11) NOT NULL,
-  `state` int(11) NOT NULL,
-  `dateTime` varchar(20) NOT NULL,
+  `jState` int(11) NOT NULL,
+  `jDateTime` varchar(20) NOT NULL,
   `userjournalID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -503,7 +503,7 @@ CREATE TABLE `userjournal_t` (
 -- Dumping data for table `userjournal_t`
 --
 
-INSERT INTO `userjournal_t` (`title`, `subject`, `message`, `doi`, `file`, `staffID`, `state`, `dateTime`, `userjournalID`) VALUES
+INSERT INTO `userjournal_t` (`jTitle`, `jSubject`, `jMessage`, `jDoi`, `jFile`, `staffID`, `jState`, `jDateTime`, `userjournalID`) VALUES
 ('RUMINANT', '', '', '3333', 'public\\others\\5cb7d805be8b98c.pdf', 12, 1, '', 1),
 ('nnn', '', '', '23', 'public\\others\\2b45ddb64233f6e.pdf', 15, 1, '', 2),
 ('a', '', '', '9', 'public\\others\\3eab7e52115b45c.pdf', 15, 1, '', 3);
@@ -516,19 +516,19 @@ INSERT INTO `userjournal_t` (`title`, `subject`, `message`, `doi`, `file`, `staf
 
 CREATE TABLE `usermessage_t` (
   `usermessageID` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `message` text NOT NULL,
-  `state` int(11) NOT NULL,
-  `dateTime` varchar(20) NOT NULL
+  `jName` varchar(100) NOT NULL,
+  `jEmail` varchar(100) NOT NULL,
+  `jSubject` varchar(100) NOT NULL,
+  `jMessage` text NOT NULL,
+  `jState` int(11) NOT NULL,
+  `jDateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usermessage_t`
 --
 
-INSERT INTO `usermessage_t` (`usermessageID`, `name`, `email`, `subject`, `message`, `state`, `dateTime`) VALUES
+INSERT INTO `usermessage_t` (`usermessageID`, `jName`, `jEmail`, `jSubject`, `jMessage`, `jState`, `jDateTime`) VALUES
 (1, '', '', 'Ganda ni Leki', 'a', 2, ''),
 (4, 'a', 'a@gmail.com', 'Leki is Pretty', 'a', 1, ''),
 (5, 'Lhexy Romero', 'zoodissystem@gmail.com', 'a', 'Hi', 1, '');
