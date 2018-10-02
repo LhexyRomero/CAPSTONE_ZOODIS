@@ -4,7 +4,7 @@ const db = require('./connection');
 const express = require('express');
 const routes = require('./router');
 const bodyParser = require('body-parser');
-const session = require('express-session')
+const session = require('express-session');
 
 let app = express();
 

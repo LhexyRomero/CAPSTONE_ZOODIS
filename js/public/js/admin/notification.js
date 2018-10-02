@@ -38,30 +38,30 @@ function notificationList() {
         let html = "";
         data.forEach((element, index) => {
             let row = "<tr>";
-            row += "<td>" + element.dateTime + "</td>";
+            row += "<td>" + Date.parse(element.dateTime).toString('MMM dd, yyyy - hh:mm tt') + "</td>";
             row += "<td>" + element.staffName + "</td>";
             row += "<td>" + element.category + "</td>";
             row += "<td>" + element.addedData + "</td>";
             if (element.category === "Bacteria") {
-                row += "<td><a data-toggle='modal' href='#modalBacteria'><button onclick ='viewBacteria(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalBacteria'><button onclick ='viewBacteria(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Animal") {
-                row += "<td><a data-toggle='modal' href='#modalAnimal'><button onclick ='viewAnimal(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalAnimal'><button onclick ='viewAnimal(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Toxin") {
-                row += "<td><a data-toggle='modal' href='#modalToxins'><button onclick ='viewToxin(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalToxins'><button onclick ='viewToxin(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Disease") {
-                row += "<td><a data-toggle='modal' href='#modalDisease'><button onclick ='viewDisease(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalDisease'><button onclick ='viewDisease(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Prevention") {
-                row += "<td><a data-toggle='modal' href='#modalPreventions'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalPreventions'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Animal Taxonomy") {
-                row += "<td><a data-toggle='modal' href='#modalAnimalTaxo'><button onclick ='viewAnimalTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalAnimalTaxo'><button onclick ='viewAnimalTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else {
-                row += "<td><a data-toggle='modal' href='#modalBacteriaTaxo'><button onclick ='viewBacteriaTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalBacteriaTaxo'><button onclick ='viewBacteriaTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
 
             row += "</tr>";
@@ -189,6 +189,10 @@ function rejectAnimalTaxo() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsAnimalTaxo").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             $("#reasonsAnimalTaxo").modal('show');
             sendReasonAnimalTaxo();
         }
@@ -380,6 +384,11 @@ function rejectBacteriaTaxo() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsBacteriaTaxo").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsBacteriaTaxo").modal('show');
             sendReasonBacteriaTaxo();
         }
@@ -484,7 +493,6 @@ function viewDisease(id) {
         }
 
         let data = response.data;
-        $('select[name=selectBacteria1').val(data.bacteriumID);
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
 
@@ -575,6 +583,11 @@ function rejectDisease() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsDisease").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsDisease").modal('show');
             sendReasonDisease();
         }
@@ -765,6 +778,11 @@ function rejectToxin() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsToxin").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsToxin").modal('show');
             sendReasonToxin();
         }
@@ -958,6 +976,11 @@ function rejectPrevention() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsPrevention").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsPrevention").modal('show');
             sendReasonPrevention();
         }
@@ -1172,6 +1195,11 @@ console.log("SAMA");
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsAnimal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsAnimal").modal('show');
             sendReasonAnimal();
         }
@@ -1420,6 +1448,11 @@ function rejectBacteria() {
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (isConfirmed) {
+            $("#reasonsBacteria").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
             $("#reasonsBacteria").modal('show');
             sendReasonBacteria();
         }

@@ -8,7 +8,7 @@ exports.collabMessage = (req,res,next) =>{
     let state = 1;
 
     let sql1 = "SELECT * FROM staff_t WHERE staffID = ?";
-    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,date,time) VALUES (?,?,?,?,?,?,CURRENT_DATE,CURRENT_TIME)";
+    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,dateTime) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
     db.get().query(sql1,[req.session.staffID],(err1,result1)=>{
         if(err1) return next(err1);
 
@@ -32,7 +32,7 @@ exports.contactMessage = (req,res,next) =>{
     let state = 1;
     let staffID = 14;
 
-    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,date,time) VALUES (?,?,?,?,?,?,CURRENT_DATE,CURRENT_TIME)";
+    let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,dateTime) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
     db.get().query(sql,[name,email,subject,message,state,staffID],(err,result)=>{
         if(err) return next(err);
 

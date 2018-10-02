@@ -1,18 +1,18 @@
 $(function () {
     $("#btnSend").hide();
     $("#btnCancel").hide();
+    $(".stats").hide();
     messageList(messageLimit,messageNext);
     $('.nextPage').on('click', function(){
-        messageList(messageLimit,messageNext);
+        messageList(messageLimit,messageNext+1);
     });
     $('.prevPage').on('click', function(){
-        console.log('ho')
         messageList(messageLimit,messageNext - messageLimit);
     });
 });
 
 let messageNext = 0;
-let messageLimit = 2;
+let messageLimit = 3;
 
 function viewMessage(e, id, member) {
     let url = "/viewMessage/" + id + "/" + member;
@@ -42,39 +42,53 @@ function viewMessage(e, id, member) {
 }
 
 function messageList(limit, offset) {
-    $.get("/messageList", (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
+    $.get("/messageList?offset=" + offset + "&limit=" + limit, (response) => {
+        if(response.success ==false){
+            $.notify("Error getting data from the server!",{type:"danger"});
             return;
         }
+
         let data = response.data;
-        let html = "";
+        if(offset >= data.length || offset < 0) return;
+        let html="";
+        let count = 0;
         for(let x=0; x<limit; x++){
-            let element = data[x+offset];
-            if(!element) return;
-            if (element.state == 1) {
-                let row = "<tr class='unread hov' onclick='viewMessage(this," + element.usermessageID + "," + element.staffID + ")'>";
-                row += "<td><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
-                row += "<td><strong>" + element.name + "</strong></td>";
-                row += "<td><strong>" + element.subject + "</strong></td>";
-                //row += "<td><label>" + Date.parse(element.dateTime).toString('MMM dd') + "</label></td>";
+            let element = data[offset+x];
+            if(!element) break;
+            if(element.type == 1){
+                let row = "<tr class='unread hov mail' data-href='messageDetails?mid=" + element.usermessageID +"'>";
+                row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
+                row += "<td class='b-size'><span class='s-size badge badge-info'>&nbsp;</span></td>"
+                row += "<td class='name-size'><strong>" + element.mName + "</strong></td>";
+                row += "<td class='subject-size'><strong>" + element.mSubject + "</strong></td>";
+                row += "<td>" +"-&nbsp;"+ element.mMessage.substring(0,50) + "...</td>";
+                row += "<td><strong></strong></td>";
+                row += "<td><label class='pull-right'>" + Date.parse(element.mDateTime).toString('MMM dd') + "&nbsp;&nbsp;</label></td>";
                 row += "</tr>";
                 html += row;
             }
             else {
-                let row = "<tr class='hov' onclick='viewMessage(this," + element.usermessageID + "," + element.staffID + ")'>";
-                row += "<td><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
-                row += "<td>" + element.name + "</td>";
-                row += "<td>" + element.subject + "</td>";
-               // row += "<td><label>" + Date.parse(element.date).toString('MMM dd') + "</label></td>";
+                
+                let row = "<tr class='unread hov mail' data-href='messageDetails?ujid=" + element.userjournalID +"&staffid="+ element.staffID +"'>";
+                row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
+                row += "<td class='b-size'><span class='s-size badge badge-danger'>&nbsp;</span></td>";
+                row += "<td class='name-size'><strong>" + element.firstName + " " + element.lastName + "</strong></td>";
+                row += "<td class='subject-size'><strong>" + element.jSubject + "</strong></td>";
+                row += "<td>" +"-&nbsp;"+ element.jMessage.substring(0,50) + "...</td>";
+                row += "<td><img class='pull-right' src='/assets/img/attachment.png'></td>";
+                row += "<td class='date-size'><label class='pull-right'>" + Date.parse(element.jDateTime).toString('MMM dd') + "&nbsp;&nbsp;</label></td>";
                 row += "</tr>";
                 html += row;
+
             }
-            if(x==limit-1){
-                messageNext = x+offset;
-            }
+            count = x+offset;
         }
+        messageNext = count;
+        if(messageNext >= data.length-1 ) messageNext = offset;
         $('#messageList').html(html);
+        $('.mail').on('click', function(){
+            window.location = $(this).data('href');
+        });
     });
 }
 
@@ -100,13 +114,15 @@ function send() {
         dataInsert['emailAdd'] = email;
         dataInsert['subject'] = subject;
     }
-
+    
+    $(".stats").show();
     $.post("/send", dataInsert,(response)=>{
         if(response.success == false) {
             $.notify("Error sending message!", {type:"danger"});
             return;
         }
-            $.notify(response.detail,{type:"success"});
+        $(".stats").hide();
+        $.notify(response.detail,{type:"success"});
     });
 }
 

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const db = require('../../connection');
 
 exports.notiCard = (req,res,next) =>{
@@ -54,7 +55,13 @@ exports.setJournal = (req,res,next) =>{
 
 exports.downloadJournal = (req,res,next) =>{
     let fileName = req.params.filename;
-    res.status(200).sendFile(fileName,{root: './public/others'});
+    fs.readFile( __dirname + '/../../public/others/' + fileName, function(err, buffer){
+        if(err) return next(err);
+        res.setHeader('Content-Type', 'Application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=journal.pdf');
+        res.status(200).send(buffer);
+    });
+    //res.status(200).sendFile(fileName,{root: './public/others'});
 }
 
 exports.finishedJournal = (req,res,next) =>{
