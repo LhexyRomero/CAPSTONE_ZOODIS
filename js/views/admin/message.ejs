@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
     <div class="wrapper ">
         <% include ../partials/admin_sidebar %>
         <div class="main-panel">
@@ -14,10 +15,10 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="card  card-tasks">
-                            <div class="card-header ">
-                                <h6 class="card-title">Researcher's Journal</h6>
+                    <div class="col-md-12">
+                        <div class="card card-tasks">
+                            <div class="card-header" align="right">
+                                <button type="submit" class="btn btn-info"><i class="now-ui-icons ui-1_email-85"></i>&nbsp;&nbsp;&nbsp;Compose</button><hr>
                             </div>
                             <div class="card-body ">
                                 <div class="table-full-width table-responsive">
@@ -30,55 +31,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h5 class="card-title pLabel"><strong>
-                                        <i class="now-ui-icons icon icon-success ui-1_email-85"></i>
-                                        <br>MESSAGES</strong>
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <form method="POST" id="sendMessage">
-                                    <div id="sub"></div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>From</label>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <label>:</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div id="email"></div>
-                                        </div>
-                                    </div><br>
-                                    <label>Message</label><br>
-                                    <div id="message"></div>
-                                    <div align="right" id="dateTime">
-                                    </div>
-                                    <div class="collapse" id="AddCollapse">
-                                        <label>&nbsp;&nbsp;zoodissystem@gmail.com</label>
-                                        <div class="form-group">
-                                            <textarea rows="4" cols="60" class="form-control" name="replyMessage"
-                                                type="text"></textarea>
-                                        </div>
-                                </form>
-                            </div>
-                            <div class="card-footer" align="right">
-                                <button type="button" class="btn btn-primary" data-toggle="collapse" href="#AddCollapse"
-                                    role="button" aria-expanded="true" aria-controls="AddCollapse" id="btnReply" onclick="reply()">Reply</button>
-                                    <button type="button" class="btn btn-warning" data-toggle="collapse" href="#AddCollapse"
-                                        role="button" aria-expanded="false" aria-controls="AddCollapse" id="btnCancel" onclick="cancel()">Cancel</button>
-                                <button type="button" class="btn btn-success" onclick="send()" id="btnSend"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
-
     </div>
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
