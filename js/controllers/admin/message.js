@@ -1,7 +1,7 @@
 const db = require('../../connection');
 const emailer = require('../../emailer');
 
-exports.viewMessage = (req, res, next) => {
+/* exports.viewMessage = (req, res, next) => {
     let id = req.params.id;
     let member = req.params.member;
     let sql = "SELECT * FROM usermessage_t WHERE usermessageID = ? AND staffID = ?";
@@ -17,14 +17,26 @@ exports.viewMessage = (req, res, next) => {
         }
         res.status(200).send({ success: true, detail: "", data: dataDisplay });
     });
-}
+} */
 exports.messageList = (req, res, next) => {
 
     let sql = "SELECT * FROM usermessage_t";
+    let sql1 = "SELECT * FROM userjournal_t";
+
     db.get().query(sql,(err,result)=>{
         if(err) return next(err);
+        db.get().query(sql1,(err1,result1)=>{
+            if(err1) return next(err1);
 
-        res.status(200).send({success: true, detail:"", data:result});
+            dataDisplay = {
+                result      :   result,
+                result1     :   result1
+            }
+
+            console.log(dataDisplay);
+            res.status(200).send({success: true, detail:"", data:dataDisplay});
+        });
+
     });
 }
 
