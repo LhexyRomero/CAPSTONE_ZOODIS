@@ -19,7 +19,7 @@
                                 <div class="table-responsive">
                                     <table class="table" id="notificationTable">
                                         <thead class="text-primary">
-                                            <th><small><b>DATE</b></small></th>
+                                            <th><small><b>DATE & TIME</b></small></th>
                                             <th><small><b>STAFF NAME</b></small></th>
                                             <th><small><b>CATEGORY</b></small></th>
                                             <th><small><b>ADDED DATA</b></small></th>
@@ -78,10 +78,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5><b>BACTERIA FORM</b></h5>
                 </div>
                 <div class="modal-body body-scroll">
                     <form id="modalBacteriaForm" onsubmit="approvedBacteria(event)" method="POST">
-                        <h5 class="card-title"><b>BACTERIA FORM</b></h5>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -178,6 +179,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5><b>ANIMAL FORM</b></h5>
                 </div>
                 <div class="modal-body">
                     <form enctype="multipart/form-data" id="modalAnimalForm" action="" method="POST" onsubmit="approvedAnimal(event)">
@@ -258,13 +260,13 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content for-scroll">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5><b>TOXIN</b></h5>
                 </div>
                 <div class="modal-body">
                     <form id="modalToxinForm" action="" method="POST" onsubmit="approvedToxin(event)">
-                        <h5 class="card-title"><b>TOXIN</b></h5>
                         <div class="card-body ">
                             <div class="form-group has-label">
                                 <div class="row">
@@ -308,6 +310,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h5><b>PREVENTION FORM</b></h5>
                 </div>
                 <div class="modal-body body-scroll">
                     <form id="modalPreventionForm" action="" method="POST" onsubmit="approvedPrevention(event)">
@@ -356,12 +359,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h5><b>BACTERIUM TAXONOMIC CLASSIFICATION</b></h5>
                     </div>
                     <div class="modal-body">
                         <form id="modalBacteriaTaxoForm" method="POST" onsubmit="approvedBacteriaTaxo(event)">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5 class="card-title"><b>BACTERIUM TAXONOMIC CLASSIFICATION</b></h5>
+                                    
 
                                     <div class="form-group has-label">
                                         <label>Phylum</label>
@@ -405,13 +409,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h5><b>ANIMAL TAXONOMIC<br/> CLASSIFICATION</b></h5>
                     </div>
                     <div class="modal-body">
                         <form id="modalAnimalTaxoForm" method="POST" onsubmit="approvedAnimalTaxo(event)">
                             <div class="row">
                                 <div class="col-md-12">
 
-                                    <h5 class="card-title"><b>ANIMAL TAXONOMIC CLASSIFICATION</b></h5>
+                                    
                                     <div class="form-group has-label">
                                         <label>Phylum</label>
                                         <input class="form-control" name="matPhylum" type="text" />
@@ -454,22 +459,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h5><b>DISEASE FORM</b></h5>
                     </div>
                     <div class="modal-body body-scroll">
 
                         <form id="modalDiseaseForm" method="POST" onsubmit="approvedDisease(event)">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <h5 class="card-title"><b>DISEASE FORM</b></h5>
-                                </div>
-                            </div>
+                            
                             <div class="form-group has-label">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Bacteria Name</label>
-                                        <select class="form-control" name="selectBacteria1" id="toSelectBacteria1"></select>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Disease Name</label>
@@ -513,13 +509,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsAnimalForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonAnimalTaxo()">Send</button></center>
                                     </form>
@@ -539,13 +535,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsBacteriaForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteriaTaxo()">Send</button></center>
                                     </form>
@@ -565,13 +561,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsBForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonBacteria()">Send</button></center>
                                     </form>
@@ -591,13 +587,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsAForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonAnimal()">Send</button></center>
                                     </form>
@@ -617,13 +613,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsDiseaseForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonDisease()">Send</button></center>
                                     </form>
@@ -643,13 +639,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsPreventionForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonPrevention()">Send</button></center>
                                     </form>
@@ -669,13 +665,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <label><b>Reasons of Rejecting</b></label><br>
                     </div>
                     <div class="modal-body">
                         <div class="form-group has-label">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form id="reasonsToxinForm" method="POST">
-                                        <label>Reasons of Rejecting</label><br>
                                         <textarea class="form-control" name="reasons" id="reasons"></textarea>
                                         <center><button type="button" class="btn btn-primary" onclick="sendReasonToxin()">Send</button></center>
                                     </form>

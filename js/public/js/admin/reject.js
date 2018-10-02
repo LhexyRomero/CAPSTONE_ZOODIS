@@ -14,7 +14,7 @@ function rejectTable(){
         let html = "";
         data.forEach((element, index) => {
             let row = "<tr>";
-            row += "<td>" + element.dateTime + "</td>";
+            row += "<td>" + Date.parse(element.dateTime).toString('MMM dd, yyyy - hh:mm tt') + "</td>";
             row += "<td>" + element.staffName + "</td>";
             row += "<td><em>" + element.category + "</em></td>";
             row += "<td>" + element.addedData + "</td>";
