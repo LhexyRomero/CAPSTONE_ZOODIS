@@ -13,7 +13,7 @@ exports.addBacteriaTaxon = (req, res, next) => {
     let journal = data.selectJournal;
 
     let insertBacteriaTaxon = function () {
-        let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal,req.session.staffID], (err, result) => {
             if (err) return next(err);
 
@@ -133,7 +133,7 @@ exports.addToxin = (req, res, next) => {
     }
 
     let insertToxin = function () {
-        let sql6 = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,date) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql6 = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,dateTime) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql7 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
         db.get().query(sql6, [strToxinName, strStructureFeature, strFunction,status,req.session.staffID], (err6, result6) => {
             if (err6) return next(err6);
@@ -283,7 +283,7 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let insertBacteria = (result) => {
-        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let dataDisplay = {
             scientificName: strScientificName,
             phylum: result[0].phylum,

@@ -16,8 +16,8 @@ exports.addAnimalTaxon = (req, res, next) => {
 
 
     let insertAnimalTaxon = function (result) {
-        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE,?)";
-        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID,category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
+        let sql = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,dateTime,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID,category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
         db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, req.session.staffData.journalID, req.session.staffID], (err, result) => {
             if (err) return next(err);
             db.get().query(sql2, [status, name, strGenus + " " + strSpecies,req.session.staffID,category,result.insertId,state], (err2, result2) => {
@@ -114,7 +114,6 @@ exports.addAnimal = (req, res, next) => {
     let genusName = finalScienctific[0];
     let scienceName = data.strScientificName + "";
     let speciesName = finalScienctific[1];
-    let bodySite = data.strBodySite;
     let status = 'pending';
     let state = 'notify';
     let category = 'Animal';
@@ -122,9 +121,9 @@ exports.addAnimal = (req, res, next) => {
     
 
     let insertAnimal = function (result) {
-        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalBodySite, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE)";
-        let sql1 = "INSERT INTO notification_t (dateTime,status,staffName,addedData,staffID,category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
-        db.get().query(sql, [commonName, scientificName, bodySite, result[0].animalTaxoID, image, status, req.session.staffData.journalID,req.session.staffID], (err, result) => {
+        let sql = "INSERT INTO animal_t (animalName, animalScientificName, animalTaxoID,image,status,journalID,staffID,dateTime) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql1 = "INSERT INTO notification_t (dateTime,status,staffName,addedData,staffID,category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
+        db.get().query(sql, [commonName, scientificName, result[0].animalTaxoID, image, status, req.session.staffData.journalID,req.session.staffID], (err, result) => {
             if (err) return next(err);
             db.get().query(sql1,[status,name,scientificName,req.session.staffID,category,result.insertId,state],(err1,result1)=>{
                 if (err1) return next(err1); 
@@ -193,7 +192,6 @@ exports.viewAnimal = (req, res, next) => {
         let dataDisplay = {
             animalName: result[0].animalName,
             animalScientificName: result[0].animalScientificName,
-            bodySite: result[0].animalBodySite,
             phylum: result[0].phylum,
             classs: result[0].class,
             order: result[0].orderr,

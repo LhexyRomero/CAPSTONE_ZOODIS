@@ -37,8 +37,8 @@ exports.addDisease = (req, res, next) => {
     
     
     let insertDisease = function () {
-        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,CURRENT_DATE)";
-        let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_DATE,?,?,?,?,?,?,?)";
+        let sql1 = "INSERT INTO disease_t (diseaseName,diseaseDesc,symptoms,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
         db.get().query(sql1, [diseaseName, diseaseDesc, symptoms,req.session.staffData.journalID,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
             db.get().query(sql, [ status, name, diseaseName, req.session.staffID, category,result1.insertId,state],(err2, result2) => {

@@ -48,7 +48,7 @@ exports.addAnimal = (req, res, next) => {
     };
 
     let insertAnimal = function (result) {
-        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalTaxoID,image,status,journalID,staffID,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql3 = "INSERT INTO animal_t (animalName, animalScientificName, animalTaxoID,image,status,journalID,staffID,dateTime) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let dataDisplay = {
             commonName: commonName,
             scientificName: scientificName,
@@ -131,7 +131,7 @@ exports.addAnimalTaxon = (req, res, next) => {
     let status   = "approved";
 
     let insertAnimalTaxon = function () {
-        let sql4 = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,date,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+        let sql4 = "INSERT INTO animaltaxo_t (phylum, class, orderr, family, genus, species,status,journalID,dateTime,staffID) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
         db.get().query(sql4, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies,status,journal,req.session.staffID], (err4, result4) => {
             if (err4) return next(err4);
 

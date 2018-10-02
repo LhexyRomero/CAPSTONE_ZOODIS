@@ -37,7 +37,7 @@ exports.addDisease = (req, res, next) => {
     }
 
     let insertDisease = function () {
-        let sql1 = "INSERT INTO disease_t (bodySite,diseaseName,diseaseDesc,symptoms,journalID,status,staffID,date) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql1 = "INSERT INTO disease_t (bodySite,diseaseName,diseaseDesc,symptoms,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         db.get().query(sql1, [bodySite,diseaseName, diseaseDesc, symptoms,journal,status,req.session.staffID], (err1, result1) => {
             if(err1) return next(err1);
 
