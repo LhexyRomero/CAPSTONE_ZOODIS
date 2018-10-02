@@ -18,6 +18,7 @@ const profile = require('../admin/profile');
 const sample = require('../admin/sample');
 const message = require('../admin/message');
 
+
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
     next();
@@ -56,6 +57,9 @@ router.get('/dashboard', auth.authenticate,(req,res,next)=>{
 router.get('/message',auth.authenticate,(req,res,next)=>{
     res.render('admin/message');
 });
+
+router.get('/messageDetails',auth.authenticate, message.messageDetail);
+
 /* 
 router.get('/viewMessage/:id/:member',message.viewMessage); */
 router.get('/messageList',message.messageList);
