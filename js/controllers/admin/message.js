@@ -27,6 +27,7 @@ exports.messageList = (req, res, next) => {
         res.status(200).send({success: true, detail:"", data:result});
     });
 }
+
 exports.send = (req,res,next) =>{
     let data = req.body;
     let message = data.replyMessage;

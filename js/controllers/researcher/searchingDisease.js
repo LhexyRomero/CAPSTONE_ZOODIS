@@ -7,7 +7,8 @@ exports.searchingDisease = (req,res,next)=>{
 
     let searchedDisease = ()=>{
 
-        let sql = "SELECT * FROM disease_t WHERE "
+        let sql = "SELECT * FROM disease_t WHERE diseaseName=?";
+        /* let sql = "SELECT"; */
     }
 
     let checkDisease = (cb)=>{

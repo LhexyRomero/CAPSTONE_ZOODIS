@@ -61,7 +61,6 @@ function searchAnimal(e) {
     }
 
     $.post('/researcher_animal',dataInsert,(response)=>{
-        console.log(dataInsert);
         if(response.success == false) {
             return;
         }
