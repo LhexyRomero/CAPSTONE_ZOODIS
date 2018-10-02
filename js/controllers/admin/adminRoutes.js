@@ -56,8 +56,8 @@ router.get('/dashboard', auth.authenticate,(req,res,next)=>{
 router.get('/message',auth.authenticate,(req,res,next)=>{
     res.render('admin/message');
 });
-
-router.get('/viewMessage/:id/:member',message.viewMessage);
+/* 
+router.get('/viewMessage/:id/:member',message.viewMessage); */
 router.get('/messageList',message.messageList);
 router.post('/send',message.send);
 
