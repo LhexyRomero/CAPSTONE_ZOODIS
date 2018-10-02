@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('datejs');
 const db = require('./connection');
 const express = require('express');
 const routes = require('./router');
@@ -10,6 +11,7 @@ let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 app.use('/assets', express.static(__dirname + '/public'));
 
 app.use(session({

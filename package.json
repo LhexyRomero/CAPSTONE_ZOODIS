@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./js/head.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LhexyKhyrystelle B. Romero",
@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "datejs": "^1.0.0-rc3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
@@ -22,6 +23,7 @@
     "mustache": "^2.3.1",
     "mysql": "^2.15.0",
     "nodemailer": "^4.6.8",
+    "pdfreader": "^0.2.5",
     "request": "^2.88.0",
     "roboto-fontface": "^0.9.0",
     "sweetalert": "^2.1.0"
