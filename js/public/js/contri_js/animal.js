@@ -245,7 +245,7 @@ function animalTaxonList() {
                 let row = "<tr>";
                 row += "<td>" + element.genus + "</td>";
                 row += "<td>" + element.species + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimalTaxon(" + element.animalTaxoID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><span class='badge badge-success'>" + element.status + "</span>";
                 }
@@ -342,7 +342,7 @@ function animalList() {
             data.forEach((element, index) => {
                 let row = "<tr>";
                 row += "<td>" + element.animalName + "</td>";
-                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+                row += "<td><a data-toggle='modal' href='#viewModal'><button onclick = 'viewAnimal(" + element.animalID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
                 if (element.status === "approved") {
                     row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
                 }
