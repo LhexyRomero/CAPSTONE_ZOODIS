@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2018 at 09:40 AM
+-- Generation Time: Oct 02, 2018 at 09:47 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -516,19 +516,19 @@ INSERT INTO `userjournal_t` (`jTitle`, `jSubject`, `jMessage`, `jDoi`, `jFile`, 
 
 CREATE TABLE `usermessage_t` (
   `usermessageID` int(11) NOT NULL,
-  `jName` varchar(100) NOT NULL,
-  `jEmail` varchar(100) NOT NULL,
-  `jSubject` varchar(100) NOT NULL,
-  `jMessage` text NOT NULL,
-  `jState` int(11) NOT NULL,
-  `jDateTime` varchar(20) NOT NULL
+  `mName` varchar(100) NOT NULL,
+  `mEmail` varchar(100) NOT NULL,
+  `mSubject` varchar(100) NOT NULL,
+  `mMessage` text NOT NULL,
+  `mState` int(11) NOT NULL,
+  `mDateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usermessage_t`
 --
 
-INSERT INTO `usermessage_t` (`usermessageID`, `jName`, `jEmail`, `jSubject`, `jMessage`, `jState`, `jDateTime`) VALUES
+INSERT INTO `usermessage_t` (`usermessageID`, `mName`, `mEmail`, `mSubject`, `mMessage`, `mState`, `mDateTime`) VALUES
 (1, '', '', 'Ganda ni Leki', 'a', 2, ''),
 (4, 'a', 'a@gmail.com', 'Leki is Pretty', 'a', 1, ''),
 (5, 'Lhexy Romero', 'zoodissystem@gmail.com', 'a', 'Hi', 1, '');
