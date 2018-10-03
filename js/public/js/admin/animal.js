@@ -152,6 +152,10 @@ function addAnimal(e) {
                 if(isConfirmed){
                     submit();
                 }
+                else{
+                    $('toSubmitAnimal').on("click", function(){
+                    });
+                }
             });
         } else {
             submit();
