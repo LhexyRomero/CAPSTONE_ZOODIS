@@ -16,8 +16,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-tasks">
-                            <div class="card-header" align="right">
-                                <button type="submit" class="btn btn-info"><i class="now-ui-icons ui-1_email-85"></i>&nbsp;&nbsp;&nbsp;Compose</button><hr>
+                            <div class="card-header bg-default" align="right">
+                                <button type="button" data-toggle="modal" data-target="#composeMessage" class="btn btn-warning"><i
+                                    class="now-ui-icons ui-1_email-85"></i>&nbsp;&nbsp;&nbsp;Compose
+                                </button>
                             </div>
                             <div class="card-body ">
                                 <div class="table-full-width table-responsive">
@@ -25,13 +27,52 @@
                                         <tbody id="messageList"></tbody>
                                     </table>
                                 </div>
-                                <button class="prevPage">Prev</button>
-                                <button class="nextPage">Next</button>
+                                <button type="button" rel="tooltip" title="" class="prevPage btn btn-default btn-round btn-icon btn-icon-mini btn-sm" >
+                                    <i class="now-ui-icons arrows-1_minimal-left"></i>
+                                </button>
+                                <button type="button" rel="tooltip" title="" class="nextPage btn btn-default btn-round btn-icon btn-icon-mini btn-sm" >
+                                    <i class="now-ui-icons arrows-1_minimal-right"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="composeMessage" tabindex="-1" role="dialog" aria-labelledby="composeMessage"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form id="adminSendForm" method="POST" onsubmit="adminSend(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h6 class="modal-title" id="exampleModalLabel">New Message</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input style="border-radius:0;" type="text" class="form-control" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                            name="email" placeholder="Recipient" onfocus="this.placeholder = 'To'" onblur="this.placeholder = 'Recipient '">
+                        </div>
+                        <div class="form-group">
+                            <input style="border-radius:0;" type="text" class="form-control" name="subject" placeholder="Subject "
+                                onfocus="this.placeholder = 'Subject'" onblur="this.placeholder = 'Subject '">
+                        </div>
+                        <div class="form-group">
+                            <textarea style="border-radius:0;" rows="5" cols="60" class="form-control" name="adminMessage"
+                                type="text"></textarea>
+                        </div>
+                        <div class="stats">
+                            <i class="now-ui-icons loader_refresh spin"></i> Sending Messages
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info"><i class="now-ui-icons ui-1_send"></i>&nbsp;&nbsp;Send</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!--   Core JS Files   -->

@@ -225,7 +225,7 @@ function addAnimalTaxon(eAdd) {
             text: "Are you sure?",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -235,7 +235,7 @@ function addAnimalTaxon(eAdd) {
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }

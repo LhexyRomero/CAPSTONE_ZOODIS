@@ -3,7 +3,7 @@ const db = require('../../connection');
 exports.collabMessage = (req,res,next) =>{
 
     let data = req.body;
-    let subject = data.subject;
+    let subject = data.subject || "(No Subject)";
     let message = data.message;
     let state = 1;
 
