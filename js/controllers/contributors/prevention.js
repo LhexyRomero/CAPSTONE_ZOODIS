@@ -62,7 +62,7 @@ exports.addPrevention = (req,res,next) =>{
             insertPrevention();
         }
         else {
-            res.status(200).send({ success: false, detail: "Data Already exists!" });
+            res.status(200).send({ success: false, detail: "Data Already Exists!" });
         }
     });
 }

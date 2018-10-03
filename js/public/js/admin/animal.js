@@ -102,7 +102,13 @@ function addAnimal(e) {
                         }
 
                         else if (response.error == 3) {
-                            $.notify(response.detail, { type: "danger" });
+                            swal({
+                                title: "Error!",
+                                text: response.detail,
+                                type: "error",
+                                confirmButtonColor: "#9c27b0",
+                                confirmButtonText: "Okay"
+                            });
                         }
 
                         else {
@@ -141,11 +147,11 @@ function addAnimal(e) {
         if (isInsertAnimal) { //kapag mag iinsert
             dataInsert.append('isInserting', 1)
             swal({
-                title: "Warning!",
-                text: "Are you sure?",
+                title: "Are you sure?",
+                text: "Add Animal taxon",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
+                confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
             }).then(function (isConfirmed) {
@@ -225,11 +231,11 @@ function addAnimalTaxon(eAdd) {
         isClicked = 0;
         console.log("Yieeee accpeted");
         swal({
-            title: 'Add Animal Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Animal Taxon",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -239,14 +245,14 @@ function addAnimalTaxon(eAdd) {
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
                     else {
                         swal({
                             title: "Done!",
-                            text: "Data Recorded",
+                            text: "Successfully Added!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
@@ -377,11 +383,11 @@ function updateAnimalTaxon() {
         isClicked = 0;
         console.log("Yieeee LOLL");
         swal({
-            title: 'Update Animal Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Update Animal Taxon",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -391,7 +397,7 @@ function updateAnimalTaxon() {
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
@@ -399,7 +405,7 @@ function updateAnimalTaxon() {
                     else {
                         swal({
                             title: "Done!",
-                            text: "Data Recorded",
+                            text: "Successfully Updated!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
@@ -572,8 +578,8 @@ function updateAnimal(){
 
                         else {
                             swal({
-                                title: "Success",
-                                text: "Animal Successfully Modify!",
+                                title: "Done!",
+                                text: "Successfully Updated!",
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay",
@@ -585,8 +591,8 @@ function updateAnimal(){
             });
         };
         swal({
-            title: "Warning!",
-            text: "Are you sure?",
+            title: "Are you sure?",
+            text: "Update Animal",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",

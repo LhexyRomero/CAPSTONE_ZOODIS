@@ -104,7 +104,7 @@ exports.updateBacteriaTaxon = (req, res, next) => {
     db.get().query(sql4, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, id], (err4, result4) => {
         if (err4) return next(err4);
 
-        res.status(200).send({ success: true, detail: "Successfully Updated" });
+        res.status(200).send({ success: true, detail: "Successfully Updated!" });
     });
 }
 
@@ -458,7 +458,7 @@ exports.updateBacteria = (req,res,next) => {
         db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,animalID,result[0].bacteriumTaxoID,id],(err,result) =>{
             if(err) return next(err);
 
-            res.status(200).send({success: true, detail:"Batceria Successfully Updates",});
+            res.status(200).send({success: true, detail:"Successfully Updated!",});
 
         });
     }
