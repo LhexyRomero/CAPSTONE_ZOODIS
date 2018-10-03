@@ -51,7 +51,7 @@ exports.addBacteriaTaxon = (req, res, next) => {
         }
 
         else {
-            res.status(200).send({ success: false, detail: "Data Already Exists" })
+            res.status(200).send({ success: false, detail: "Data Already Exists!" })
         }
     });
 
@@ -142,7 +142,7 @@ exports.addToxin = (req, res, next) => {
         }
 
         else {
-            res.status(200).send({ success: false, detail: "Data Already Exists" })
+            res.status(200).send({ success: false, detail: "Data Already Exists!" })
         }
     });
 

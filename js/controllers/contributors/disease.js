@@ -55,7 +55,7 @@ exports.addDisease = (req, res, next) => {
             insertDisease();
         }
         else {
-            res.status(200).send({ success: false, detail: "Data Already exists!" });
+            res.status(200).send({ success: false, detail: "Data Already Exists!" });
         }
     });
 }

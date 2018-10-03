@@ -83,11 +83,11 @@ function addDisease(eAdd) {
 
     console.log("Yieeee accpeted");
     swal({
-        title: 'Add Disease',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Add Disease",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
+        confirmButtonColor: '#9c27b0',
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (!isConfirmed) {
@@ -100,7 +100,7 @@ function addDisease(eAdd) {
                     title: "Error!",
                     text: response.detail,
                     type: "error",
-                    confirmButtonColor: "#DD6B55",
+                    confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay"
                 });
                 return;
@@ -108,7 +108,7 @@ function addDisease(eAdd) {
 
             swal({
                 title: "Done!",
-                text: response.detail,
+                text: "Successfully Submitted to Admin!",
                 type: "success",
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"

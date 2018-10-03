@@ -103,7 +103,7 @@ exports.addAnimal = (req, res, next) => {
             }
         }
         else {
-            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists" });
+            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists!" });
         }
     });
 };

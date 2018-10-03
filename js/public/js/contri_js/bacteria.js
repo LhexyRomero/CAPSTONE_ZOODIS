@@ -85,11 +85,11 @@ function addBacteriaTaxon(eAdd) {
     else {
         isClick = 0;
         swal({
-            title: 'Add Bacteria Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Bacteria Taxon",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -99,7 +99,7 @@ function addBacteriaTaxon(eAdd) {
                             title: "Error!",
                             text: response.detail,
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
@@ -293,11 +293,11 @@ function addToxin(eAdd) {
     else {
         isClick = 0;
         swal({
-            title: 'Add Bacteria Toxin',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Bacteria Toxin",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -308,7 +308,7 @@ function addToxin(eAdd) {
                             title: "Error!",
                             text: response.detail,
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
@@ -483,11 +483,11 @@ function addBacteria(eAdd) {
 
     else {
         swal({
-            title: 'Add Bacteria',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Bacteria",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -513,14 +513,14 @@ function addBacteria(eAdd) {
                                 title: "Error!",
                                 text: response.detail,
                                 type: "error",
-                                confirmButtonColor: "#DD6B55",
+                                confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay"
                             });
                         }
                     }
                     else {
                         swal({
-                            title: "Success!",
+                            title: "Done!",
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",

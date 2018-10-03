@@ -67,11 +67,11 @@ function addAnimal(eAdd) {
 
     else {
         swal({
-            title: 'Add Animal Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Animal Taxon",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -100,7 +100,7 @@ function addAnimal(eAdd) {
                                     title: "Error!",
                                     text: response.detail,
                                     type: "error",
-                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonColor: "#9c27b0",
                                     confirmButtonText: "Okay"
                                 });
                             }
@@ -180,11 +180,11 @@ function addAnimalTaxon(eAdd) {
     else {
         isClicked = 0;
         swal({
-            title: 'Add Animal Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Add Animal Taxon",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -194,7 +194,7 @@ function addAnimalTaxon(eAdd) {
                             title: "Error!",
                             text: response.detail,
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }

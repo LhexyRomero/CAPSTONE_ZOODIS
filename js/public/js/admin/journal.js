@@ -44,11 +44,11 @@ function addJournal(eAdd) {
     }
 
     swal({
-        title: 'Add Journal',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Add Journal",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
+        confirmButtonColor: '#9c27b0',
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (!isConfirmed) {
@@ -68,14 +68,14 @@ function addJournal(eAdd) {
                         title: "Error!",
                         text: response.detail,
                         type: "error",
-                        confirmButtonColor: "#DD6B55",
+                        confirmButtonColor: "#9c27b0",
                         confirmButtonText: "Okay"
                     });
                 }
                 else {
                     swal({
                         title: "Done!",
-                        text: "Data Recorded",
+                        text: "Successfully Added!",
                         type: "success",
                         confirmButtonColor: "#9c27b0",
                         confirmButtonText: "Okay"
@@ -191,11 +191,11 @@ function updateJournal() {
         isClicked = 0;
         console.log("Yieeee LOLL");
         swal({
-            title: 'Update Journal',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Update Journal",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (isConfirmed) {
@@ -205,7 +205,7 @@ function updateJournal() {
                             title: "Error!",
                             text: "Data Already Exists!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
                     }
@@ -213,7 +213,7 @@ function updateJournal() {
                     else {
                         swal({
                             title: "Done!",
-                            text: "Data Recorded",
+                            text: "Successfully Updated!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
@@ -317,11 +317,11 @@ function assignedJournal(e) {
 
     else {
         swal({
-            title: 'Assigned Journal',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Assign Journal",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then((isConfirmed) => {
             if (!isConfirmed) {

@@ -99,11 +99,11 @@ function addPrevention(eAdd) {
     }
 
     swal({
-        title: 'Add Prevention',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Add Prevention",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
+        confirmButtonColor: '#9c27b0',
         confirmButtonText: 'Yes'
     }).then((isConfirmed) => {
         if (!isConfirmed) {
@@ -116,7 +116,7 @@ function addPrevention(eAdd) {
                     title: "Error!",
                     text: response.detail,
                     type: "error",
-                    confirmButtonColor: "#DD6B55",
+                    confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay"
                 });
                 return;
@@ -124,7 +124,7 @@ function addPrevention(eAdd) {
 
             swal({
                 title: "Done!",
-                text: "Data Recorded",
+                text: "Successfully Added!",
                 type: "success",
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Okay"
@@ -258,11 +258,11 @@ let updatePrevention = function(){
     if(error == 0){
         _data.preventions = _data.preventions.join(":");
         swal({
-            title: 'Edit Prevention',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Update Prevention",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
+            confirmButtonColor: '#9c27b0',
             confirmButtonText: 'Yes'
         }).then(function(ok){
             if(ok){

@@ -51,7 +51,7 @@ exports.addAnimalTaxon = (req, res, next) => {
             insertAnimalTaxon();
         }
         else {
-            res.status(200).send({ success: false, detail: "Data Already exists!" });
+            res.status(200).send({ success: false, detail: "Data Already Exists!" });
         }
 
     });
@@ -102,7 +102,7 @@ exports.toSelectJournal = (req, res, next) => {
 exports.addAnimal = (req, res, next) => {
 
     if (!req.file) {
-        res.status(200).send({ success: false, error: 1, detail: "No Image Provided" });
+        res.status(200).send({ success: false, error: 1, detail: "No Image Provided!" });
         return;
     }
 
@@ -156,7 +156,7 @@ exports.addAnimal = (req, res, next) => {
                     if (err) return next(err);
 
                     if (result.length == 0) {
-                        res.status(200).send({ success: false, detail: "Species not found", error: 2 });
+                        res.status(200).send({ success: false, detail: "Species not found!", error: 2 });
                     }
                     else {
                         insertAnimal(result);
@@ -165,7 +165,7 @@ exports.addAnimal = (req, res, next) => {
             }
         }
         else {
-            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists" });
+            res.status(200).send({ success: false, error: 3, detail: "Data Already Exists!" });
         }
     });
 
