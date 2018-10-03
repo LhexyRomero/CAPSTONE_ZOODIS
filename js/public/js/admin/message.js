@@ -42,6 +42,7 @@ function viewMessage(e, id, member) {
 }
 
 function messageList(limit, offset) {
+    let notifCount = 0;
     $.get("/messageList?offset=" + offset + "&limit=" + limit, (response) => {
         if(response.success ==false){
             $.notify("Error getting data from the server!",{type:"danger"});
@@ -58,7 +59,7 @@ function messageList(limit, offset) {
             if(element.type == 1){
                 let row = "<tr class='unread hov mail' data-href='messageDetails?mid=" + element.usermessageID +"'>";
                 row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
-                row += "<td class='b-size'><span class='s-size badge badge-info'>&nbsp;</span></td>"
+                row += "<td class='b-size'><span class='badge badge-info'>inquiry</span></td>"
                 row += "<td class='name-size'><strong>" + element.mName + "</strong></td>";
                 row += "<td class='subject-size'><strong>" + element.mSubject + "</strong></td>";
                 row += "<td>" +"-&nbsp;"+ element.mMessage.substring(0,50) + "...</td>";
@@ -66,12 +67,14 @@ function messageList(limit, offset) {
                 row += "<td><label class='pull-right'>" + Date.parse(element.mDateTime).toString('MMM dd') + "&nbsp;&nbsp;</label></td>";
                 row += "</tr>";
                 html += row;
+
+                
             }
             else {
                 
                 let row = "<tr class='unread hov mail' data-href='messageDetails?ujid=" + element.userjournalID +"&staffid="+ element.staffID +"'>";
                 row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
-                row += "<td class='b-size'><span class='s-size badge badge-danger'>&nbsp;</span></td>";
+                row += "<td class='b-size'><span class='badge badge-danger'>journal</span></td>";
                 row += "<td class='name-size'><strong>" + element.firstName + " " + element.lastName + "</strong></td>";
                 row += "<td class='subject-size'><strong>" + element.jSubject + "</strong></td>";
                 row += "<td>" +"-&nbsp;"+ element.jMessage.substring(0,50) + "...</td>";
@@ -80,16 +83,83 @@ function messageList(limit, offset) {
                 row += "</tr>";
                 html += row;
 
+                
             }
+
             count = x+offset;
         }
+
         messageNext = count;
         if(messageNext >= data.length-1 ) messageNext = offset;
         $('#messageList').html(html);
         $('.mail').on('click', function(){
             window.location = $(this).data('href');
         });
+
+        data.forEach(element => {
+            if(element.type == 1 ){
+                if(element.mState == 1 ){
+                    notifCount++;
+                    console.log(notifCount);
+                }
+            }
+            else if(element.type == 2 ){
+                if(element.jState == 1 ){
+                    notifCount++;
+                    console.log(notifCount);
+                }
+            }
+        });
+        $("#notifCount").html(notifCount);
     });
+}
+
+function adminSend(e) {
+    e.preventDefault();
+
+    let data = $("#adminSendForm").serializeArray();
+    let dataInsert = {};
+    let errCount = 0;
+    let invcount = 0;
+
+    if(data[0].value =="" && data[2].value ==""){
+        $('textarea[name=adminMessage]').css("background", "#feebeb");
+        $('input[name=email]').css("background", "#feebeb");
+        errCount++;
+        isClick = 0;
+    }
+
+    else if(data[0].value.match(/[*#\/]/g) != null && data[1].value.match(/[*#\/]/g) != null){
+        $('input[name=email]').css("background", "#feebeb");
+        $('input[name=subject]').css("background", "#feebeb");
+        invcount++;
+        isClick = 0;
+    }
+    else {
+        dataInsert[data[0].name] = data[0].value;
+        dataInsert[data[1].name] = data[1].value;
+        dataInsert[data[2].name] = data[2].value;
+    }
+    if(errCount>0){
+        $.notify("Enter a message!", { type: "danger" });
+    }
+
+    else if(invcount){
+        
+        $.notify("Invalid Character!", { type: "danger" });
+    }
+
+    else {
+        $(".stats").show();
+        $.post("/adminSend",dataInsert,(response)=>{
+            if(response.success == false){
+                $.notify("Message not Sent",{type:"danger"});
+                return;
+            }
+            $.notify(response.detail,{type:"success"});
+            $(".stats").hide();
+        });
+    }
 }
 
 function send() {

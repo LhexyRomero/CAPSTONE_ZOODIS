@@ -59,11 +59,9 @@ router.get('/message',auth.authenticate,(req,res,next)=>{
 });
 
 router.get('/messageDetails',auth.authenticate, message.messageDetail);
-
-/* 
-router.get('/viewMessage/:id/:member',message.viewMessage); */
 router.get('/messageList',message.messageList);
 router.post('/send',message.send);
+router.post('/adminSend',message.adminSend);
 
 router.get('/sampleAlgo',auth.authenticate,(req,res,next)=>{
     res.render('admin/sampleAlgo');

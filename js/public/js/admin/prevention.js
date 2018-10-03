@@ -132,14 +132,11 @@ function addPrevention(eAdd) {
             clearPrevention();
             preventionList();
         });
-
-    })
-
-    
+    });
 }
 
 function clearPrevention() {
-    
+
     $('select[name=selectDisease]').val("");
     $('input[name=strPrevention]').val("");
     $('input[name=prevention0]').val("");
