@@ -42,7 +42,7 @@ function adminSwitch(event) {
         let url = "/updateTypeToAdmin/" + staffID;
         swal({
             title: 'Are you sure?',
-            text: "Allow this staff to have admin privileges?",
+            text: "Allow this staff to have admin privilege?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -53,7 +53,7 @@ function adminSwitch(event) {
                     if (response.success == false) {
                         swal({
                             title: "Error!",
-                            text: "Aborted!",
+                            text: "Process terminated!",
                             type: "error",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Okay"
@@ -62,7 +62,7 @@ function adminSwitch(event) {
                     else {
                         swal({
                             title: "Done!",
-                            text: "Mission Complete!",
+                            text: "Privilege granted!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
@@ -85,7 +85,7 @@ function adminSwitch(event) {
 
         swal({
             title: 'Are you sure?',
-            text: "Remove the admin privileges to this staff?",
+            text: "Remove the admin privilege to this staff?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -96,7 +96,7 @@ function adminSwitch(event) {
                     if (response.success == false) {
                         swal({
                             title: "Error!",
-                            text: "Aborted!",
+                            text: "Process terminated!",
                             type: "error",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Okay"
@@ -105,7 +105,7 @@ function adminSwitch(event) {
                     else {
                         swal({
                             title: "Done!",
-                            text: "Mission Complete!",
+                            text: "Privilege dismissed!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
