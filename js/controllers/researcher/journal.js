@@ -1,6 +1,5 @@
 const db = require('../../connection');
 const pdfReader = require('pdfreader').PdfReader;
-const fs = require('fs');
 
 exports.uploadJournal = (req, res, next) => {
     
