@@ -10,13 +10,14 @@ const bacteria = require('../admin/bacteria');
 const search = require('../admin/search');
 const disease = require('../admin/disease');
 const prevention = require('../admin/prevention');
-const notification = require('../admin/notification');
+const request = require('../admin/request');
 const journal = require('../admin/journal');
 const reject = require('../admin/reject');
 const staff = require('../admin/staff');
 const profile = require('../admin/profile');
 const sample = require('../admin/sample');
 const message = require('../admin/message');
+const notification = require('../admin/notification');
 
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
@@ -49,6 +50,10 @@ router.get('/search/bacteriaGenus',search.bacteriaGenus);
 router.get('/search/bacteriaSpecies',search.bacteriaSpecies);
 router.get('/search/bacteriaSpeciesTaxo',search.bacteriaSpeciesTaxo);
 router.get('/search/bacteriaSpeciesTaxoData',search.bacteriaSpeciesTaxoData);
+
+router.get('/notification', auth.authenticate,(req,res,next)=>{
+    res.render('admin/notification');
+});
 
 router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('admin/dashboard');
@@ -156,36 +161,36 @@ router.get('/editPrevention/:id',prevention.viewPrevention);
 router.post('/updatePrevention/:id',prevention.updatePrevention);
 router.post('/addPrevention',prevention.addPrevention);
 
-router.get('/notification',auth.authenticate,(req,res,next) =>{
-    res.render('admin/notification');
+router.get('/request',auth.authenticate,(req,res,next) =>{
+    res.render('admin/request');
 });
 
-router.get('/notificationList',notification.notificationList);
-router.get('/notificationViewAnimalTaxo/:id',notification.viewAnimalTaxo);
-router.get('/notificationViewBacteriaTaxo/:id',notification.viewBacteriaTaxo);
-router.get('/notificationSelectBacteria',notification.selectBacteria);
-router.get('/notificationViewToxin/:id',notification.viewToxin);
-router.get('/notificationViewDisease/:id',notification.viewDisease);
-router.get('/notificationSelectDisease',notification.selectDisease);
-router.get('/notificationViewPrevention/:id',notification.viewPrevention);
-router.get('/notificationViewAnimal/:id',notification.viewAnimal);
-router.get('/notificationSelectAnimal',notification.selectAnimal);
-router.get('/notificationViewBacteria/:id',notification.viewBacteria);
+router.get('/requestList',request.requestList);
+router.get('/requestViewAnimalTaxo/:id',request.viewAnimalTaxo);
+router.get('/requestViewBacteriaTaxo/:id',request.viewBacteriaTaxo);
+router.get('/requestSelectBacteria',request.selectBacteria);
+router.get('/requestViewToxin/:id',request.viewToxin);
+router.get('/requestViewDisease/:id',request.viewDisease);
+router.get('/requestSelectDisease',request.selectDisease);
+router.get('/requestViewPrevention/:id',request.viewPrevention);
+router.get('/requestViewAnimal/:id',request.viewAnimal);
+router.get('/requestSelectAnimal',request.selectAnimal);
+router.get('/requestViewBacteria/:id',request.viewBacteria);
 
-router.post('/approvedAnimalTaxo/:id',notification.approvedAnimalTaxo);
-router.post('/rejectAnimalTaxo/:id',notification.rejectAnimalTaxo);
-router.post('/approvedBacteriaTaxo/:id',notification.approvedBacteriaTaxo);
-router.post('/rejectBacteriaTaxo/:id',notification.rejectBacteriaTaxo);
-router.post('/approvedToxin/:id',notification.approvedToxin);
-router.post('/rejectToxin/:id',notification.rejectToxin);
-router.post('/notificationApprovedDisease/:id',notification.approvedDisease);
-router.post('/rejectDisease/:id',notification.rejectDisease);
-router.post('/notificationApprovedPrevention/:id',notification.approvedPrevention);
-router.post('/rejectPrevention/:id',notification.rejectPrevention);
-router.post('/approvedBacteria/:id',notification.approvedBacteria);
-router.post('/rejectBacteria/:id',notification.rejectBacteria);
-router.post('/approvedAnimal/:id',notification.approvedAnimal);
-router.post('/rejectAnimal/:id',notification.rejectAnimal);
+router.post('/approvedAnimalTaxo/:id',request.approvedAnimalTaxo);
+router.post('/rejectAnimalTaxo/:id',request.rejectAnimalTaxo);
+router.post('/approvedBacteriaTaxo/:id',request.approvedBacteriaTaxo);
+router.post('/rejectBacteriaTaxo/:id',request.rejectBacteriaTaxo);
+router.post('/approvedToxin/:id',request.approvedToxin);
+router.post('/rejectToxin/:id',request.rejectToxin);
+router.post('/requestApprovedDisease/:id',request.approvedDisease);
+router.post('/rejectDisease/:id',request.rejectDisease);
+router.post('/requestApprovedPrevention/:id',request.approvedPrevention);
+router.post('/rejectPrevention/:id',request.rejectPrevention);
+router.post('/approvedBacteria/:id',request.approvedBacteria);
+router.post('/rejectBacteria/:id',request.rejectBacteria);
+router.post('/approvedAnimal/:id',request.approvedAnimal);
+router.post('/rejectAnimal/:id',request.rejectAnimal);
 
 router.get('/journal',auth.authenticate,(req,res,next)=>{
     res.render('admin/journal');
@@ -196,6 +201,7 @@ router.get('/toSelectJournal1',journal.toSelectJournal);
 router.get('/journalList',journal.journalList);
 router.get('/editJournal/:id',journal.editJournal);
 router.get('/viewJournal/:id',journal.viewJournal);
+router.get('/journalAssignee',journal.journalAssignee);
 
 router.post('/addJournal',upload.single('myfile'),journal.addJournal);
 router.post('/updateJournal/:id',journal.updateJournal);

@@ -19,7 +19,7 @@ exports.addAnimal = (req, res, next) => {
     }
     
     let checkAnimal = function (cb) {
-        let sql = "SELECT * FROM animal_t WHERE animalName =? AND animalScientificName = ?";
+        let sql = "SELECT * FROM animal_t WHERE animalName =? OR animalScientificName = ?";
         db.get().query(sql, [commonName, scienceName], (err, result) => {
             if (err) return cb(err);
             if (result.length == 0) {
@@ -109,8 +109,9 @@ exports.addAnimal = (req, res, next) => {
 };
 
 exports.toSelectJournal = (req, res, next) => {
-    let sql = "SELECT journalID, code FROM journal_t";
-    db.get().query(sql, (err, result) => {
+    let status = "Incomplete";
+    let sql = "SELECT journalID, code FROM journal_t WHERE status = ?";
+    db.get().query(sql,[status],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });

@@ -97,7 +97,6 @@ function addAnimal(e) {
                         }
 
                         else if (response.error == 2) {
-                            $.notify(response.detail, { type: "danger" });
                             $.notify(response.detail, { type: 'danger' });
                         }
 
@@ -171,6 +170,7 @@ function addAnimal(e) {
 
 function clearAnimal(eClear) {
 
+    $('#dismiss').removeClass("fileinput-exists").addClass("fileinput-new");
     $('input[name=strCommonName]').val("");
     $('input[name=strScientificName]').val("");
     $('input[name=strBodySite]').val("");
@@ -181,8 +181,10 @@ function clearAnimal(eClear) {
     $('input[name=strGenus]').val("");
     $('input[name=strSpecies]').val("");
     $('select[name=selectJournal]').val("");
+    $("#toSubmitAnimal").html("Add");
     isClicked = 0;
 }
+
 function addAnimalTaxon(eAdd) {
     eAdd.preventDefault();
 

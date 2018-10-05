@@ -56,8 +56,14 @@ exports.login = function (req, res, next) {
 }
 
 exports.logout = function (req, res, next) {
-    req.session.destroy();
-    res.redirect('/');
+    if(req.session.accType == 1 || req.session.accType == 2){
+        req.session.destroy();
+        res.redirect('/login');
+    }
+    else {
+        req.session.destroy();
+        res.redirect('/');
+    }
 }
 
 exports.authRedirect = function (req, res, next) {
@@ -84,6 +90,8 @@ exports.register = function (req, res, next) {
     let code = req.body.code;
     let type = 1;
     let journal = 10;
+
+    let data = [fname,lname,email,username,password,code,type,journal];
 
     data.forEach((e) => {
         if (e == null) return res.redirect('/register?error=1');

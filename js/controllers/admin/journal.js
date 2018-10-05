@@ -5,7 +5,7 @@ exports.addJournal = (req, res, next) => {
 
     let pdf = req.file.path;
     let data = req.body;
-    let code = data.strJournalCode;
+    let code = "ZDS#" + Math.floor(Math.random() * 255);
     let name = data.strJournalName;
     let doi = data.strDoi;
     let status = "Incomplete";
@@ -77,12 +77,12 @@ exports.updateJournal = (req, res, next) => {
 }
 
 exports.journalList = (req, res, next) => {
+    let status = "none";
 
-    let sql = "SELECT J.name, J.journalID, S.staffID FROM staff_t S, journal_t J WHERE S.journalID = J.journalID";
-    db.get().query(sql, (err, result) => {
+    let sql = "SELECT * FROM journal_t WHERE status <> ?";
+    db.get().query(sql,[status],(err,result) => {
 
         if (err) return next(err);
-
         res.status(200).send({ success: true, detail: "", data: result });
     });
 }
@@ -108,18 +108,15 @@ exports.editJournal = (req, res, next) => {
 
 exports.viewJournal = (req, res, next) => {
     let id = req.params.id;
-    let data = req.body;
 
-    let sql3 = "SELECT J.journalId, J.code, J.name, J.doi, S.staffID, S.firstName, S.lastName, S.middleInitial FROM staff_t S, journal_t J WHERE S.journalID = J.journalID AND J.journalID = ?";
+    let sql3 = "SELECT code, name, doi FROM journal_t WHERE journalID = ?";
     db.get().query(sql3, [id], (err3, result3) => {
         if (err3) return next(err3);
-
         let dataDisplay = {
 
             code: result3[0].code,
             name: result3[0].name,
-            doi: result3[0].doi,
-            assignee : result3[0].firstName + " " + result3[0].middleInitial + " " + result3[0].lastName,
+            doi: result3[0].doi
         }
 
         res.status(200).send({ success: true, detail: "", data: dataDisplay });
@@ -140,8 +137,9 @@ exports.toSelectStaffName = (req, res, next) => {
 exports.toSelectJournal = (req, res, next) => {
 
     let status = "Incomplete";
-    let sql = "SELECT * FROM journal_t WHERE status = ?";
-    db.get().query(sql,[status],(err, result) => {
+    let name = "none";
+    let sql = "SELECT * FROM journal_t WHERE status = ? AND name <> ? ";
+    db.get().query(sql,[status,name],(err, result) => {
         if (err) return next(err);
         
         res.status(200).send({ success: true, detail: "", data: result });
@@ -163,5 +161,19 @@ exports.assignedJournal = (req,res,next) =>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"Journal Successfully Assigned!"});
+    });
+}
+
+exports.journalAssignee = (req,res,next) =>{
+
+    console.log("IM HERE ssignee");
+    let id = 10;
+    let type = 1;
+    let sql = "SELECT firstName, lastName,middleInitial,name FROM staff_t INNER JOIN journal_t ON staff_t.journalID = journal_t.journalID WHERE journal_t.journalID <> ? AND staff_t.type = ?";
+
+    db.get().query(sql,[id,type],(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success:true, detail:"" ,data:result});
     });
 }
