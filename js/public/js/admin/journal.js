@@ -1,6 +1,7 @@
 let isClick = 0;
 $(function () {
     journalList();
+    journalAssignee();
     toSelectStaffName();
     toSelectJournal();
 });
@@ -104,17 +105,17 @@ function journalList() {
 
         let data = response.data;
         let html = "";
+        console.log(data);
         data.forEach((element, index) => {
             let row = "<tr>";
             row += "<td>" + element.name + "</td>";
-            row += "<td><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editJournal(" + element.journalID + ") type='button' rel='tooltip' title='' class='btn btn-round btn-info btn-icon btn-icon-mini btn-sm' data-original-title='edit'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewJournal(" + element.journalID + ")' type='button' rel='tooltip' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if(element.status == "Incomplete"){
-                row += "<td><span class='badge badge-danger'>"+ element.status +"</span></td>";
+                row += "<td class='text-center'><span class='badge badge-danger'>"+ element.status +"</span></td>";
             }
-            
             else{
-                row += "<td><span class='badge badge-success'>"+ element.status +"</span></td>";
+                row += "<td class='text-center'><span class='badge badge-success'>"+ element.status +"</span></td>";
             }
+            row += "<td class='text-right'><a data-toggle='modal' href='#exampleModalCenter'><button onclick = editJournal(" + element.journalID + ") type='button' rel='tooltip' title='' class='btn btn-round btn-info btn-icon btn-icon-mini btn-sm' data-original-title='edit'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewJournal(" + element.journalID + ")' type='button' rel='tooltip' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             row += "</tr>";
             html += row;
         });
@@ -242,23 +243,16 @@ function viewJournal(journalID) {
 
         console.log("here");
         let data = response.data;
-        let html = "";
-        // let selectedBacteria = "<option value ="+element.bacteriumID+">"+element.bacteriumName+"<option>";
         let code = data.code;
         let name = data.name;
         let doi = data.doi;
-        let assignee = data.assignee;
 
         $("#modalViewCode").html(code);
         $("#modalViewName").html(name);
         $("#modalViewDoi").html(doi);
-        $("#modalAssignee").html(assignee);
-        /*$("#modalViewStaffName").html(staffName);*/
-
-
 
     });
-};
+}
 
 function toSelectStaffName() {
     $.get("/toSelectStaffName", (response) => {
@@ -273,7 +267,8 @@ function toSelectStaffName() {
         });
         $('#toSelectStaffName').html(html);
     });
-};
+}
+
 
 function toSelectJournal() {
     $.get("/toSelectJournal1", (response) => {
@@ -289,7 +284,7 @@ function toSelectJournal() {
         });
         $('#toSelectJournal').html(html);
     });
-};
+}
 
 function assignedJournal(e) {
     e.preventDefault();
@@ -353,3 +348,25 @@ function assignedJournal(e) {
         });
     }
 }
+
+function journalAssignee() {
+    $.get("/journalAssignee",(response)=>{
+        if(response.success == false){
+            $.notify("Error getting data from the server!");
+            return;
+        }
+
+        let data = response.data;
+        let html = "";
+
+        data.forEach((element, index) => {
+            let row = "<tr>";
+            row += "<td>" + element.firstName + " " + element.middleInitial +" " +element.lastName + "</td>";
+            row += "<td>" + element.name + "</td>";
+            row += "</tr>";
+            html += row;
+        });
+        $('#assigneeList').html(html);
+    });
+}
+

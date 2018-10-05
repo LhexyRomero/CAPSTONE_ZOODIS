@@ -21,14 +21,6 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-7">
-                                            <div class="form-group has-label">
-                                                <label>Journal Code</label>
-                                                <input class="form-control" name="strJournalCode" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group has-label">
                                                 <label>Journal Name</label>
@@ -59,12 +51,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-header">
-                                    <label>To Assign Journal: </label> &nbsp;
-                                    <a data-toggle='modal' href='#journalModal'>
-                                        <button type="submit" class="btn btn-primary" onclick="">Assign Journal</button>
-                                    </a>
-                                    <br>
-                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <a data-toggle='modal' href='#journalModal'>
+                                                <button type="submit" class="btn btn-primary" onclick="">Assign Journal</button>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left :0;">
+                                            <a data-toggle='modal' href='#assigneeModal'>
+                                                <button type="submit" class="btn btn-info" onclick="">List of Assignee</button>
+                                            </a>
+                                        </div>
+                                    </div><br><br>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table" id="journalTable">
@@ -74,14 +72,14 @@
                                                     <b>JOURNAL NAME</b>
                                                 </small>
                                             </th>
-                                            <th>
-                                                <small>
-                                                    <b>ACTION</b>
-                                                </small>
-                                            </th>
-                                            <th>
+                                            <th class="text-center">
                                                 <small>
                                                     <b>STATUS</b>
+                                                </small>
+                                            </th>
+                                            <th class="text-right">
+                                                <small>
+                                                    <b>ACTION</b>
                                                 </small>
                                             </th>
                                         </thead>
@@ -190,17 +188,6 @@
                                     <label id="modalViewDoi"></label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Assignee</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>:</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label id="modalAssignee"></label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,6 +228,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal List of Assignee-->
+    <div class="modal fade" id="assigneeModal" tabindex="-1" role="dialog" aria-labelledby="assigneeModal">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="title title-up">ASSIGNED JOURNAL</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">    
+                                    <tr>
+                                        <th><small><b>Staff</b></small></th>
+                                        <th><small><b>Journal Name</b></small></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assigneeList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
     <script src="../../assets/js/admin/journal.js"></script>

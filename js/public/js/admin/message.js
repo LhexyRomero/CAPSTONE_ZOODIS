@@ -42,7 +42,6 @@ function viewMessage(e, id, member) {
 }
 
 function messageList(limit, offset) {
-    let notifCount = 0;
     $.get("/messageList?offset=" + offset + "&limit=" + limit, (response) => {
         if(response.success ==false){
             $.notify("Error getting data from the server!",{type:"danger"});
@@ -68,7 +67,6 @@ function messageList(limit, offset) {
                 row += "</tr>";
                 html += row;
 
-                
             }
             else {
                 
@@ -99,18 +97,15 @@ function messageList(limit, offset) {
         data.forEach(element => {
             if(element.type == 1 ){
                 if(element.mState == 1 ){
-                    notifCount++;
                     console.log(notifCount);
                 }
             }
             else if(element.type == 2 ){
                 if(element.jState == 1 ){
-                    notifCount++;
                     console.log(notifCount);
                 }
             }
         });
-        $("#notifCount").html(notifCount);
     });
 }
 

@@ -15,7 +15,10 @@ exports.uploadJournal = (req, res, next) => {
     let name = data.name;
     let doi;
     let publishedDate;
-    let state = 1; //notify
+    let status = "Incomplete";
+    let state = "notify";
+    let jState  = 1;
+    let code = "RJ#" + Math.floor(Math.random() * 255);
 
     let checkJournal = function (cb) {
         checkJournalDate(file, function(err, entry){
@@ -67,11 +70,17 @@ exports.uploadJournal = (req, res, next) => {
     }
 
     let insertJournal = function() {
-        let sql = "INSERT INTO userjournal_t (jTitle,jDoi,jFile,staffID,jState,jDateTime) VALUES (?,?,?,?,?,?)";
-        db.get().query(sql,[name,doi,file,req.session.staffID,state,publishedDate],(err,result)=>{
-            if(err) return next(err);
+        
 
-            res.status(200).send({success: true, detail:"Successfully Submitted!"});
+        let sql = "INSERT INTO userjournal_t (jTitle,jDoi,jFile,staffID,jState,jPublished,jDateTime) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql2 = "INSERT INTO journal_t (code,name,doi,status,file,state) VALUES (?,?,?,?,?,?)";
+        db.get().query(sql,[name,doi,file,req.session.staffID,jState,publishedDate],(err,result)=>{
+            if(err) return next(err);
+            db.get().query(sql2,[code,name,doi,status,file,state],(err2,result2)=>{
+                if(err2) return next(err2);
+
+                res.status(200).send({success: true, detail:"Successfully Submitted!"});
+            });
         });
     }
 
