@@ -148,7 +148,7 @@ function addAnimal(e) {
             dataInsert.append('isInserting', 1)
             swal({
                 title: "Are you sure?",
-                text: "Add Animal taxon",
+                text: "Add Animal Taxon",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#9c27b0",
