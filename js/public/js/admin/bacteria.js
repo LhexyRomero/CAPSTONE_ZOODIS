@@ -612,7 +612,7 @@ function updateToxin() {
     else {
         swal({
             title: 'Are you sure?',
-            text: "update Bacteria Toxin",
+            text: "Update Bacteria Toxin",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
