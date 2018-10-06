@@ -55,6 +55,9 @@ router.get('/notification', auth.authenticate,(req,res,next)=>{
     res.render('admin/notification');
 });
 
+router.get('/notificationCard', notification.notificationCard);
+
+
 router.get('/dashboard', auth.authenticate,(req,res,next)=>{
     res.render('admin/dashboard');
 });

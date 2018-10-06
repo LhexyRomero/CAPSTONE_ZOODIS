@@ -7,6 +7,7 @@ const journal = require('../researcher/journal');
 const contact = require('../researcher/contact');
 const search = require('../researcher/search');
 const animalSearching = require('../researcher/searchingAnimal');
+const bacteriSearching = require('../researcher/searchingBacteria');
 const diseaseSearching = require('../researcher/searchingDisease');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
@@ -64,6 +65,10 @@ router.post('/researcher_animal',animalSearching.searchingAnimal,(req,res,next)=
     res.render('researcher/researcher_animal');
 });
 
+router.post('/researcher_bacteria', bacteriSearching.searchingBacteria,(req,res,next)=>{
+    res.render('researcher/researcher_bacteria')
+});
+
 router.post('/researcher_disease',diseaseSearching.searchingDisease,(req,res,next)=>{
     res.render('researcher/researcher_disease');
 });
@@ -72,5 +77,6 @@ router.post('/researcher_disease',diseaseSearching.searchingDisease,(req,res,nex
 //Autocomplete
 router.get('/search/animalName',search.animalName);
 router.get('/search/diseaseName',search.diseaseName);
+router.get('/search/bacteriaScientificName',search.bacteriaScientificName);
 
 module.exports = router;
