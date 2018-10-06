@@ -3,7 +3,7 @@ const db = require('../../connection');
 exports.notiCard = (req,res,next) =>{
 
     let state = "noticed";
-    let sql = "SELECT * FROM notification_t WHERE state = ? AND staffID =?";
+    let sql = "SELECT * FROM request_t WHERE state = ? AND staffID =?";
     db.get().query(sql,[state,req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
@@ -14,7 +14,7 @@ exports.notiCard = (req,res,next) =>{
 exports.requestList = (req, res, next) => {
     let status = "pending";
 
-    let sql = "SELECT * FROM notification_t WHERE status = ?";
+    let sql = "SELECT * FROM request_t WHERE status = ?";
     db.get().query(sql, [status], (err, result) => {
         if (err) return next(err);
 
@@ -54,7 +54,7 @@ exports.approvedAnimalTaxo = (req, res, next) => {
     let status = "approved";
     let category = "Animal Taxonomy"
 
-    let sql = "UPDATE notification_t SET state=?, status=? , dateTime = CURRENT_TIMESTAMP WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET state=?, status=? , dateTime = CURRENT_TIMESTAMP WHERE category =? AND addedID =?";
     let sql1 = "UPDATE animaltaxo_t SET phylum=?, class=?, orderr=?, family=?, dateTime = CURRENT_TIMESTAMP,genus=?, species=?, status=? WHERE animalTaxoID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
         if (err) return next(err);
@@ -74,7 +74,7 @@ exports.rejectAnimalTaxo = (req, res, next) => {
     let category = "Animal Taxonomy";
     let reasons = data.reasons;
 
-    let sql = "UPDATE notification_t SET state=?, status=? ,message =? WHERE addedID =? AND category =?";
+    let sql = "UPDATE request_t SET state=?, status=? ,message =? WHERE addedID =? AND category =?";
     let sql1 = "UPDATE animaltaxo_t SET status = ? WHERE animalTaxoID = ?";
     db.get().query(sql, [state, status, reasons, id, category], (err, result) => {
         if (err) return next(err);
@@ -118,7 +118,7 @@ exports.approvedBacteriaTaxo = (req, res, next) => {
     let status = "approved";
     let category = "Bacteria Taxonomy"
 
-    let sql = "UPDATE notification_t SET dateTime = CURRENT_TIMESTAMP, state=?, status=? WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET dateTime = CURRENT_TIMESTAMP, state=?, status=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE bacteriataxo_t SET dateTime = CURRENT_TIMESTAMP, phylum=?, class=?, orderr=?, family=?, genus=?, species=?, status=? WHERE bacteriumTaxoID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
         if (err) return next(err);
@@ -138,7 +138,7 @@ exports.rejectBacteriaTaxo = (req, res, next) => {
     let category = "Bacteria Taxonomy";
     let reasons = data.reasons;
 
-    let sql = "UPDATE notification_t SET state=?, status=? ,message =? WHERE addedID =? AND category =?";
+    let sql = "UPDATE request_t SET state=?, status=? ,message =? WHERE addedID =? AND category =?";
     let sql1 = "UPDATE bacteriataxo_t SET status = ? WHERE bacteriumTaxoID = ?";
     db.get().query(sql, [state, status, reasons, id, category], (err, result) => {
         if (err) return next(err);
@@ -188,7 +188,7 @@ exports.approvedToxin = (req, res, next) => {
     let state = "noticed";
     let category = "Toxin";
 
-    let sql = "UPDATE notification_t SET state=?, status=? WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET state=?, status=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE toxin_t SET name = ?, structureFeature = ?, function = ?, status =?  WHERE toxinID = ?";
     let sql2 = "UPDATE bacteriatoxin_t SET bacteriumID = ? , toxinID = ? WHERE toxinID = ?";
     db.get().query(sql, [state, status, category, id], (err, result) => {
@@ -215,7 +215,7 @@ exports.rejectToxin = (req, res, next) => {
     let status = "rejected";
     let state = "noticed";
 
-    let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE toxin_t SET status =?  WHERE toxinID = ?";
     db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
@@ -258,7 +258,7 @@ exports.approvedDisease = (req, res, next) => {
     let category = "Disease";
     let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ?,status=? WHERE diseaseID = ?";
     let sql1 = "UPDATE bacteriadisease_t SET bacteriumID =? , diseaseID =? WHERE diseaseID = ?";
-    let sql2 = "UPDATE notification_t SET state =?,status =? WHERE category =? AND addedID =? ";
+    let sql2 = "UPDATE request_t SET state =?,status =? WHERE category =? AND addedID =? ";
     let error = 0;
 
     //Some validations here... 
@@ -300,7 +300,7 @@ exports.rejectDisease = (req, res, next) => {
     let status = "rejected";
     let state = "noticed";
 
-    let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE disease_t SET status =?  WHERE diseaseID = ?";
     db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
@@ -350,7 +350,7 @@ exports.approvedPrevention = (req, res, next) => {
     let state = "noticed";
     let category = "Prevention";
     let sql = "UPDATE prevention_t SET diseaseID = ?,  preventions = ?, status = ? WHERE preventionID = ?";
-    let sql1 = "UPDATE notification_t SET state =?,status =? WHERE category =? AND addedID =? ";
+    let sql1 = "UPDATE request_t SET state =?,status =? WHERE category =? AND addedID =? ";
     let error = 0;
 
     //Some validations here... 
@@ -389,7 +389,7 @@ exports.rejectPrevention = (req, res, next) => {
     let status = "rejected";
     let state = "noticed";
 
-    let sql = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     let sql1 = "UPDATE prevention_t SET status =?  WHERE preventionID = ?";
     db.get().query(sql, [state, status, reasons, category, id], (err, result) => {
         if (err) return next(err);
@@ -480,7 +480,7 @@ exports.approvedAnimal = function (req, res, next) {
     let category = "Animal";
 
     let sql3 = "UPDATE animal_t SET dateTime=CURRENT_TIMESTAMP,status=? WHERE animalID = ?";
-    let sql1 = "UPDATE notification_t SET dateTime = CURRENT_TIMESTAMP, state =?,status =? WHERE category =? AND addedID =? ";
+    let sql1 = "UPDATE request_t SET dateTime = CURRENT_TIMESTAMP, state =?,status =? WHERE category =? AND addedID =? ";
     db.get().query(sql3, [status, req.params.id], (error, result3) => {
         if (error) return next(error);
         db.get().query(sql1, [state, status, category, id], (err1, result1) => {
@@ -501,7 +501,7 @@ exports.rejectAnimal = (req, res, next) => {
     let state = "noticed";
 
     let sql = "UPDATE animal_t SET status = ?, dateTime = CURRENT_TIMESTAMP WHERE animalID = ?";
-    let sql1 = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     db.get().query(sql, [status, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [state, status, reasons, category, id], (err1, result1) => {
@@ -574,7 +574,7 @@ exports.approvedBacteria = (req, res, next) => {
 
     let updateBacteria = (result) => {
         let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, animalID = ?,bacteriumTaxoID =?,staffID = ?,dateTime=CURRENT_TIMESTAMP,status=? WHERE bacteriumID = ?";
-        let sql1 = "UPDATE notification_t SET dateTime = CURRENT_TIMESTAMP, status = ?,state = ? WHERE addedID = ?";
+        let sql1 = "UPDATE request_t SET dateTime = CURRENT_TIMESTAMP, status = ?,state = ? WHERE addedID = ?";
         db.get().query(sql, [speciesName, genusName, scientificName, tissue, sample, isolation, identification, animalID, result[0].bacteriumTaxoID,  req.session.staffID, status,id], (err, result) => {
             if (err) return next(err);
             db.get().query(sql1, [status, state, id], (err1, result1) => {
@@ -635,7 +635,7 @@ exports.rejectBacteria = (req, res, next) => {
     let state = "noticed";
 
     let sql = "UPDATE bacteria_t SET status = ?, dateTime = CURRENT_TIMESTAMP WHERE bacteriumID = ?";
-    let sql1 = "UPDATE notification_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
+    let sql1 = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
     db.get().query(sql, [status, id], (err, result) => {
         if (err) return next(err);
         db.get().query(sql1, [state, status, reasons, category, id], (err1, result1) => {

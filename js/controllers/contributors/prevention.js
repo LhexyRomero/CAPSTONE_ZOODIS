@@ -45,10 +45,10 @@ exports.addPrevention = (req,res,next) =>{
 
     let insertPrevention = () => {
         let sql = "INSERT INTO prevention_t (preventions,diseaseID,status,staffID,dateTime) VALUES (?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
+        let sql2 = "INSERT INTO request_t (dateTime, status, staffName, addedData, staffID, category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
         db.get().query(sql,[prevention,diseaseID,status,req.session.staffID],(err,result)=>{
             if(err) return next(err);
-            db.get().query(sql2, [status, name, prevention, req.session.staffID, category,result.insertId,state], (err2, result2) => {
+            db.get().query(sql2, [status, name, prevention, req.session.staffID, category,result.insertId,state,req.session.staffData.journalID], (err2, result2) => {
                 if(err2) return next(err2);
                 res.status(200).send({success: true, detail: "Successfully Submitted to Admin!"});
             });

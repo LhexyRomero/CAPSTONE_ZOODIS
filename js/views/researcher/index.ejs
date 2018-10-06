@@ -43,11 +43,11 @@
 							</form>
 						</div>
 						<div class="tab-pane show active" id="bacteria" role="tabpanel" aria-labelledby="bacteria-tab">
-							<form class="form-wrap" method="POST" id="searchBacteria">
+							<form class="form-wrap" method="POST" action="/researcher_bacteria" id="searchBacteria">
 								<p>View bacteria details such as their taxonomic classification and their physiological characteristics.</p><br>
 								<input type="text" class="form-control" name="bacteriaScientificName" placeholder="Scientific Name">
 								<div class="bacteriaNotif"></div>
-								<button type="button" onclick="searchBacteria()" class="genric-btn primary">Search Bacteria&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+								<button type="submit" class="genric-btn primary">Search Bacteria&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
 						<div class="tab-pane" id="disease" role="tabpanel" aria-labelledby="disease-tab">
@@ -199,6 +199,7 @@
 	<!-- End footer Area -->
 	<script src="../../assets/js/researcher/animalSearch.js"></script>
 	<script src="../../assets/js/researcher/diseaseSearch.js"></script>
+	<script src="../../assets/js/researcher/bacteriaSearch.js"></script>
 </body>
 
 </html>

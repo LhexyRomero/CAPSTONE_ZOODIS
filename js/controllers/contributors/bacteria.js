@@ -16,10 +16,10 @@ exports.addBacteriaTaxon = (req, res, next) => {
 
     let insertBacteriaTaxon = function () {
         let sql = "INSERT INTO bacteriataxo_t (phylum, class, orderr, family, genus, species,status,journalID,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql2 = "INSERT INTO notification_t (dateTime, status, staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?,?,?)";
+        let sql2 = "INSERT INTO request_t (dateTime, status, staffName, addedData, staffID, category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?,?,?)";
         db.get().query(sql, [strPhylum, strClass, strOrder, strFamily, strGenus, strSpecies, status, req.session.staffData.journalID, req.session.staffID], (err, result) => {
             if (err) return next(err);
-            db.get().query(sql2, [status, name, strGenus + " " + strSpecies, req.session.staffID, category, result.insertId, state], (err2, result2) => {
+            db.get().query(sql2, [status, name, strGenus + " " + strSpecies, req.session.staffID, category, result.insertId, state, req.session.staffData.journalID], (err2, result2) => {
                 if (err2) return next(err2);
 
                 res.status(200).send({ success: true, detail: "Successfuly Submitted to Admin!", data: result });
@@ -121,12 +121,12 @@ exports.addToxin = (req, res, next) => {
     let insertToxin = function () {
         let sql = "INSERT INTO toxin_t (name,structureFeature,function,status,staffID,dateTime) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO bacteriatoxin_t (bacteriumID,toxinID) VALUES (?,?)";
-        let sql2 = "INSERT INTO notification_t (dateTime, status,staffName, addedData, staffID, category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
+        let sql2 = "INSERT INTO request_t (dateTime, status,staffName, addedData, staffID, category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
         db.get().query(sql, [strToxinName, strStructureFeature, strFunction, status, req.session.staffID], (err, result) => {
             if (err) return next(err);
             db.get().query(sql1, [selectBacteria, result.insertId], (err1, result1) => {
                 if (err1) return next(result1);
-                db.get().query(sql2, [status, name, strToxinName, req.session.staffID, category, result.insertId, state], (err2, result2) => {
+                db.get().query(sql2, [status, name, strToxinName, req.session.staffID, category, result.insertId, state, req.session.staffData.journalID], (err2, result2) => {
                     if (err2) return next(err2);
                     res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
                 });
@@ -266,11 +266,11 @@ exports.addBacteria = (req, res, next) => {
 
     let insertBacteria = (result) => {
         let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql1 = "INSERT INTO notification_t (dateTime,status,staffName, addedData, staffID,category,addedID,state) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?)";
+        let sql1 = "INSERT INTO request_t (dateTime,status,staffName, addedData, staffID,category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
         db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
             if (err) return next(err);
             console.log("1st queyr");
-            db.get().query(sql1, [status, name, strScientificName, req.session.staffID, category, resulta.insertId, state], (err1, result1) => {
+            db.get().query(sql1, [status, name, strScientificName, req.session.staffID, category, resulta.insertId, state, req.session.staffData.journalID], (err1, result1) => {
                 if (err1) return next(err1);
                 console.log("2nd query");
                 res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
