@@ -7,19 +7,29 @@ exports.notificationCard = (req,res,next) =>{
     db.get().query(sql,(err,result)=>{
         if(err) return next(err);
 
-        for (let index = 0; index < result.length; index++) {
-            
-            let sql1 = "SELECT * FROM request_t WHERE assignID =?";
-            db.get().query(sql1,[result[index].assignID],(err1,result1)=>{
-                if(err1) return next(err1);
+        let promises = [];
+        data.forEach((element,index) => {
+            promises.push(new Promise((resolve,reject)=>{
+                let sql1 = "SELECT * FROM request_t WHERE assignID =?";
+                db.get().query(sql1,[result[index].assignID],(err1,result1)=>{
+                if(err1) return reject(err1);
 
-                console.log(result1);
-
-            });
-            
-            console.log("here");
-            console.log(result[index].assignID);
-        }
+                resolve(result1);
+                //console.log(result1);
+                });
+            }));
+            if(index == result1.length-1){
+                Promise.all(promises).then((result)=>{
+                    res.status(200).send({success:true, detail:"", data:result});
+                });
+            }
+        });
     });
-    res.status(200).send({success:true, detail:"", data:resResult});
 }
+
+
+
+
+//
+
+

@@ -178,7 +178,6 @@ function viewDisease(vDiseaseID) {
         console.log("here");
         let data = response.data;
         let html = "";
-       // let selectedBacteria = "<option value ="+element.bacteriumID+">"+element.bacteriumName+"<option>";
         let bodySite = "<p>"+data.bodySite+"</p>";
         let diseaseName = "<h5><font color='#9c27b0'><b>" + data.diseaseName + "</b></font></h5>";
         let diseaseDesc = "<p>" + data.diseaseDesc + "</p>";
@@ -202,7 +201,6 @@ let editDiseaseID = -1;
 function editDisease(id) {
     editDiseaseID = id;
     let url = "/viewDisease/" + editDiseaseID;
-    //console.log(url);
 
     $.get(url,(response) =>{
         if(response.success == false) {
@@ -210,7 +208,6 @@ function editDisease(id) {
             return;
         }
 
-        //console.log("meron");   
         let data = response.data;
         $('input[name=modalSite').val(data.bodySite);
         $('input[name=modalName').val(data.diseaseName);
@@ -219,7 +216,6 @@ function editDisease(id) {
         $("#modalSymptoms").html("");
 
         data.symptoms.forEach((element,index) => {
-            //console.log(element,index);
             addFieldEdit(element);
         });
 
