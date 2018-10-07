@@ -129,12 +129,15 @@ router.get('/bacteria', auth.authenticate, (req,res,next)=>{
 
 router.post('/bacteria',bacteria.addBacteria);
 router.post('/updateBacteria/:id',bacteria.updateBacteria);
+router.post('/bacteriaHost',bacteria.bacteriaHost);
 router.get('/bacteriaList',bacteria.bacteriaList);
 router.get('/toSelectBacteria',bacteria.toSelectBacteria);
 router.get('/toSelectBacteria2',bacteria.toSelectBacteria2);
+router.get('/toSelectBacteria3',bacteria.toSelectBacteria3);
 router.get('/toSelectJournalBacteria',bacteria.toSelectJournalBacteria);
 router.get('/viewBacteria/:id',bacteria.viewBacteria);
 router.get('/editBacteria/:id',bacteria.viewBacteria);
+
 
 router.get('/disease', auth.authenticate,(req,res,next)=>{
     res.render('admin/disease');
