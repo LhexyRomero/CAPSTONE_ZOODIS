@@ -883,7 +883,11 @@ function editBacteria(id) {
             $.notify("Error getting data from the Server!",{type:"danger"});
             return;
         }
-        
+
+        let data = response.data;
+        data.forEach((element,index) => {
+            
+        });
 
         $("select[name=toSelect]").val(response.data.animalID);
         $('input[name=modalGenusName]').val(response.data.genusName);
