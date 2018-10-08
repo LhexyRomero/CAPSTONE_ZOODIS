@@ -151,7 +151,6 @@ $(function () { //onload
     });
 });
 let taxoBacSearch = false;
-
 let isClick = 0;
 function toSelectBacteria() {
     $.get("/toSelectBacteria", (response) => {
@@ -872,6 +871,8 @@ function viewBacteria(id) {
 
 }
 
+
+let hostCount = 0;
 function editBacteria(id) {
     globalBacteriumID = id;
     let url = "/editBacteria/"+globalBacteriumID;
@@ -885,13 +886,23 @@ function editBacteria(id) {
         }
 
         let data = response.data;
-        data.forEach((element,index) => {
-            
+
+        data.animal.forEach((element,index) => {
+            console.log(data.animal);
+            let html ="<input class='form-control' name='addHost"+hostCount+"' value='"+ element.animalName +"' type = 'text'/><br>";
+            let buttonName = "buttonEdit" + hostCount;
+            let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+        
+            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+        
+            $("#modalHost").append(newDiv); 
+            hostCount++;
         });
 
         $("select[name=toSelect]").val(response.data.animalID);
         $('input[name=modalGenusName]').val(response.data.genusName);
         $("input[name=modalSpeciesName]").val(response.data.speciesName);
+        $("input[name=modalScientificName]").val(response.data.scientificName);
         $("input[name=modalTissue]").val(response.data.tissueSpecifity);
         $("input[name=modalSample]").val(response.data.sampleType);
         $("input[name=modalIsolation]").val(response.data.isolation);
@@ -905,7 +916,12 @@ function editBacteria(id) {
     });
 }
 
-function updateBacteria() {
+function deleteHostField(selected,hostID,bacteriumID){
+    $('.deleteHost' + selected).remove();
+}
+
+
+function updateBacteria(hostID) {
 
     let url = "/updateBacteria/"+globalBacteriumID;
     let data = $("#editBacteriaForm").serializeArray();
