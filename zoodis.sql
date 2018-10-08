@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2018 at 09:47 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Generation Time: Oct 08, 2018 at 05:48 AM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `zoodis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `animalbacteria_t`
+--
+
+CREATE TABLE `animalbacteria_t` (
+  `animalbacteriaID` int(11) NOT NULL,
+  `animalID` int(11) NOT NULL,
+  `bacteriumID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `animalbacteria_t`
+--
+
+INSERT INTO `animalbacteria_t` (`animalbacteriaID`, `animalID`, `bacteriumID`) VALUES
+(1, 13, 11),
+(2, 27, 27),
+(3, 23, 27),
+(4, 23, 27),
+(5, 15, 28),
+(6, 24, 29),
+(7, 25, 30),
+(8, 19, 24),
+(9, 15, 31),
+(10, 14, 32);
 
 -- --------------------------------------------------------
 
@@ -57,7 +85,9 @@ INSERT INTO `animaltaxo_t` (`animalTaxoID`, `phylum`, `class`, `orderr`, `family
 (21, 'Chordata', 'Mammalia', 'Artiodactyla', 'Bovidae', 'Bos', 'taurus', 'approved', 14, '2018-10-01 21:34:07', 4),
 (22, 'asdaa', 'aa', 'aaaa', 'aaaaa', 'Aso', 'canis lupus', 'approved', 11, '2018-10-01 21:34:07', 4),
 (23, 'a', 'a', 'a', 'a', 'a', 'a', 'pending', 10, '2018-10-01 21:34:07', 1),
-(24, 'a', 'a', 'a', 'a', 'bbb', 'a', 'pending', 10, '2018-10-01 21:34:07', 1);
+(24, 'a', 'a', 'a', 'a', 'bbb', 'a', 'pending', 10, '2018-10-01 21:34:07', 1),
+(25, 'k', 'k', 'k', 'k', 'kk', 'k', 'pending', 10, '2018-10-05 10:03:07', 1),
+(26, 'er', 'rerer', 'ere', 'rer', 'ere', 'rer', 'pending', 7, '2018-10-06 11:23:32', 6);
 
 -- --------------------------------------------------------
 
@@ -94,7 +124,13 @@ INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `anima
 (22, 'Goat', 'Gallus gallus', 14, 'public\\image_upload\\3da2aa7e8694272.jpeg', 'approved', 6, 4, '2018-08-29 16:49:53'),
 (23, 'sample name', 'Canis lupus', 16, 'public\\image_upload\\cca799b8af959f8.png', 'pending', 11, 7, '2018-09-24'),
 (24, 'Aso', 'Canis lupus', 16, 'public\\image_upload\\20dc3f2a0426e95.png', 'approved', 5, 4, '2018-09-24 19:41:57'),
-(25, 'aaab', 'Canis lupus', 16, 'public\\image_upload\\179a7d9956f7ed1.jpeg', 'approved', 10, 4, '2018-09-28 14:29:42');
+(25, 'aaab', 'Canis lupus', 16, 'public\\image_upload\\179a7d9956f7ed1.jpeg', 'approved', 10, 4, '2018-09-28 14:29:42'),
+(26, 'a', 'Canis lupus', 16, 'public\\image_upload\\d15c1b08fc0e84a.jpeg', 'pending', 5, 1, '2018-10-03 04:17:35'),
+(27, 'abbbb', 'Gallus gallus', 14, 'public\\image_upload\\0ef09a8c113951a.jpeg', 'pending', 5, 1, '2018-10-03 04:20:39'),
+(28, 'ererererererer', 'ere rer', 26, 'js\\public\\image_upload\\2f9e817baf2a9a4.jpeg', 'pending', 7, 6, '2018-10-06 11:29:02'),
+(29, 'rerererere', 'ere rer', 26, 'js\\public\\image_upload\\540f9bca2705add.jpeg', 'pending', 7, 6, '2018-10-06 11:30:08'),
+(30, 'erererer', 'ere rer', 26, 'js\\public\\image_upload\\66c279191eea32d.jpeg', 'pending', 7, 6, '2018-10-06 11:31:09'),
+(31, 'perperepre', 'ere rer', 26, 'js\\public\\image_upload\\612f1c39859e313.jpeg', 'pending', 7, 6, '2018-10-06 11:34:31');
 
 -- --------------------------------------------------------
 
@@ -132,7 +168,8 @@ INSERT INTO `bacteriataxo_t` (`bacteriumTaxoID`, `phylum`, `class`, `orderr`, `f
 (19, 'Proteobacteria', 'Gammaproteobacteria', ' Enterobacteriales', 'Enterobacteriaceae', 'Escherichia', 'coli', 'approved', 14, 4, '2018-08-29 10:11:56'),
 (20, 'Actinobacteria', 'Actinobacteria', 'Actinomycelates', 'Mycobacteriaceae', 'Mycobacterium', 'bovae', 'approved', 15, 4, '2018-08-29 10:30:59'),
 (21, 'sample phylum', 'samp class', 'samp order', 'samp family', 'a', 'a', 'pending', 11, 7, '2018-09-24'),
-(22, 'bbb', 'asdfghjkl', 'ako', 'bobo', 'pusa', 'meow', 'approved', 7, 4, '2018-09-24 19:30:22');
+(22, 'bbb', 'asdfghjkl', 'ako', 'bobo', 'pusa', 'meow', 'approved', 7, 4, '2018-09-24 19:30:22'),
+(23, 'er', 'ere', 're', 're', 're', 're', 'pending', 7, 6, '2018-10-06 11:23:48');
 
 -- --------------------------------------------------------
 
@@ -159,7 +196,10 @@ INSERT INTO `bacteriatoxin_t` (`bacteriaToxinID`, `bacteriumID`, `toxinID`) VALU
 (14, 14, 14),
 (15, 15, 15),
 (16, 11, 23),
-(17, 12, 24);
+(17, 12, 24),
+(18, 23, 25),
+(19, 23, 26),
+(20, 23, 27);
 
 -- --------------------------------------------------------
 
@@ -176,7 +216,6 @@ CREATE TABLE `bacteria_t` (
   `bacteriumSampleType` varchar(255) NOT NULL,
   `bacteriumIsolation` varchar(255) NOT NULL,
   `bacteriumIdentification` varchar(255) NOT NULL,
-  `animalID` int(11) NOT NULL,
   `bacteriumTaxoID` int(11) NOT NULL,
   `journalID` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
@@ -188,20 +227,29 @@ CREATE TABLE `bacteria_t` (
 -- Dumping data for table `bacteria_t`
 --
 
-INSERT INTO `bacteria_t` (`bacteriumID`, `bacteriumSpeciesName`, `bacteriumGenusName`, `bacteriumScientificName`, `bacteriumTissueSpecifity`, `bacteriumSampleType`, `bacteriumIsolation`, `bacteriumIdentification`, `animalID`, `bacteriumTaxoID`, `journalID`, `status`, `staffID`, `dateTime`) VALUES
-(11, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 13, 11, 7, 'approved', 4, '2018-08-27'),
-(12, 'interrogans', 'Leptospira', 'Leptospira interrogans', 'a', 'a', 'a', 'a', 14, 12, 9, 'approved', 4, '2018-08-29'),
-(13, 'canimorsus', 'Capnocytophaga', 'Capnocytophaga canimorsus', 'a', 'a', 'a', 'a', 15, 13, 8, 'approved', 4, '2018-08-29'),
-(14, 'bongori', 'Salmonella', 'Salmonella bongori', 'a', 'a', 'a', 'a', 16, 14, 5, 'approved', 4, '2018-08-29'),
-(15, 'psittaci', 'Chlamydia', 'Chlamydia psittaci', 'a', 'a', 'a', 'a', 17, 15, 6, 'approved', 4, '2018-08-29'),
-(16, 'aureus', 'Staphylococcus', 'Staphylococcus aureus', 'a', 'a', 'a', 'a', 18, 16, 11, 'approved', 4, '2018-08-29 09:36:13'),
-(17, 'tuberculosis', 'Mycobacterium', 'Mycobacterium tuberculosis', 'a', 'a', 'asdfghj', 'a', 19, 17, 12, 'approved', 4, '2018-08-29 09:50:02'),
-(18, 'jejuni', 'Campylobacter', 'Campylobacter jejuni', 'a', 'a', 'a', 'a', 20, 18, 13, 'approved', 4, '2018-08-29 10:00:55'),
-(19, 'coli', 'Escherichia', 'Escherichia coli', 'a', 'a', 'a', 'a', 21, 19, 14, 'approved', 4, '2018-08-29 10:12:30'),
-(20, 'bovae', 'Mycobacterium', 'Mycobacterium bovae', 'a', 'a', 'a', 'a', 21, 20, 15, 'approved', 4, '2018-08-29 10:31:31'),
-(21, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 22, 11, 16, 'approved', 4, '2018-08-29 16:51:25'),
-(22, 'aureus', 'Staphylococcus', 'Staphylococcus aureus', 'asd', 'asdf', 'method mo to', 'aaaaaaah', 23, 16, 11, 'pending', 7, '2018-09-24'),
-(23, 'meow', 'pusa', 'pusa meow', 'asd', 'aaaaa', 'aaaaaaawwww', 'aadfg', 24, 22, 5, 'approved', 4, '2018-09-24 19:45:56');
+INSERT INTO `bacteria_t` (`bacteriumID`, `bacteriumSpeciesName`, `bacteriumGenusName`, `bacteriumScientificName`, `bacteriumTissueSpecifity`, `bacteriumSampleType`, `bacteriumIsolation`, `bacteriumIdentification`, `bacteriumTaxoID`, `journalID`, `status`, `staffID`, `dateTime`) VALUES
+(11, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 7, 'approved', 4, '2018-08-27'),
+(12, 'interrogans', 'Leptospira', 'Leptospira interrogans', 'a', 'a', 'a', 'a', 12, 9, 'approved', 4, '2018-08-29'),
+(13, 'canimorsus', 'Capnocytophaga', 'Capnocytophaga canimorsus', 'a', 'a', 'a', 'a', 13, 8, 'approved', 4, '2018-08-29'),
+(14, 'bongori', 'Salmonella', 'Salmonella bongori', 'a', 'a', 'a', 'a', 14, 5, 'approved', 4, '2018-08-29'),
+(15, 'psittaci', 'Chlamydia', 'Chlamydia psittaci', 'a', 'a', 'a', 'a', 15, 6, 'approved', 4, '2018-08-29'),
+(16, 'aureus', 'Staphylococcus', 'Staphylococcus aureus', 'a', 'a', 'a', 'a', 16, 11, 'approved', 4, '2018-08-29 09:36:13'),
+(17, 'tuberculosis', 'Mycobacterium', 'Mycobacterium tuberculosis', 'a', 'a', 'asdfghj', 'a', 17, 12, 'approved', 4, '2018-08-29 09:50:02'),
+(18, 'jejuni', 'Campylobacter', 'Campylobacter jejuni', 'a', 'a', 'a', 'a', 18, 13, 'approved', 4, '2018-08-29 10:00:55'),
+(19, 'coli', 'Escherichia', 'Escherichia coli', 'a', 'a', 'a', 'a', 19, 14, 'approved', 4, '2018-08-29 10:12:30'),
+(20, 'bovae', 'Mycobacterium', 'Mycobacterium bovae', 'a', 'a', 'a', 'a', 20, 15, 'approved', 4, '2018-08-29 10:31:31'),
+(21, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 16, 'approved', 4, '2018-08-29 16:51:25'),
+(22, 'aureus', 'Staphylococcus', 'Staphylococcus aureus', 'asd', 'asdf', 'method mo to', 'aaaaaaah', 16, 11, 'pending', 7, '2018-09-24'),
+(23, 'meow', 'pusa', 'pusa meow', 'asd', 'aaaaa', 'aaaaaaawwww', 'aadfg', 22, 5, 'approved', 4, '2018-09-24 19:45:56'),
+(24, 're', 're', 're re', 'qw', 'qw', 'qw', 'qw', 23, 7, 'pending', 6, '2018-10-06 11:35:28'),
+(25, 'interrogans', 'Leptospira', 'Leptospira interrogans', 'qw', 'qw', 'qw', 'qw', 12, 7, 'pending', 6, '2018-10-06 11:36:56'),
+(26, 're', 're', 're re', 'uyu', 'uyuy', 'uuyuyu', 'uyuy', 23, 7, 'pending', 6, '2018-10-06 11:37:42'),
+(27, 'a', 'a', 'a a', 'a', 'a', 'a', 'aa', 21, 5, 'approved', 4, '2018-10-08 00:12:09'),
+(28, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 21, 5, 'approved', 4, '2018-10-08 00:17:02'),
+(29, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 21, 5, 'approved', 4, '2018-10-08 00:17:32'),
+(30, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 21, 5, 'approved', 4, '2018-10-08 00:18:08'),
+(31, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 7, 'approved', 4, '2018-10-08 00:21:50'),
+(32, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 5, 'approved', 4, '2018-10-08 00:22:07');
 
 -- --------------------------------------------------------
 
@@ -241,7 +289,8 @@ INSERT INTO `disease_t` (`diseaseID`, `bodySite`, `diseaseName`, `diseaseDesc`, 
 (25, '', 'b', 'b', 'b', 10, 'pending', 1, '2018-09-28'),
 (26, '', 'abbbb', 'a', 'a', 10, 'pending', 1, '2018-09-28'),
 (27, '', 'abbbbbbbbbbbbb', 'a', 'a:a', 10, 'approved', 4, '2018-09-28 12:18:18'),
-(28, 'akak', 'ak', 'a', 'a', 10, 'approved', 4, '2018-09-28 12:23:24');
+(28, 'akak', 'ak', 'a', 'a', 10, 'approved', 4, '2018-09-28 12:23:24'),
+(29, '', 'erererererer', 'erererere', 'rererere', 7, 'pending', 6, '2018-10-06 11:37:57');
 
 -- --------------------------------------------------------
 
@@ -264,90 +313,21 @@ CREATE TABLE `journal_t` (
 --
 
 INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `state`) VALUES
-(5, 'ZOODIS#83', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', ' 10.3389/fmicb.2016.02125', 'Incomplete', 'public\\others\\ae3c0cc7dfcfbb2.pdf', 'notify'),
+(5, 'ZOODIS#83', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', ' 10.3389/fmicb.2016.02125', 'completed', 'public\\others\\ae3c0cc7dfcfbb2.pdf', 'noticed'),
 (6, 'BASILIO#173', 'Zoonotic Diseases of Common Pet Birds: Psittacine, Passerine, and Columbiform Species', '10.1016/j.cvex.2011.05.00', 'completed', 'public\\others\\579d0a1530eecdf.pdf', 'noticed'),
-(7, 'BASILIO#24', 'Microbial Shifts in the Intestinal Microbiota of Salmonella Infected Chickens in Response to Enrofloxacin', '10.3389/fmicb.2017.01711', 'Incomplete', 'public\\others\\95f25a4515dfd82.pdf', 'notify'),
+(7, 'BASILIO#24', 'Microbial Shifts in the Intestinal Microbiota of Salmonella Infected Chickens in Response to Enrofloxacin', '10.3389/fmicb.2017.01711', 'Incomplete', 'public\\others\\95f25a4515dfd82.pdf', 'noticed'),
 (8, 'ZOODIS#101', 'Capnocytophaga canimorsus: an emerging cause of sepsis, meningitis, and post-splenectomy infection after dog bites', '10.1007/s10096-015-2360-7', 'Incomplete', 'public\\others\\c3e3f5c8ef3a078.pdf', 'notify'),
-(9, 'ZOODIS#102', 'Ecology of Leptospira interrogans in Norway Rats (Rattus norvegicus) in an Inner-City Neighborhood of Vancouver, Canada', '10.1371/journal.pntd.0002', 'completed', 'public\\others\\c156f82ef274e01.pdf', 'noticed'),
-(10, 'none', 'none', 'none', 'none', 'none', 'none'),
+(9, 'ZOODIS#102', 'Ecology of Leptospira interrogans in Norway Rats (Rattus norvegicus) in an Inner-City Neighborhood of Vancouver, Canada', '10.1371/journal.pntd.0002', 'Incomplete', 'public\\others\\c156f82ef274e01.pdf', 'notify'),
+(10, 'none', 'none', 'none', 'Incomplete', 'none', 'notify'),
 (11, 'ZOODIS#90', 'The feline skin microbiota: The bacteria inhabiting the skin of healthy and allergic cats', '10.1371/journal.pone.0178', 'Incomplete', 'public\\others\\decd410503b4e2a.pdf', 'noticed'),
 (12, 'ZOODIS#105', 'Mycobacterium tuberculosis in Wild Asian Elephants, Southern India', '10.3201/eid2303.161741', 'completed', 'public\\others\\17d2e15be729eaf.pdf', 'notify'),
 (13, 'ZOODIS#104', 'Global Epidemiology of Campylobacter Infection', '10.1128/CMR.00006-15', 'completed', 'public\\others\\6a04a5a39a4100d.pdf', 'notify'),
 (14, 'ZOODIS#103', 'Cattle Water Troughs as Reservoirs of Escherichia coli O157', '10.1128/AEM.67.7.3053-305', 'completed', 'public\\others\\919176a3930ba28.pdf', 'notify'),
 (15, 'ZOODIS#136', ' Comparative study of the gut microbiome potentially related to milk protein in Murrah buffaloes (Bubalus bubalis) and Chinese Holstein cattle', '0.1038/srep42189', 'Incomplete', 'public\\others\\a2db2db4a4f2bcd.pdf', 'notify'),
-(16, 'ZOODIS #6', 'jOURNAL sss', '10:12345', 'Incomplete', 'public\\others\\d349f7e1fb2bb64.pdf', 'notify');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notification_t`
---
-
-CREATE TABLE `notification_t` (
-  `dateTime` varchar(20) NOT NULL,
-  `status` varchar(25) NOT NULL,
-  `staffName` varchar(255) NOT NULL,
-  `addedData` varchar(255) NOT NULL,
-  `staffID` int(11) NOT NULL,
-  `notificationID` int(11) NOT NULL,
-  `category` varchar(25) NOT NULL,
-  `addedID` int(11) NOT NULL,
-  `state` varchar(25) NOT NULL,
-  `message` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `notification_t`
---
-
-INSERT INTO `notification_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `notificationID`, `category`, `addedID`, `state`, `message`) VALUES
-('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 73, 'Animal Taxonomy', 14, 'read', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 74, 'Bacteria Taxonomy', 11, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 75, 'Animal', 13, 'read', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 76, 'Bacteria', 11, 'read', ''),
-('2018-08-27', 'rejected', 'lhexy romero', 'Clostridium difficile toxin A', 1, 77, 'Toxin', 9, 'read', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin B', 1, 78, 'Toxin', 10, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', ' Clostridium difficile Infection', 1, 79, 'Disease', 13, 'read', ''),
-('2018-08-27', 'rejected', 'lhexy romero', 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.', 1, 80, 'Prevention', 9, 'read', ''),
-('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 81, 'Animal Taxonomy', 15, 'noticed', ''),
-('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospira interrogans', 6, 82, 'Bacteria Taxonomy', 12, 'noticed', ''),
-('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 83, 'Animal', 14, 'noticed', ''),
-('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospira interrogans', 6, 84, 'Bacteria', 12, 'noticed', ''),
-('2018-08-27', 'approved', 'Ibrahim Samson', 'Haemolysins', 6, 85, 'Toxin', 11, 'noticed', ''),
-('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospirosis', 6, 86, 'Disease', 14, 'noticed', ''),
-('2018-08-27', 'approved', 'Ibrahim Samson', 'Avoid contaminated water.: Keep away from infected animals, especially wild rats.:Be aware of your surroundings, especially when you travel. ', 6, 87, 'Prevention', 10, 'noticed', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Canis lupus', 7, 88, 'Animal Taxonomy', 16, 'read', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 89, 'Bacteria Taxonomy', 13, 'noticed', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Canis lupus', 7, 90, 'Animal', 15, 'noticed', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 91, 'Bacteria', 13, 'noticed', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Shiga Toxin', 7, 92, 'Toxin', 12, 'noticed', ''),
-('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus Infection', 7, 93, 'Disease', 15, 'noticed', ''),
-('2018-08-27', 'approved', 'Flor Castillo', 'If you have been bitten by a dog or cat, call your doctor right away, even if you don’t feel sick.', 7, 94, 'Prevention', 11, 'noticed', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Anas platyrhynchos', 1, 95, 'Animal Taxonomy', 17, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Salmonella bongori', 1, 96, 'Bacteria Taxonomy', 14, 'read', ''),
-('2018-08-27', 'approved', 'lhexy romero', 'Anas platyrhynchos', 1, 97, 'Animal', 16, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Salmonella bongori', 1, 98, 'Bacteria', 14, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Typhoid Toxin SpvA', 1, 99, 'Toxin', 13, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Typhoid Toxin CdtB ', 1, 100, 'Toxin', 14, 'read', ''),
-('2018-08-27', 'pending', 'lhexy romero', 'Salmonellosis', 1, 101, 'Disease', 16, 'notify', ''),
-('2018-08-27', 'pending', 'lhexy romero', 'Cacatua galerita', 1, 102, 'Animal Taxonomy', 18, 'notify', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Chlamydia psittaci', 1, 103, 'Bacteria Taxonomy', 15, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Cacatua galerita', 1, 104, 'Animal', 17, 'read', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Chlamydia psittaci', 1, 105, 'Bacteria', 15, 'noticed', ''),
-('2018-08-29', 'approved', 'lhexy romero', 'Chlamydial cytotoxin', 1, 106, 'Toxin', 15, 'noticed', ''),
-('2018-08-27', 'rejected', 'lhexy romero', 'Psittacosis', 1, 107, 'Disease', 17, 'read', 'Error'),
-('2018-08-29', 'approved', 'lhexy romero', 'Antibiotics:Oral Therapy', 1, 108, 'Prevention', 12, 'read', ''),
-('2018-09-24', 'pending', 'Flor Castillo', 'a a', 7, 109, 'Bacteria Taxonomy', 21, 'notify', ''),
-('2018-09-24', 'pending', 'Flor Castillo', 'Canis lupus', 7, 110, 'Animal', 23, 'notify', ''),
-('2018-09-24', 'pending', 'Flor Castillo', 'Staphylococcus aureus', 7, 111, 'Bacteria', 22, 'notify', ''),
-('2018-09-24', 'approved', 'Flor Castillo', 'salmonella', 7, 112, 'Disease', 22, 'noticed', ''),
-('2018-09-24', 'rejected', 'Flor Castillo', 'hahahahaha', 7, 113, 'Prevention', 17, 'noticed', 'Panget'),
-('2018-09-26', 'pending', 'Lhexy Romero', 'a a', 1, 114, 'Animal Taxonomy', 23, 'notify', ''),
-('2018-09-26', 'pending', 'Lhexy Romero', 'bbb a', 1, 115, 'Animal Taxonomy', 24, 'notify', ''),
-('2018-09-28', 'pending', 'Lhexy Romero', 'b', 1, 116, 'Toxin', 24, 'notify', ''),
-('2018-09-28', 'pending', 'Lhexy Romero', 'a', 1, 117, 'Disease', 24, 'notify', ''),
-('2018-09-28', 'pending', 'Lhexy Romero', 'b', 1, 118, 'Disease', 25, 'notify', ''),
-('2018-09-28', 'pending', 'Lhexy Romero', 'abbbb', 1, 119, 'Disease', 26, 'notify', '');
+(16, 'ZOODIS #6', 'jOURNAL sss', '10:12345', 'Incomplete', 'public\\others\\d349f7e1fb2bb64.pdf', 'notify'),
+(17, 'RJ104', 'Lhexy Romero', '10.1128/CMR.00006-15.', 'Incomplete', 'js\\public\\others\\5d52966687186fd.pdf', 'notify'),
+(18, 'RJ180', 'RUMINANT', '10.1371/journal.pntd.0002', 'Incomplete', 'js\\public\\others\\d54ccd115a18532.pdf', 'noticed'),
+(19, 'ZOODIS#244444444', 'a', '56888/33', 'Incomplete', 'js\\public\\others\\2c94c409433a5ad.pdf', 'notify');
 
 -- --------------------------------------------------------
 
@@ -379,7 +359,92 @@ INSERT INTO `prevention_t` (`preventionID`, `preventions`, `diseaseID`, `status`
 (16, 'Wash utensils.:Use hot soapy water on knives, countertops and cutting boards before and after they come into contact with fresh produce or raw meat.:Wash your hands.', 21, 'approved', 4, '2018-08-29 10:20:26'),
 (17, 'hahahahaha', 22, 'rejected', 7, '2018-09-24'),
 (18, 'dddddd', 23, 'approved', 4, '2018-09-24 19:51:09'),
-(19, 'a:a', 16, 'approved', 4, '2018-09-26 23:07:03');
+(19, 'a:a', 16, 'approved', 4, '2018-09-26 23:07:03'),
+(20, 'a:a', 27, 'approved', 4, '2018-10-03 04:10:01'),
+(21, 'yyytyytyt:yuytytytyty', 29, 'pending', 6, '2018-10-06 11:38:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `request_t`
+--
+
+CREATE TABLE `request_t` (
+  `dateTime` varchar(20) NOT NULL,
+  `status` varchar(25) NOT NULL,
+  `staffName` varchar(255) NOT NULL,
+  `addedData` varchar(255) NOT NULL,
+  `staffID` int(11) NOT NULL,
+  `requestID` int(11) NOT NULL,
+  `category` varchar(25) NOT NULL,
+  `addedID` int(11) NOT NULL,
+  `state` varchar(25) NOT NULL,
+  `message` text NOT NULL,
+  `assignID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `request_t`
+--
+
+INSERT INTO `request_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `requestID`, `category`, `addedID`, `state`, `message`, `assignID`) VALUES
+('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 73, 'Animal Taxonomy', 14, 'read', '', 0),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 74, 'Bacteria Taxonomy', 11, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 75, 'Animal', 13, 'read', '', 0),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridioides difficile', 1, 76, 'Bacteria', 11, 'read', '', 0),
+('2018-08-27', 'rejected', 'lhexy romero', 'Clostridium difficile toxin A', 1, 77, 'Toxin', 9, 'read', '', 0),
+('2018-08-27', 'approved', 'lhexy romero', 'Clostridium difficile toxin B', 1, 78, 'Toxin', 10, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', ' Clostridium difficile Infection', 1, 79, 'Disease', 13, 'read', '', 0),
+('2018-08-27', 'rejected', 'lhexy romero', 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.', 1, 80, 'Prevention', 9, 'read', '', 0),
+('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 81, 'Animal Taxonomy', 15, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospira interrogans', 6, 82, 'Bacteria Taxonomy', 12, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Ibrahim Samson', 'Rattus rattus', 6, 83, 'Animal', 14, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospira interrogans', 6, 84, 'Bacteria', 12, 'noticed', '', 0),
+('2018-08-27', 'approved', 'Ibrahim Samson', 'Haemolysins', 6, 85, 'Toxin', 11, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Ibrahim Samson', 'Leptospirosis', 6, 86, 'Disease', 14, 'noticed', '', 0),
+('2018-08-27', 'approved', 'Ibrahim Samson', 'Avoid contaminated water.: Keep away from infected animals, especially wild rats.:Be aware of your surroundings, especially when you travel. ', 6, 87, 'Prevention', 10, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Canis lupus', 7, 88, 'Animal Taxonomy', 16, 'read', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 89, 'Bacteria Taxonomy', 13, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Canis lupus', 7, 90, 'Animal', 15, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus', 7, 91, 'Bacteria', 13, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Shiga Toxin', 7, 92, 'Toxin', 12, 'noticed', '', 0),
+('2018-08-29', 'approved', 'Flor Castillo', 'Capnocytophaga canimorsus Infection', 7, 93, 'Disease', 15, 'noticed', '', 0),
+('2018-08-27', 'approved', 'Flor Castillo', 'If you have been bitten by a dog or cat, call your doctor right away, even if you don’t feel sick.', 7, 94, 'Prevention', 11, 'noticed', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Anas platyrhynchos', 1, 95, 'Animal Taxonomy', 17, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Salmonella bongori', 1, 96, 'Bacteria Taxonomy', 14, 'read', '', 0),
+('2018-08-27', 'approved', 'lhexy romero', 'Anas platyrhynchos', 1, 97, 'Animal', 16, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Salmonella bongori', 1, 98, 'Bacteria', 14, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Typhoid Toxin SpvA', 1, 99, 'Toxin', 13, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Typhoid Toxin CdtB ', 1, 100, 'Toxin', 14, 'read', '', 0),
+('2018-08-27', 'pending', 'lhexy romero', 'Salmonellosis', 1, 101, 'Disease', 16, 'notify', '', 0),
+('2018-08-27', 'pending', 'lhexy romero', 'Cacatua galerita', 1, 102, 'Animal Taxonomy', 18, 'notify', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Chlamydia psittaci', 1, 103, 'Bacteria Taxonomy', 15, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Cacatua galerita', 1, 104, 'Animal', 17, 'read', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Chlamydia psittaci', 1, 105, 'Bacteria', 15, 'noticed', '', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Chlamydial cytotoxin', 1, 106, 'Toxin', 15, 'noticed', '', 0),
+('2018-08-27', 'rejected', 'lhexy romero', 'Psittacosis', 1, 107, 'Disease', 17, 'read', 'Error', 0),
+('2018-08-29', 'approved', 'lhexy romero', 'Antibiotics:Oral Therapy', 1, 108, 'Prevention', 12, 'read', '', 0),
+('2018-09-24', 'pending', 'Flor Castillo', 'a a', 7, 109, 'Bacteria Taxonomy', 21, 'notify', '', 0),
+('2018-09-24', 'pending', 'Flor Castillo', 'Canis lupus', 7, 110, 'Animal', 23, 'notify', '', 0),
+('2018-09-24', 'pending', 'Flor Castillo', 'Staphylococcus aureus', 7, 111, 'Bacteria', 22, 'notify', '', 0),
+('2018-09-24', 'approved', 'Flor Castillo', 'salmonella', 7, 112, 'Disease', 22, 'noticed', '', 0),
+('2018-09-24', 'rejected', 'Flor Castillo', 'hahahahaha', 7, 113, 'Prevention', 17, 'noticed', 'Panget', 0),
+('2018-09-26', 'pending', 'Lhexy Romero', 'a a', 1, 114, 'Animal Taxonomy', 23, 'notify', '', 0),
+('2018-09-26', 'pending', 'Lhexy Romero', 'bbb a', 1, 115, 'Animal Taxonomy', 24, 'notify', '', 0),
+('2018-09-28', 'pending', 'Lhexy Romero', 'b', 1, 116, 'Toxin', 24, 'notify', '', 0),
+('2018-09-28', 'pending', 'Lhexy Romero', 'a', 1, 117, 'Disease', 24, 'notify', '', 0),
+('2018-09-28', 'pending', 'Lhexy Romero', 'b', 1, 118, 'Disease', 25, 'notify', '', 0),
+('2018-09-28', 'pending', 'Lhexy Romero', 'abbbb', 1, 119, 'Disease', 26, 'notify', '', 0),
+('2018-10-03 04:17:35', 'pending', 'Lhexy Romero', 'Canis lupus', 1, 120, 'Animal', 26, 'notify', '', 0),
+('2018-10-03 04:20:39', 'pending', 'Lhexy Romero', 'Gallus gallus', 1, 121, 'Animal', 27, 'notify', '', 0),
+('2018-10-05 10:03:07', 'pending', 'Lhexy Romero', 'kk k', 1, 122, 'Animal Taxonomy', 25, 'notify', '', 0),
+('2018-10-06 11:23:32', 'pending', 'Ibrahim Samson', 'ere rer', 6, 123, 'Animal Taxonomy', 26, 'notify', '', 7),
+('2018-10-06 11:23:48', 'pending', 'Ibrahim Samson', 're re', 6, 124, 'Bacteria Taxonomy', 23, 'notify', '', 7),
+('2018-10-06 11:25:29', 'pending', 'Ibrahim Samson', 're', 6, 125, 'Toxin', 27, 'notify', '', 0),
+('2018-10-06 11:34:31', 'pending', 'Ibrahim Samson', 'ere rer', 6, 126, 'Animal', 31, 'notify', '', 7),
+('2018-10-06 11:37:42', 'pending', 'Ibrahim Samson', 're re', 6, 127, 'Bacteria', 26, 'notify', '', 7),
+('2018-10-06 11:37:57', 'pending', 'Ibrahim Samson', 'erererererer', 6, 128, 'Disease', 29, 'notify', '', 7),
+('2018-10-06 11:38:14', 'pending', 'Ibrahim Samson', 'yyytyytyt:yuytytytyty', 6, 129, 'Prevention', 21, 'notify', '', 7);
 
 -- --------------------------------------------------------
 
@@ -408,10 +473,10 @@ CREATE TABLE `staff_t` (
 --
 
 INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `status`, `type`, `code`, `journalID`) VALUES
-(1, 'Lhexy', 'Romero', '', 'contributor', 'lhexyromero@gmail.com', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', '', 10),
+(1, 'Lhexy', 'Romero', '', 'contributor', 'lhexyromero@gmail.com', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', '', 18),
 (4, 'Leki', 'Lekay', '', 'admin', 'admin@site.com', '09227686712', '', 'd033e22ae348aeb5660fc2140aec35850c4da997', 0, '2', '', 0),
 (5, 'LhexyKhrystelle', 'Romero', '', 'lhexyromero', 'lhexyromero', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'q4n1pkildqe', 0),
-(6, 'Ibrahim', 'Samson', '', 'ibsamson', 'ibsamson', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'kcp8wkzo6a', 9),
+(6, 'Ibrahim', 'Samson', '', 'ibsamson', 'ibsamson', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'kcp8wkzo6a', 7),
 (7, 'Flor', 'Castillo', '', 'florcastillo', 'florcastillo@gmail.com', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '2', '88ok05jcmi8', 11),
 (9, 'Pyke', 'Bio', '', 'pykebio', 'pykebio', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'ddyhi58e4e', 10),
 (10, 'Bryan', 'Castillo', '', 'bryan', 'bryan', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'fo3uzesk6yd', 5),
@@ -419,7 +484,7 @@ INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `use
 (14, 'No', 'Account', '', '', '', '', '', '', 2, '3', '', 10),
 (15, 'Flor', 'Castillo', 'E', 'flor', 'zoodissystem@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 1, '3', '', 0),
 (16, 'Ganda', 'Talaga', 'K', 'Ganda', 'zoodissystem@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 2, '3', '', 0),
-(20, '', '', '', '', '', '', '', '', 0, '3', 'zziabnat6yf', 0),
+(20, 'bobo', 'k', '', 'bobo', 'bobo', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', 'zziabnat6yf', 10),
 (21, '', '', '', '', '', '', '', '', 0, '3', 'hy5fl6bis', 0),
 (22, '', '', '', '', '', '', '', '', 0, '3', 'ddqtwrdb9i5', 0),
 (23, '', '', '', '', '', '', '', '', 0, '3', 'kzxgspeobw9', 0),
@@ -441,7 +506,8 @@ INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `use
 (39, 'a', 'a', 'a', 'a', 'zoodissystem@gmail.com', '', '', '5bae372e69f5293eda5b478a2663f5330fe41631', 2, '3', '', 0),
 (40, 'a', 'a', 'a', 'a', 'zoodissystem@gmail.com', '', '', '5bae372e69f5293eda5b478a2663f5330fe41631', 2, '3', '', 0),
 (41, 'a', 'a', 'a', 'a', 'zoodissystem@gmail.com', '', '', '5bae372e69f5293eda5b478a2663f5330fe41631', 2, '3', '', 0),
-(42, 'a', 'a', 'a', 'a', 'lhexyromero@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 2, '3', '', 0);
+(42, 'a', 'a', 'a', 'a', 'lhexyromero@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 2, '3', '', 0),
+(43, '', '', '', '', '', '', '', '', 0, '3', '3izc1lhzgx4', 0);
 
 -- --------------------------------------------------------
 
@@ -479,7 +545,10 @@ INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `statu
 (21, 'bbb', 'a', 'a', 'approved', 4, '2018-09-12 12:06:18'),
 (22, 'Leki Toxin', 'mataba to', 'kain', 'approved', 4, '2018-09-24 19:31:32'),
 (23, 'a', 'a', 'a', 'approved', 4, '2018-09-28 11:11:43'),
-(24, 'b', 'b', 'b', 'pending', 1, '2018-09-28');
+(24, 'b', 'b', 'b', 'pending', 1, '2018-09-28'),
+(25, 'erer', 'rerere', 'rerere', 'pending', 6, '2018-10-06 11:24:14'),
+(26, 'erer', 'rerere', 'rerere', 'pending', 6, '2018-10-06 11:24:26'),
+(27, 're', 'rerer', 'ererer', 'pending', 6, '2018-10-06 11:25:29');
 
 -- --------------------------------------------------------
 
@@ -496,6 +565,7 @@ CREATE TABLE `userjournal_t` (
   `staffID` int(11) NOT NULL,
   `jState` int(11) NOT NULL,
   `jDateTime` varchar(20) NOT NULL,
+  `jPublished` varchar(20) NOT NULL,
   `userjournalID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -503,10 +573,12 @@ CREATE TABLE `userjournal_t` (
 -- Dumping data for table `userjournal_t`
 --
 
-INSERT INTO `userjournal_t` (`jTitle`, `jSubject`, `jMessage`, `jDoi`, `jFile`, `staffID`, `jState`, `jDateTime`, `userjournalID`) VALUES
-('RUMINANT', '', '', '3333', 'public\\others\\5cb7d805be8b98c.pdf', 12, 1, '', 1),
-('nnn', '', '', '23', 'public\\others\\2b45ddb64233f6e.pdf', 15, 1, '', 2),
-('a', '', '', '9', 'public\\others\\3eab7e52115b45c.pdf', 15, 1, '', 3);
+INSERT INTO `userjournal_t` (`jTitle`, `jSubject`, `jMessage`, `jDoi`, `jFile`, `staffID`, `jState`, `jDateTime`, `jPublished`, `userjournalID`) VALUES
+('RUMINANT', 'k', '', '3333', 'public\\others\\5cb7d805be8b98c.pdf', 12, 1, '2018-10-02 17:37:37', '0000-00-00', 1),
+('nnn', 'l', '', '23', 'public\\others\\2b45ddb64233f6e.pdf', 15, 1, '2018-10-02 17:37:37', '0000-00-00', 2),
+('a', '', '', '9', 'public\\others\\3eab7e52115b45c.pdf', 15, 1, '2018-10-02 17:37:37', '0000-00-00', 3),
+('Lhexy Romero', '', '', '10.1128/CMR.00006-15.', 'js\\public\\others\\5d52966687186fd.pdf', 12, 1, '2018-10-05 13:20:41', '0000-00-00', 4),
+('RUMINANT', '', '', '10.1371/journal.pntd.0002270', 'js\\public\\others\\d54ccd115a18532.pdf', 12, 1, '2018-10-05 13:34:51', '2013', 5);
 
 -- --------------------------------------------------------
 
@@ -529,13 +601,21 @@ CREATE TABLE `usermessage_t` (
 --
 
 INSERT INTO `usermessage_t` (`usermessageID`, `mName`, `mEmail`, `mSubject`, `mMessage`, `mState`, `mDateTime`) VALUES
-(1, '', '', 'Ganda ni Leki', 'a', 2, ''),
-(4, 'a', 'a@gmail.com', 'Leki is Pretty', 'a', 1, ''),
-(5, 'Lhexy Romero', 'zoodissystem@gmail.com', 'a', 'Hi', 1, '');
+(1, '', '', 'Ganda ni Leki', 'a', 2, '2018-10-02 17:38:13'),
+(4, 'a', 'a@gmail.com', 'Leki is Pretty', 'a', 1, '2018-10-02 17:38:13'),
+(5, 'Lhexy Romero', 'zoodissystem@gmail.com', 'a', 'Hi', 1, '2018-10-02 17:38:13');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `animalbacteria_t`
+--
+ALTER TABLE `animalbacteria_t`
+  ADD PRIMARY KEY (`animalbacteriaID`),
+  ADD KEY `animalID` (`animalID`),
+  ADD KEY `bacteriumID` (`bacteriumID`);
 
 --
 -- Indexes for table `animaltaxo_t`
@@ -575,7 +655,6 @@ ALTER TABLE `bacteriatoxin_t`
 --
 ALTER TABLE `bacteria_t`
   ADD PRIMARY KEY (`bacteriumID`),
-  ADD KEY `bateria_fk` (`animalID`),
   ADD KEY `bacteriumTaxoID` (`bacteriumTaxoID`),
   ADD KEY `bacteria_t_ibfk_2` (`journalID`),
   ADD KEY `staffID` (`staffID`);
@@ -595,18 +674,18 @@ ALTER TABLE `journal_t`
   ADD PRIMARY KEY (`journalID`);
 
 --
--- Indexes for table `notification_t`
---
-ALTER TABLE `notification_t`
-  ADD PRIMARY KEY (`notificationID`),
-  ADD KEY `staffID` (`staffID`);
-
---
 -- Indexes for table `prevention_t`
 --
 ALTER TABLE `prevention_t`
   ADD PRIMARY KEY (`preventionID`),
   ADD KEY `diseaseID` (`diseaseID`),
+  ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `request_t`
+--
+ALTER TABLE `request_t`
+  ADD PRIMARY KEY (`requestID`),
   ADD KEY `staffID` (`staffID`);
 
 --
@@ -640,76 +719,82 @@ ALTER TABLE `usermessage_t`
 --
 
 --
+-- AUTO_INCREMENT for table `animalbacteria_t`
+--
+ALTER TABLE `animalbacteria_t`
+  MODIFY `animalbacteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `animaltaxo_t`
 --
 ALTER TABLE `animaltaxo_t`
-  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `animal_t`
 --
 ALTER TABLE `animal_t`
-  MODIFY `animalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `animalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `bacteriataxo_t`
 --
 ALTER TABLE `bacteriataxo_t`
-  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `bacteriatoxin_t`
 --
 ALTER TABLE `bacteriatoxin_t`
-  MODIFY `bacteriaToxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `bacteriaToxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `bacteria_t`
 --
 ALTER TABLE `bacteria_t`
-  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `disease_t`
 --
 ALTER TABLE `disease_t`
-  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `journal_t`
 --
 ALTER TABLE `journal_t`
-  MODIFY `journalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `notification_t`
---
-ALTER TABLE `notification_t`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `journalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `prevention_t`
 --
 ALTER TABLE `prevention_t`
-  MODIFY `preventionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `preventionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `request_t`
+--
+ALTER TABLE `request_t`
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `staff_t`
 --
 ALTER TABLE `staff_t`
-  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `toxin_t`
 --
 ALTER TABLE `toxin_t`
-  MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `userjournal_t`
 --
 ALTER TABLE `userjournal_t`
-  MODIFY `userjournalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userjournalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `usermessage_t`
@@ -720,6 +805,13 @@ ALTER TABLE `usermessage_t`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `animalbacteria_t`
+--
+ALTER TABLE `animalbacteria_t`
+  ADD CONSTRAINT `animalbacteria_t_ibfk_1` FOREIGN KEY (`animalID`) REFERENCES `animal_t` (`animalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `animalbacteria_t_ibfk_2` FOREIGN KEY (`bacteriumID`) REFERENCES `bacteria_t` (`bacteriumID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `animaltaxo_t`
@@ -756,8 +848,7 @@ ALTER TABLE `bacteriatoxin_t`
 ALTER TABLE `bacteria_t`
   ADD CONSTRAINT `bacteria_t_ibfk_1` FOREIGN KEY (`bacteriumTaxoID`) REFERENCES `bacteriataxo_t` (`bacteriumTaxoID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bacteria_t_ibfk_2` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `bacteria_t_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `bateria_fk` FOREIGN KEY (`animalID`) REFERENCES `animal_t` (`animalID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `bacteria_t_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `disease_t`
@@ -767,17 +858,17 @@ ALTER TABLE `disease_t`
   ADD CONSTRAINT `disease_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `notification_t`
---
-ALTER TABLE `notification_t`
-  ADD CONSTRAINT `notification_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
 -- Constraints for table `prevention_t`
 --
 ALTER TABLE `prevention_t`
   ADD CONSTRAINT `prevention_t_ibfk_1` FOREIGN KEY (`diseaseID`) REFERENCES `disease_t` (`diseaseID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `prevention_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `request_t`
+--
+ALTER TABLE `request_t`
+  ADD CONSTRAINT `request_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `toxin_t`
