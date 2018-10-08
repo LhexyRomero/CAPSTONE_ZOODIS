@@ -221,17 +221,23 @@ exports.addBacteria = (req, res, next) => {
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
 
     let checkBacteria = (cb) => {
-        let sql11 = "SELECT * FROM bacteria_t WHERE animalID = ? AND bacteriumScientificName = ?";
-        db.get().query(sql11, [animalID, strScientificName], (err11, result11) => {
+        let sql11 = "SELECT bacteriumScientificName, bacteriumID FROM bacteria_t WHERE bacteriumScientificName = ?";
+        let sql12 = "SELECT * FROM animalbacteria_t WHERE bacteriumID = ? AND animalID =?";
+        db.get().query(sql11, [strScientificName], (err11, result11) => {
             if (err11) return cb(err11);
-
             console.log(result11);
-            if (result11.length == 0) {
+            if(result11.length == 0) {
                 return cb(null, true);
             }
 
-            else {
-                return cb(null, false);
+            else{
+                db.get().query(sql12,[result11[0].bacteriumID,animalID],(err12,result12)=>{
+                    if(err12) return next(err12);
+                    
+                    if (result12.length == 0) {
+                        return cb(null, false);
+                    }
+                });
             }
         });
     }
@@ -265,15 +271,18 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let insertBacteria = (result) => {
-        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,animalID,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO request_t (dateTime,status,staffName, addedData, staffID,category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
-        db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, animalID, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
+        let sql2 = "INSERT INTO animalbacteria_t (animalID,bacteriumID) VALUES (?,?)";
+        db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
             if (err) return next(err);
-            console.log("1st queyr");
             db.get().query(sql1, [status, name, strScientificName, req.session.staffID, category, resulta.insertId, state, req.session.staffData.journalID], (err1, result1) => {
                 if (err1) return next(err1);
-                console.log("2nd query");
-                res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
+                db.get().query(sql2,[animalID,resulta.insertId],(err2,result2)=>{
+                    if(err2) return next(err2);
+
+                    res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
+                });
             });
         });
     };

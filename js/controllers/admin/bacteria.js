@@ -372,7 +372,7 @@ exports.viewBacteria = (req,res,next) =>{
     let id = req.params.id;
 
     let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
-    let sql1 = "SELECT animalbacteria_t.animalID, animalName FROM animal_t INNER JOIN animalbacteria_t ON animal_t.animalID = animalbacteria_t.animalID WHERE bacteriumID = ?";
+    let sql1 = "SELECT animalbacteria_t.bacteriumID, animalbacteria_t.animalID, animalName FROM animal_t INNER JOIN animalbacteria_t ON animal_t.animalID = animalbacteria_t.animalID WHERE bacteriumID = ?";
     db.get().query(sql,[id],(err,result)=>{
         if(err) return next(err);
         db.get().query(sql1,[id],(err1,result1)=>{
@@ -380,6 +380,7 @@ exports.viewBacteria = (req,res,next) =>{
                 console.log(result1);
             let dataDisplay = {
                 animal                  : result1,
+                bacteriumID             : result[0].bacteriumID,
                 genusName               : result[0].bacteriumGenusName,
                 speciesName             : result[0].bacteriumSpeciesName,
                 scientificName          : result[0].bacteriumScientificName,

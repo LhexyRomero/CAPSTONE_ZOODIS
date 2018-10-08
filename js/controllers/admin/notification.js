@@ -15,7 +15,6 @@ exports.notificationCard = (req,res,next) =>{
                 if(err1) return reject(err1);
 
                 resolve(result1);
-                //console.log(result1);
                 });
             }));
             if(index == result1.length-1){
