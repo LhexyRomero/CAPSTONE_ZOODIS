@@ -1,60 +1,53 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Oct 08, 2018 at 05:48 AM
--- Server version: 10.1.35-MariaDB
--- PHP Version: 7.2.9
-
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `zoodis`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `animalbacteria_t`
---
 
 CREATE TABLE `animalbacteria_t` (
   `animalbacteriaID` int(11) NOT NULL,
   `animalID` int(11) NOT NULL,
-  `bacteriumID` int(11) NOT NULL
+  `bacteriumID` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `animalbacteria_t`
---
-
-INSERT INTO `animalbacteria_t` (`animalbacteriaID`, `animalID`, `bacteriumID`) VALUES
-(1, 13, 11),
-(2, 27, 27),
-(3, 23, 27),
-(4, 23, 27),
-(5, 15, 28),
-(6, 24, 29),
-(7, 25, 30),
-(8, 19, 24),
-(9, 15, 31),
-(10, 14, 32);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `animaltaxo_t`
---
+INSERT INTO `animalbacteria_t` (`animalbacteriaID`, `animalID`, `bacteriumID`, `status`) VALUES
+(1, 13, 11, 1),
+(2, 27, 27, 0),
+(3, 23, 27, 1),
+(4, 23, 27, 1),
+(5, 15, 28, 1),
+(6, 24, 29, 1),
+(7, 25, 30, 1),
+(8, 19, 24, 1),
+(9, 15, 31, 1),
+(10, 14, 32, 1),
+(11, 25, 15, 0),
+(12, 13, 34, 0),
+(13, 13, 34, 0),
+(14, 13, 34, 0),
+(15, 13, 34, 0),
+(16, 13, 34, 0),
+(17, 24, 35, 0),
+(18, 14, 35, 0),
+(19, 30, 35, 0),
+(20, 28, 35, 0),
+(21, 31, 35, 0),
+(22, 25, 36, 0),
+(23, 29, 36, 0),
+(24, 30, 34, 0),
+(25, 15, 16, 0),
+(26, 24, 34, 0),
+(27, 13, 14, 0),
+(28, 13, 14, 1),
+(29, 27, 17, 1),
+(30, 28, 37, 1);
 
 CREATE TABLE `animaltaxo_t` (
   `animalTaxoID` int(11) NOT NULL,
@@ -70,10 +63,6 @@ CREATE TABLE `animaltaxo_t` (
   `staffID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `animaltaxo_t`
---
-
 INSERT INTO `animaltaxo_t` (`animalTaxoID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`, `status`, `journalID`, `dateTime`, `staffID`) VALUES
 (14, 'Chordata', 'Aves', 'Galliformes', 'Phasianidae', 'Gallus', 'gallus', 'approved', 7, '2018-10-01 21:34:07', 1),
 (15, 'Chordata', 'Mammalia', 'Rodentia', 'unranked', 'Rattus', 'rattus', 'approved', 9, '2018-10-01 21:34:07', 6),
@@ -87,13 +76,8 @@ INSERT INTO `animaltaxo_t` (`animalTaxoID`, `phylum`, `class`, `orderr`, `family
 (23, 'a', 'a', 'a', 'a', 'a', 'a', 'pending', 10, '2018-10-01 21:34:07', 1),
 (24, 'a', 'a', 'a', 'a', 'bbb', 'a', 'pending', 10, '2018-10-01 21:34:07', 1),
 (25, 'k', 'k', 'k', 'k', 'kk', 'k', 'pending', 10, '2018-10-05 10:03:07', 1),
-(26, 'er', 'rerer', 'ere', 'rer', 'ere', 'rer', 'pending', 7, '2018-10-06 11:23:32', 6);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `animal_t`
---
+(26, 'er', 'rerer', 'ere', 'rer', 'ere', 'rer', 'pending', 7, '2018-10-06 11:23:32', 6),
+(27, 'mm', 'm', 'm', 'm', 'mmmm', 'mmm', 'pending', 18, '2018-10-08 14:53:26', 1);
 
 CREATE TABLE `animal_t` (
   `animalID` int(11) NOT NULL,
@@ -106,10 +90,6 @@ CREATE TABLE `animal_t` (
   `staffID` int(11) NOT NULL,
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `animal_t`
---
 
 INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `animalTaxoID`, `image`, `status`, `journalID`, `staffID`, `dateTime`) VALUES
 (13, 'Chicken', 'Gallus gallus', 14, 'public\\others\\ea048baf270523f.jpeg', 'approved', 7, 1, '2018-08-27'),
@@ -132,12 +112,6 @@ INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `anima
 (30, 'erererer', 'ere rer', 26, 'js\\public\\image_upload\\66c279191eea32d.jpeg', 'pending', 7, 6, '2018-10-06 11:31:09'),
 (31, 'perperepre', 'ere rer', 26, 'js\\public\\image_upload\\612f1c39859e313.jpeg', 'pending', 7, 6, '2018-10-06 11:34:31');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `bacteriataxo_t`
---
-
 CREATE TABLE `bacteriataxo_t` (
   `bacteriumTaxoID` int(11) NOT NULL,
   `phylum` varchar(255) NOT NULL,
@@ -152,10 +126,6 @@ CREATE TABLE `bacteriataxo_t` (
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `bacteriataxo_t`
---
-
 INSERT INTO `bacteriataxo_t` (`bacteriumTaxoID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`, `status`, `journalID`, `staffID`, `dateTime`) VALUES
 (11, 'Firmicutes', 'Clostridia', 'Clostridiales', 'Peptostreptococcaceae', 'Clostridioides', 'difficile', 'approved', 7, 1, '2018-08-27'),
 (12, 'Spirochaetes', 'Spirochaetes', 'Spirochaetales', 'Leptospiraceae', 'Leptospira', 'interrogans', 'approved', 9, 6, '2018-08-29'),
@@ -169,23 +139,18 @@ INSERT INTO `bacteriataxo_t` (`bacteriumTaxoID`, `phylum`, `class`, `orderr`, `f
 (20, 'Actinobacteria', 'Actinobacteria', 'Actinomycelates', 'Mycobacteriaceae', 'Mycobacterium', 'bovae', 'approved', 15, 4, '2018-08-29 10:30:59'),
 (21, 'sample phylum', 'samp class', 'samp order', 'samp family', 'a', 'a', 'pending', 11, 7, '2018-09-24'),
 (22, 'bbb', 'asdfghjkl', 'ako', 'bobo', 'pusa', 'meow', 'approved', 7, 4, '2018-09-24 19:30:22'),
-(23, 'er', 'ere', 're', 're', 're', 're', 'pending', 7, 6, '2018-10-06 11:23:48');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bacteriatoxin_t`
---
+(23, 'er', 'ere', 're', 're', 're', 're', 'pending', 7, 6, '2018-10-06 11:23:48'),
+(24, 'nn', 'n', 'n', 'n', 'nnnn', 'nn', 'pending', 18, 1, '2018-10-08 14:53:58'),
+(25, 'ee', 'eee', 'e', 'e', 'ee', 'bbbbbba', 'approved', 19, 4, '2018-10-09 16:05:34'),
+(26, 'oo', 'o', 'o', 'oo', 'o', 'o', 'approved', 19, 4, '2018-10-09 16:49:17'),
+(27, 'll', 'll', 'l', 'llll', 'lnmm', 'm', 'pending', 18, 1, '2018-10-09 22:19:49'),
+(28, 'j', 'j', 'a', 'j', 'jjjj', 'jjjjj', 'pending', 18, 1, '2018-10-09 23:30:10');
 
 CREATE TABLE `bacteriatoxin_t` (
   `bacteriaToxinID` int(11) NOT NULL,
   `bacteriumID` int(11) NOT NULL,
   `toxinID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bacteriatoxin_t`
---
 
 INSERT INTO `bacteriatoxin_t` (`bacteriaToxinID`, `bacteriumID`, `toxinID`) VALUES
 (9, 11, 9),
@@ -200,12 +165,6 @@ INSERT INTO `bacteriatoxin_t` (`bacteriaToxinID`, `bacteriumID`, `toxinID`) VALU
 (18, 23, 25),
 (19, 23, 26),
 (20, 23, 27);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bacteria_t`
---
 
 CREATE TABLE `bacteria_t` (
   `bacteriumID` int(11) NOT NULL,
@@ -222,10 +181,6 @@ CREATE TABLE `bacteria_t` (
   `staffID` int(11) NOT NULL,
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bacteria_t`
---
 
 INSERT INTO `bacteria_t` (`bacteriumID`, `bacteriumSpeciesName`, `bacteriumGenusName`, `bacteriumScientificName`, `bacteriumTissueSpecifity`, `bacteriumSampleType`, `bacteriumIsolation`, `bacteriumIdentification`, `bacteriumTaxoID`, `journalID`, `status`, `staffID`, `dateTime`) VALUES
 (11, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 7, 'approved', 4, '2018-08-27'),
@@ -249,13 +204,12 @@ INSERT INTO `bacteria_t` (`bacteriumID`, `bacteriumSpeciesName`, `bacteriumGenus
 (29, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 21, 5, 'approved', 4, '2018-10-08 00:17:32'),
 (30, 'a', 'a', 'a a', 'a', 'a', 'a', 'a', 21, 5, 'approved', 4, '2018-10-08 00:18:08'),
 (31, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 7, 'approved', 4, '2018-10-08 00:21:50'),
-(32, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 5, 'approved', 4, '2018-10-08 00:22:07');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `disease_t`
---
+(32, 'difficile', 'Clostridioides', 'Clostridioides difficile', 'a', 'a', 'a', 'a', 11, 5, 'approved', 4, '2018-10-08 00:22:07'),
+(33, 'nn', 'nnnn', 'nnnn nn', 'a', 'a', 'a', 'a', 24, 18, 'pending', 1, '2018-10-08 14:56:28'),
+(34, 'bbbbbba', 'ee', 'ee bbbbbba', 'a', 'a', 'a', 'a', 25, 5, 'approved', 4, '2018-10-09 16:06:00'),
+(35, 'o', 'o', 'o o', 'o', 'o', 'o', 'o', 26, 5, 'approved', 4, '2018-10-09 16:49:41'),
+(36, 'm', 'lnmm', 'lnmm m', 'm', 'm', 'mm', 'm', 27, 18, 'pending', 1, '2018-10-09 22:20:08'),
+(37, 'jjjjj', 'jjjj', 'jjjj jjjjj', 'a', 'a', 'a', 'a', 28, 18, 'pending', 1, '2018-10-09 23:30:24');
 
 CREATE TABLE `disease_t` (
   `diseaseID` int(11) NOT NULL,
@@ -268,10 +222,6 @@ CREATE TABLE `disease_t` (
   `staffID` int(11) NOT NULL,
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `disease_t`
---
 
 INSERT INTO `disease_t` (`diseaseID`, `bodySite`, `diseaseName`, `diseaseDesc`, `symptoms`, `journalID`, `status`, `staffID`, `dateTime`) VALUES
 (13, '', ' Clostridium difficile Infection', 'Clostridium difficile infection is spread by bacterial spores found within feces. Surfaces may become contaminated with the spores with further spread occurring via the hands of healthcare workers. Diagnosis is by stool culture or testing for the bacteria\'s DNA or toxins known as Clostridium difficile toxin A and Clostridium difficile toxin B.', 'Diarrheaa:Fever:Abdominal pain', 7, 'approved', 1, '2018-08-27'),
@@ -290,13 +240,8 @@ INSERT INTO `disease_t` (`diseaseID`, `bodySite`, `diseaseName`, `diseaseDesc`, 
 (26, '', 'abbbb', 'a', 'a', 10, 'pending', 1, '2018-09-28'),
 (27, '', 'abbbbbbbbbbbbb', 'a', 'a:a', 10, 'approved', 4, '2018-09-28 12:18:18'),
 (28, 'akak', 'ak', 'a', 'a', 10, 'approved', 4, '2018-09-28 12:23:24'),
-(29, '', 'erererererer', 'erererere', 'rererere', 7, 'pending', 6, '2018-10-06 11:37:57');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `journal_t`
---
+(29, '', 'erererererer', 'erererere', 'rererere', 7, 'pending', 6, '2018-10-06 11:37:57'),
+(30, 'jj:j:', 'a', 'a', 'kk:m:', 18, 'pending', 1, '2018-10-10 02:01:48');
 
 CREATE TABLE `journal_t` (
   `journalID` int(11) NOT NULL,
@@ -307,10 +252,6 @@ CREATE TABLE `journal_t` (
   `file` varchar(255) NOT NULL,
   `state` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `journal_t`
---
 
 INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `state`) VALUES
 (5, 'ZOODIS#83', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', ' 10.3389/fmicb.2016.02125', 'completed', 'public\\others\\ae3c0cc7dfcfbb2.pdf', 'noticed'),
@@ -329,12 +270,6 @@ INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `
 (18, 'RJ180', 'RUMINANT', '10.1371/journal.pntd.0002', 'Incomplete', 'js\\public\\others\\d54ccd115a18532.pdf', 'noticed'),
 (19, 'ZOODIS#244444444', 'a', '56888/33', 'Incomplete', 'js\\public\\others\\2c94c409433a5ad.pdf', 'notify');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `prevention_t`
---
-
 CREATE TABLE `prevention_t` (
   `preventionID` int(11) NOT NULL,
   `preventions` text NOT NULL,
@@ -343,10 +278,6 @@ CREATE TABLE `prevention_t` (
   `staffID` int(11) NOT NULL,
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `prevention_t`
---
 
 INSERT INTO `prevention_t` (`preventionID`, `preventions`, `diseaseID`, `status`, `staffID`, `dateTime`) VALUES
 (9, 'Wash hands regularly and thoroughly.: Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.:People who are infected with C. difficile should have their own room and toilet facilities to avoid passing the infection onto others.', 13, 'approved', 1, '2018-08-27'),
@@ -363,12 +294,6 @@ INSERT INTO `prevention_t` (`preventionID`, `preventions`, `diseaseID`, `status`
 (20, 'a:a', 27, 'approved', 4, '2018-10-03 04:10:01'),
 (21, 'yyytyytyt:yuytytytyty', 29, 'pending', 6, '2018-10-06 11:38:14');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `request_t`
---
-
 CREATE TABLE `request_t` (
   `dateTime` varchar(20) NOT NULL,
   `status` varchar(25) NOT NULL,
@@ -382,10 +307,6 @@ CREATE TABLE `request_t` (
   `message` text NOT NULL,
   `assignID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `request_t`
---
 
 INSERT INTO `request_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `requestID`, `category`, `addedID`, `state`, `message`, `assignID`) VALUES
 ('2018-08-29', 'approved', 'lhexy romero', 'Gallus gallus', 1, 73, 'Animal Taxonomy', 14, 'read', '', 0),
@@ -444,13 +365,47 @@ INSERT INTO `request_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffI
 ('2018-10-06 11:34:31', 'pending', 'Ibrahim Samson', 'ere rer', 6, 126, 'Animal', 31, 'notify', '', 7),
 ('2018-10-06 11:37:42', 'pending', 'Ibrahim Samson', 're re', 6, 127, 'Bacteria', 26, 'notify', '', 7),
 ('2018-10-06 11:37:57', 'pending', 'Ibrahim Samson', 'erererererer', 6, 128, 'Disease', 29, 'notify', '', 7),
-('2018-10-06 11:38:14', 'pending', 'Ibrahim Samson', 'yyytyytyt:yuytytytyty', 6, 129, 'Prevention', 21, 'notify', '', 7);
+('2018-10-06 11:38:14', 'pending', 'Ibrahim Samson', 'yyytyytyt:yuytytytyty', 6, 129, 'Prevention', 21, 'notify', '', 7),
+('2018-10-08 14:53:26', 'pending', 'Lhexy Romero', 'mmmm mmm', 1, 130, 'Animal Taxonomy', 27, 'notify', '', 18),
+('2018-10-08 14:53:58', 'pending', 'Lhexy Romero', 'nnnn nn', 1, 131, 'Bacteria Taxonomy', 24, 'notify', '', 18),
+('2018-10-08 14:56:28', 'pending', 'Lhexy Romero', 'nnnn nn', 1, 132, 'Bacteria', 33, 'notify', '', 18),
+('2018-10-09 22:19:50', 'pending', 'Lhexy Romero', 'lnmm m', 1, 133, 'Bacteria Taxonomy', 27, 'notify', '', 18),
+('2018-10-09 22:20:08', 'pending', 'Lhexy Romero', 'lnmm m', 1, 134, 'Bacteria', 36, 'notify', '', 18),
+('2018-10-09 23:30:10', 'pending', 'Lhexy Romero', 'jjjj jjjjj', 1, 135, 'Bacteria Taxonomy', 28, 'notify', '', 18),
+('2018-10-09 23:30:24', 'pending', 'Lhexy Romero', 'jjjj jjjjj', 1, 136, 'Bacteria', 37, 'notify', '', 18),
+('2018-10-10 02:01:48', 'pending', 'Lhexy Romero', 'a', 1, 137, 'Disease', 30, 'notify', '', 18);
 
--- --------------------------------------------------------
+CREATE TABLE `site_t` (
+  `site` int(11) NOT NULL,
+  `cells` varchar(60) NOT NULL,
+  `type` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Table structure for table `staff_t`
---
+INSERT INTO `site_t` (`site`, `cells`, `type`) VALUES
+(1, 'Lymphoid Tissue', 1),
+(2, 'Human Gut', 1),
+(3, 'Red Blood Cells', 0),
+(6, 'White Blood Cells', 2),
+(7, 'Neutrophils', 2),
+(8, 'Eosinophils', 2),
+(9, 'Basophils', 2),
+(10, 'Platelets', 0),
+(11, 'Nerve Cells', 0),
+(12, 'Neuroglial Cells', 0),
+(13, 'Muscle Cells', 3),
+(14, 'Skeletal Muscle Cells', 3),
+(15, 'Cardiac Muscle Cells', 3),
+(16, 'Smooth Muscle Cells', 3),
+(17, 'Cartilages Cells', 0),
+(18, 'Bone Cells', 4),
+(19, 'Osteoclasts', 4),
+(20, 'Osteoblasts', 4),
+(21, 'Osteocytes', 4),
+(22, 'Lining Cells', 4),
+(23, 'Skin Cells', 0),
+(24, 'Endothelial Cells', 0),
+(25, 'Epithelial Cells', 0),
+(26, 'Fat Cells', 0);
 
 CREATE TABLE `staff_t` (
   `staffID` int(255) NOT NULL,
@@ -467,10 +422,6 @@ CREATE TABLE `staff_t` (
   `code` varchar(25) NOT NULL,
   `journalID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `staff_t`
---
 
 INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `userName`, `email`, `contact`, `address`, `password`, `status`, `type`, `code`, `journalID`) VALUES
 (1, 'Lhexy', 'Romero', '', 'contributor', 'lhexyromero@gmail.com', '09452177904', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 0, '1', '', 18),
@@ -509,12 +460,6 @@ INSERT INTO `staff_t` (`staffID`, `firstName`, `lastName`, `middleInitial`, `use
 (42, 'a', 'a', 'a', 'a', 'lhexyromero@gmail.com', '', '', '25988ea5c9cca2176e54593a1a793dca9dc262be', 2, '3', '', 0),
 (43, '', '', '', '', '', '', '', '', 0, '3', '3izc1lhzgx4', 0);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `toxin_t`
---
-
 CREATE TABLE `toxin_t` (
   `toxinID` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -524,10 +469,6 @@ CREATE TABLE `toxin_t` (
   `staffID` int(11) NOT NULL,
   `dateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `toxin_t`
---
 
 INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `status`, `staffID`, `dateTime`) VALUES
 (9, 'Clostridium difficile toxin A', 'Clostridium difficile toxin A (TcdA) is a toxin generated by Clostridium difficile. It is similar to Clostridium difficile Toxin B. The toxins are the main virulence factors produced by the gram positive, anaerobic, Clostridium difficile bacteria. The toxins function by damaging the intestinal mucosa and cause the symptoms of C. difficile infection, including pseudomembranous colitis.', 'The toxin acts by modifying host cell GTPase proteins by glucosylation, leading to changes in cellular activities. Risk factors for C. difficile infection include antibiotic treatment, which can disrupt normal intestinal microbiota and lead to colonization of C. difficile bacteria.', 'approved', 1, '2018-08-27'),
@@ -550,12 +491,6 @@ INSERT INTO `toxin_t` (`toxinID`, `name`, `structureFeature`, `function`, `statu
 (26, 'erer', 'rerere', 'rerere', 'pending', 6, '2018-10-06 11:24:26'),
 (27, 're', 'rerer', 'ererer', 'pending', 6, '2018-10-06 11:25:29');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `userjournal_t`
---
-
 CREATE TABLE `userjournal_t` (
   `jTitle` varchar(255) NOT NULL,
   `jSubject` varchar(100) NOT NULL,
@@ -569,22 +504,12 @@ CREATE TABLE `userjournal_t` (
   `userjournalID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `userjournal_t`
---
-
 INSERT INTO `userjournal_t` (`jTitle`, `jSubject`, `jMessage`, `jDoi`, `jFile`, `staffID`, `jState`, `jDateTime`, `jPublished`, `userjournalID`) VALUES
 ('RUMINANT', 'k', '', '3333', 'public\\others\\5cb7d805be8b98c.pdf', 12, 1, '2018-10-02 17:37:37', '0000-00-00', 1),
 ('nnn', 'l', '', '23', 'public\\others\\2b45ddb64233f6e.pdf', 15, 1, '2018-10-02 17:37:37', '0000-00-00', 2),
 ('a', '', '', '9', 'public\\others\\3eab7e52115b45c.pdf', 15, 1, '2018-10-02 17:37:37', '0000-00-00', 3),
 ('Lhexy Romero', '', '', '10.1128/CMR.00006-15.', 'js\\public\\others\\5d52966687186fd.pdf', 12, 1, '2018-10-05 13:20:41', '0000-00-00', 4),
 ('RUMINANT', '', '', '10.1371/journal.pntd.0002270', 'js\\public\\others\\d54ccd115a18532.pdf', 12, 1, '2018-10-05 13:34:51', '2013', 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `usermessage_t`
---
 
 CREATE TABLE `usermessage_t` (
   `usermessageID` int(11) NOT NULL,
@@ -596,291 +521,168 @@ CREATE TABLE `usermessage_t` (
   `mDateTime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `usermessage_t`
---
-
 INSERT INTO `usermessage_t` (`usermessageID`, `mName`, `mEmail`, `mSubject`, `mMessage`, `mState`, `mDateTime`) VALUES
 (1, '', '', 'Ganda ni Leki', 'a', 2, '2018-10-02 17:38:13'),
 (4, 'a', 'a@gmail.com', 'Leki is Pretty', 'a', 1, '2018-10-02 17:38:13'),
 (5, 'Lhexy Romero', 'zoodissystem@gmail.com', 'a', 'Hi', 1, '2018-10-02 17:38:13');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `animalbacteria_t`
---
 ALTER TABLE `animalbacteria_t`
   ADD PRIMARY KEY (`animalbacteriaID`),
   ADD KEY `animalID` (`animalID`),
   ADD KEY `bacteriumID` (`bacteriumID`);
 
---
--- Indexes for table `animaltaxo_t`
---
 ALTER TABLE `animaltaxo_t`
   ADD PRIMARY KEY (`animalTaxoID`),
   ADD KEY `journalID` (`journalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `animal_t`
---
 ALTER TABLE `animal_t`
   ADD PRIMARY KEY (`animalID`),
   ADD KEY `animal_t_ibfk_1` (`animalTaxoID`),
   ADD KEY `animal_t_ibfk_2` (`journalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `bacteriataxo_t`
---
 ALTER TABLE `bacteriataxo_t`
   ADD PRIMARY KEY (`bacteriumTaxoID`),
   ADD KEY `bacteriataxo_t_ibfk_1` (`journalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `bacteriatoxin_t`
---
 ALTER TABLE `bacteriatoxin_t`
   ADD PRIMARY KEY (`bacteriaToxinID`),
   ADD KEY `toxinID` (`toxinID`),
   ADD KEY `bacteriumID` (`bacteriumID`);
 
---
--- Indexes for table `bacteria_t`
---
 ALTER TABLE `bacteria_t`
   ADD PRIMARY KEY (`bacteriumID`),
   ADD KEY `bacteriumTaxoID` (`bacteriumTaxoID`),
   ADD KEY `bacteria_t_ibfk_2` (`journalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `disease_t`
---
 ALTER TABLE `disease_t`
   ADD PRIMARY KEY (`diseaseID`),
   ADD KEY `disease_t_ibfk_1` (`journalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `journal_t`
---
 ALTER TABLE `journal_t`
   ADD PRIMARY KEY (`journalID`);
 
---
--- Indexes for table `prevention_t`
---
 ALTER TABLE `prevention_t`
   ADD PRIMARY KEY (`preventionID`),
   ADD KEY `diseaseID` (`diseaseID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `request_t`
---
 ALTER TABLE `request_t`
   ADD PRIMARY KEY (`requestID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `staff_t`
---
+ALTER TABLE `site_t`
+  ADD PRIMARY KEY (`site`);
+
 ALTER TABLE `staff_t`
   ADD PRIMARY KEY (`staffID`);
 
---
--- Indexes for table `toxin_t`
---
 ALTER TABLE `toxin_t`
   ADD PRIMARY KEY (`toxinID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `userjournal_t`
---
 ALTER TABLE `userjournal_t`
   ADD PRIMARY KEY (`userjournalID`),
   ADD KEY `staffID` (`staffID`);
 
---
--- Indexes for table `usermessage_t`
---
 ALTER TABLE `usermessage_t`
   ADD PRIMARY KEY (`usermessageID`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `animalbacteria_t`
---
 ALTER TABLE `animalbacteria_t`
-  MODIFY `animalbacteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `animalbacteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
---
--- AUTO_INCREMENT for table `animaltaxo_t`
---
 ALTER TABLE `animaltaxo_t`
-  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `animalTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
---
--- AUTO_INCREMENT for table `animal_t`
---
 ALTER TABLE `animal_t`
   MODIFY `animalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
---
--- AUTO_INCREMENT for table `bacteriataxo_t`
---
 ALTER TABLE `bacteriataxo_t`
-  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `bacteriumTaxoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
---
--- AUTO_INCREMENT for table `bacteriatoxin_t`
---
 ALTER TABLE `bacteriatoxin_t`
   MODIFY `bacteriaToxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
---
--- AUTO_INCREMENT for table `bacteria_t`
---
 ALTER TABLE `bacteria_t`
-  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `bacteriumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
---
--- AUTO_INCREMENT for table `disease_t`
---
 ALTER TABLE `disease_t`
-  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `diseaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
---
--- AUTO_INCREMENT for table `journal_t`
---
 ALTER TABLE `journal_t`
   MODIFY `journalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
---
--- AUTO_INCREMENT for table `prevention_t`
---
 ALTER TABLE `prevention_t`
   MODIFY `preventionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
---
--- AUTO_INCREMENT for table `request_t`
---
 ALTER TABLE `request_t`
-  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `requestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
---
--- AUTO_INCREMENT for table `staff_t`
---
+ALTER TABLE `site_t`
+  MODIFY `site` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
 ALTER TABLE `staff_t`
   MODIFY `staffID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
---
--- AUTO_INCREMENT for table `toxin_t`
---
 ALTER TABLE `toxin_t`
   MODIFY `toxinID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
---
--- AUTO_INCREMENT for table `userjournal_t`
---
 ALTER TABLE `userjournal_t`
   MODIFY `userjournalID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- AUTO_INCREMENT for table `usermessage_t`
---
 ALTER TABLE `usermessage_t`
   MODIFY `usermessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `animalbacteria_t`
---
 ALTER TABLE `animalbacteria_t`
   ADD CONSTRAINT `animalbacteria_t_ibfk_1` FOREIGN KEY (`animalID`) REFERENCES `animal_t` (`animalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `animalbacteria_t_ibfk_2` FOREIGN KEY (`bacteriumID`) REFERENCES `bacteria_t` (`bacteriumID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `animaltaxo_t`
---
 ALTER TABLE `animaltaxo_t`
   ADD CONSTRAINT `animaltaxo_t_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `animaltaxo_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `animal_t`
---
 ALTER TABLE `animal_t`
   ADD CONSTRAINT `animal_t_ibfk_1` FOREIGN KEY (`animalTaxoID`) REFERENCES `animaltaxo_t` (`animalTaxoID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `animal_t_ibfk_2` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `animal_t_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `bacteriataxo_t`
---
 ALTER TABLE `bacteriataxo_t`
   ADD CONSTRAINT `bacteriataxo_t_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bacteriataxo_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `bacteriatoxin_t`
---
 ALTER TABLE `bacteriatoxin_t`
   ADD CONSTRAINT `bacteriatoxin_t_ibfk_1` FOREIGN KEY (`toxinID`) REFERENCES `toxin_t` (`toxinID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bacteriatoxin_t_ibfk_2` FOREIGN KEY (`bacteriumID`) REFERENCES `bacteria_t` (`bacteriumID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `bacteria_t`
---
 ALTER TABLE `bacteria_t`
   ADD CONSTRAINT `bacteria_t_ibfk_1` FOREIGN KEY (`bacteriumTaxoID`) REFERENCES `bacteriataxo_t` (`bacteriumTaxoID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bacteria_t_ibfk_2` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `bacteria_t_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `disease_t`
---
 ALTER TABLE `disease_t`
   ADD CONSTRAINT `disease_t_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal_t` (`journalID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `disease_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `prevention_t`
---
 ALTER TABLE `prevention_t`
   ADD CONSTRAINT `prevention_t_ibfk_1` FOREIGN KEY (`diseaseID`) REFERENCES `disease_t` (`diseaseID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `prevention_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `request_t`
---
 ALTER TABLE `request_t`
   ADD CONSTRAINT `request_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `toxin_t`
---
 ALTER TABLE `toxin_t`
   ADD CONSTRAINT `toxin_t_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
---
--- Constraints for table `userjournal_t`
---
 ALTER TABLE `userjournal_t`
   ADD CONSTRAINT `userjournal_t_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff_t` (`staffID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -4,7 +4,7 @@ const db = require('../../connection');
 exports.notiCard = (req,res,next) =>{
 
     let state = "noticed";
-    let sql = "SELECT * FROM notification_t WHERE state = ? AND staffID =?";
+    let sql = "SELECT * FROM request_t WHERE state = ? AND staffID =?";
     db.get().query(sql,[state,req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
@@ -16,7 +16,7 @@ exports.updateNotiCard = (req,res,next) =>{
 
     let id = req.params.id;
     let state = "read";
-    let sql = "UPDATE notification_t SET state = ? WHERE notificationID = ?";
+    let sql = "UPDATE request_t SET state = ? WHERE notificationID = ?";
     db.get().query(sql,[state,id],(err,result)=>{
         if(err) return next(err);
 

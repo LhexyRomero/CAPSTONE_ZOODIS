@@ -145,8 +145,8 @@
                             <form id="hostForm" method="POST">
                                 <div class="form-group has-label">
                                     <label>Bacteria Name</label>
-                                    <select class="form-control" name="toBacteria" id="toModalSelectB"></select>
-
+                                    <input type="hidden" name="toBacteria">
+                                    <input class="form-control" id="toDisplay" disabled>
                                     <label>Animal Name</label>
                                     <select class="form-control" name="toModal" id="toModalBacteria"></select>
                                 </div>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="for-footer">
                             <div align="right">
-                                <button type="button" class="btn btn-warning" onclick="clearBacteria()" data-dismiss="modal">Approve</button>
+                                <button type="button" class="btn btn-warning" onclick="clearBacteria()" data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-primary" onclick="addHost()">Add</button>
                             </div>
                         </div>

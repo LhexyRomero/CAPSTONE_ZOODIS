@@ -719,6 +719,16 @@ function addBacteria(eAdd) {
                         $.notify(response.detail, { type: "danger" });
                     }
 
+                    else if (response.error == 5){
+                        swal({
+                            title: "Error!",
+                            text: response.detail,
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+
                     else {
                         $.notify(response.detail,{type:"warning"});
                         $("#addHost").modal({
@@ -726,6 +736,7 @@ function addBacteria(eAdd) {
                             keyboard: false
                         });
                         $("#addHost").modal('hide');
+                        passResult(response.data);
                     }
                 }
                 else {
@@ -886,14 +897,14 @@ function editBacteria(id) {
         }
 
         let data = response.data;
-
+        $("#modalHost").html("");
         data.animal.forEach((element,index) => {
             console.log(data.animal);
             let html ="<input class='form-control' name='addHost"+hostCount+"' value='"+ element.animalName +"' type = 'text'/><br>";
             let buttonName = "buttonEdit" + hostCount;
             let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
         
-            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'> "+ html + "</div><div class='col-sm-2'>" + button + "</div>";
         
             $("#modalHost").append(newDiv); 
             hostCount++;
@@ -916,12 +927,51 @@ function editBacteria(id) {
     });
 }
 
-function deleteHostField(selected,hostID,bacteriumID){
-    $('.deleteHost' + selected).remove();
+function deleteHostField(selected,hostID){
+    let url = "/deleteHostField/"+globalBacteriumID+'/'+hostID;
+    let dataInsert={};
+
+    dataInsert[status] = 1;
+    swal({
+        title: 'Are you sure?',
+        text: "Remove Animal Hosts",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9c27b0',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $.post(url,function (response) {
+                isClick = 0;
+                if (response.success == false) {
+                    isClick = 0;
+                    swal({
+                        title: "Error!",
+                        text: "Unable to remove Animal Hosts!",
+                        type: "error",
+                        confirmButtonColor: "#9c27b0",
+                        confirmButtonText: "Okay"
+                    });
+                }
+
+                else {
+                    swal({
+                        title: "Done!",
+                        text: response.detail,
+                        type: "success",
+                        confirmButtonColor: "#9c27b0",
+                        confirmButtonText: "Okay"
+                    });
+                    $('.deleteHost' + selected).remove();
+                    $('#exampleModalCenter').modal("hide");
+                }
+            });
+        }
+    });
 }
 
 
-function updateBacteria(hostID) {
+function updateBacteria() {
 
     let url = "/updateBacteria/"+globalBacteriumID;
     let data = $("#editBacteriaForm").serializeArray();
@@ -929,6 +979,7 @@ function updateBacteria(hostID) {
     let numCount = 0;
     let strCount = 0;
     let dataInsert = {};
+    console.log(data);
 
     data.forEach((element,index) => {
         console.log(element.name + ":" + element.value);
@@ -938,12 +989,6 @@ function updateBacteria(hostID) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('select[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
-        }
-
-        else if ($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null) {
-            $('select[name=toSelect]').css("background", "#feebeb");
-            $('input[type=number]').css("background", "#feebeb");
-            numCount++;
         }
 
         else if ($('input[type=text]').val().match(/[0-9*#\/]/g) != null) {
@@ -1040,11 +1085,16 @@ function toSelectBacteria2() {
     });
 }
 
-function addHost(){
+function passResult(result){
+    $("input[name=toBacteria").val(result[0].bacteriumID);
+    $("#toDisplay").val(result[0].bacteriumScientificName);
+}
 
+function addHost(){
     let data = $("#hostForm").serializeArray();
     let errCount = 0;
     let dataInsert = {};
+    console.log(data);
 
     if(data[0].value =="" || data[1].value ==""){
         $('select[name=toModal]').css("background", "#feebeb");
@@ -1075,7 +1125,7 @@ function addHost(){
                     if (response.success == false) {
                         swal({
                             title: "Error!",
-                            text: "Unable to add Animal Host!",
+                            text: response.detail,
                             type: "error",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
@@ -1095,9 +1145,8 @@ function addHost(){
                 });
             }
         });
-           
+            
     }
-
 }
 
 function toSelectBacteria3() {
@@ -1106,7 +1155,6 @@ function toSelectBacteria3() {
             $.notify("Error getting data from the server!",{type:"danger"});
             return;
         }
-        console.log(response.data);
         let data = response.data;
         let html = "<option value=''>...</option>";
         data.forEach((element, index) => {
