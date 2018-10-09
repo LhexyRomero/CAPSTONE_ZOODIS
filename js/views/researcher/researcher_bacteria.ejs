@@ -162,6 +162,9 @@
 			</div>
 	</section>
 
+	<%
+		if(!locals.matchResult){
+	%>
 	<section id="noResults" class="post-content-area">
 		<div class="container">
 			<div class="row">
@@ -174,6 +177,9 @@
 			</div>
 		</div>
 	</section>
+	<%
+		}
+	%>
 	
 	<section class="recent-blog-area section-gap">
 		<div class="container">

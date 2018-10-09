@@ -62,7 +62,7 @@ function getToxinName(toxinIDs, cb){
  * @param {Function} cb 
  */
 function getDisease(offset, limit, cb){
-    let sql = "SELECT diseaseID, diseaseName, diseaseDesc FROM disease_t ORDER BY diseaseID ASC LIMIT ?,?";
+    let sql = "SELECT diseaseID, diseaseName, diseaseDesc, bodySite FROM disease_t ORDER BY diseaseID ASC LIMIT ?,?";
     db.get().query(sql, [offset,limit], function(err, result){
         if(err) return cb(err);
         cb(null, result);
@@ -76,27 +76,88 @@ function getDisease(offset, limit, cb){
  * @param {Function} cb 
  */
 function processData(toxinNames, diseases, cb){
-    let matches = [];
-    let promises = [];
-    diseases.forEach((e,i)=>{
-        promises.push(new Promise((resolve,reject)=>{
-            var disease = e;
-            search(toxinNames, disease.diseaseDesc, matchCount=>{
-                if(matchCount > 0){
-                    matches.push(disease);
-                    resolve(true);
-                }else{
-                    resolve(true);
-                }
+    return new Promise((resolve, reject)=>{
+        let matches = [];
+        let promises = [];
+        diseases.forEach((e,i)=>{
+            promises.push(new Promise((resolve,reject)=>{
+                var disease = e;
+                search(toxinNames, disease.diseaseDesc, matchCount=>{
+                    if(matchCount > 0){
+                        matches.push(disease);
+                        resolve(true);
+                    }else{
+                        resolve(true);
+                    }
+                });
+            }));
+            if(i == diseases.length-1){
+                Promise.all(promises).then(()=>{
+                    if(cb){
+                        cb(null, matches);
+                    }else{
+                        resolve(matches);
+                    }
+                }).catch(reason=>{
+                    var err = new Error(reason);
+                    if(cb){
+                        cb(err);
+                    }else{
+                        reject(err);
+                    }
+                });
+            }
+        });
+    });
+}
+
+function pathogenic(id, disease, cb){
+    return new Promise((resolve, reject)=>{
+        getBacteriaTissue(id).then(tissues=>{
+            let output = [];
+            output = tissues;
+            return output;
+        }).then(data=>{
+            return new Promise((res,rej)=>{
+                let processed = [];
+                let promises = [];
+                disease.forEach((e,i)=>{
+                    promises.push(new Promise((res1, rej1)=>{
+                        data.forEach((tissue,index)=>{
+                            if(tissue == e.bodySite){
+                                processed.push(e);
+                                res1();
+                            }
+                            if(data.length-1 == index){
+                                res1();
+                            }
+                        });
+                    }));
+                    if(i==disease.length-1){
+                        Promise.all(promises).then(()=>{
+                            res(processed);
+                        }).catch(rej);
+                    }
+                });
+            }).then(output=>{
+                let out = [];
+                out = output;
+                resolve(out);
             });
-        }));
-        if(i == diseases.length-1){
-            Promise.all(promises).then(()=>{
-                cb(null, matches);
-            }).catch(reason=>{
-                cb(new Error(reason));
-            });
-        }
+        }).catch(reason=>{
+            return cb ? cb(reason) : reject(reason);
+        });
+    });
+}
+
+function getBacteriaTissue(id, cb){
+    return new Promise((resolve, reject)=>{
+        let sql = "SELECT bacteriumTissueSpecifity FROM bacteria_t WHERE bacteriumID = ?";
+        db.get().query(sql, [id], function(err, result){
+            if(err) return cb ? cb(err) : reject(err);
+            var output = result[0].bacteriumTissueSpecifity.split(':');
+            cb ? cb(null, output) : resolve(output);
+        });
     });
 }
 
@@ -119,16 +180,24 @@ exports.searchingBacteria = (req,res,next) =>{
                 getDisease(offset,limit, (e, disease)=>{
                     if(e) return next(e);
                     toxinNames.push(bacteria);
-                    processData(toxinNames, disease, function(error, matchResult){
-                        if(error) return next(error);
-                        res.locals.matchResult = matchResult;
-                        res.locals.bacteria = result[0];
-                        res.locals.toxinNames = toxinNames;
-
-                        console.log(res.locals.matchResult);
-                        console.log(res.locals.bacteria);
-                        console.log(res.locals.toxinNames);
+                    processData(toxinNames, disease).then(matches=>{
+                        return pathogenic(result[0].bacteriumID, matches).then(output=>{
+                            return {
+                                match: output,
+                                bacteria: result[0],
+                                toxinNames: toxinNames,
+                            }
+                        });
+                    }).then(output=>{
+                        res.locals.count = output.match.length;
+                        res.locals.matchResult = output.match;
+                        res.locals.bacteria = output.bacteria;
+                        res.locals.toxinNames = output.toxinNames;
                         next();
+                    }).catch(reason=>{
+                        throw (new Error(reason));
+                    }).catch(reason=>{
+                        next(reason);
                     });
                 });
             });
