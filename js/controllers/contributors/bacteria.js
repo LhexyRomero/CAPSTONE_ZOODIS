@@ -218,24 +218,29 @@ exports.addBacteria = (req, res, next) => {
     let status = 'pending';
     let state = 'notify';
     let category = 'Bacteria';
+    let animalStatus = 1;
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
 
     let checkBacteria = (cb) => {
         let sql11 = "SELECT bacteriumScientificName, bacteriumID FROM bacteria_t WHERE bacteriumScientificName = ?";
-        let sql12 = "SELECT * FROM animalbacteria_t WHERE bacteriumID = ? AND animalID =?";
+        let sql12 = "SELECT * FROM animalbacteria_t WHERE bacteriumID = ? AND animalID =? AND status = ?";
         db.get().query(sql11, [strScientificName], (err11, result11) => {
             if (err11) return cb(err11);
-            console.log(result11);
             if(result11.length == 0) {
                 return cb(null, true);
             }
-
             else{
-                db.get().query(sql12,[result11[0].bacteriumID,animalID],(err12,result12)=>{
+                db.get().query(sql12,[result11[0].bacteriumID,animalID,animalStatus],(err12,result12)=>{
                     if(err12) return next(err12);
-                    
+                    console.log(result12);
                     if (result12.length == 0) {
-                        return cb(null, false);
+                        
+                        return cb(null, false,0,result11);
+                    }
+                    else {
+                        console.log("nageexists na yung match");
+                        console.log(result12);
+                        return cb(null,false,1);
                     }
                 });
             }
@@ -273,21 +278,20 @@ exports.addBacteria = (req, res, next) => {
     let insertBacteria = (result) => {
         let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO request_t (dateTime,status,staffName, addedData, staffID,category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
-        let sql2 = "INSERT INTO animalbacteria_t (animalID,bacteriumID) VALUES (?,?)";
+        let sql2 = "INSERT INTO animalbacteria_t (animalID,bacteriumID,status) VALUES (?,?,?)";
         db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, result[0].bacteriumTaxoID, req.session.staffData.journalID, status, req.session.staffID], (err, resulta) => {
             if (err) return next(err);
             db.get().query(sql1, [status, name, strScientificName, req.session.staffID, category, resulta.insertId, state, req.session.staffData.journalID], (err1, result1) => {
                 if (err1) return next(err1);
-                db.get().query(sql2,[animalID,resulta.insertId],(err2,result2)=>{
+                db.get().query(sql2,[animalID,resulta.insertId,animalStatus],(err2,result2)=>{
                     if(err2) return next(err2);
-
                     res.status(200).send({ success: true, detail: "Successfully Submitted to Admin!" });
                 });
             });
         });
     };
 
-    checkBacteria((error, result) => {
+    checkBacteria((error, result,check,dataDisplay) => {
         if (error) return next(error);
 
         if (result) {
@@ -318,8 +322,11 @@ exports.addBacteria = (req, res, next) => {
             });
             return;
         }
+        else if(!result && check==0){
+            res.status(200).send({ success: false, detail: "Bacteria already exists assign an Animal!", error: 4,data:dataDisplay});
+        }
         else {
-            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
+            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 5});
         }
     });
 }
@@ -335,36 +342,70 @@ exports.bacteriaList = (req, res, next) => {
 
 exports.viewBacteria = (req, res, next) => {
     let id = req.params.id;
+    let status = 1;
 
-    let sql = "SELECT * , bacteria_t.status FROM bacteria_t INNER JOIN animal_t ON bacteria_t.animalID = animal_t.animalID INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
-    db.get().query(sql, [id], (err, result) => {
-        if (err) return next(err);
+    let sql = "SELECT * FROM bacteria_t WHERE bacteriumID = ?";
+    let sql1 = "SELECT animalbacteria_t.bacteriumID, animalbacteria_t.animalID, animalName FROM animal_t INNER JOIN animalbacteria_t ON animal_t.animalID = animalbacteria_t.animalID WHERE bacteriumID = ? AND animalbacteria_t.status =?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
+        db.get().query(sql1,[id,status],(err1,result1)=>{
+            if(err1) return next(err1);
+                console.log(result1);
+            let dataDisplay = {
+                animal                  : result1,
+                bacteriumID             : result[0].bacteriumID,
+                genusName               : result[0].bacteriumGenusName,
+                speciesName             : result[0].bacteriumSpeciesName,
+                scientificName          : result[0].bacteriumScientificName,
+                tissueSpecifity         : result[0].bacteriumTissueSpecifity,
+                sampleType              : result[0].bacteriumSampleType,
+                isolation               : result[0].bacteriumIsolation,
+                identification          : result[0].bacteriumIdentification,
+                status                  : result[0].status
+            }
+    
+            res.status(200).send({success: true, detail:"", data:dataDisplay});
+        });
 
-        let dataDisplay = {
+    });
+}
 
-            status: result[0].status,
-            animalID: result[0].animalID,
-            animalName: result[0].animalName,
-            genusName: result[0].bacteriumGenusName,
-            speciesName: result[0].bacteriumSpeciesName,
-            scientificName: result[0].bacteriumScientificName,
-            tissueSpecifity: result[0].bacteriumTissueSpecifity,
-            sampleType: result[0].bacteriumSampleType,
-            isolation: result[0].bacteriumIsolation,
-            identification: result[0].bacteriumIdentification,
-            gramStain: result[0].bacteriumGramStain,
-            length: result[0].bacteriumCellLength,
-            width: result[0].bacteriumCellWidth,
-            shape: result[0].bacteriumCellShape,
-            motility: result[0].bacteriumMotility,
-            phylum: result[0].phylum,
-            class: result[0].class,
-            order: result[0].orderr,
-            family: result[0].family,
-            genus: result[0].genus,
-            species: result[0].species
+exports.bacteriaHost = (req,res,next) =>{
+    let data = req.body;
+    let animalID = data.toModal;
+    let bacteriumID = data.toBacteria;
+    let animalStatus = 1;
+
+    let insertHost = ()=>{
+        let sql = "INSERT INTO animalbacteria_t (animalID, bacteriumID,status) VALUES (?,?,?)";
+        db.get().query(sql,[animalID,bacteriumID,animalStatus],(err,result)=>{
+            if(err) return next(err);
+
+            res.status(200).send({success:true, detail:"Successfully Added!", data:result});
+        });
+    }
+
+    let checkHost = (cb)=>{
+        let sql = "SELECT * FROM animalbacteria_t WHERE animalID =? AND bacteriumID =? AND status=?";
+        db.get().query(sql,[animalID,bacteriumID,animalStatus],(err,result)=>{
+            if(err) return cb(err,result);
+
+                if(result.length == 0){
+                    return cb(null,true);
+                }
+                else{
+                    return cb(null,false);
+                }
+        });
+    }
+
+    checkHost((error,result)=>{
+        if(error) return next(error);
+        if(result){
+            insertHost();
         }
-
-        res.status(200).send({ success: true, detail: "", data: dataDisplay });
+        else{
+            res.status(200).send({success:false, detail:"Data Already Exists!", data:result});
+        }
     });
 }

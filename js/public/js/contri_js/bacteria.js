@@ -242,6 +242,7 @@ function toSelectAnimal() {
             html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
         });
         $('#toSelectAnimal').html(html);
+        $('#toModalBacteria').html(html);
     });
 }
 
@@ -508,6 +509,16 @@ function addBacteria(eAdd) {
                             $.notify(response.detail, { type: "danger" });
                         }
 
+                        else if(response.error == 4) {
+                            $.notify(response.detail,{type:"warning"});
+                            $("#addHost").modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            $("#addHost").modal('hide');
+                            passResult(response.data);
+                        }
+                        
                         else {
                             swal({
                                 title: "Error!",
@@ -596,6 +607,8 @@ function viewBacteria(id){
         }
 
         let data = response.data;
+        let html = "";
+
         let bacteriaName = "<h5><font color='#9c27b0'><em><b>" + data.scientificName + "</b></em></font></h5>";
         let animalName = "<label>"+data.animalName+"</label>";
         let tissueName = "<label>"+data.tissueSpecifity+"</label>";
@@ -626,6 +639,14 @@ function viewBacteria(id){
             status = "<span class='badge badge-danger'>"+response.data.status+"</span>"
         }
 
+        data.animal.forEach((element, index) => {
+            let list = "<ul style='padding-left:0;'>";
+            list += "<li>" + element.animalName + "</li>";
+            list += "</ul>";
+            html += list;
+        });
+
+        $("#listAnimal").html(html);
         $("#status").html(status);
         $("#bacteriaName").html(bacteriaName);
         $("#animalName").html(animalName);
@@ -646,6 +667,72 @@ function viewBacteria(id){
         $("#motility").html(motility);
     });
 }
+
+function passResult(result){
+    $("input[name=toBacteria").val(result[0].bacteriumID);
+    $("#toDisplay").val(result[0].bacteriumScientificName);
+}
+
+function addHost(){
+    let data = $("#hostForm").serializeArray();
+    let errCount = 0;
+    let dataInsert = {};
+    console.log(data);
+
+    if(data[0].value =="" || data[1].value ==""){
+        $('select[name=toModal]').css("background", "#feebeb");
+        $('select[name=toBacteria]').css("background", "#feebeb");
+        errCount++;
+    }
+
+    else {
+        dataInsert[data[0].name] = data[0].value;
+        dataInsert[data[1].name] = data[1].value;
+    }
+
+    if(errCount>0){
+        $.notify("Select Animal and Bacteria!",{type:"danger"});
+    }
+
+    else {
+        swal({
+            title: 'Are you sure?',
+            text: "Add Animal Hosts",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes'
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post("/contri_bacteriaHost",dataInsert,(response)=>{
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: response.detail,
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Successfully Added!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay"
+                        });
+                        $('#addHost').modal("hide");
+                        clearBacteria();
+                    }
+                });
+            }
+        });
+            
+    }
+}
+
+
 
 
 

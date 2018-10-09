@@ -34,7 +34,6 @@ function requestList() {
         }
 
         let data = response.data;
-
         let html = "";
         data.forEach((element, index) => {
             let row = "<tr>";
@@ -1275,19 +1274,34 @@ function sendReasonAnimal() {
     }
 }
 let viewBacteriaID = 0;
-function viewBacteria(id) {
-    viewBacteriaID = id;
-    let url = "/requestViewBacteria/" + viewBacteriaID;
 
-    $.get(url, (response) => {
-        if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
+let hostCount = 0;
+function viewBacteria(id) {
+    globalBacteriumID = id;
+    let url = "/requestViewBacteria/"+globalBacteriumID;
+    console.log(url);
+
+    $.get(url,(response)=>{
+
+        if(response.success == false) {
+            $.notify("Error getting data from the Server!",{type:"danger"});
             return;
         }
 
-        console.log(response.data);
-        console.log("Andito namana ko eh");
-        $("select[name=toSelect]").val(response.data.animalID);
+        let data = response.data;
+        $("#modalHost").html("");
+        data.animal.forEach((element,index) => {
+            console.log(data.animal);
+            let html ="<input class='form-control' name='addHost"+hostCount+"' value='"+ element.animalName +"' type = 'text'/><br>";
+            let buttonName = "buttonEdit" + hostCount;
+            let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+        
+            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'> "+ html + "</div><div class='col-sm-2'>" + button + "</div>";
+        
+            $("#modalHost").append(newDiv); 
+            hostCount++;
+        });
+
         $("input[name=speciesName]").val(response.data.speciesName);
         $("input[name=genusName]").val(response.data.genusName);
         $("input[name=tissueSpecifity]").val(response.data.tissueSpecifity);
@@ -1347,12 +1361,6 @@ function approvedBacteria(eAdd) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
             $('select[name=' + element.name + ']').css("background", "#feebeb");
             errCount++;
-        }
-
-        else if ($('select[name=toSelect]').val().match(/[a-zA-Z*#\/]/g) != null && $('input[type=number]').val().match(/[a-zA-Z*#\/]/g) != null) {
-            $('select[name=toSelect]').css("background", "#feebeb");
-            $('input[type=number]').css("background", "#feebeb");
-            numCount++;
         }
 
         else if ($('input[type=text]').val().match(/[0-9*#\/]/g) != null) {
@@ -1422,7 +1430,6 @@ function approvedBacteria(eAdd) {
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay"
                         });
-
                         $("#modalBacteria").modal("hide");
                         requestList();
                     }

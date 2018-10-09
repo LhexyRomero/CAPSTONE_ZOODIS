@@ -11,6 +11,7 @@ const contri_disease = require('../contributors/disease');
 const contri_prevention = require('../contributors/prevention');
 const contri_notification = require('../contributors/notification');
 const contri_profile = require('../contributors/profile');
+const contri_search = require('../contributors/search');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -54,13 +55,14 @@ router.get('/contri_Bacteria',auth.authenticate,(req,res,next)=>{
 
 router.post('/contri_bacteriaTaxon', contri_auth, contri_bacteria.addBacteriaTaxon);
 router.post('/contri_bacteria', contri_auth, contri_bacteria.addBacteria);
-
+router.post('/contri_bacteriaHost',contri_bacteria.bacteriaHost);
 router.get('/contri_bacteriaList',contri_bacteria.bacteriaList);
 router.get('/contri_bacteriaTaxonList',contri_bacteria.bacteriaTaxonList);
 router.get('/contri_viewBacteriaTaxon/:id',contri_bacteria.viewBacteriaTaxon);
 router.get('/contri_toSelectJournal1',contri_bacteria.toSelectJournal);
 router.get('/contri_toSelectAnimal',contri_bacteria.toSelectAnimal);
 router.get('/contri_viewBacteria/:id',contri_bacteria.viewBacteria);
+
 
 router.get('/contri_BacteriaTaxon',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_BacteriaTaxon');
@@ -108,6 +110,8 @@ router.get('/downloadJournal/:filename',contri_notification.downloadJournal);
 router.post('/setJournal',contri_notification.setJournal);
 router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
 router.post('/finishedJournal',contri_notification.finishedJournal);
+
+router.get('/search/bodySite',contri_search.bodySite);
 
 
 module.exports = router;

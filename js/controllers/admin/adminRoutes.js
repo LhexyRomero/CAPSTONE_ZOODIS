@@ -134,6 +134,7 @@ router.get('/bacteria', auth.authenticate, (req,res,next)=>{
 router.post('/bacteria',bacteria.addBacteria);
 router.post('/updateBacteria/:id',bacteria.updateBacteria);
 router.post('/bacteriaHost',bacteria.bacteriaHost);
+router.post('/deleteHostField/:bacteriumID/:hostID',bacteria.deleteHostField);
 router.get('/bacteriaList',bacteria.bacteriaList);
 router.get('/toSelectBacteria',bacteria.toSelectBacteria);
 router.get('/toSelectBacteria2',bacteria.toSelectBacteria2);

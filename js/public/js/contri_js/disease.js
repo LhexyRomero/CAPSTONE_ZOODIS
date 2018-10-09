@@ -1,30 +1,57 @@
 $(function () {
     diseaseList();
+    
+    $('.bodySiteInput').autocomplete({
+        source: (req, res) => {
+            $.ajax({
+                type: "GET",
+                url: "/search/bodySite/?data=" + req.term,
+                success: function (response) {
+                    res(response.data);
+                },
+                error: function (response) {
+                    console.log(response.detail);
+                },
+            });
+        },
+    });
 });
 
 let isClicked = 0;
 let count = 0;
+let countS = 0;
+let countB = 0;
 let sympCount = 0;
 let target = $(".symptomsTxt");
+let target2 = $(".bodyTxt");
 let targetBtn = $("#responseButton");
 
-function addField() {
-    if (count >= 9) {
+function addField(type) {
+    if (countB >= 9 || countS >= 9) {
         $.notify("You reached the maximum numbers of field!", { type: "danger" });
         return;
     }
 
-    let boxName = "symptoms" + count;
+    let symptomName = "symptoms" + countS;
+    let bodyName = "site" + countB;
+    let boxName = type == 1 ? symptomName : bodyName;
     let buttonName = "button" + count;
-    let html = '<input autocomplete="off" type="text" class="form-control" name="' + boxName + '""/>';
+    let html = '<input autocomplete="off" type="text" class="form-control '+ (type==1?"symptomsInput":"bodySiteInput") +'" name="' + boxName + '""/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
 
     let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
-    target.append(newDiv);
+    if(type==1){
+        target.append(newDiv);
+        countS++;
+    }
+    else{
+        target2.append(newDiv);
+        countB++;
+    }
     count++;
-    console.log(count);
-    console.log(boxName);
+    // console.log(count);
+    // console.log(boxName);
 }
 
 function deleteField(count) {
@@ -68,6 +95,17 @@ function addDisease(eAdd) {
             dataInsert[element.name] = element.value;
         }
     });
+
+    var site = [];
+    var symptoms = [];
+    $('.bodySiteInput').each((i,e)=>{
+        site.push(e.value);
+    });
+    $('.symptomsInput').each((i,e)=>{
+        symptoms.push(e.value);
+    });
+    dataInsert["site"] = site;
+    dataInsert["symptoms"] = symptoms;
 
     isClicked = 0;
 
