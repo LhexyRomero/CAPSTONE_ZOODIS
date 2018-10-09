@@ -106,6 +106,10 @@ router.post('/updateAnimalTaxon/:id',animal.updateAnimalTaxon);
 router.get('/animalTaxonList',animal.animalTaxonList);
 router.get('/editAnimalTaxon/:id',animal.editAnimalTaxon);
 
+router.get('/reports', auth.authenticate, (req,res,next)=>{
+    res.render('admin/reports');
+}); 
+
 router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('admin/bacteriaTaxon');
 });
