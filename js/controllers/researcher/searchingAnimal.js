@@ -21,7 +21,7 @@ exports.searchingAnimal = (req,res,next) =>{
                     let dataDisplay = {
                         name            :   result[0].animalName,
                         scientificName  :   result[0].animalScientificName,
-                        image           :   result[0].image,
+                        image           :   result[0].image.replace(/js\\public/g,"assets"),
                         phylum          :   result1[0].phylum,
                         classs          :   result1[0].class,
                         orderr          :   result1[0].orderr,
