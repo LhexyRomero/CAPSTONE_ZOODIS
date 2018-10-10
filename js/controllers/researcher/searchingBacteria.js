@@ -190,10 +190,11 @@ exports.searchingBacteria = (req,res,next) =>{
                         });
                     }).then(output=>{
                         res.locals.count = output.match.length;
-                        res.locals.matchResult = output.match;
+                        res.locals.matchResult = output.match; 
                         res.locals.bacteria = output.bacteria;
                         res.locals.toxinNames = output.toxinNames;
                         next();
+
                     }).catch(reason=>{
                         throw (new Error(reason));
                     }).catch(reason=>{

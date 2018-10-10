@@ -18,6 +18,45 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="viewDetails">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="title title-up">GATHERED DATA</h6>
+                            </div>
+                            <div class="modal-body">
+                                <form id="dataForm" method="POST">
+                                    <input type="hidden" name="animalTaxon">
+                                    <input type="hidden" name="bacteriaTaxon">
+                                    <input type="hidden" name="animal">
+                                    <input type="hidden" name="bacteria">
+                                    <input type="hidden" name="email">
+                                </form>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">    
+                                            <tr>
+                                                <th><small><b>Category</b></small></th>
+                                                <th><small><b>Data Added</b></small></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="gatheredData">
+                                        </tbody>
+                                    </table>
+                                    <div class="stats pull-right">
+                                        <i class="now-ui-icons loader_refresh spin"></i> Sending Messages
+                                    </div><br>
+                                    <button type="button" class="btn btn-success pull-right" id="complete" onclick="completeUpdate()">Complete</button>
+                                    <button type="button" class="btn btn-success pull-right" id="send" onclick="sendUpdate()">Send</button>
+                                    <button type="button" class="btn btn-danger pull-right" onclick="incompleteUpdate()">Incomplete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
             <!--   Core JS Files   -->
             <% include ../partials/core_js %>
             <script src="../../assets/js/admin/notification.js"></script>

@@ -153,7 +153,7 @@ exports.toSelectBacteria = (req, res, next) => {
     db.get().query(sql10, (err10, result10) => {
         if (err10) return next(err10);
 
-        res.status(200).send({ success: true, detail: "", data: result10 });
+        res.status(200).send({ success: true, detail: "", data: result10});
     });
 }
 
