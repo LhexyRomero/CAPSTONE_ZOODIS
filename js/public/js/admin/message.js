@@ -97,12 +97,10 @@ function messageList(limit, offset) {
         data.forEach(element => {
             if(element.type == 1 ){
                 if(element.mState == 1 ){
-                    console.log(notifCount);
                 }
             }
             else if(element.type == 2 ){
                 if(element.jState == 1 ){
-                    console.log(notifCount);
                 }
             }
         });

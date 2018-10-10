@@ -62,7 +62,7 @@ router.post('/sendUpdate/:id',notification.sendUpdate);
 router.post('/incompleteUpdate/:id',notification.incompleteUpdate);
 
 
-router.get('/dashboard', auth.authenticate,(req,res,next)=>{
+router.get('/dashboard',auth.authenticate,(req,res,next)=>{
     res.render('admin/dashboard');
 });
 
