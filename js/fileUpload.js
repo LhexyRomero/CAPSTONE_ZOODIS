@@ -4,10 +4,10 @@ const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         let file_extension = file.mimetype.split('/')[1];
         if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png"){
-            cb(null, __dirname + "/public/image_upload");
+            cb(null, /* __dirname +  */"js/public/image_upload");
         }
         else {
-            cb(null, __dirname + "/public/others");
+            cb(null,/*  __dirname +  */"js/public/others");
         }
     },
     filename: (req, file, cb)=>{
@@ -26,4 +26,14 @@ const storage = multer.diskStorage({
     }
 });
 
-module.exports = multer({storage: storage});
+let uploader = multer({storage: storage});
+let middleware = {
+    single: (inputname)=>{
+        return (req, res, next)=>{
+            let mid = uploader.single(inputname);
+            // mid.
+        }
+    }
+}
+
+module.exports = /* middleware */ uploader;

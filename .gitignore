@@ -60,7 +60,7 @@ typings/
 # next.js build output
 .next
 
-js/public/image_upload
+js/public/image_upload/*
 js/public/others
 js/public/img
 js/public/scss
