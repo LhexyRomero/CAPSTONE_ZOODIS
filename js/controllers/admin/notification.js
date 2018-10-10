@@ -20,6 +20,8 @@ exports.notificationCard = (req,res,next) =>{
             if(index == result1.length-1){
                 Promise.all(promises).then((result)=>{
                     res.status(200).send({success:true, detail:"", data:result});
+                    console.log("gaga");
+                    console.log(data);
                 });
             }
         });
