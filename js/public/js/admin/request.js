@@ -1277,8 +1277,8 @@ let viewBacteriaID = 0;
 
 let hostCount = 0;
 function viewBacteria(id) {
-    globalBacteriumID = id;
-    let url = "/requestViewBacteria/"+globalBacteriumID;
+    viewBacteriaID = id;
+    let url = "/requestViewBacteria/"+viewBacteriaID;
     console.log(url);
 
     $.get(url,(response)=>{
