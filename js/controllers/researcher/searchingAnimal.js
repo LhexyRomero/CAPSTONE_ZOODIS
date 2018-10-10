@@ -5,16 +5,17 @@ exports.searchingAnimal = (req,res,next) =>{
     console.log(data);
     let animalName = data.animalName;
     let status = 'approved';
+    let active  = 1;
 
     let searchedAnimal = ()=> {
         let sql = "SELECT * FROM animal_t WHERE animalName = ? AND status =?";
         let sql1 = "SELECT * FROM animaltaxo_t WHERE animalTaxoID = ?";
-        let sql2 = "SELECT * FROM bacteria_t WHERE animalID =? AND status=?"
+        let sql2 = "SELECT bacteria_t.bacteriumID,bacteriumScientificName FROM animalbacteria_t INNER JOIN bacteria_t on animalbacteria_t.bacteriumID = bacteria_t.bacteriumID WHERE animalID =? AND animalbacteria_t.status=?";
         db.get().query(sql,[animalName,status],(err,result)=>{
             if(err) return next(err);
             db.get().query(sql1,[result[0].animalTaxoID],(err1,result1)=>{
                 if(err1) return next(err1);
-                db.get().query(sql2,[result[0].animalID,status],(err2,result2)=>{
+                db.get().query(sql2,[result[0].animalID,active],(err2,result2)=>{
                     if(err2) return next(err2);
 
                     let dataDisplay = {
