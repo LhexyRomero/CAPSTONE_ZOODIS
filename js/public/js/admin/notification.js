@@ -45,9 +45,11 @@ function notificationCard() {
 
 let view = 0;
 let owner = 0;
+let staff = 0;
 function notificationDetails(ownedBy,journalID, staffID){
     view = journalID;
     owner = ownedBy;
+    staff = staffID;
     let url = "/notificationDetails/"+journalID+"/"+staffID;
     console.log(url);
 
@@ -107,7 +109,7 @@ function notificationDetails(ownedBy,journalID, staffID){
 }
 
 function completeUpdate(){
-    let url = "/completeUpdate/"+view;
+    let url = "/completeUpdate/"+view+"/"+staff;
     $.post(url,(response)=>{
         if(response.success == false){
             $.notify("Error getting Data from the Server!",{type:"danger"});
@@ -127,6 +129,7 @@ function completeUpdate(){
 }
 
 function sendUpdate(){
+    let url = "/sendUpdate/"+view;
     let data = $("#dataForm").serializeArray();
     let dataInsert = {};
 
@@ -134,7 +137,6 @@ function sendUpdate(){
         dataInsert[element.name] = element.value;
     });
 
-    console.log(dataInsert);
     swal({
         title: 'Email',
         text: "to Journals Owner!",
@@ -145,8 +147,22 @@ function sendUpdate(){
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $(".stats").show();
-            $.post('/sendUpdate',dataInsert,(response)=>{
+            $.post(url,dataInsert,(response)=>{
+                if(response.success == false){
+                    $.notify("Unable to Send Message",{type:"danger"});
+                    return;
+                }
+                swal({
+                    title: "Sent!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
 
+                $(".stats").hide();
+                notificationCard();
+                $('#viewDetails').modal("hide");
             });
         }
     })
@@ -154,5 +170,32 @@ function sendUpdate(){
 }
 
 function incompleteUpdate(){
-    let url ="/incompleteUpdate"+view;
+    let url ="/incompleteUpdate/"+view;
+
+    swal({
+        title: 'Are you sure?',
+        text: "Mark as Incomplete!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9c27b0',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $.post(url,(response)=>{
+                if(response.success == false){
+                    $.notify("Unable to Send Message",{type:"danger"});
+                    return;
+                }
+                swal({
+                    title: "Done!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+                notificationCard();
+                $('#viewDetails').modal("hide");
+            });
+        }
+    })
 }

@@ -15,6 +15,9 @@ module.exports = function (req, res, next) {
             if (state == "noticed" && status == "Incomplete") {
                 next();
             } 
+            else if(state == "revised" && status =="Incomplete"){
+                next();
+            }
             else if(state == "none" && status == "none"){
                 res.status(200).send({ success: false, detail: "No Journal Assigned!" });
             }
