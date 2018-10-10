@@ -1,6 +1,7 @@
 $(function () {
     notiCard();
     notificationJournal();
+    $.notify("Dont forget to Submit Journal!",{type:"info"});
 });
 
 function notiCard() {
@@ -78,7 +79,6 @@ function updateNotiCard(id) {
 }
 
 function notificationJournal() {
-
     return $.get('/notifyJournal', (response) => {
         console.log("here");
         if (response.success == false) {
@@ -106,23 +106,11 @@ function notificationJournal() {
                 if (isConfirmed) {
                     $.post("/setJournal", (response) => {
                         if (response.success == false) {
-                            swal({
-                                title: "Error!",
-                                text: "Error Accepting Journal!",
-                                type: "error",
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Okay"
-                            });
+                            $.notify("Error processing Journal!",{type:"success"});
                         }
 
                         else {
-                            swal({
-                                title: "Done!",
-                                text: response.detail,
-                                type: "success",
-                                confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
-                            });
+                            $.notify(response.detail,{type:"success"});
                         }
                     });
                 }
@@ -139,6 +127,17 @@ function notificationJournal() {
             $("#journalCode").html(code);
             $("#download").hide();
             $("#finish").hide();
+        }
+
+        else if (data.state == "revised" && data.status == "Incomplete") {
+            let code = "<h6>" + data.code + "</h6>";
+            let name = "<h6>" + data.name + "</h6>";
+            let badge = "<span class='badge badge-danger'>Incomplete</span>";
+            $(".revised").html(badge);
+            $("#journalCode").html(code);
+            $("#journalName").html(name);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
+
         }
 
         else {

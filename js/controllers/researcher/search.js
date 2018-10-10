@@ -31,6 +31,7 @@ exports.diseaseName = (req,res,next) =>{
 }
 
 exports.bacteriaScientificName = (req,res,next) =>{
+    console.log("IM HERe at searching bacteria!");
     let sql = "SELECT bacteriumScientificName FROM bacteria_t WHERE bacteriumScientificName LIKE ?";
     let query = "%" + req.query.data + "%";
     db.get().query(sql,[query],(err,result)=>{
