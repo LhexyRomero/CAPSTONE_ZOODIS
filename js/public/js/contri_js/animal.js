@@ -398,7 +398,7 @@ function viewAnimal(id){
             status = "<td><span class='badge badge-danger'>"+response.data.status+"</span></td>";
         }
 
-        $('.contri_animalPic').attr('src',response.data.image.replace('public','assets'));
+        $('.contri_animalPic').attr('src',response.data.image.replace(/js\\public/g,'assets'));
         $("#animalName2").html(animalName);
         $("#scientificName").html(scientificName);
         $("#bodySite").html(bodySite);

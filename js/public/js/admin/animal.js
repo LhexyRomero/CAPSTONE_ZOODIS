@@ -466,7 +466,7 @@ function viewAnimal(id){
         let species = "<label>"+response.data.species+"</label>";
 
         //picture
-        $('.animalPic').attr('src',response.data.image.replace('public','assets'));
+        $('.animalPic').attr('src',response.data.image.replace('js\\public','assets'));
         $("#animalName2").html(animalName);
         $("#scientificName").html(scientificName);
         $("#phylum2").html(phylum);
