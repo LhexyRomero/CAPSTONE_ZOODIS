@@ -447,7 +447,6 @@ exports.viewBacteria = (req, res, next) => {
         if(err) return next(err);
         db.get().query(sql1,[id,status],(err1,result1)=>{
             if(err1) return next(err1);
-                console.log(result1);
             let dataDisplay = {
                 animal                  : result1,
                 bacteriumID             : result[0].bacteriumID,
@@ -521,10 +520,6 @@ exports.rejectAnimal = (req, res, next) => {
 exports.approvedBacteria = (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
-
-    let speciesName = data.speciesName;
-    let genusName = data.genusName;
-    let scientificName = genusName + " " + speciesName;
     let tissue = data.tissueSpecifity;
     let sample = data.sampleType;
     let isolation = data.isolation;
@@ -532,54 +527,9 @@ exports.approvedBacteria = (req, res, next) => {
     let status = "approved";
     let state = "noticed";
 
-    let checkBacteria = (cb) => {
-        let sql11 = "SELECT * FROM bacteria_t WHERE bacteriumScientificName = ?";
-        db.get().query(sql11, [scientificName], (err11, result11) => {
-            if (err11) return cb(err11);
-
-            if (result11.length == 0) {
-                return cb(null, true);
-            }
-
-            else {
-                return cb(null, false);
-            }
-        });
-    }
-
-    let checkSpecies = (cb) => {
-        let sql = "SELECT * FROM bacteriataxo_t WHERE species = ?";
-        db.get().query(sql, [speciesName], (err, result) => {
-            if (err) return cb(err);
-
-            if (result.length == 0) {
-                return cb(null, undefined);
-            }
-            else {
-                return cb(null, result);
-            }
-        });
-    }
-
-    let checkGenus = (cb) => {
-        console.log("Check Genus");
-        let sql = "SELECT * FROM bacteriataxo_t WHERE genus =?";
-        db.get().query(sql, [genusName], (err, result) => {
-            if (err) return cb(err);
-
-            if (result.length == 0) {
-                return cb(null, undefined);
-            }
-            else {
-                return cb(null, result);
-            }
-        });
-    }
-
-    let updateBacteria = (result) => {
-        let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?,bacteriumTaxoID =?,staffID = ?,dateTime=CURRENT_TIMESTAMP,status=? WHERE bacteriumID = ?";
-        let sql1 = "UPDATE request_t SET dateTime = CURRENT_TIMESTAMP, status = ?,state = ? WHERE addedID = ?";
-        db.get().query(sql, [speciesName, genusName, scientificName, tissue, sample, isolation, identification,result[0].bacteriumTaxoID,  req.session.staffID, status,id], (err, result) => {
+    let sql = "UPDATE bacteria_t SET bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?,staffID = ?,dateTime=CURRENT_TIMESTAMP,status=? WHERE bacteriumID = ?";
+    let sql1 = "UPDATE request_t SET dateTime = CURRENT_TIMESTAMP, status = ?,state = ? WHERE addedID = ?";
+        db.get().query(sql, [tissue, sample, isolation, identification, req.session.staffID, status,id], (err, result) => {
             if (err) return next(err);
             db.get().query(sql1, [status, state, id], (err1, result1) => {
                 if (err1) return next(err1);
@@ -588,43 +538,6 @@ exports.approvedBacteria = (req, res, next) => {
                 res.status(200).send({success: true, detail: "Successfully Approved"});
             });
         });
-    }
-
-    checkBacteria((error, result) => {
-        if (error) return next(error);
-
-        if (result) {
-            checkGenus((error1, genus) => {
-                if (error1) return next(error1);
-
-                checkSpecies((error2, species) => {
-                    if (error2) return next(error2);
-
-                    if (!genus && !species) {
-                        res.status(200).send({ success: false, detail: "Genus and Species not found!", error: 1 });
-                    }
-
-                    else if (!genus && species) {
-                        console.log("genus error!");
-                        res.status(200).send({ success: false, detail: "Genus not found!", error: 2 });
-                    }
-
-                    else if (!species && genus) {
-                        console.log("species error!");
-                        res.status(200).send({ success: false, detail: "Species not found!", error: 3 });
-                    }
-
-                    else {
-                        updateBacteria(species);
-                    }
-                });
-            });
-            return;
-        }
-        else {
-            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
-        }
-    });
 }
 
 exports.rejectBacteria = (req, res, next) => {
