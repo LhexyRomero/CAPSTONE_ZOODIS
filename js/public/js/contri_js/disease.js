@@ -32,6 +32,12 @@ function addField(type) {
         return;
     }
 
+    if(type == 1){
+        if($('#symptomsIn').val() == "") return;
+    }else{
+        if($('#siteIn').val() == "") return;
+    }
+
     let symptomName = "symptoms" + countS;
     let bodyName = "site" + countB;
     let boxName = type == 1 ? symptomName : bodyName;
@@ -40,14 +46,16 @@ function addField(type) {
     let html = '<input type="text" class="form-control '+ (type==1?"symptomsInput":"bodySiteInput") +'" name="' + boxName + '"" value="'+ value +'" disabled/>';
     let button = '<button name="' + buttonName + '"type="button" onclick ="deleteField(' + count + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
 
-    let newDiv = "<div class='sympDiv" + count + " row'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+    let newDiv = "<div class='sympDiv" + count + " row additionField'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
 
     if(type==1){
         target.append(newDiv);
+        $('#symptomsIn').val("");
         countS++;
     }
     else{
         target2.append(newDiv);
+        $('#siteIn').val("");
         countB++;
     }
     count++;
@@ -80,6 +88,7 @@ function addDisease(eAdd) {
     data.forEach((element, index) => {
         console.log(element.name + ":" + element.value);
 
+        if(element.name == 'symptoms1' || element.name == 'site1') return; 
         isClicked = 0;
         if (element.value === "") {
             $('select[name=' + element.name + ']').css("background", "#feebeb");
@@ -112,6 +121,11 @@ function addDisease(eAdd) {
 
     if (errCount > 0) {
         $.notify("All fields must be filled!", { type: "danger" });
+        return;
+    }
+
+    else if(site.length == 0 || symptoms.length == 0){
+        $.notify(site.length == 0 ? "No bodysite added!" : "No symptoms added!", { type: "danger" });
         return;
     }
 
@@ -160,7 +174,6 @@ function addDisease(eAdd) {
 }
 
 function clearDisease() {
-    
     $('select[name=selectBacteria]').val("");
     $('select[name=selectJournal]').val("");
     $('input[name=strDiseaseName]').val("");
@@ -175,6 +188,8 @@ function clearDisease() {
     $('input[name=symptoms6').val("");
     $('input[name=symptoms7').val("");
     $('input[name=symptoms8').val("");
+    $('input[name=site1').val("");
+    $('.additionField').remove();
     isClick = 0;
 }
 

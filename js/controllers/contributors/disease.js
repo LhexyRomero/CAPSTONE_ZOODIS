@@ -12,13 +12,20 @@ exports.addDisease = (req, res, next) => {
     let bodySite = /* data.strBody == null ? "" : data.strBody == undefined ? "" : data.strBody */ "";
     let state = "notify";
 
-    data["symptoms[]"].forEach(element => {
-        symptoms += element + ":";
-    });
-    
-    data["site[]"].forEach(element=>{
-        bodySite += element + ":";
-    });
+    if(Array.isArray(data["symptoms[]"])){
+        data["symptoms[]"].forEach(element => {
+            symptoms += element + ":";
+        });
+    }else{
+        symptoms = data["symptoms[]"];
+    }
+    if(Array.isArray(data["site[]"])){
+        data["site[]"].forEach(element=>{
+            bodySite += element + ":";
+        });
+    }else{
+        bodySite = data["site[]"];
+    }
 
     // symptoms += (data.symptoms0 == null || data.symptoms0 == undefined) ? "" : ":" + data.symptoms0;
     // symptoms += (data.symptoms1 == null || data.symptoms1 == undefined) ? "" : ":" + data.symptoms1;
