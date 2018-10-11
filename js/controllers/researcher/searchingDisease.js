@@ -39,3 +39,14 @@ exports.searchingDisease = (req,res,next)=>{
         }
     });
 }
+
+exports.diseaseModules = (req,res,next) =>{
+
+    let sql ="SELECT * FROM disease_t";
+    db.get().query(sql,(err,result)=>{
+        if(err) return next (err);
+
+        console.log(result);
+        res.status(200).send({success:true,detail:"",data:result});
+    });
+}
