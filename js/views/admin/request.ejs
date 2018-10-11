@@ -153,12 +153,13 @@
                                     <div class="card-body ">
                                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                             <div class="fileinput-new thumbnail">
-                                                <img class='animalEditPic' src="../assets/img/image_placeholder.jpg" width="170" height="110" alt="...">
+                                                <img class="previewAnimal" id="prevAnimal" src="" width="170" height="110">
+                                                <img class='animalEditPic' id="editPic" src="../assets/img/image_placeholder.jpg" width="170" height="110" alt="...">
                                             </div>
                                             <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                             <div>
                                                 <span class="btn btn-rose btn-file">
-                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-new" onclick="selectFile()">Select image</span>
                                                     <span class="fileinput-exists">Change</span>
                                                     <input type="file" class="animalAdd" name="animalImg" />
                                                 </span>
@@ -173,10 +174,6 @@
 
                                             <label>Scientific Name</label>
                                             <input class="form-control animalAdd searchAnimal" name="modalScientificName" type="text" disabled/>
-
-                                            <label>Body Site</label>
-                                            <input class="form-control animalAdd" name="modalBodySite" type="text" />
-
                                         </div>
                                     </div>
                                 </div>

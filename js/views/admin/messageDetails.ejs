@@ -54,7 +54,7 @@
                                             </p>
                                             <%
                                                 if(locals.file){ %>
-                                                    <a id="downloadJournal" href="/downloadJournal/<%=file.split('\\')[2]%>">
+                                                    <a id="downloadJournal" href="/downloadJournal/<%let link = file.split('\\');%><%=link[link.length-1]%>">
                                                         <button style="padding: 0; border:0;" type="button" id="download" rel="tooltip" class="btn btn-neutral btn-warning">
                                                             <img width ="13" height="13" src="/assets/img/attachment.png">
                                                             &nbsp; Download Attachment

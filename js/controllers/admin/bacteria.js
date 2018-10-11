@@ -419,7 +419,6 @@ exports.updateBacteria = (req,res,next) => {
     let id = req.params.id;
     let data = req.body;
 
-    let animalID = data.toSelect;
     let speciesName = data.modalSpeciesName;
     let genusName = data.modalGenusName;
     let scientificName = genusName+" "+speciesName;
@@ -428,98 +427,11 @@ exports.updateBacteria = (req,res,next) => {
     let isolation = data.modalIsolation;
     let identification = data.modalIdentification;
 
-    let checkBacteria = (cb) => {
-        console.log("checking function to boi");
-        let sql11 = "SELECT * FROM bacteria_t WHERE bacteriumScientificName = ?";
-        db.get().query(sql11, [animalID, scientificName], (err11, result11) => {
-            if (err11) return cb(err11);
+    let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =? WHERE bacteriumID = ?";
+    db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,id],(err,result) =>{
+        if(err) return next(err);
 
-            if (result11.length == 0) {
-                return cb(null, true);
-            }
-
-            else {
-                return cb(null, false);
-            }
-        });
-    }
-
-    let checkSpecies = (cb) => {
-        console.log("check Species!");
-        let sql = "SELECT * FROM bacteriataxo_t WHERE species = ?";
-        db.get().query(sql, [speciesName], (err, result) => {
-            if (err) return cb(err);
-
-            if (result.length == 0) {
-                return cb(null, undefined);
-            }
-            else {
-                return cb(null, result);
-            }
-        });
-    }
-
-    let checkGenus = (cb) => {
-        console.log("Check Genus");
-        let sql = "SELECT * FROM bacteriataxo_t WHERE genus =?";
-        db.get().query(sql, [genusName], (err, result) => {
-            if (err) return cb(err);
-
-            if (result.length == 0) {
-                return cb(null, undefined);
-            }
-            else {
-                return cb(null, result);
-            }
-        });
-    }
-
-    let updateBacteria = (result) => {
-        let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, animalID = ?,bacteriumTaxoID =? WHERE bacteriumID = ?";
-        db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,animalID,result[0].bacteriumTaxoID,id],(err,result) =>{
-            if(err) return next(err);
-
-            res.status(200).send({success: true, detail:"Successfully Updated!",});
-
-        });
-    }
-
-
-    checkBacteria((error, result) => {
-        console.log("check niya muna bacteria");
-        if (error) return next(error);
-
-        if (result) {
-            checkGenus((error1, genus) => {
-                if (error1) return next(error1);
-
-                checkSpecies((error2, species) => {
-                    if (error2) return next(error2);
-
-                    if (!genus && !species) {
-                        res.status(200).send({ success: false, detail: "Genus and Species not found!", error: 1 });
-                    }
-
-                    else if (!genus && species) {
-                        console.log("genus error!");
-                        res.status(200).send({ success: false, detail: "Genus not found!", error: 2 });
-                    }
-
-                    else if (!species && genus) {
-                        console.log("species error!");
-                        res.status(200).send({ success: false, detail: "Species not found!", error: 3 });
-                    }
-
-                    else {
-                        updateBacteria(species);
-                    }
-                });
-            });
-            return;
-        }
-        else {
-            res.status(200).send({ success: false, detail: "Data Already Exists!", error: 4 });
-        }
+        res.status(200).send({success: true, detail:"Successfully Updated!",});
     });
 }
 

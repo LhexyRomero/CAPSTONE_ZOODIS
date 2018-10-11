@@ -488,7 +488,8 @@ function editAnimal(id) {
             return;
         }
 
-        $('.animalEditPic').attr('src', response.data.image.replace('public','assets'))
+        $('.previewAnimal').attr('src', response.data.image.replace('js\\public','assets'));
+        $("#editPic").hide();
         $("input[name=modalCommonName]").val(response.data.animalName);
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
         $("input[name=modalPhylum2]").val(response.data.phylum);
@@ -500,8 +501,12 @@ function editAnimal(id) {
     });
 }
 
+function selectFile() {
+    $("#prevAnimal").hide();
+    $("#editPic").show();
+}
+
 function updateAnimal(){
-    
     let dataInsert = new FormData($("#editAnimalForm")[0]);
     let data = $("#editAnimalForm").serializeArray();
     let errCount = 0;

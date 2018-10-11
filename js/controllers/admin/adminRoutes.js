@@ -18,6 +18,7 @@ const profile = require('../admin/profile');
 const sample = require('../admin/sample');
 const message = require('../admin/message');
 const notification = require('../admin/notification');
+const query = require('../admin/query');
 
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
@@ -192,6 +193,7 @@ router.get('/requestViewAnimal/:id',request.viewAnimal);
 router.get('/requestSelectAnimal',request.selectAnimal);
 router.get('/requestViewBacteria/:id',request.viewBacteria);
 
+router.post('/removeHost/:bacteriumID/:hostID',request.removeHost);
 router.post('/approvedAnimalTaxo/:id',request.approvedAnimalTaxo);
 router.post('/rejectAnimalTaxo/:id',request.rejectAnimalTaxo);
 router.post('/approvedBacteriaTaxo/:id',request.approvedBacteriaTaxo);
@@ -231,4 +233,12 @@ router.post('/code',staff.code);
 router.post('/updateTypeToAdmin/:id',staff.updateTypeToAdmin);
 router.post('/updateTypeToContributor/:id',staff.updateTypeToContributor);
 
+router.get('/totalAnimal',query.totalAnimal);
+router.get('/totalDisease',query.totalDisease);
+router.get('/totalPrevention',query.totalPrevention);
+router.get('/totalJournal',query.totalJournal);
+router.get('/totalApproved',query.totalApproved);
+router.get('/totalReject',query.totalReject);
+router.get('/totalCollaborators',query.totalCollaborators);
+router.get('/completeJournal',query.completeJournal);
 module.exports = router;

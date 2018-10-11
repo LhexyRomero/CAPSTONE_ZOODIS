@@ -265,7 +265,7 @@ exports.viewAnimal = (req,res,next) =>{
 
 exports.updateAnimal = function(req, res, next){
     if (!req.file) {
-        res.status(200).send({ success: false, detail: "No Image Provide" });
+        res.status(200).send({success: false, detail: "No Image Provide" });
         return;
     }
 
@@ -277,7 +277,6 @@ exports.updateAnimal = function(req, res, next){
     let genusName = finalScienctific[0];
     let scienceName = data.strScientificName+"";
     let speciesName = finalScienctific[finalScienctific.length-1];
-    let bodySite = data.modalBodySite;
     let isInserting = 1;
 
     let checkAnimal = function (cb) {

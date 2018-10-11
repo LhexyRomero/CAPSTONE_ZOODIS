@@ -342,7 +342,11 @@ function assignedJournal(e) {
                         confirmButtonColor: "#9c27b0",
                         confirmButtonText: "Okay"
                     });
+                    
+                    $("#toSelectStaffName").val("");
+                    $("#toSelectJournal").val("");
                     $("#journalModal").modal("hide");
+                    journalAssignee();
                 }
             });
         });

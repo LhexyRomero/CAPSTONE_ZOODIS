@@ -474,12 +474,6 @@ exports.viewBacteria = (req, res, next) => {
 exports.approvedAnimal = function (req, res, next) {
 
     let id = req.params.id;
-    let data = req.body;
-    let scientificName = data.modalScientificName + "";
-    let finalScienctific = scientificName.split(' ');
-    let genusName = finalScienctific[0];
-    let scienceName = data.strScientificName + "";
-    let speciesName = finalScienctific[finalScienctific.length - 1];
     let status = "approved";
     let state = "noticed";
     let category = "Animal";
@@ -558,5 +552,18 @@ exports.rejectBacteria = (req, res, next) => {
 
             res.status(200).send({ success: true, detail: "Data Rejected!" });
         });
+    });
+}
+
+exports.removeHost = (req,res,next) =>{
+    let bacteriumID = req.params.bacteriumID;
+    let hostID = req.params.hostID;
+    let status = 0;
+
+    let sql = "UPDATE animalbacteria_t SET status = ? WHERE animalID = ? AND bacteriumID =?";
+    db.get().query(sql,[status,hostID,bacteriumID],(err, result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success:true, detail:"Removed Successfully!"});
     });
 }
