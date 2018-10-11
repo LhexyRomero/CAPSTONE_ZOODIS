@@ -52,13 +52,19 @@ router.get('/researcher_animal',(req,res,next)=>{
     res.render('researcher/researcher_animal');
 });
 
+router.get('/animalModules',animalSearching.animalModules);
+
 router.get('/researcher_bacteria',(req,res,next)=>{
     res.render('researcher/researcher_bacteria');
 });
 
+router.get('/bacteriaModules',bacteriSearching.bacteriaModules);
+
 router.get('/researcher_disease',(req,res,next)=>{
     res.render('researcher/researcher_disease');
 });
+
+router.get('/diseaseModules',diseaseSearching.diseaseModules);
 
 //Searching
 router.post('/researcher_animal',animalSearching.searchingAnimal,(req,res,next)=>{

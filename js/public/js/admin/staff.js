@@ -53,7 +53,7 @@ function adminSwitch(event) {
                     if (response.success == false) {
                         swal({
                             title: "Error!",
-                            text: "Process terminated!",
+                            text: "Unsuccessful!",
                             type: "error",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Okay"
@@ -96,7 +96,7 @@ function adminSwitch(event) {
                     if (response.success == false) {
                         swal({
                             title: "Error!",
-                            text: "Process terminated!",
+                            text: "Unsuccessful!",
                             type: "error",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Okay"

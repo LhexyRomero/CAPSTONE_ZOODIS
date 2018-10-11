@@ -1,4 +1,5 @@
 $(function(){
+    diseaseModules();
     $("input[name=diseaseName]").autocomplete({
         source: (req,res) => {
             $.ajax({
@@ -56,3 +57,45 @@ function searchDisease(e) {
     });
 }
 
+function diseaseModules() {
+    console.log("LEKAY");
+
+    $.get("/diseaseModules",(response)=>{
+
+        if(response.success==false){
+            $.notify("Error getting Data from the Server!",{type:"danger"});
+            return;
+        }
+
+        let data = response.data;
+        console.log(data);
+        let colPerRow = 1;
+        let colCount = 1;
+        let html = '<div class="row">';
+        data.forEach((element,index) => {
+            let temphtml = '<div class="col-md-' + parseInt(6 / colPerRow) +'">';
+            temphtml += '<div class="single-testimonial item d-flex flex-row">';
+            temphtml += '<div class="desc">';
+            temphtml += '<h4>'+element.diseaseName+'</h4>';
+            temphtml += '<p>'+element.diseaseDesc.substring(0,40)+'</p>';
+            temphtml += '</div>';
+            temphtml += '</div>';
+        
+            html += temphtml;
+            if (colCount == colPerRow) {
+                colCount = 1;
+                html += '</div>';
+            }
+            else {
+                colCount++;
+            }
+            
+            if(index == data.length - 1){
+                html += '</div>';
+                $(".displayDisease").html(html);
+                console.log(html);
+            }
+        });
+
+    });
+}
