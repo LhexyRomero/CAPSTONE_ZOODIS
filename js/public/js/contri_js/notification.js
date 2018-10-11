@@ -92,7 +92,8 @@ function notificationJournal() {
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
+            let link = data.file.split('\\');
+            $('#downloadJournal').attr('href', '/downloadJournal/' + link[link.length-1]);
 
         }
         else if (data.state == "notify" && data.status == "Incomplete") {
