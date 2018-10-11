@@ -25,7 +25,7 @@
 	</section>
 	<!-- End banner Area -->
 
-	<section class="post-content-area">
+	<section id="bacteriaSearch" class="post-content-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -62,30 +62,31 @@
 								</div>
 								<div class="col-md-6" id="animalTaxon">
 									<ul class="tags">
-										<li id="phylum" class="li">
-											<%=(locals.bacteria.phylum?bacteria.phylum:"")%>
+										<li id="phylumBacteria" class="li">
+											<%=(locals.bacteria?bacteria.phylum:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria.class?bacteria.class:"")%>
+											<%=(locals.bacteria?bacteria.class:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria.orderr?bacteria.orderr:"")%>
+											<%=(locals.bacteria?bacteria.orderr:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria.family?bacteria.family:"")%>
+											<%=(locals.bacteria?bacteria.family:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria.genus?bacteria.genus:"")%>
+											<%=(locals.bacteria?bacteria.genus:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria.species?bacteria.species:"")%>
+											<%=(locals.bacteria?bacteria.species:"")%>
 										</li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7">
-							<h3 style="text-transform: uppercase;"><%=(locals.bacteria.bacteriumScientificName?bacteria.bacteriumScientificName:"") %></h3>
+							<h3 style="text-transform: uppercase;">
+								<%=(locals.bacteria?bacteria.bacteriumScientificName:"")%></h3>
 							<a class="posts-title">
 							</a><br>
 							<div class="row">
@@ -93,7 +94,7 @@
 									<p class="excert"> Tissue Specifity:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria.bacteriumTissueSpecifity?bacteria.bacteriumTissueSpecifity:"")%></p>
+									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumTissueSpecifity:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -101,7 +102,7 @@
 									<p class="excert"> Sample Type:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria.bacteriumSampleType?bacteria.bacteriumSampleType:"")%></p>
+									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumSampleType:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -109,7 +110,7 @@
 									<p class="excert"> Method of Isolation:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria.bacteriumIsolation?bacteria.bacteriumIsolation:"")%></p>
+									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumIsolation:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -117,7 +118,7 @@
 									<p class="excert"> Method of Identification:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria.bacteriumIdentification?bacteria.bacteriumIdentification:"")%></p>
+									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumIdentification:"")%></p>
 								</div>
 							</div>
 						</div>
@@ -165,7 +166,7 @@
 	<%
 		if(!locals.matchResult){
 	%>
-	<section id="noResults" class="post-content-area">
+	<section id="noResultsBacteria" class="post-content-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -181,180 +182,26 @@
 		}
 	%>
 	
-	<section class="recent-blog-area section-gap">
-		<div class="container">
-				<h4>BACTERIA LIST</h4>
-			<hr>
-			<ul class="tags" style="list-style-type:disc">
-					<li class="li"><a href="#">Bacteria1</a></li>
-				</ul>
-		</div>
-	</section>
-
-	<section class="recent-blog-area section-gap">
+	<section style="background-color: #e7e7f9" class="recent-blog-area section-gap">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content pb-60 col-lg-9">
 					<div class="title text-center">
-						<h1 class="mb-10">Latest from Our Blog</h1>
-						<p>With the exception of Nietzsche, no other madman has contributed so much to human sanity as has.</p>
+						<h1 class="mb-10">Bacteria List</h1>
+						<p>A very small living thing from animals and called pathogens if it can be transmitted to another animal or to
+							humans that can cause disease.</p>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="active-recent-blog-carusel">
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b1.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">Low Cost Advertising</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b2.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">Creative Outdoor Ads</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b3.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">It's Classified How To Utilize Free</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b1.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">Low Cost Advertising</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b2.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">Creative Outdoor Ads</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-					<div class="single-recent-blog-post item">
-						<div class="thumb">
-							<img class="img-fluid" src="../../assets/img/b3.jpg" alt="">
-						</div>
-						<div class="details">
-							<div class="tags">
-								<ul>
-									<li>
-										<a href="#">Travel</a>
-									</li>
-									<li>
-										<a href="#">Life Style</a>
-									</li>
-								</ul>
-							</div>
-							<a href="#">
-								<h4 class="title">It's Classified How To Utilize Free</h4>
-							</a>
-							<p>
-								Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-							</p>
-							<h6 class="date">31st January,2018</h6>
-						</div>
-					</div>
-
-				</div>
+			<div class="displayBacteria"></div>
+			<div class="active-recent-blog-carusel"><br>
 			</div>
 		</div>
 	</section>
 
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
+	<script src="../../assets/js/researcher/bacteriaSearch.js"></script>
 	<!-- End footer Area -->
 </body>
 
