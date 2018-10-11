@@ -171,8 +171,8 @@ exports.searchingBacteria = (req,res,next) =>{
     db.get().query(sql, [bacteria], (err, result) => {
         if (err) return next(err);
         if(result.length==0) {
-            res.locals={}; 
-            next();
+            res.locals = {};
+            return next();
         }
         getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {
             if (errr) return next(errr);

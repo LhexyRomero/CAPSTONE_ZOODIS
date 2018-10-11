@@ -14,7 +14,7 @@ $(function(){
         }
     });
 
-    if($('#phylumBacteria').html()!= ""){
+    if($('#phylumBacteria').html().trim() != ""){
         $('#noResultsBacteria').hide();
     }
 
