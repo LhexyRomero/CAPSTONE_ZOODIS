@@ -208,3 +208,14 @@ exports.searchingBacteria = (req,res,next) =>{
         });
     });
 }
+
+exports.bacteriaModules = (req,res,next) =>{
+    
+    let sql = "SELECT * FROM bacteria_t";
+    db.get().query(sql,(err,result)=>{
+        if (err) return next (err);
+
+        console.log(result);
+        res.status(200).send({success:true,detail:"",data:result});
+    });
+}
