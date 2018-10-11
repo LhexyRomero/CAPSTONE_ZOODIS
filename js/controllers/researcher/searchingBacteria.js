@@ -170,7 +170,10 @@ exports.searchingBacteria = (req,res,next) =>{
     let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumScientificName = ?";
     db.get().query(sql, [bacteria], (err, result) => {
         if (err) return next(err);
-        if(result.length==0) return res.status(200).send({success: false, detail: "Invalid Bacteria Name"});
+        if(result.length==0) {
+            res.locals={}; 
+            next();
+        }
         getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {
             if (errr) return next(errr);
             getToxinName(toxinIDs, function(er, toxinNames){
@@ -190,10 +193,11 @@ exports.searchingBacteria = (req,res,next) =>{
                         });
                     }).then(output=>{
                         res.locals.count = output.match.length;
-                        res.locals.matchResult = output.match;
+                        res.locals.matchResult = output.match; 
                         res.locals.bacteria = output.bacteria;
                         res.locals.toxinNames = output.toxinNames;
                         next();
+
                     }).catch(reason=>{
                         throw (new Error(reason));
                     }).catch(reason=>{

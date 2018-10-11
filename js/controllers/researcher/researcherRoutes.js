@@ -72,7 +72,7 @@ router.post('/researcher_animal',animalSearching.searchingAnimal,(req,res,next)=
 });
 
 router.post('/researcher_bacteria', bacteriSearching.searchingBacteria,(req,res,next)=>{
-    res.render('researcher/researcher_bacteria')
+    res.render('researcher/researcher_bacteria');
 });
 
 router.post('/researcher_disease',diseaseSearching.searchingDisease,(req,res,next)=>{

@@ -1,41 +1,30 @@
-function notiCard() {
-    $.get("/notiCard", (response) => {
+$(function () {
+    notificationCard();
+    $(".stats").hide();
+});
+
+function notificationCard() {
+    $.get("/notificationCard", (response) => {
         if (response.success == false) {
-            $.notify("Error getting data from the server!", { type: "danger" });
+            $.notify("Error getting data from the Server!", { type: "danger" });
             return;
         }
 
         let data = response.data;
         let colPerRow = 1;
         let colCount = 1;
-
         let html = "<div class='row'>";
         $("#placeholder").html("");
+
         data.forEach((element, index) => {
-
-            if(element.status == 'approved'){
-                let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
-                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
-                    + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
-                    + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
-                    + "<span class='badge badge-success'>" + element.status + "</span><br>"
-                    + "<label>" + element.dateTime + "</label><br>"
-                    + "<label class='text-danger'>" + element.message + "</label><p></p>"
-                temphtml += "</div>";
-                html += temphtml;
-            }
-
-            else if(element.status == 'rejected'){
-                let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
-                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
-                    + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
-                    + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
-                    + "<span class='badge badge-danger'>" + element.status + "</span><br>"
-                    + "<label>" + element.dateTime + "</label><br>"
-                    + "<label class='text-danger'>" + element.message + "</label><p></p>"
-                temphtml += "</div>";
-                html += temphtml;
-            }
+            console.log(data);
+            let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
+            temphtml += "<h5 class='text-primary'><strong>" + element.code + "</strong></h5>"
+                + "<p class='pLabel'><strong>" + element.name + "</strong></p>"
+                + "<p class='pLabel'>" + element.firstName + " " + element.middleInitial + " " + element.lastName + "</p>"
+                + "<br><button type='button' class='btn btn-primary pull-right' onclick='notificationDetails("+ element.ownedBy +","+ element.journalID +","+ element.staffID +")'>View</button>";
+            temphtml += "</div>";
+            html += temphtml;
 
             if (colCount == colPerRow) {
                 colCount = 1;
@@ -49,10 +38,164 @@ function notiCard() {
                 html += "</div>";
                 $('#placeholder').html(html);
             }
+
+        });
+    });
+}
+
+let view = 0;
+let owner = 0;
+let staff = 0;
+function notificationDetails(ownedBy,journalID, staffID){
+    view = journalID;
+    owner = ownedBy;
+    staff = staffID;
+    let url = "/notificationDetails/"+journalID+"/"+staffID;
+    console.log(url);
+
+    $.get(url,(response)=>{
+        if(response.success == false){
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+        
+        let data = response.data;
+        let html = "";
+        console.log(data);
+        data.forEach((element, index) => {
+            let row = "<tr>";
+            row += "<td>" + element.category + "</td>";
+            row += "<td>" + element.addedData + "</td>";
+            row += "</tr>";
+            html += row;
+
+            
+            if(element.ownedBy == 1){
+                $("#complete").show();
+                $("#send").hide();
+            }
+            else {
+                $("#complete").hide();
+                $("#send").show();
+            }
+            
+            $("input[name=email").val(element.email);
+            if(element.category == 'Animal Taxonomy'){
+                $("input[name=animalTaxon").val(element.addedData);
+                console.log(element.addedData);
+            }
+
+            else if(element.category == 'Bacteria Taxonomy'){
+                $("input[name=bacteriaTaxon").val(element.addedData);
+                console.log(element.addedData);
+            }
+
+            else if(element.category == 'Animal'){
+                $("input[name=animal").val(element.addedData);
+                console.log(element.addedData);
+            }
+
+            else{
+                $("input[name=bacteria").val(element.addedData);
+                console.log(element.addedData);
+            
+            }
+            
         });
 
-        console.log("DITO AKO");
-        console.log(response.data);
-
+        $('#gatheredData').html(html);
+        $('#viewDetails').modal("show");
     });
+}
+
+function completeUpdate(){
+    let url = "/completeUpdate/"+view+"/"+staff;
+    $.post(url,(response)=>{
+        if(response.success == false){
+            $.notify("Error getting Data from the Server!",{type:"danger"});
+            return;
+        }
+        
+        swal({
+            title: "Done!",
+            text: response.detail,
+            type: "success",
+            confirmButtonColor: "#9c27b0",
+            confirmButtonText: "Okay"
+        });
+        notificationCard();
+        $('#viewDetails').modal("hide"); 
+    });
+}
+
+function sendUpdate(){
+    let url = "/sendUpdate/"+view;
+    let data = $("#dataForm").serializeArray();
+    let dataInsert = {};
+
+    data.forEach((element,index) => {
+        dataInsert[element.name] = element.value;
+    });
+
+    swal({
+        title: 'Email',
+        text: "to Journals Owner!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9c27b0',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $(".stats").show();
+            $.post(url,dataInsert,(response)=>{
+                if(response.success == false){
+                    $.notify("Unable to Send Message",{type:"danger"});
+                    return;
+                }
+                swal({
+                    title: "Sent!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+
+                $(".stats").hide();
+                notificationCard();
+                $('#viewDetails').modal("hide");
+            });
+        }
+    })
+
+}
+
+function incompleteUpdate(){
+    let url ="/incompleteUpdate/"+view;
+
+    swal({
+        title: 'Are you sure?',
+        text: "Mark as Incomplete!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9c27b0',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $.post(url,(response)=>{
+                if(response.success == false){
+                    $.notify("Unable to Send Message",{type:"danger"});
+                    return;
+                }
+                swal({
+                    title: "Done!",
+                    text: response.detail,
+                    type: "success",
+                    confirmButtonColor: "#9c27b0",
+                    confirmButtonText: "Okay"
+                });
+                notificationCard();
+                $('#viewDetails').modal("hide");
+            });
+        }
+    })
 }

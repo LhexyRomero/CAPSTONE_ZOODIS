@@ -15,6 +15,15 @@ $(function () {
             });
         }
     });
+
+    if($('#phylumBacteria').html()!= ""){
+        $('#noResultsBacteria').hide();
+    }
+
+    else {
+        $('#bacteriaSearch').hide();
+        $('#noResultsBacteria').show();
+    }
 });
 
 let bacteriaSearchClick = 0;
