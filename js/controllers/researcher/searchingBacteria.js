@@ -119,6 +119,7 @@ function pathogenic(id, disease, cb){
             return output;
         }).then(data=>{
             return new Promise((res,rej)=>{
+                if(disease.length == 0) return res([]);
                 let processed = [];
                 let promises = [];
                 disease.forEach((e,i)=>{
@@ -140,6 +141,8 @@ function pathogenic(id, disease, cb){
                     }
                 });
             }).then(output=>{
+                if(output.length > 0) setPathogenetic(id, 1);
+                if(output.length == 0) setPathogenetic(id, 0);
                 let out = [];
                 out = output;
                 resolve(out);
@@ -161,6 +164,20 @@ function getBacteriaTissue(id, cb){
     });
 }
 
+function setPathogenetic(id, isPathogenic){
+    let sql = "SELECT pathogenic FROM bacteria_t WHERE bacteriumID = ?";
+    db.get().query(sql, [id], function(err, bacterium){
+        if(err) return console.error(err);
+        if(bacterium.length == 0) return console.log("No data found");
+        if(isPathogenic != bacterium[0].pathogenic){
+            sql = "UPDATE bacteria_t SET pathogenic = ? WHERE bacteriumID = ?";
+            db.get().query(sql, [isPathogenic, id], function(err, result){
+                if(err) return console.error(err);
+            });
+        }
+    });
+}
+
 /**
  * we need to find the bacteriaID of user inputted string. eto talaga yung middleware
  */
@@ -168,30 +185,30 @@ exports.searchingBacteria = (req,res,next) =>{
     let data = req.body;
     let bacteria = data.bacteriaScientificName;
     let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumScientificName = ?";
-    db.get().query(sql, [bacteria], (err, result) => {
+    db.get().query(sql, [bacteria], (err, result) => {  // Search if bacteria exists on database.
         if (err) return next(err);
-        if(result.length==0) {
+        if(result.length==0) { // if no bacteria found then return nothing
             res.locals = {};
             return next();
         }
-        getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {
+        getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {   // toxinIDs: (array) toxins of this bacteria
             if (errr) return next(errr);
-            getToxinName(toxinIDs, function(er, toxinNames){
+            getToxinName(toxinIDs, function(er, toxinNames){            // toxinNames: (array) name of each toxinIDs
                 if (er) return next(er);
                 let offset = 0;
                 let limit = 100;
-                getDisease(offset,limit, (e, disease)=>{
+                getDisease(offset,limit, (e, disease)=>{                // disease: (array) array of disease in limit to maximize performance
                     if(e) return next(e);
                     toxinNames.push(bacteria);
-                    processData(toxinNames, disease).then(matches=>{
-                        return pathogenic(result[0].bacteriumID, matches).then(output=>{
+                    processData(toxinNames, disease).then(matches=>{    // matches: (array) matched diseases on bacteria description
+                        return pathogenic(result[0].bacteriumID, matches).then(output=>{ // output: filtered matches that is pathogenic to human
                             return {
                                 match: output,
                                 bacteria: result[0],
                                 toxinNames: toxinNames,
                             }
                         });
-                    }).then(output=>{
+                    }).then(output=>{   // final output see about for it's format
                         res.locals.count = output.match.length;
                         res.locals.matchResult = output.match; 
                         res.locals.bacteria = output.bacteria;
@@ -219,3 +236,5 @@ exports.bacteriaModules = (req,res,next) =>{
         res.status(200).send({success:true,detail:"",data:result});
     });
 }
+
+exports.search = search; // Export search function, need to recycle on disease
