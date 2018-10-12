@@ -9,6 +9,8 @@ $(function(){
     totalCollaborators();
     completeJournal();
     totalToxins();
+    totalPotent();
+    totalPatho();
 });
 
 function totalAnimal() {
@@ -107,5 +109,28 @@ function totalToxins(){
         }
         let html ='<h3 class="info-title">'+response.data+'</h3>';
         $("#totalToxins").html(html);
+    });
+}
+
+function totalPotent(){
+    console.log("DITO AKO BOBP");
+    $.get('/totalPotent',(response)=>{
+        if(response.success ==false) {
+            $.notify("Error getting query",{type:"danger"});
+            return;
+        }
+        let html = '<h3 style="margin-top:0;" class="info-title">'+response.data+'</h3>';
+        $("#totalPotent").html(html);
+    });
+}
+
+function totalPatho(){
+    $.get('/totalPatho',(response)=>{
+        if(response.success ==false) {
+            $.notify("Error getting query",{type:"danger"});
+            return;
+        }
+        let html = '<h3 style="margin-top:0;" class="info-title">'+response.data+'</h3>';
+        $("#totalPatho").html(html);
     });
 }

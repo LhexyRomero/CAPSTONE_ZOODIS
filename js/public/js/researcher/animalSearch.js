@@ -86,11 +86,12 @@ function animalModules() {
         data.forEach((element,index) => {
             let temphtml = '<div class="col-md-' + parseInt(4 / colPerRow) +'">'; 
             temphtml += '<div class="single-recent-blog-post item">';
-            temphtml += '<div class="thumb"><img class="img-fluid" src="'+ element.image.replace('js\\public','assets') +'" alt="working"></div>';
+            temphtml += '<br><br><div class="thumb"><a onclick="viewAnimal('+element.animalID+')"><img class="imgSize img-fluid" src="'+ element.image.replace('js\\public','assets') +'" alt="working"></a></div>';
             temphtml += '<div class="details">';
-            temphtml += '<h4 class="title">'+element.animalName+'</h4>';
-            temphtml += '<h6>'+element.animalScientificName+'</h6>';
-            temphtml += '<p>Journal Name</p>';
+            temphtml += '<br><h3 style="text-transform:uppercase;">'+element.animalName+'</h3>';
+            temphtml += '<p><em><b>'+element.animalScientificName+'</b></em></p>';
+            temphtml += '<label style="font-size:12px;" class="text-info">'+element.name+'</label>';
+            temphtml += '<label style="font-size:12px;">'+element.doi+'</label>';
             temphtml += '</div>';
             temphtml += '</div>';
             
@@ -111,4 +112,9 @@ function animalModules() {
         });
 
     });
+}
+
+function viewAnimal(id){
+    console.log(id + "ANDITO KOOO");
+    
 }

@@ -173,7 +173,8 @@
 						<div class="single-sidebar-widget tag-cloud-widget">
 							<h4 class="tagcloud-title">Animal Host/s</h4>
 							<div class="single-post-list d-flex flex-row align-items-center">
-							</div><br>
+								<!--  -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -198,7 +199,7 @@
 		}
 	%>
 	
-	<section style="background-color: #e7e7f9" class="recent-blog-area section-gap">
+	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content pb-60 col-lg-9">
@@ -209,8 +210,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="displayBacteria"></div>
-			<div class="active-recent-blog-carusel"><br>
+			<div class="table-responsive">
+				<table class="table" id="bacModuleTable">
+					<thead class="text-primary">
+						<th><small><b>ANIMAL</b></small></th>
+						<th><small><b>BACTERIA</b></small></th>
+						<th class="text-center"><small><b>PATHOGENIC</b></small></th>
+						<th class="text-center"><small><b>REFERENCE</b></small></th>
+					</thead>
+					<tbody id="bacModuleList">
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</section>

@@ -52,6 +52,10 @@ router.get('/researcher_animal',(req,res,next)=>{
     res.render('researcher/researcher_animal');
 });
 
+router.get('/view_animal',(req,res,next)=>{
+    res.render('researcher/view_animal');
+});
+
 router.get('/animalModules',animalSearching.animalModules);
 
 router.get('/researcher_bacteria',(req,res,next)=>{

@@ -61,29 +61,44 @@
 								</div>
 								<div class="col-md-6" id="animalTaxon">
 									<ul class="tags">
-										<li id="phylum" class="li"><%=(locals.phylum?phylum :"")%></li>
-										<li class="li"><%=(locals.classs?classs:"")%></li>
-										<li class="li"><%=(locals.orderr?orderr:"")%></li>
-										<li class="li"><%=(locals.family?family:"")%></li>
-										<li class="li"><%=(locals.genus?genus:"")%></li>
-										<li class="li"><%=(locals.species?species:"")%></li>
+										<li id="phylum" class="li">
+											<%=(locals.phylum?phylum :"")%>
+										</li>
+										<li class="li">
+											<%=(locals.classs?classs:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.orderr?orderr:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.family?family:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.genus?genus:"")%>
+										</li>
+										<li class="li">
+											<%=(locals.species?species:"")%>
+										</li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7">
 							<div class="feature-img">
-								<img width="300" height="200" src="<%=(locals.image?image.replace('public','assets'):"")%>" class="img-fluid animalPic"/>
+								<img width="300" height="200" src="<%=(locals.image?image.replace('public','assets'):"")%>" class="img-fluid animalPic" />
 							</div>
 							<a class="posts-title">
-								<h3><%=(locals.name?name:"")%></h3>
+								<h3>
+									<%=(locals.name?name:"")%>
+								</h3>
 							</a>
 							<div class="row">
 								<div class="col-md-6">
 									<p class="excert"> Scientific Name:</p>
 								</div>
 								<div class="col-md-6" id="scientificName">
-									<p class="excert"><em><%=(locals.scientificName?scientificName:"")%></em></p>
+									<p class="excert"><em>
+											<%=(locals.scientificName?scientificName:"")%></em></p>
 								</div>
 							</div>
 							<div class="row">
@@ -91,8 +106,10 @@
 									Source:
 								</div>
 								<div class="col-md-10">
-									<label class="text-primary"><em><%=(locals.journal?journal:"")%></em></label><br>
-									<label><%=(locals.doi?doi:"")%></label>
+									<label class="text-primary"><em>
+											<%=(locals.journal?journal:"")%></em></label><br>
+									<label>
+										<%=(locals.doi?doi:"")%></label>
 								</div>
 							</div>
 						</div>
@@ -103,7 +120,7 @@
 						<div class="single-sidebar-widget tag-cloud-widget" id="bacteria">
 							<h4 class="tagcloud-title">Bacteria</h4>
 							<ul>
-							<%
+								<%
 								var bacTags = "";
 								if(locals.bacteria){
 									bacteria.forEach((element, index) => {
@@ -111,44 +128,16 @@
 									});
 								}
 							%>
-							<%-bacTags%>
+								<%-bacTags%>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
+			<center><a href="researcher_animal" class="genric-btn primary pull-right"><span
+					 class="lnr lnr-arrow-left">&nbsp;&nbsp;Back</span></a></center><br><br><br>
 		</div>
 	</section>
-
-	<section id="noResults" class="post-content-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="menu-content pb-70"><br><br>
-							<h4>
-							<b>No results Found &nbsp; <span class="lnr lnr-sad"></span></b></h4>
-						</div>
-					</div>
-				</div>
-			</div>
-	</section>
-
-	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
-			<div class="container">
-				<div class="row d-flex justify-content-center">
-					<div class="menu-content pb-60 col-lg-9">
-						<div class="title text-center">
-							<h1 class="mb-10">Animal List</h1>
-							<p>Living things from kingdom animalia extracted from published journals that can be found in the wild,  farm or in houses as pets. These animals carry pathogenic bacteria that can be harmful in human health.</p>
-						</div>
-					</div>
-				</div>
-				<div class ="displayAnimal"></div>
-				<div class="active-recent-blog-carusel"><br>
-				</div>
-			</div>
-		</section>
-
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<!-- End footer Area -->
