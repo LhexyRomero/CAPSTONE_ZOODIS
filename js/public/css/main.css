@@ -575,6 +575,9 @@ td, th {
   color: #000;
 }
 
+.text-violet {
+  color: #9c27b0;
+}
 .transition {
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;

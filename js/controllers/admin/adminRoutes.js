@@ -241,4 +241,6 @@ router.get('/totalApproved',query.totalApproved);
 router.get('/totalReject',query.totalReject);
 router.get('/totalCollaborators',query.totalCollaborators);
 router.get('/completeJournal',query.completeJournal);
+router.get('/totalToxins',query.totalToxins);
+
 module.exports = router;

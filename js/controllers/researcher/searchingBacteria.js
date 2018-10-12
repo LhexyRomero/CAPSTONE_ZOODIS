@@ -185,40 +185,54 @@ exports.searchingBacteria = (req,res,next) =>{
     let data = req.body;
     let bacteria = data.bacteriaScientificName;
     let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumScientificName = ?";
-    db.get().query(sql, [bacteria], (err, result) => {  // Search if bacteria exists on database.
+    let sql2 = "SELECT name,doi FROM journal_t WHERE journalID = ?";
+    let sql3 = "SELECT DISTINCT COUNT(animalbacteria_t.animalID) as produces, animal_t.animalID, animalName,image FROM animalbacteria_t INNER JOIN animal_t ON animal_t.animalID = animalbacteria_t.animalID WHERE animalbacteria_t.bacteriumID = ?"
+    db.get().query(sql, [bacteria], (err, result) => {
+        console.log(result);
         if (err) return next(err);
-        if(result.length==0) { // if no bacteria found then return nothing
-            res.locals = {};
-            return next();
-        }
-        getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {   // toxinIDs: (array) toxins of this bacteria
-            if (errr) return next(errr);
-            getToxinName(toxinIDs, function(er, toxinNames){            // toxinNames: (array) name of each toxinIDs
-                if (er) return next(er);
-                let offset = 0;
-                let limit = 100;
-                getDisease(offset,limit, (e, disease)=>{                // disease: (array) array of disease in limit to maximize performance
-                    if(e) return next(e);
-                    toxinNames.push(bacteria);
-                    processData(toxinNames, disease).then(matches=>{    // matches: (array) matched diseases on bacteria description
-                        return pathogenic(result[0].bacteriumID, matches).then(output=>{ // output: filtered matches that is pathogenic to human
-                            return {
-                                match: output,
-                                bacteria: result[0],
-                                toxinNames: toxinNames,
-                            }
-                        });
-                    }).then(output=>{   // final output see about for it's format
-                        res.locals.count = output.match.length;
-                        res.locals.matchResult = output.match; 
-                        res.locals.bacteria = output.bacteria;
-                        res.locals.toxinNames = output.toxinNames;
-                        next();
+        db.get().query(sql2,[result[0].journalID],(err2,result2)=>{
+            if(err2) return next(err2);
+            db.get().query(sql3,[result[0].bacteriumID],(err3,result3)=>{
+                if(err3) return next(err3);
+                console.log(result3);
+                if(result.length==0) {
+                    res.locals = {};
+                    return next();
+                }
+                getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {
+                    if (errr) return next(errr);
+                    getToxinName(toxinIDs, function(er, toxinNames){
+                        if (er) return next(er);
+                        let offset = 0;
+                        let limit = 100;
+                        getDisease(offset,limit, (e, disease)=>{
+                            if(e) return next(e);
+                            toxinNames.push(bacteria);
+                            processData(toxinNames, disease).then(matches=>{
+                                return pathogenic(result[0].bacteriumID, matches).then(output=>{
+                                    return {
+                                        match: output,
+                                        bacteria: result[0],
+                                        journal: result2[0],
+                                        toxinNames: toxinNames,
+                                        hosts : result3,
+                                    }
+                                });
+                            }).then(output=>{
+                                res.locals.count = output.match.length;
+                                res.locals.matchResult = output.match; 
+                                res.locals.bacteria = output.bacteria;
+                                res.locals.journal = output.journal;
+                                res.locals.toxinNames = output.toxinNames;
+                                res.locals.hosts = output.hosts;
+                                next();
 
-                    }).catch(reason=>{
-                        throw (new Error(reason));
-                    }).catch(reason=>{
-                        next(reason);
+                            }).catch(reason=>{
+                                throw (new Error(reason));
+                            }).catch(reason=>{
+                                next(reason);
+                            });
+                        });
                     });
                 });
             });
