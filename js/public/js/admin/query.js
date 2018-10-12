@@ -8,6 +8,7 @@ $(function(){
     totalReject();
     totalCollaborators();
     completeJournal();
+    totalToxins();
 });
 
 function totalAnimal() {
@@ -95,5 +96,16 @@ function completeJournal(){
         }
         let html = '<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="'+response.data+'"aria-valuemin="0" aria-valuemax="100" style="width:'+ response.data+'%;"><span class="progress-value">'+ response.data+'</span></div>';
         $("#completeJournal").html(html);
+    });
+}
+
+function totalToxins(){
+    $.get('/totalToxins',(response)=>{
+        if(response.success == false) {
+            $.notify("Error getting query",{type:"danger"});
+            return;
+        }
+        let html ='<h3 class="info-title">'+response.data+'</h3>';
+        $("#totalToxins").html(html);
     });
 }

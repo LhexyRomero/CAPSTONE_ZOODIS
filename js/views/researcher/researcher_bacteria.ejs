@@ -85,8 +85,7 @@
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7">
-							<h3 style="text-transform: uppercase;">
-								<%=(locals.bacteria?bacteria.bacteriumScientificName:"")%></h3>
+							<h2><em><%=(locals.bacteria?bacteria.bacteriumScientificName:"")%></em></h2>
 							<a class="posts-title">
 							</a><br>
 							<div class="row">
@@ -121,6 +120,33 @@
 									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumIdentification:"")%></p>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p class="excert"> Toxins:</p>
+								</div>
+								<div class="col-md-6">
+									<ul>
+										<%
+											var toxinTags = "";
+											if(locals.toxinNames){
+												toxinNames.forEach((element, index) => {
+													toxinTags += "<li>" + element + "</a></li>";
+												});
+											}
+										%>
+										<%-toxinTags%>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2"><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;Source:
+							</div>
+							<div class=" offset-md-0 col-md-10"><br>
+								<label class="text-primary"><em><%=(locals.journal?journal.name:"")%></em></label><br>
+								<label><%=(locals.journal?journal.doi:"")%></label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -147,22 +173,12 @@
 						<div class="single-sidebar-widget tag-cloud-widget">
 							<h4 class="tagcloud-title">Animal Host/s</h4>
 							<div class="single-post-list d-flex flex-row align-items-center">
-								<div class="thumb">
-									<img class="img-fluid" src="../../assets/img/blog/pp1.jpg" alt="" height="90px" width="90px">
-								</div>&nbsp;&nbsp;&nbsp;
-								<div class="details">
-									<br><a href="blog-single.html">
-										<h6>Cow</h6>
-									</a>
-									<p>It produces 5 bacteria.</p>
-								</div>
 							</div><br>
 						</div>
 					</div>
 				</div>
 			</div>
 	</section>
-
 	<%
 		if(!locals.matchResult){
 	%>

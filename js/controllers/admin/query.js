@@ -175,3 +175,12 @@ exports.completeJournal = (req,res,next)=>{
         res.status(200).send({success:true, detail:"", data:result[0].completeJournal});
     });
 }
+
+exports.totalToxins = (req,res,next)=>{
+    console.log("Q TOXINS");
+    let sql = "SELECT COUNT(toxinID) as countToxins FROM toxin_t";
+    db.get().query(sql,(err,result)=>{
+        if(err) return next(err);
+        res.status(200).send({success:true, detail:"", data:result[0].countToxins});
+    });
+}
