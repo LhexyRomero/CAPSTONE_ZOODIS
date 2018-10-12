@@ -90,7 +90,8 @@ function addBacteriaTaxon(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/contri_bacteriaTaxon", dataInsert, function (response) {
@@ -100,7 +101,8 @@ function addBacteriaTaxon(eAdd) {
                             text: response.detail,
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -110,7 +112,8 @@ function addBacteriaTaxon(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         bacteriaTaxonList();
                         clearBacteriaTaxon();
@@ -299,7 +302,8 @@ function addToxin(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/contri_toxin", dataInsert, function (response) {
@@ -310,7 +314,8 @@ function addToxin(eAdd) {
                             text: response.detail,
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -320,7 +325,8 @@ function addToxin(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         toxinList();
                         clearToxin();
@@ -489,7 +495,8 @@ function addBacteria(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/contri_bacteria", dataInsert, (response) => {
@@ -525,7 +532,8 @@ function addBacteria(eAdd) {
                                 text: response.detail,
                                 type: "error",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                         }
                     }
@@ -535,7 +543,8 @@ function addBacteria(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     clearBacteria();
                     bacteriaList();
@@ -701,7 +710,8 @@ function addHost(){
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/contri_bacteriaHost",dataInsert,(response)=>{
@@ -711,7 +721,8 @@ function addHost(){
                             text: response.detail,
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
                     else {
@@ -720,7 +731,8 @@ function addHost(){
                             text: "Successfully Added!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $('#addHost').modal("hide");
                         clearBacteria();

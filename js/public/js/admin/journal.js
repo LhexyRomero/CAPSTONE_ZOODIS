@@ -50,7 +50,8 @@ function addJournal(eAdd) {
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (!isConfirmed) {
             return;
@@ -70,7 +71,8 @@ function addJournal(eAdd) {
                         text: response.detail,
                         type: "error",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                 }
                 else {
@@ -79,7 +81,8 @@ function addJournal(eAdd) {
                         text: "Successfully Added!",
                         type: "success",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                     clearJournal();
                     journalList();
@@ -197,7 +200,8 @@ function updateJournal() {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -207,7 +211,8 @@ function updateJournal() {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -217,7 +222,8 @@ function updateJournal() {
                             text: "Successfully Updated!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         journalList();
                         $('#exampleModalCenter').modal("hide");
@@ -317,7 +323,8 @@ function assignedJournal(e) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (!isConfirmed) {
                 return;
@@ -331,7 +338,8 @@ function assignedJournal(e) {
                         text: "Journal already assigned!",
                         type: "error",
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                 }
                 else {
@@ -340,7 +348,8 @@ function assignedJournal(e) {
                         text: response.detail,
                         type: "success",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                     
                     $("#toSelectStaffName").val("");

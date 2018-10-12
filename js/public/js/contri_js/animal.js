@@ -72,7 +72,8 @@ function addAnimal(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.ajax({
@@ -101,7 +102,8 @@ function addAnimal(eAdd) {
                                     text: response.detail,
                                     type: "error",
                                     confirmButtonColor: "#9c27b0",
-                                    confirmButtonText: "Okay"
+                                    confirmButtonText: "Okay",
+                                    allowOutsideClick: false
                                 });
                             }
                         }
@@ -112,7 +114,8 @@ function addAnimal(eAdd) {
                                 text: response.detail,
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                             animalList();
                             clearAnimal();
@@ -185,7 +188,8 @@ function addAnimalTaxon(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/contri_animalTaxon", dataInsert, function (response) {
@@ -195,7 +199,8 @@ function addAnimalTaxon(eAdd) {
                             text: response.detail,
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -205,7 +210,8 @@ function addAnimalTaxon(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         animalTaxonList();
                         clearAnimalTaxon();

@@ -121,7 +121,8 @@ function completeUpdate(){
             text: response.detail,
             type: "success",
             confirmButtonColor: "#9c27b0",
-            confirmButtonText: "Okay"
+            confirmButtonText: "Okay",
+            allowOutsideClick: false
         });
         notificationCard();
         $('#viewDetails').modal("hide"); 
@@ -143,7 +144,8 @@ function sendUpdate(){
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $(".stats").show();
@@ -157,7 +159,8 @@ function sendUpdate(){
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
 
                 $(".stats").hide();
@@ -178,7 +181,8 @@ function incompleteUpdate(){
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $.post(url,(response)=>{
@@ -191,7 +195,8 @@ function incompleteUpdate(){
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 notificationCard();
                 $('#viewDetails').modal("hide");

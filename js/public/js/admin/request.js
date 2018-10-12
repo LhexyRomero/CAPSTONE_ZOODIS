@@ -138,12 +138,13 @@ function approvedAnimalTaxo(eAdd) {
     else {
         isClicked = 0;
         swal({
-            title: 'Approved Animal Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Animal Taxon",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: "#9c27b0",
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -153,7 +154,8 @@ function approvedAnimalTaxo(eAdd) {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -163,7 +165,8 @@ function approvedAnimalTaxo(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $("#modalAnimalTaxo").modal('hide');
                         requestList();
@@ -180,12 +183,13 @@ function rejectAnimalTaxo() {
     }
     isClicked++;
     swal({
-        title: 'Reject Animal Taxon',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Animal Taxon",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsAnimalTaxo").modal({
@@ -247,7 +251,8 @@ function sendReasonAnimalTaxo() {
                     text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -333,12 +338,13 @@ function approvedBacteriaTaxo(eAdd) {
     else {
         isClicked = 0;
         swal({
-            title: 'Approved Bacteria Taxon',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Animal Taxon",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -358,7 +364,8 @@ function approvedBacteriaTaxo(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $("#modalBacteriaTaxo").modal('hide');
                         requestList();
@@ -375,12 +382,13 @@ function rejectBacteriaTaxo() {
     }
     isClicked++;
     swal({
-        title: 'Reject Bacteria Taxon',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Bacteria Taxon",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsBacteriaTaxo").modal({
@@ -440,10 +448,11 @@ function sendReasonBacteriaTaxo() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending!",
+                    text: "Error sending reasons!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -453,7 +462,8 @@ function sendReasonBacteriaTaxo() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalBacteriaTaxo").modal('hide');
                 $("#reasonsBacteriaTaxo").modal('hide');
@@ -530,12 +540,13 @@ function approvedDisease(eAdd) {
     if (error == 0) {
         _data.symptoms = _data.symptoms.join(":");
         swal({
-            title: 'Approved Disease',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Disease",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then(function (ok) {
             if (ok) {
                 $.ajax({
@@ -549,7 +560,8 @@ function approvedDisease(eAdd) {
                                 text: res.detail,
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                             $('#modalDisease').modal("hide");
                             requestList();
@@ -574,12 +586,13 @@ function rejectDisease() {
     }
     isClicked++;
     swal({
-        title: 'Reject Disease',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject disease",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsDisease").modal({
@@ -638,10 +651,11 @@ function sendReasonDisease() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending!",
+                    text: "Error sending Reasons!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -651,7 +665,8 @@ function sendReasonDisease() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalDisease").modal('hide');
                 $("#reasonsDisease").modal('hide');
@@ -726,12 +741,13 @@ function approvedToxin(eAdd) {
     else {
         isClicked = 0;
         swal({
-            title: 'Approved Toxin',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Toxin",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -741,7 +757,8 @@ function approvedToxin(eAdd) {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -751,7 +768,8 @@ function approvedToxin(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $("#modalToxins").modal('hide');
                         requestList();
@@ -769,12 +787,13 @@ function rejectToxin() {
     }
     isClicked++;
     swal({
-        title: 'Reject Bacteria Taxon',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Bacteria Taxon",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsToxin").modal({
@@ -834,10 +853,11 @@ function sendReasonToxin() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending!",
+                    text: "Error sending reasons!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -847,7 +867,8 @@ function sendReasonToxin() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalToxins").modal('hide');
                 $("#reasonsToxin").modal('hide');
@@ -923,12 +944,13 @@ function approvedPrevention(eAdd) {
     if (error == 0) {
         _data.preventions = _data.preventions.join(":");
         swal({
-            title: 'Approved Preventions',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Prevention",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then(function (ok) {
             if (ok) {
                 $.ajax({
@@ -942,7 +964,8 @@ function approvedPrevention(eAdd) {
                                 text: res.detail,
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                             $('#modalPreventions').modal("hide");
                             requestList();
@@ -967,12 +990,13 @@ function rejectPrevention() {
     }
     isClicked++;
     swal({
-        title: 'Reject Prevention',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Prevention",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsPrevention").modal({
@@ -1034,7 +1058,8 @@ function sendReasonPrevention() {
                     text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -1044,7 +1069,8 @@ function sendReasonPrevention() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalPreventions").modal('hide');
                 $("#reasonsPrevention").modal('hide');
@@ -1128,13 +1154,14 @@ function approvedAnimal(eAdd) {
 
     else {
         swal({
-            title: "Warning!",
-            text: "Are you sure?",
+            title: "Are you sure?",
+            text: "Approve Animal",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#9c27b0",
             confirmButtonText: "Yes",
             cancelButtonText: "Cancel",
+            allowOutsideClick: false
         }).then(function (isConfirmed) {
             if (isConfirmed) {
             }
@@ -1169,11 +1196,12 @@ function approvedAnimal(eAdd) {
                     else {
     
                         swal({
-                            title: "Success",
+                            title: "Success!",
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
                             confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $("#modalAnimal").modal("hide");
                         requestList();
@@ -1191,12 +1219,13 @@ console.log("SAMA");
     }
     isClicked++;
     swal({
-        title: 'Reject Animal',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Animal",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsAnimal").modal({
@@ -1256,10 +1285,11 @@ function sendReasonAnimal() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending!",
+                    text: "Error sending reasons!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -1269,7 +1299,8 @@ function sendReasonAnimal() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalAnimal").modal('hide');
                 $("#reasonsAnimal").modal('hide');
@@ -1436,12 +1467,13 @@ function approvedBacteria(eAdd) {
 
     else {
         swal({
-            title: 'Approved Bacteria',
-            text: "Are you sure?",
+            title: 'Are you sure?',
+            text: "Approve Bacteria",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -1466,7 +1498,8 @@ function approvedBacteria(eAdd) {
                                 text: response.detail,
                                 type: "error",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                         }
                     }
@@ -1477,7 +1510,8 @@ function approvedBacteria(eAdd) {
                             text: response.detail,
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $("#modalBacteria").modal("hide");
                         requestList();
@@ -1496,12 +1530,13 @@ function rejectBacteria() {
     }
     isClicked++;
     swal({
-        title: 'Reject Bacteria',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Reject Bacteria",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $("#reasonsBacteria").modal({
@@ -1561,10 +1596,11 @@ function sendReasonBacteria() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending!",
+                    text: "Error sending reasons!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
             }
 
@@ -1574,7 +1610,8 @@ function sendReasonBacteria() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalBacteria").modal('hide');
                 $("#reasonsBacteria").modal('hide');
