@@ -1,5 +1,4 @@
 const db = require('../../connection');
-const search = require('./searchingBacteria').search;
 
 exports.searchingDisease = (req,res,next)=>{
 
@@ -27,6 +26,36 @@ exports.searchingDisease = (req,res,next)=>{
             output.preventions = results[0];
             output.bacteria = results[1];
 
+            return new Promise((resolve,reject)=>{
+                let promises = [];
+                output.bacteria.forEach((e,i)=>{
+                    promises.push(getAnimalCarrier(e.bacteriumID));
+                    if(i==output.bacteria.length-1){
+                        Promise.all(promises).then(results=>{
+                            resolve(results[0]);
+                        }).catch(reject);
+                    }
+                });
+            }).then(animals=>{
+                return new Promise((resolve, reject)=>{
+                    let filltered = [];
+                    animals.forEach((e,i)=>{
+                        if(filltered.findIndex(x=>x.animalID==e.animalID) == -1){
+                            filltered.push(e);
+                        }
+                        if(i==animals.length-1){
+                            resolve(filltered);
+                        }
+                    });
+                });
+            }).then(animals=>{
+                output.animal = animals;
+                res.locals = output;
+                next();
+            });
+        }).catch(reason=>{
+            res.locals = output;
+            next();
         });
     }
 
@@ -99,21 +128,68 @@ function getPrevention(diseaseID){
  * 
  * expecting the high volume of data to be process, this algo would take super long execution time and need to optimized, soo I suggest releasing first 100 found result.
  */
-function getBacteriaCausingDisease(){
+function getBacteriaCausingDisease(disease){
     return new Promise((resolve, reject)=>{
         let output = [];
 
         let offset = 0;
         let limit = 100;
+        let bodySites = disease.bodySite.split(":");
 
-        function searchSet(_offset){
-            if(output.length == limit){
-                resolve(output);
-                return;
-            }
-
-            // Can't finish im sleepy na :'(((((
-        }
+        new Promise((res,rej)=>{
+            let promises = [];
+            bodySites.forEach((e,i)=>{
+                promises.push(getBodySiteMatch(e).then(bacteria=>{
+                    output = output.concat(bacteria);
+                    return 1;
+                }));
+                if(i==bodySites.length-1){
+                    Promise.all(promises).then(()=>{
+                        res();
+                    });
+                }
+            });
+        }).then(()=>{
+            resolve(output);
+        });
     });
 }
 
+function getBodySiteMatch(bodysite){
+    return new Promise((resolve, reject)=>{
+        let sql = "SELECT * FROM bacteria_t WHERE bacteriumTissueSpecifity = ?";
+        db.get().query(sql,[bodysite], function(err, results){
+            if(err) return reject(err);
+            resolve(results);
+        });
+    });
+}
+
+function getAnimalCarrier(bacteriumID){
+    return new Promise((resolve, reject)=>{
+        let sql = "SELECT animalID FROM animalbacteria_t WHERE bacteriumID = ? AND status = 1";
+        let sql2 = "SELECT * FROM animal_t WHERE animalID = ?";
+        db.get().query(sql, [bacteriumID], function(err, results){
+            if(err) return reject(err);
+            if(results.length == 0) return resolve([]);
+            let promises = [];
+            results.forEach((e,i)=>{
+                promises.push(new Promise((res,rej)=>{
+                    db.get().query(sql2, [e.animalID], function(err, results1){
+                        if(err) return rej(err);
+                        res(results1[0]);
+                    });
+                }));
+                if(i==results.length-1){
+                    Promise.all(promises).then(data=>{
+                        resolve(data);
+                    });
+                }
+            });
+        });
+    }).then(output=>{
+        let a = [];
+        a = output;
+        return a;
+    });
+}
