@@ -24,7 +24,10 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-
+	<%
+		if(!locals.view){
+			if(!locals.noRes){
+	%>
 	<section id="bacteriaSearch" class="post-content-area">
 		<div class="container">
 			<div class="row">
@@ -181,7 +184,7 @@
 			</div>
 	</section>
 	<%
-		if(!locals.matchResult){
+			}else{
 	%>
 	<section id="noResultsBacteria" class="post-content-area">
 		<div class="container">
@@ -196,9 +199,9 @@
 		</div>
 	</section>
 	<%
-		}
+			}
+		}else{
 	%>
-	
 	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
@@ -224,7 +227,9 @@
 			</div>
 		</div>
 	</section>
-
+	<%
+		}
+	%>
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<script src="/assets/js/researcher/bacteriaSearch.js"></script>

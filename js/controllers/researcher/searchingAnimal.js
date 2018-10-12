@@ -2,10 +2,11 @@ const db = require('../../connection');
 
 exports.searchingAnimal = (req,res,next) =>{
     let data = req.body;
-    console.log(data);
     let animalName = data.animalName;
     let status = 'approved';
     let active  = 1;
+
+    res.locals.noRes = true;
 
     let searchedAnimal = ()=> {
         let sql = "SELECT * FROM animal_t WHERE animalName = ? AND status =?";
@@ -14,12 +15,16 @@ exports.searchingAnimal = (req,res,next) =>{
         let sql3 = "SELECT name,doi FROM journal_t WHERE journalID =?";
         db.get().query(sql,[animalName,status],(err,result)=>{
             if(err) return next(err);
+            if(result.length == 0) return next();
             db.get().query(sql1,[result[0].animalTaxoID],(err1,result1)=>{
                 if(err1) return next(err1);
+                if(result1.length == 0) return next();
                 db.get().query(sql2,[result[0].animalID,active],(err2,result2)=>{
                     if(err2) return next(err2);
+                    if(result2.length == 0) return next();
                     db.get().query(sql3,[result[0].journalID],(err3,result3)=>{
                         if(err3) return next(err3);
+                        if(result3.length == 0) return next();
                         let dataDisplay = {
                             name            :   result[0].animalName,
                             scientificName  :   result[0].animalScientificName,
@@ -35,6 +40,7 @@ exports.searchingAnimal = (req,res,next) =>{
                             bacteria        :   result2
                         }
                         res.locals = dataDisplay;
+                        res.locals.noRes = false;
                         next();
                     });
                 });
@@ -63,7 +69,6 @@ exports.searchingAnimal = (req,res,next) =>{
             searchedAnimal();
         }
         else {
-            res.locals={};
             next();
         }
     });

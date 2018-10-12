@@ -1,5 +1,7 @@
 $(function(){
+    bacteriaQuery();
     animalQuery();
+    console.log("GAGAAAAAAAAAAAAAA");
 });
 
 function animalQuery(){
@@ -19,10 +21,11 @@ function animalQuery(){
         data.forEach((element,index)=>{
             let temphtml = '<div class="col-lg-' +parseInt(4 / colPerRow) +'">';
             temphtml += '<div class="single-destination relative">';
-            temphtml += '<div class="thumb relative"><img class="img-fluid" src="'+ element.image.replace('js\\public','assets') +'" alt="GUMAGANA"></div>';
+            temphtml += '<div class="thumb relative"><div class="overlay overlay-bg"></div><img class="img-fluid" src="'+ element.image.replace('js\\public','assets') +'" alt="GUMAGANA"></div>';
             temphtml += '<div class="desc">';
+            temphtml += '<a href="#" class="price-btn">';
             temphtml += '<h4 class="li">'+element.animalName+'</h4>';
-            temphtml += '<p class="text-white">3 Bacteria</p>';
+            temphtml += '<p class="text-white">'+element.bacteriaQ+'&nbsp;Bacteria</p>';
             temphtml += '</div>';
             temphtml += '</div>';
 
@@ -40,5 +43,18 @@ function animalQuery(){
                 $(".animalQuery").html(html);
             }
         });
+    });
+}
+
+
+
+
+function bacteriaQuery(){
+    console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIII");
+    $.get('/bacteriaQuery',(response)=>{
+        if(response.success == false){
+            $.notify("Error querying!",{type:danger});
+            return;
+        }
     });
 }

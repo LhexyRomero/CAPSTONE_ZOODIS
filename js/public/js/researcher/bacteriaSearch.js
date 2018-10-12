@@ -16,14 +16,14 @@ $(function () {
         }
     });
 
-    if($('#phylumBacteria').html().trim() != ""){
-        $('#noResultsBacteria').hide();
-    }
+    // if($('#phylumBacteria').html().trim() != ""){
+    //     $('#noResultsBacteria').hide();
+    // }
 
-    else {
-        $('#bacteriaSearch').hide();
-        $('#noResultsBacteria').show();
-    }
+    // else {
+    //     $('#noResultsBacteria').show();
+    //     $('#bacteriaSearch').hide();
+    // }
 });
 
 let bacteriaSearchClick = 0;
