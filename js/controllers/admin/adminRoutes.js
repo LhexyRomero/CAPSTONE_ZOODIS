@@ -111,9 +111,9 @@ router.post('/updateAnimalTaxon/:id',animal.updateAnimalTaxon);
 router.get('/animalTaxonList',animal.animalTaxonList);
 router.get('/editAnimalTaxon/:id',animal.editAnimalTaxon);
 
-router.get('/reports', auth.authenticate, (req,res,next)=>{
-    res.render('admin/reports');
-}); 
+// router.get('/reports', auth.authenticate, (req,res,next)=>{
+//     res.render('admin/reports');
+// }); 
 
 router.get('/bacteriaTaxon', auth.authenticate, (req,res,next)=>{
     res.render('admin/bacteriaTaxon');
@@ -244,5 +244,7 @@ router.get('/completeJournal',query.completeJournal);
 router.get('/totalToxins',query.totalToxins);
 router.get('/totalPotent',query.totalPotent);
 router.get('/totalPatho',query.totalPatho);
+
+router.get('/reports', require('./reports').generateReports);
 
 module.exports = router;
