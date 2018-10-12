@@ -71,10 +71,14 @@ exports.searchingAnimal = (req,res,next) =>{
 
 exports.animalModules = (req,res,next) =>{
 
-    let sql = "SELECT * FROM animal_t";
+    let sql = "SELECT animal_t.animalID, animalName, animalScientificName, image, journal_t.name, doi FROM journal_t INNER JOIN animal_t WHERE journal_t.journalID = animal_t.journalID";
     db.get().query(sql,(err,result)=>{
         if (err) return next (err);
-
+        console.log(result);
         res.status(200).send({success:true,detail:"",data:result});
     });
+}
+
+exports.viewAnimal = (req,res,next) =>{
+    
 }

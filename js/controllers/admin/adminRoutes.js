@@ -242,5 +242,7 @@ router.get('/totalReject',query.totalReject);
 router.get('/totalCollaborators',query.totalCollaborators);
 router.get('/completeJournal',query.completeJournal);
 router.get('/totalToxins',query.totalToxins);
+router.get('/totalPotent',query.totalPotent);
+router.get('/totalPatho',query.totalPatho);
 
 module.exports = router;

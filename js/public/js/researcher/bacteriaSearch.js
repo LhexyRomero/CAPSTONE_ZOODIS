@@ -76,33 +76,23 @@ function bacteriaModules() {
         }
 
         let data = response.data;
-        console.log(data);
-        let colPerRow = 1;
-        let colCount = 1;
-        let html = '<div class="row">';
+        let html = "";
         data.forEach((element, index) => {
-            let temphtml = '<div class="col-md-' + parseInt(6 / colPerRow) + '">';
-            temphtml += '<div class="single-testimonial item d-flex flex-row">';
-            temphtml += '<div class="desc">';
-            temphtml += '<h4>' + element.bacteriumScientificName + '</h4>';
-            temphtml += '<p>Animal Name</p>';
-            temphtml += '</div>';
-            temphtml += '</div>';
-
-            html += temphtml;
-            if (colCount == colPerRow) {
-                colCount = 1;
-                html += '</div>';
+            let row = "<tr>";
+            row += "<td>" + element.animalName + "</td>";
+            row += "<td>" + element.bacteriumScientificName + "</td>";
+            if(element.pathogenic == 1) {
+                row += '<td class="text-center"><span class="badge badge-danger">Pathogenic</span></td>';
             }
             else {
-                colCount++;
+                row += '<td class="text-center"><span class="badge badge-warning">Potentially Pathogenic</span></td>';
             }
-
-            if (index == data.length - 1) {
-                html += '</div>';
-                $(".displayBacteria").html(html);
-                console.log(html);
-            }
+            row += "<td class='text-center'>" + element.doi + "</td>";
+            row += "</tr>";
+            html += row;
         });
+        $('#bacModuleList').html(html);
+        $('#bacModuleTable').dataTable();
+
     });
 }

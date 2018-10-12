@@ -60,7 +60,7 @@ exports.searchingDisease = (req,res,next)=>{
 
 exports.diseaseModules = (req,res,next) =>{
 
-    let sql ="SELECT * FROM disease_t";
+    let sql ="SELECT diseaseID,diseaseName,diseaseDesc,doi FROM disease_t INNER JOIN journal_t ON disease_t.journalID = journal_t.journalID";
     db.get().query(sql,(err,result)=>{
         if(err) return next (err);
 
@@ -116,3 +116,4 @@ function getBacteriaCausingDisease(){
         }
     });
 }
+

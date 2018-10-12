@@ -177,10 +177,28 @@ exports.completeJournal = (req,res,next)=>{
 }
 
 exports.totalToxins = (req,res,next)=>{
-    console.log("Q TOXINS");
     let sql = "SELECT COUNT(toxinID) as countToxins FROM toxin_t";
     db.get().query(sql,(err,result)=>{
         if(err) return next(err);
         res.status(200).send({success:true, detail:"", data:result[0].countToxins});
+    });
+}
+
+exports.totalPotent = (req,res,next)=>{
+    let patho = 0;
+    let sql = "SELECT COUNT(pathogenic) as countPotent FROM bacteria_t WHERE pathogenic = ?";
+    db.get().query(sql,[patho],(err,result)=>{
+        if(err) return next(err);
+        console.log(result[0].countPotent);
+        res.status(200).send({success:true, detail:"", data:result[0].countPotent});
+    });
+}
+
+exports.totalPatho = (req,res,next)=>{
+    let patho = 1;
+    let sql = "SELECT COUNT(pathogenic) as countPatho FROM bacteria_t WHERE pathogenic = ?";
+    db.get().query(sql,[patho],(err,result)=>{
+        if(err) return next(err);
+        res.status(200).send({success:true, detail:"", data:result[0].countPatho});
     });
 }
