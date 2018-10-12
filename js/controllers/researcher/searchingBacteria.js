@@ -119,6 +119,7 @@ function pathogenic(id, disease, cb){
             return output;
         }).then(data=>{
             return new Promise((res,rej)=>{
+                if(disease.length == 0) return res([]);
                 let processed = [];
                 let promises = [];
                 disease.forEach((e,i)=>{
@@ -140,6 +141,8 @@ function pathogenic(id, disease, cb){
                     }
                 });
             }).then(output=>{
+                if(output.length > 0) setPathogenetic(id, 1);
+                if(output.length == 0) setPathogenetic(id, 0);
                 let out = [];
                 out = output;
                 resolve(out);
@@ -158,6 +161,20 @@ function getBacteriaTissue(id, cb){
             var output = result[0].bacteriumTissueSpecifity.split(':');
             cb ? cb(null, output) : resolve(output);
         });
+    });
+}
+
+function setPathogenetic(id, isPathogenic){
+    let sql = "SELECT pathogenic FROM bacteria_t WHERE bacteriumID = ?";
+    db.get().query(sql, [id], function(err, bacterium){
+        if(err) return console.error(err);
+        if(bacterium.length == 0) return console.log("No data found");
+        if(isPathogenic != bacterium[0].pathogenic){
+            sql = "UPDATE bacteria_t SET pathogenic = ? WHERE bacteriumID = ?";
+            db.get().query(sql, [isPathogenic, id], function(err, result){
+                if(err) return console.error(err);
+            });
+        }
     });
 }
 
@@ -233,3 +250,5 @@ exports.bacteriaModules = (req,res,next) =>{
         res.status(200).send({success:true,detail:"",data:result});
     });
 }
+
+exports.search = search; // Export search function, need to recycle on disease
