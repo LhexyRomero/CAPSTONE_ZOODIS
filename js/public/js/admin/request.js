@@ -1065,13 +1065,13 @@ function viewAnimal(id) {
             return;
         }
 
-        $('.animalEditPic').attr('src', response.data.image.replace('public', 'assets'))
+        $('.previewAnimal').attr('src', response.data.image.replace(/js\\public/g,'assets'));
+        $("#editPic").hide();
         $("input[name=modalCommonName]").val(response.data.animalName);
         $("input[name=modalScientificName]").val(response.data.animalScientificName);
         $("input[name=modalBodySite]").val(response.data.bodySite);
 
         $('.toClassify').on('click', () => {
-            console.log('asd')
             $("input[name=modalPhylum2]").val(response.data.phylum);
             $("input[name=modalClass2]").val(response.data.classs);
             $("input[name=modalOrder2]").val(response.data.order);
@@ -1084,6 +1084,11 @@ function viewAnimal(id) {
             $('.toClassify').hide();
         });
     });
+}
+
+function selectFile() {
+    $("#prevAnimal").hide();
+    $("#editPic").show();
 }
 
 function approvedAnimal(eAdd) {
@@ -1275,6 +1280,7 @@ function sendReasonAnimal() {
 }
 let viewBacteriaID = 0;
 
+//removeHost
 let hostCount = 0;
 function viewBacteria(id) {
     viewBacteriaID = id;
@@ -1294,7 +1300,7 @@ function viewBacteria(id) {
             console.log(data.animal);
             let html ="<input class='form-control' name='addHost"+hostCount+"' value='"+ element.animalName +"' type = 'text'/><br>";
             let buttonName = "buttonEdit" + hostCount;
-            let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+            let button = '<button name="' + buttonName + '"type="button" onclick ="removeHost(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
         
             let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'> "+ html + "</div><div class='col-sm-2'>" + button + "</div>";
         
@@ -1323,6 +1329,49 @@ function viewBacteria(id) {
             $('.toReject1').show();
             $('.toClassify1').hide();
         });
+    });
+}
+
+function removeHost(selected,hostID,globalBacteriumID){
+    let url = "/removeHost/"+globalBacteriumID+'/'+hostID;
+    let dataInsert={};
+
+    dataInsert[status] = 1;
+    swal({
+        title: 'Are you sure?',
+        text: "Remove Animal Hosts",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9c27b0',
+        confirmButtonText: 'Yes'
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            $.post(url,function (response) {
+                isClick = 0;
+                if (response.success == false) {
+                    isClick = 0;
+                    swal({
+                        title: "Error!",
+                        text: "Unable to remove Animal Hosts!",
+                        type: "error",
+                        confirmButtonColor: "#9c27b0",
+                        confirmButtonText: "Okay"
+                    });
+                }
+
+                else {
+                    swal({
+                        title: "Done!",
+                        text: response.detail,
+                        type: "success",
+                        confirmButtonColor: "#9c27b0",
+                        confirmButtonText: "Okay"
+                    });
+                    $('.deleteHost' + selected).remove();
+                    $('#exampleModalCenter').modal("hide");
+                }
+            });
+        }
     });
 }
 

@@ -16,7 +16,7 @@ exports.updateNotiCard = (req,res,next) =>{
 
     let id = req.params.id;
     let state = "read";
-    let sql = "UPDATE request_t SET state = ? WHERE notificationID = ?";
+    let sql = "UPDATE request_t SET state = ? WHERE requestID = ?";
     db.get().query(sql,[state,id],(err,result)=>{
         if(err) return next(err);
 

@@ -1795,7 +1795,7 @@ body {
 }
 
 .bg-primary {
-    background-color: #f96332!important
+    background-color: #9c27b0!important
 }
 
 .bg-info {
@@ -3240,7 +3240,7 @@ img {
 }
 
 .progress-container .progress {
-    height: 1px;
+    height: 25px;
     border-radius: 0;
     box-shadow: none;
     background: hsla(0, 0%, 87%, .5);
@@ -3273,15 +3273,15 @@ img {
 }
 
 .progress-container.progress-primary .progress {
-    background: rgba(249, 99, 50, .3)
+    background: rgba(156, 39, 176, .3)
 }
 
 .progress-container.progress-primary .progress-bar {
-    background: #f96332
+    background: #9c27b0
 }
 
 .progress-container.progress-primary .progress-badge, .progress-container.progress-primary .progress-value {
-    color: #f96332
+    color: #9c27b0
 }
 
 .progress-container.progress-info .progress {

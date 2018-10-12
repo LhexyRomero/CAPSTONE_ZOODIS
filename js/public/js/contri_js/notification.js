@@ -21,7 +21,7 @@ function notiCard() {
 
             if(element.status == 'approved'){
                 let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
-                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
+                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.requestID + ")'><span>&times;</span></button>"
                     + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
                     + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
                     + "<span class='badge badge-success'>" + element.status + "</span><br>"
@@ -33,7 +33,7 @@ function notiCard() {
 
             else if(element.status == 'rejected'){
                 let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
-                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.notificationID + ")'><span>&times;</span></button>"
+                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.requestID + ")'><span>&times;</span></button>"
                     + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
                     + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
                     + "<span class='badge badge-danger'>" + element.status + "</span><br>"

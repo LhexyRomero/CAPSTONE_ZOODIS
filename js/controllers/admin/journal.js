@@ -125,9 +125,10 @@ exports.viewJournal = (req, res, next) => {
 
 exports.toSelectStaffName = (req, res, next) => {
     let type = 1;
+    let journalID = 0;
 
-    let sql = "SELECT * FROM staff_t WHERE type =?";
-    db.get().query(sql,[type],(err, result) => {
+    let sql = "SELECT * FROM staff_t WHERE type =? AND journalID = ?";
+    db.get().query(sql,[type,journalID],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });
@@ -137,9 +138,10 @@ exports.toSelectStaffName = (req, res, next) => {
 exports.toSelectJournal = (req, res, next) => {
 
     let status = "Incomplete";
+    let assign = 0;
     let name = "none";
-    let sql = "SELECT * FROM journal_t WHERE status = ? AND name <> ? ";
-    db.get().query(sql,[status,name],(err, result) => {
+    let sql = "SELECT * FROM journal_t WHERE status = ? AND name <> ? AND assign = ?";
+    db.get().query(sql,[status,name,assign],(err, result) => {
         if (err) return next(err);
         
         res.status(200).send({ success: true, detail: "", data: result });
@@ -153,14 +155,17 @@ exports.assignedJournal = (req,res,next) =>{
     let journalID = data.selectJournalName;
     let state = "notify";
     let status = "Incomplete"
-
-    console.log(data);
-
+    let assign = 1;
     let sql = "UPDATE staff_t LEFT JOIN journal_t ON staff_t.journalID = journal_t.journalID SET staff_t.journalID = ?, journal_t.status = ?, journal_t.state=? WHERE staffID =?";
+    let sql1 = "UPDATE journal_t SET assign = ? WHERE journalID = ?";
+    
     db.get().query(sql,[journalID,status,state,staffID],(err,result)=>{
         if(err) return next(err);
+        db.get().query(sql1,[assign,journalID],(err1,result1)=>{
+            if(err1) return next(result1);
 
-        res.status(200).send({success: true, detail:"Journal Successfully Assigned!"});
+            res.status(200).send({success: true, detail:"Journal Successfully Assigned!"});
+        });
     });
 }
 
