@@ -24,11 +24,8 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-	<%
-		if(!locals.view){
-			if(!locals.noRes){
-	%>
-	<section id="bacteriaSearch" class="post-content-area">
+
+	<section id="" class="post-content-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -65,30 +62,30 @@
 								</div>
 								<div class="col-md-6" id="animalTaxon">
 									<ul class="tags">
-										<li id="phylumBacteria" class="li">
-											<%=(locals.bacteria?bacteria.phylum:"")%>
+										<li id="" class="li">
+											<%=(locals.stQuery?stQuery.phylum:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria?bacteria.class:"")%>
+											<%=(locals.stQuery?stQuery.class:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria?bacteria.orderr:"")%>
+											<%=(locals.stQuery?stQuery.orderr:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria?bacteria.family:"")%>
+											<%=(locals.stQuery?stQuery.family:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria?bacteria.genus:"")%>
+											<%=(locals.stQuery?stQuery.genus:"")%>
 										</li>
 										<li class="li">
-											<%=(locals.bacteria?bacteria.species:"")%>
+											<%=(locals.stQuery?stQuery.species:"")%>
 										</li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-7">
-							<h2><em><%=(locals.bacteria?bacteria.bacteriumScientificName:"")%></em></h2>
+							<h2><em><%=(locals.stQuery?stQuery.bacteriumScientificName:"")%></em></h2>
 							<a class="posts-title">
 							</a><br>
 							<div class="row">
@@ -96,7 +93,7 @@
 									<p class="excert"> Tissue Specifity:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumTissueSpecifity:"")%></p>
+									<p class="excert"><%=(locals.stQuery?stQuery.bacteriumTissueSpecifity:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -104,7 +101,7 @@
 									<p class="excert"> Sample Type:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumSampleType:"")%></p>
+									<p class="excert"><%=(locals.stQuery?stQuery.bacteriumSampleType:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -112,7 +109,7 @@
 									<p class="excert"> Method of Isolation:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumIsolation:"")%></p>
+									<p class="excert"><%=(locals.stQuery?stQuery.bacteriumIsolation:"")%></p>
 								</div>
 							</div>
 							<div class="row">
@@ -120,25 +117,7 @@
 									<p class="excert"> Method of Identification:</p>
 								</div>
 								<div class="col-md-6">
-									<p class="excert"><%=(locals.bacteria?bacteria.bacteriumIdentification:"")%></p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<p class="excert"> Toxins:</p>
-								</div>
-								<div class="col-md-6">
-									<ul>
-										<%
-											var toxinTags = "";
-											if(locals.toxinNames){
-												toxinNames.forEach((element, index) => {
-													toxinTags += "<li>" + element + "</a></li>";
-												});
-											}
-										%>
-										<%-toxinTags%>
-									</ul>
+									<p class="excert"><%=(locals.stQuery?stQuery.bacteriumIdentification:"")%></p>
 								</div>
 							</div>
 						</div>
@@ -147,8 +126,8 @@
 								&nbsp;&nbsp;&nbsp;&nbsp;Source:
 							</div>
 							<div class=" offset-md-0 col-md-10"><br>
-								<label class="text-primary"><em><%=(locals.journal?journal.name:"")%></em></label><br>
-								<label><%=(locals.journal?journal.doi:"")%></label>
+								<label class="text-primary"><em><%=(locals.ndQuery?ndQuery.name:"")%></em></label><br>
+								<label><%=(locals.ndQuery?ndQuery.doi:"")%></label>
 							</div>
 						</div>
 					</div>
@@ -156,18 +135,17 @@
 				<div class="col-md-4 sidebar-widgets">
 					<div class="widget-wrap">
 						<div class="single-sidebar-widget tag-cloud-widget" id="bacteria">
-							<h4 class="tagcloud-title">Possible Diseases</h4>
+							<h4 class="tagcloud-title">Toxins</h4>
 							<ul>
-								<!-- res.locals.matchResult = matchResult; -->
 								<%
-									var diseaseTags="";
-									if(locals.matchResult){
-										matchResult.forEach((element,index)=>{
-											diseaseTags += "<li><a href='#' onclick='viewDisease("+element.diseaseID+")'>"+ element.diseaseName +"</a></li>";
+									var toxinTags="";
+									if(locals.thQuery){
+										thQuery.forEach((element,index)=>{
+											toxinTags += "<li><a href='#'>"+ element.name +"</a></li>";
 										});
 									}
 								%>
-								<%-diseaseTags%>
+								<%-toxinTags%>
 							</ul>
 						</div>
 					</div><br>
@@ -176,8 +154,8 @@
 							<h4 class="tagcloud-title">Animal Host/s</h4>
 							<%
 								var hostTags = '';
-								if(locals.hosts){
-									hosts.forEach((element, index) => {
+								if(locals.rdQuery){
+									rdQuery.forEach((element, index) => {
 										hostTags += '<br><div class="single-post-list d-flex flex-row align-items-center">';
 										hostTags += '<div class="thumb"><img class="img-size" src="' + element.image.replace(/js\\public/g,'assets') + '" alt="EWWW" height="90px" width="90px"></div>&nbsp;&nbsp;&nbsp;';
 										hostTags += '<div class="details"><h6>'+element.animalName+'</h6><p>'+element.animalScientificName+'</p></div>';
@@ -190,57 +168,15 @@
 					</div>
 				</div>
 			</div>
-	</section>
-	<%
-			}else{
-	%>
-	<section id="noResultsBacteria" class="post-content-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="menu-content pb-70"><br><br>
-						<h4>
-						<b>No results Found &nbsp; <span class="lnr lnr-sad"></span></b></h4>
-					</div>
-				</div>
-			</div>
+			<center><a href="researcher_bacteria" class="genric-btn primary pull-right"><span
+				class="lnr lnr-arrow-left">&nbsp;&nbsp;Back</span></a></center><br><br><br>
 		</div>
 	</section>
-	<%
-			}
-		}else{
-	%>
-	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
-		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="menu-content pb-60 col-lg-9">
-					<div class="title text-center">
-						<h1 class="mb-10">Bacteria List</h1>
-						<p>A very small living thing from animals and called pathogens if it can be transmitted to another animal or to
-							humans that can cause disease.</p>
-					</div>
-				</div>
-			</div>
-			<div class="table-responsive">
-				<table class="table" id="bacModuleTable">
-					<thead class="text-primary">
-						<th><small><b>ANIMAL</b></small></th>
-						<th><small><b>BACTERIA</b></small></th>
-						<th class="text-center"><small><b>PATHOGENIC</b></small></th>
-						<th class="text-center"><small><b>REFERENCE</b></small></th>
-					</thead>
-					<tbody id="bacModuleList">
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</section>
-	<%
-		}
-	%>
+
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<script src="/assets/js/researcher/bacteriaSearch.js"></script>
+	<script src="/assets/js/researcher/animalSearch.js"></script>
 	<!-- End footer Area -->
 </body>
 

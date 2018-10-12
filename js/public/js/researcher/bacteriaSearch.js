@@ -96,3 +96,7 @@ function bacteriaModules() {
 
     });
 }
+
+function viewDisease(id) {
+    window.location="view_disease?diseaseID="+id;
+}

@@ -3,6 +3,10 @@
 /*  Basic Style 
 /* =================================== */
 
+.img-size{
+  width: 100px;
+  height: 60px;
+}
 
 .li {
   padding-bottom: 10px;

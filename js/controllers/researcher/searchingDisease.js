@@ -12,6 +12,7 @@ exports.searchingDisease = (req,res,next)=>{
         preventions: [],
         bacteria: [],
         animal: [],
+        noRes : true
     }
 
     let searchedDisease = (disease)=>{
@@ -51,10 +52,12 @@ exports.searchingDisease = (req,res,next)=>{
             }).then(animals=>{
                 output.animal = animals;
                 res.locals = output;
+                res.locals.noRes = false;
                 next();
             });
         }).catch(reason=>{
             res.locals = output;
+            res.locals.noRes = false;
             next();
         });
     }
@@ -81,7 +84,7 @@ exports.searchingDisease = (req,res,next)=>{
             searchedDisease(result);
         }
         else {
-            res.locals={};
+            res.locals=output;
             next();
         }
     });

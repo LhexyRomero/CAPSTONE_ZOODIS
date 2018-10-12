@@ -23,7 +23,10 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-
+	<%
+		if(!locals.view){
+			if(noRes == false){
+	%>
 	<!-- Start top-category-widget Area -->
 	<section class="post-content-area" id="diseaseSearch">
 		<div class="container">
@@ -37,46 +40,53 @@
 				<div class="col-md-12 posts-list">
 					<div class="row single-post">
 						<div class="col-md-8">
-							<a class="posts-title" href="blog-single.html">
-								<h3>CLOSTRIDIUM DIFFICILE INFECTION </h3>
+							<a class="posts-title">
+								<h3><%=(locals.name?name :"")%></h3>
 							</a>
 							<p class="excert">
-								Clostridium difficile infection is spread by bacterial spores found within feces. Surfaces may become
-								contaminated with the spores with further spread occurring via the hands of healthcare workers. Diagnosis is by
-								stool culture or testing for the bacteria's DNA or toxins known as Clostridium difficile toxin A and
-								Clostridium difficile toxin B.
+								<%=(locals.desc?desc :"")%>
 							</p><br>
-							<h4>Symptoms : </h4>
+							<h4>Symptoms : </h4><br>
 							<ul class="tags">
-								<li class="li">Diarrhea</li>
-								<li class="li">Fever</li>
-								<li class="li">Abdominal pain</li>
+								<%
+									var symptomsList = "";
+									if(locals.symptoms){
+										symptoms.forEach((element, index) => {
+											symptomsList += "<li class='li'>"+element+"</li>";
+										});
+									}
+								%>
+								<%-symptomsList%>
 							</ul><br>
 							<h4>Prevention : </h4>
 							<ul class="tags">
-								<li class="li">Wash hands regularly and thoroughly.</li>
-								<li class="li">Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor
-									around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product
-									containing bleach.</li>
-								<li class="li">People who are infected with C. difficile should have their own room and toilet facilities to
-									avoid passing the infection onto others.</li>
+								<%
+									var preventionList = "";
+									if(locals.preventions){
+										preventions.forEach((element, index) => {
+											preventionList += "<li class='li'>"+element+"</li>";
+										});
+									}
+								%>
+								<%-preventionList%>
 							</ul>
 						</div>
 						<div class="col-md-4 sidebar-widgets">
 							<div class="widget-wrap">
 								<div class="single-sidebar-widget tag-cloud-widget">
 									<h4 class="tagcloud-title">Animal Host/s</h4>
-									<div class="single-post-list d-flex flex-row align-items-center">
-										<div class="thumb">
-											<img class="img-fluid" src="../../assets/img/blog/pp1.jpg" alt="" height="90px" width="90px">
-										</div>&nbsp;&nbsp;&nbsp;
-										<div class="details">
-											<br><a href="blog-single.html">
-												<h6>Cow</h6>
-											</a>
-											<p>It produces 5 bacteria.</p>
-										</div>
-									</div><br>
+									<%
+										var hostTags = '';
+										if(locals.animal){
+											animal.forEach((element, index) => {
+												hostTags += '<br><div class="single-post-list d-flex flex-row align-items-center">';
+												hostTags += '<div class="thumb"><img class="img-size" src="' + element.image.replace(/js\\public/g,'assets') + '" alt="EWWW" height="90px" width="90px"></div>&nbsp;&nbsp;&nbsp;';
+												hostTags += '<div class="details"><h6>'+element.animalName+'</h6><p>'+element.animalScientificName+'</p></div>';
+												hostTags += '</div>';
+											});
+										}
+									%>
+									<%-hostTags%>
 								</div>
 							</div><br>
 							<div class="widget-wrap">
@@ -84,13 +94,13 @@
 									<h4 class="tagcloud-title">Bacteria</h4>
 									<ul>
 										<%
-									var bacTags = "";
-									if(locals.bacteria){
-										bacteria.forEach((element, index) => {
-											bacTags += "<li><a href='#'>" + element.bacteriumScientificName + "</a></li>";
-										});
-									}
-								%>
+											var bacTags = "";
+											if(locals.bacteria){
+												bacteria.forEach((element, index) => {
+													bacTags += "<li><a href='#'>" + element.bacteriumScientificName + "</a></li>";
+												});
+											}
+										%>
 										<%-bacTags%>
 									</ul>
 								</div>
@@ -101,8 +111,10 @@
 			</div>
 		</div>
 	</section>
-
-	<section id="noResults" class="post-content-area">
+	<%
+			}else{
+	%>
+	<section id="noResultsDisease" class="post-content-area">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
@@ -114,7 +126,10 @@
 				</div>
 			</div>
 	</section>
-
+	<%
+			}
+		}else{
+	%>
 	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
@@ -138,6 +153,9 @@
 			</div>
 		</div>
 	</section>
+	<%
+		}
+	%>
 
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
