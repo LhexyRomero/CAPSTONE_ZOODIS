@@ -262,7 +262,8 @@ function sendReasonAnimalTaxo() {
                     text: response.detail,
                     type: "success",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 $("#modalAnimalTaxo").modal('hide');
                 $("#reasonsAnimalTaxo").modal('hide');
@@ -339,7 +340,7 @@ function approvedBacteriaTaxo(eAdd) {
         isClicked = 0;
         swal({
             title: 'Are you sure?',
-            text: "Approve Animal Taxon",
+            text: "Approve Bacteria Taxon",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
@@ -354,7 +355,8 @@ function approvedBacteriaTaxo(eAdd) {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -448,7 +450,7 @@ function sendReasonBacteriaTaxo() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending reasons!",
+                    text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay",
@@ -587,7 +589,7 @@ function rejectDisease() {
     isClicked++;
     swal({
         title: 'Are you sure?',
-        text: "Reject disease",
+        text: "Reject Disease",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
@@ -651,7 +653,7 @@ function sendReasonDisease() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending Reasons!",
+                    text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay",
@@ -788,7 +790,7 @@ function rejectToxin() {
     isClicked++;
     swal({
         title: 'Are you sure?',
-        text: "Reject Bacteria Taxon",
+        text: "Reject Toxin",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
@@ -853,7 +855,7 @@ function sendReasonToxin() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending reasons!",
+                    text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay",
@@ -1285,7 +1287,7 @@ function sendReasonAnimal() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending reasons!",
+                    text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay",
@@ -1370,11 +1372,13 @@ function removeHost(selected,hostID,globalBacteriumID){
     dataInsert[status] = 1;
     swal({
         title: 'Are you sure?',
-        text: "Remove Animal Hosts",
+        text: "Remove Animal Host",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
+        
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $.post(url,function (response) {
@@ -1383,10 +1387,11 @@ function removeHost(selected,hostID,globalBacteriumID){
                     isClick = 0;
                     swal({
                         title: "Error!",
-                        text: "Unable to remove Animal Hosts!",
+                        text: "Unable to remove Animal Host!",
                         type: "error",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                 }
 
@@ -1396,7 +1401,8 @@ function removeHost(selected,hostID,globalBacteriumID){
                         text: response.detail,
                         type: "success",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                     $('.deleteHost' + selected).remove();
                     $('#exampleModalCenter').modal("hide");
@@ -1596,7 +1602,7 @@ function sendReasonBacteria() {
             if (response.success == false) {
                 swal({
                     title: "Error!",
-                    text: "Error sending reasons!",
+                    text: "Error sending!",
                     type: "error",
                     confirmButtonColor: "#9c27b0",
                     confirmButtonText: "Okay",

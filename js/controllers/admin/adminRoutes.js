@@ -101,7 +101,7 @@ router.get('/rejectTable', auth.authenticate,(req,res,next)=>{
     res.render('admin/rejectTable');
 });
 
-router.get('/rejectTableList',auth.authenticate,reject.rejectTable);
+router.get('/rejectList',reject.rejectList);
 
 router.get('/animalTaxon', auth.authenticate, (req,res,next)=>{
     res.render('admin/animalTaxon');
