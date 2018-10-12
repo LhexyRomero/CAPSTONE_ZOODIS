@@ -113,7 +113,7 @@ exports.editDisease = (req, res, next) => {
     if(error == 0){
         db.get().query(sql, queryData, function(err, result){
             if(err) return next(err);
-            res.status(200).send({success: true, detail: "Disease Successfully Modify"});
+            res.status(200).send({success: true, detail: "Successfully Updated!"});
         });
     }else{
         res.status(200).send({success: false, detail: "Invalid Data"});
