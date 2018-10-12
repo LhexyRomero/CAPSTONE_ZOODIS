@@ -113,7 +113,7 @@ function getPrevention(diseaseID){
             let preventions = [];
             if(results.length == 0) return resolve(preventions);
             results.forEach((element,index)=> {                  // Loop to flatten all enrty in one array.
-                let list = element.split(':');
+                let list = element.preventions.split(':');
                 list.forEach((e,i)=>{
                     preventions.push(e);                         // Push single entry from splited(:) data per user.
                 });
