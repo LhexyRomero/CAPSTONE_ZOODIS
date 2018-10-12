@@ -85,4 +85,7 @@ router.get('/search/animalName',search.animalName);
 router.get('/search/diseaseName',search.diseaseName);
 router.get('/search/bacteriaScientificName',search.bacteriaScientificName);
 
+//Query
+router.get('/animalQuery');
+
 module.exports = router;
