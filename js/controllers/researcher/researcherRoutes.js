@@ -6,6 +6,7 @@ const upload = require('../../fileUpload');
 const journal = require('../researcher/journal');
 const contact = require('../researcher/contact');
 const search = require('../researcher/search');
+const query = require('../researcher/query');
 const animalSearching = require('../researcher/searchingAnimal');
 const bacteriSearching = require('../researcher/searchingBacteria');
 const diseaseSearching = require('../researcher/searchingDisease');
@@ -49,6 +50,7 @@ router.get('/microbiota',(req,res,next)=>{
 });
 
 router.get('/researcher_animal',(req,res,next)=>{
+    res.locals.view = true;
     res.render('researcher/researcher_animal');
 });
 
@@ -59,6 +61,7 @@ router.get('/view_animal',(req,res,next)=>{
 router.get('/animalModules',animalSearching.animalModules);
 
 router.get('/researcher_bacteria',(req,res,next)=>{
+    res.locals.view = true;
     res.render('researcher/researcher_bacteria');
 });
 
@@ -90,6 +93,7 @@ router.get('/search/diseaseName',search.diseaseName);
 router.get('/search/bacteriaScientificName',search.bacteriaScientificName);
 
 //Query
-router.get('/animalQuery');
+router.get('/animalQuery',query.animalQuery);
+router.get('/bacteriaQuery',query.bacteriaQuery);
 
 module.exports = router;

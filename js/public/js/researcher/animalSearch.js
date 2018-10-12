@@ -15,14 +15,14 @@ $(function(){
         }
     });
 
-    if($('#phylum').html()!= ""){
-        $('#noResults').hide();
-    }
+    // if($('#phylum').html()!= ""){
+    //     $('#noResults').hide();
+    // }
 
-    else {
-        $('#noResults').show();
-        $('#animalSearch').hide();
-    }
+    // else {
+    //     $('#noResults').show();
+    //     $('#animalSearch').hide();
+    // }
 });
 
 let animalSearchClick = 0;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<% include ../researcher/partials/head %>
 </head>
@@ -16,21 +17,26 @@
 					<h6 class="text-white">Zoonotic Disease Identification</h6>
 					<h1 class="text-white">ZooDis</h1>
 					<p class="text-white">
-						Zoonotic Disease Identification System was developed as a data portal rich in information generated from published researches
-						around the globe, focusing on animal microbiota. The identity, isolation techniques, profiles, chemotaxonomic characteristics
+						Zoonotic Disease Identification System was developed as a data portal rich in information generated from
+						published researches
+						around the globe, focusing on animal microbiota. The identity, isolation techniques, profiles, chemotaxonomic
+						characteristics
 						will be included in the presentation.
 					</p>
 				</div>
 				<div class="col-lg-4 col-md-6 banner-right">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link" id="animal-tab" data-toggle="tab" href="#animal" role="tab" aria-controls="animal" aria-selected="true">Animal</a>
+							<a class="nav-link" id="animal-tab" data-toggle="tab" href="#animal" role="tab" aria-controls="animal"
+							 aria-selected="true">Animal</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" id="bacteria-tab" data-toggle="tab" href="#bacteria" role="tab" aria-controls="bacteria" aria-selected="false">Bacteria</a>
+							<a class="nav-link active" id="bacteria-tab" data-toggle="tab" href="#bacteria" role="tab" aria-controls="bacteria"
+							 aria-selected="false">Bacteria</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" id="disease-tab" data-toggle="tab" href="#disease" role="tab" aria-controls="disease" aria-selected="false">Disease</a>
+							<a class="nav-link" id="disease-tab" data-toggle="tab" href="#disease" role="tab" aria-controls="disease"
+							 aria-selected="false">Disease</a>
 						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
@@ -51,7 +57,7 @@
 							</form>
 						</div>
 						<div class="tab-pane" id="disease" role="tabpanel" aria-labelledby="disease-tab">
-							<form class="form-wrap" method="POST" action="/researcher_disease" id="searchDisease"> 
+							<form class="form-wrap" method="POST" action="/researcher_disease" id="searchDisease">
 								<p>Access disease information together with its causes, its symptoms, and preventions.</p>
 								<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name">
 								<div class="diseaseNotif"></div>
@@ -72,14 +78,16 @@
 				<div class="menu-content pb-70 col-lg-8">
 					<div class="title text-center">
 						<h1 class="mb-10">TOP HARMFUL ANIMALS</h1>
-						<p>Pathogenic bacteria are bacteria that causes diseases to humans. The list below consists of the animals which produces the most number of pathogenic bacteria.</p>
+						<p>Pathogenic bacteria are bacteria that causes diseases to humans. The list below consists of the animals which
+							produces the most number of pathogenic bacteria.</p>
 					</div>
 				</div>
 			</div>
 
-			<div class="animalQuery"></div>	
+			<div class="animalQuery"></div>
 			<br>
-			<center><a href="researcher_animal" class="genric-btn default" style="float: right;">View More&nbsp;&nbsp;<span class="lnr lnr-chevron-right-circle"></span></a></center>
+			<center><a href="researcher_animal" class="genric-btn default" style="float: right;">View More&nbsp;&nbsp;<span
+					 class="lnr lnr-chevron-right-circle"></span></a></center>
 		</div>
 	</section>
 	<!-- End popular-destination Area -->
@@ -90,7 +98,8 @@
 				<div class="menu-content pb-70 col-lg-8">
 					<div class="title text-center">
 						<h1 class="mb-10">TOP HARMFUL BACTERIA</h1>
-						<p>The list below covers the bacteria with the most range of diseases they can produce. All of of these pathogenic bacteria present the most zoonotic threat to humans.</p>
+						<p>The list below covers the bacteria with the most range of diseases they can produce. All of of these
+							pathogenic bacteria present the most zoonotic threat to humans.</p>
 					</div>
 				</div>
 			</div>
@@ -98,6 +107,9 @@
 				<div class="active-testimonial">
 					<div class="single-testimonial item d-flex flex-row">
 						<div class="desc">
+							<h1>235</h1>
+							<label>Toxins</label><br>
+							<span class="badge badge-danger">Pathogenic</span><br><br>
 							<h4>Mycobacterium tuberculosis</h4>
 							<div class="row">
 								<div class="col-md-3">
@@ -107,11 +119,14 @@
 									<p>Asian Elephant</p>
 								</div>
 							</div>
-							<span class="badge badge-danger">Pathogenic</span>
+							<label style="font-size:12px;" class="text-info">doii</label>
 						</div>
 					</div>
 					<div class="single-testimonial item d-flex flex-row">
 						<div class="desc">
+							<h1>235</h1>
+							<label>Toxins</label><br>
+							<span class="badge badge-danger">Pathogenic</span><br><br>
 							<h4>Mycobacterium tuberculosis</h4>
 							<div class="row">
 								<div class="col-md-3">
@@ -121,11 +136,13 @@
 									<p>Asian Elephant</p>
 								</div>
 							</div>
-							<span class="badge badge-danger">Pathogenic</span>
 						</div>
 					</div>
 					<div class="single-testimonial item d-flex flex-row">
 						<div class="desc">
+							<h1>235</h1>
+							<label>Toxins</label><br>
+							<span class="badge badge-danger">Pathogenic</span><br><br>
 							<h4>Mycobacterium tuberculosis</h4>
 							<div class="row">
 								<div class="col-md-3">
@@ -135,7 +152,6 @@
 									<p>Asian Elephant</p>
 								</div>
 							</div>
-							<span class="badge badge-danger">Pathogenic</span><br>
 							<label style="font-size:12px;" class="text-info">doii</label>
 						</div>
 					</div>
@@ -171,10 +187,10 @@
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
 	<!-- End footer Area -->
+	<script src="../../assets/js/researcher/query.js"></script>
 	<script src="../../assets/js/researcher/animalSearch.js"></script>
 	<script src="../../assets/js/researcher/diseaseSearch.js"></script>
 	<script src="../../assets/js/researcher/bacteriaSearch.js"></script>
-	<script src="../../assets/js/researcher/query.js"></script>
 </body>
 
 </html>

@@ -24,6 +24,11 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
+	<%
+		console.log(locals);
+		if(!locals.view){
+			if(noRes == false){
+	%>
 	<section id="animalSearch" class="post-content-area">
 		<div class="container">
 			<div class="row">
@@ -119,7 +124,9 @@
 			</div>
 		</div>
 	</section>
-
+	<%
+			}else{
+	%>
 	<section id="noResults" class="post-content-area">
 			<div class="container">
 				<div class="row">
@@ -132,7 +139,10 @@
 				</div>
 			</div>
 	</section>
-
+	<%
+			}
+		}else{
+	%>
 	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
 			<div class="container">
 				<div class="row d-flex justify-content-center">
@@ -147,7 +157,10 @@
 				<div class="active-recent-blog-carusel"><br>
 				</div>
 			</div>
-		</section>
+	</section>
+	<%
+		}
+	%>
 
 	<!-- start footer Area -->
 	<% include ../researcher/partials/footer %>
