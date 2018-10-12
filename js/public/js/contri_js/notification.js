@@ -102,7 +102,8 @@ function notificationJournal() {
                 text: response.detail,
                 type: 'success',
                 confirmButtonColor: '#9c27b0',
-                confirmButtonText: 'Set Journal'
+                confirmButtonText: 'Set Journal',
+                allowOutsideClick: false
             }).then((isConfirmed) => {
                 if (isConfirmed) {
                     $.post("/setJournal", (response) => {

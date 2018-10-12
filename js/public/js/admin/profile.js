@@ -75,8 +75,8 @@ function updateProfile(e) {
     }
 
     swal({
-        title: 'Update Profile',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Update Profile",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',

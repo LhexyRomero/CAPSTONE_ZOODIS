@@ -40,19 +40,19 @@
     <div class="modal fade" id="modalBacteria" tabindex="-1" role="dialog" aria-labelledby="modalBacteria" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content for-scroll">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><b>BACTERIA FORM</b></h5>
-                </div>
+                    <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5><b>Bacteria  Form</b></h5>
+                        </div>
                 <div class="modal-body body-scroll">
                     <form id="modalBacteriaForm" onsubmit="approvedBacteria(event)" method="POST">   
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6 class="card-title"> ANIMAL</h6>
+                                        <h6 class="card-title">ANIMAL</h6>
                                         <div class="card-body">
                                             <div class ="form-group has-label">
                                             <div id ="modalHost"></div>
@@ -223,13 +223,13 @@
     <!-- Modal Toxin -->
     <div class="modal fade" id="modalToxins" tabindex="-1" role="dialog" aria-labelledby="modalToxins" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content for-scroll">
-                <div class="modal-header">
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><b>TOXIN</b></h5>
-                </div>
+            <div class="modal-content">
+                    <div class="modal-header">
+                            <h5 class="modal-title"><b>Toxin</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                 <div class="modal-body">
                     <form id="modalToxinForm" action="" method="POST" onsubmit="approvedToxin(event)">
                         <div class="card-body ">
@@ -262,7 +262,7 @@
                         <button type="button" class="btn btn-danger" id="toReject" onclick="rejectToxin()">Reject</button>
                     </div>
                 </div>
-                </form>
+            </form>
             </div>
         </div>
     </div>
@@ -280,8 +280,10 @@
                 <div class="modal-body body-scroll">
                     <form id="modalPreventionForm" action="" method="POST" onsubmit="approvedPrevention(event)">
                         <div class="row">
+                            
                             <div class="col-md-12">
                                 <div class="form-group has-label">
+                                    
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="modalLabel">Disease Name</label>

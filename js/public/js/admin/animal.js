@@ -106,7 +106,8 @@ function addAnimal(e) {
                                 text: response.detail,
                                 type: "error",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                         }
 
@@ -134,7 +135,8 @@ function addAnimal(e) {
                                 text: response.detail,
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
-                                confirmButtonText: "Okay"
+                                confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                             clearAnimal();
                         }
@@ -153,6 +155,7 @@ function addAnimal(e) {
                 confirmButtonColor: "#9c27b0",
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
+                allowOutsideClick: false
             }).then(function (isConfirmed) {
                 if(isConfirmed){
                     submit();
@@ -238,7 +241,8 @@ function addAnimalTaxon(eAdd) {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post("/animalTaxon", dataInsert, function (response) {
@@ -248,7 +252,8 @@ function addAnimalTaxon(eAdd) {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
                     else {
@@ -257,7 +262,8 @@ function addAnimalTaxon(eAdd) {
                             text: "Successfully Added!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         animalTaxonList();
                         clearAnimalTaxon();
@@ -390,7 +396,8 @@ function updateAnimalTaxon() {
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#9c27b0',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, dataInsert, function (response) {
@@ -400,7 +407,8 @@ function updateAnimalTaxon() {
                             text: "Data Already Exists!",
                             type: "error",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -410,7 +418,8 @@ function updateAnimalTaxon() {
                             text: "Successfully Updated!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                         $('#exampleModalCenter').modal("hide");
                         animalTaxonList();
@@ -585,6 +594,7 @@ function updateAnimal(){
                                 type: "success",
                                 confirmButtonColor: "#9c27b0",
                                 confirmButtonText: "Okay",
+                                allowOutsideClick: false
                             });
                             $("#exampleModalCenter2").modal("hide");
                         }
@@ -597,9 +607,10 @@ function updateAnimal(){
             text: "Update Animal",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            confirmButtonColor: "#9c27b0",
             confirmButtonText: "Yes",
             cancelButtonText: "Cancel",
+            allowOutsideClick: false
         }).then(function (isConfirmed) {
             if(isConfirmed){
                 submit();

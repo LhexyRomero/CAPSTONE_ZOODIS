@@ -45,8 +45,9 @@ function adminSwitch(event) {
             text: "Allow this staff to have admin privilege?",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes'
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, (response) => {
@@ -55,8 +56,9 @@ function adminSwitch(event) {
                             title: "Error!",
                             text: "Unsuccessful!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Okay"
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
                     else {
@@ -65,7 +67,8 @@ function adminSwitch(event) {
                             text: "Privilege granted!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 
@@ -88,8 +91,9 @@ function adminSwitch(event) {
             text: "Remove the admin privilege to this staff?",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes'
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
         }).then((isConfirmed) => {
             if (isConfirmed) {
                 $.post(url, (response) => {
@@ -98,8 +102,9 @@ function adminSwitch(event) {
                             title: "Error!",
                             text: "Unsuccessful!",
                             type: "error",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Okay"
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
                     else {
@@ -108,7 +113,8 @@ function adminSwitch(event) {
                             text: "Privilege dismissed!",
                             type: "success",
                             confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay"
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
                         });
                     }
 

@@ -75,12 +75,13 @@ function updateProfile(e) {
     }
 
     swal({
-        title: 'Update Profile',
-        text: "Are you sure?",
+        title: 'Are you sure?',
+        text: "Update Profile",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
             $.post("/contri_updateProfile", dataInsert,(response) =>{
@@ -91,7 +92,8 @@ function updateProfile(e) {
                         text: "Error Updating Profile!",
                         type: "error",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                 }
 
@@ -101,7 +103,8 @@ function updateProfile(e) {
                         text: response.detail,
                         type: "success",
                         confirmButtonColor: "#9c27b0",
-                        confirmButtonText: "Okay"
+                        confirmButtonText: "Okay",
+                        allowOutsideClick: false
                     });
                     cancelEdit();
                 }

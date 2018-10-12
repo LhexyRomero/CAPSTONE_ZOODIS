@@ -85,7 +85,8 @@ function addPrevention(eAdd) {
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#9c27b0',
-        confirmButtonText: 'Yes'
+        confirmButtonText: 'Yes',
+        allowOutsideClick: false
     }).then((isConfirmed) => {
         if (!isConfirmed) {
             return;
@@ -98,7 +99,8 @@ function addPrevention(eAdd) {
                     text: response.detail,
                     type: "error",
                     confirmButtonColor: "#9c27b0",
-                    confirmButtonText: "Okay"
+                    confirmButtonText: "Okay",
+                    allowOutsideClick: false
                 });
                 return;
             }
@@ -108,7 +110,8 @@ function addPrevention(eAdd) {
                 text: response.detail,
                 type: "success",
                 confirmButtonColor: "#9c27b0",
-                confirmButtonText: "Okay"
+                confirmButtonText: "Okay",
+                allowOutsideClick: false
             });
             clearPrevention();
             preventionList();
