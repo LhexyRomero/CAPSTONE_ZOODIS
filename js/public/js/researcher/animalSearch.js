@@ -69,9 +69,7 @@ function searchAnimal(e) {
     });
 }
 
-function animalModules() {
-    console.log("LEKI");
-
+function animalModules(){
     $.get("/animalModules",(response)=>{
 
         if(response.success==false){
@@ -110,11 +108,13 @@ function animalModules() {
                 $(".displayAnimal").html(html);
             }
         });
-
     });
 }
 
 function viewAnimal(id){
-    console.log(id + "ANDITO KOOO");
-    
+    window.location="view_animal?animalID="+id;
+}
+
+function viewBacteria(id){
+    window.location="view_bacteria?bacteriumID="+id;
 }

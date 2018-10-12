@@ -54,8 +54,12 @@ router.get('/researcher_animal',(req,res,next)=>{
     res.render('researcher/researcher_animal');
 });
 
-router.get('/view_animal',(req,res,next)=>{
+router.get('/view_animal',animalSearching.viewAnimal,(req,res,next)=>{
     res.render('researcher/view_animal');
+});
+
+router.get('/view_bacteria',bacteriSearching.viewBacteria,(req,res,next)=>{
+    res.render('researcher/view_bacteria');
 });
 
 router.get('/animalModules',animalSearching.animalModules);
@@ -68,6 +72,7 @@ router.get('/researcher_bacteria',(req,res,next)=>{
 router.get('/bacteriaModules',bacteriSearching.bacteriaModules);
 
 router.get('/researcher_disease',(req,res,next)=>{
+    res.locals.view = true;
     res.render('researcher/researcher_disease');
 });
 

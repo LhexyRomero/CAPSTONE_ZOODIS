@@ -186,7 +186,7 @@ exports.searchingBacteria = (req,res,next) =>{
     let bacteria = data.bacteriaScientificName;
     let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumScientificName = ?";
     let sql2 = "SELECT name,doi FROM journal_t WHERE journalID = ?";
-    let sql3 = "SELECT DISTINCT COUNT(animalbacteria_t.animalID) as produces, animal_t.animalID, animalName,image FROM animalbacteria_t INNER JOIN animal_t ON animal_t.animalID = animalbacteria_t.animalID WHERE animalbacteria_t.bacteriumID = ?"
+    let sql3 = "SELECT animal_t.animalID,animalScientificName,animalName,image FROM animalbacteria_t INNER JOIN animal_t ON animal_t.animalID = animalbacteria_t.animalID WHERE animalbacteria_t.bacteriumID = ?"
     db.get().query(sql, [bacteria], (err, result) => {
         if (err) return next(err);
         res.locals.noRes = true;
@@ -195,7 +195,6 @@ exports.searchingBacteria = (req,res,next) =>{
             if(err2) return next(err2);
             db.get().query(sql3,[result[0].bacteriumID],(err3,result3)=>{
                 if(err3) return next(err3);
-                console.log(result3);
                 if(result.length==0) return next();
                 getBacteriaToxin(result[0].bacteriumID, (errr, toxinIDs) => {
                     if (errr) return next(errr);
@@ -245,9 +244,34 @@ exports.bacteriaModules = (req,res,next) =>{
     db.get().query(sql,(err,result)=>{
         if (err) return next (err);
 
-        console.log(result);
         res.status(200).send({success:true,detail:"",data:result});
     });
 }
 
+exports.viewBacteria = (req,res,next)=>{
+    let id = req.query.bacteriumID;
+    let sql = "SELECT * FROM bacteria_t INNER JOIN bacteriataxo_t ON bacteria_t.bacteriumTaxoID = bacteriataxo_t.bacteriumTaxoID WHERE bacteriumID = ?";
+    let sql2 = "SELECT name,doi FROM journal_t WHERE journalID = ?";
+    let sql3 = "SELECT animal_t.animalID,animalScientificName,animalName,image FROM animalbacteria_t INNER JOIN animal_t ON animal_t.animalID = animalbacteria_t.animalID WHERE animalbacteria_t.bacteriumID = ?"
+    let sql4 = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID WHERE bacteriatoxin_t.bacteriumID = ?";
+    db.get().query(sql, [id], (err, result) => {
+        if (err) return next(err);
+        db.get().query(sql2,[result[0].journalID],(err2,result2)=>{
+            if(err2) return next(err2);
+            db.get().query(sql3,[result[0].bacteriumID],(err3,result3)=>{
+                if(err3) return next(err3);
+                db.get().query(sql4,[id],(err4,result4)=>{
+                    let dataDisplay = {
+                        stQuery : result[0],
+                        ndQuery : result2[0],
+                        rdQuery : result3,
+                        thQuery : result4
+                    }
+                    res.locals = dataDisplay;
+                    next();
+                });
+            });
+        });
+    });
+}
 exports.search = search; // Export search function, need to recycle on disease

@@ -25,7 +25,6 @@
 	</section>
 	<!-- End banner Area -->
 	<%
-		console.log(locals);
 		if(!locals.view){
 			if(noRes == false){
 	%>
@@ -112,7 +111,7 @@
 								var bacTags = "";
 								if(locals.bacteria){
 									bacteria.forEach((element, index) => {
-										bacTags += "<li><a href='#'>" + element.bacteriumScientificName + "</a></li>";
+										bacTags += "<li><a onclick='viewBacteria("+element.bacteriumID+")'>" + element.bacteriumScientificName + "</a></li>";
 									});
 								}
 							%>
