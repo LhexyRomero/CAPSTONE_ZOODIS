@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
 <head>
 	<% include ../researcher/partials/head %>
 </head>
@@ -88,6 +86,16 @@
 							<h2><em><%=(locals.stQuery?stQuery.bacteriumScientificName:"")%></em></h2>
 							<a class="posts-title">
 							</a><br>
+							<%
+								var patho="";
+								if(locals.stQuery.pathogenic == 1){
+									patho = "<span class='badge badge-danger'>Pathogenic</span>";
+								}
+								else {
+									patho = "<span class='badge badge-warning'>Potentially Pathogenic</span>";
+								}
+							%>
+							<%-patho%>
 							<div class="row">
 								<div class="col-md-6">
 									<p class="excert"> Tissue Specifity:</p>
@@ -141,7 +149,7 @@
 									var toxinTags="";
 									if(locals.thQuery){
 										thQuery.forEach((element,index)=>{
-											toxinTags += "<li><a href='#'>"+ element.name +"</a></li>";
+											toxinTags += "<li><a style='cursor:pointer;' onclick='viewToxin("+element.toxinID+")'>"+ element.name +"</a></li>";
 										});
 									}
 								%>
@@ -177,6 +185,8 @@
 	<% include ../researcher/partials/footer %>
 	<script src="/assets/js/researcher/bacteriaSearch.js"></script>
 	<script src="/assets/js/researcher/animalSearch.js"></script>
+	<script src="/assets/js/researcher/toxinSearch.js"></script>
+
 	<!-- End footer Area -->
 </body>
 

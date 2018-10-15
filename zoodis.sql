@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2018 at 11:31 PM
+-- Generation Time: Oct 15, 2018 at 04:18 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -99,7 +99,7 @@ CREATE TABLE `animal_t` (
 
 INSERT INTO `animal_t` (`animalID`, `animalName`, `animalScientificName`, `animalTaxoID`, `image`, `status`, `count`, `journalID`, `staffID`, `dateTime`) VALUES
 (1, 'Duck', 'Anas platyrhynchos', 1, 'js\\public\\image_upload\\074414beb239b98.jpeg', 'approved', 0, 11, 1, '2018-10-13 03:54:50'),
-(2, 'Rat', 'Rattus rattus', 2, 'js\\public\\image_upload\\693031fac8df3bf.jpeg', 'pending', 0, 12, 1, '2018-10-13 03:38:20'),
+(2, 'Rat', 'Rattus rattus', 2, 'js\\public\\image_upload\\693031fac8df3bf.jpeg', 'approved', 0, 12, 1, '2018-10-13 03:38:20'),
 (3, 'Cattle', 'Bos taurus', 3, 'js\\public\\image_upload\\3c0a88ed5e08b8e.jpeg', 'approved', 0, 13, 1, '2018-10-13 04:25:39');
 
 -- --------------------------------------------------------

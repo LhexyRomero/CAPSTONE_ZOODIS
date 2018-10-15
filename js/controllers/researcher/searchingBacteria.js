@@ -11,6 +11,7 @@ function search(token, strSearch, cb) {
         let result = strSearch.match(regexp); // nagrereturn to ng null pag no match, then array if meron,
         if (result) { // si result is array, array ng matchs. soo yung bilang nila pag nag result.length ka we add it sa matchCount
             matchCount += result.length;
+            console.log(matchCount,"ito yung matchCount ko");
         }
         if (index == token.length - 1) { // Para malaman natin kung ending na ba nung loop.
             cb(matchCount);
@@ -27,6 +28,7 @@ function getBacteriaToxin(bacteria, cb) {
     let sql = "SELECT * FROM bacteriatoxin_t WHERE bacteriumID = ?";
     db.get().query(sql, [bacteria], (err, result) => {
         if (err) return cb(err);
+        console.log(result,"getting bacteria toxin");
         cb(null, result);
     });
 }
@@ -47,6 +49,7 @@ function getToxinName(toxinIDs, cb){
         }));
         if(i == toxinIDs.length-1){
             Promise.all(promises).then(results=>{
+                console.log(results, "Getting toxin Names");
                 cb(null, results)
             }).catch(reason=>{
                 cb(new Error(reason));
@@ -65,6 +68,7 @@ function getDisease(offset, limit, cb){
     let sql = "SELECT diseaseID, diseaseName, diseaseDesc, bodySite FROM disease_t ORDER BY diseaseID ASC LIMIT ?,?";
     db.get().query(sql, [offset,limit], function(err, result){
         if(err) return cb(err);
+        console.log(result,"i am getting disease");
         cb(null, result);
     });
 }
@@ -76,6 +80,7 @@ function getDisease(offset, limit, cb){
  * @param {Function} cb 
  */
 function processData(toxinNames, diseases, cb){
+    console.log("AND2 ako sa process data");
     return new Promise((resolve, reject)=>{
         let matches = [];
         let promises = [];
@@ -94,6 +99,7 @@ function processData(toxinNames, diseases, cb){
             if(i == diseases.length-1){
                 Promise.all(promises).then(()=>{
                     if(cb){
+                        console.log(matches, "andito lahat ng matches");
                         cb(null, matches);
                     }else{
                         resolve(matches);
@@ -216,6 +222,7 @@ exports.searchingBacteria = (req,res,next) =>{
                                     }
                                 });
                             }).then(output=>{
+                                console.log(output.match);
                                 res.locals.count = output.match.length;
                                 res.locals.matchResult = output.match; 
                                 res.locals.bacteria = output.bacteria;

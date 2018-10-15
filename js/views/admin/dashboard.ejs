@@ -58,8 +58,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-md-4">
                                 <div class="card card-stats">
                                     <div class="card-body">
@@ -239,12 +237,54 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-stats" style="padding:10px;">
+                            <div class="statistics">
+                                <div class="statistics">
+                                    <div class="info">
+                                        <div class="icon icon-info">
+                                            <i class="now-ui-icons ui-1_calendar-60"></i>
+                                        </div>
+                                        <h6 class="stats-title">Month</h6>
+                                        <form id="generateReports">
+                                            <div class="form-group">
+                                                <select type="text" name="selectMonth" class="form-control">
+                                                    <option value=1>January</option>
+                                                    <option value=2>February</option>
+                                                    <option value=3>March</option>
+                                                    <option value=4>April</option>
+                                                    <option value=5>May</option>
+                                                    <option value=6>June</option>
+                                                    <option value=7>July</option>
+                                                    <option value=8>August</option>
+                                                    <option value=9>September</option>
+                                                    <option value=10>October</option>
+                                                    <option value=11>November</option>
+                                                    <option value=12>December</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <select type="text" name="selectYear" class="form-control">
+                                                    <option value=2018>2018</option>
+                                                    <option value=2017>2017</option>
+                                                    <option value=2016>2016</option>
+                                                    <option value=2015>2015</option>
+                                                    <option value=2014>2014</option>
+                                                    <option value=2013>2013</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                        <button type="button" onclick="reports()" class="btn btn-fill btn-primary">Generate Reports</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <br><br>
         </div>
-    </div>
-    </div>
-
     </div>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.min.js"></script>
@@ -544,6 +584,7 @@
         });
     </script>
     <script src="../../assets/js/admin/query.js"></script>
+    <script src="../../assets/js/admin/reports.js"></script>
 </body>
 
 </html>

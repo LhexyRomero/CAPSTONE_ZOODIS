@@ -77,10 +77,11 @@ function bacteriaModules() {
 
         let data = response.data;
         let html = "";
+        console.log(data);
         data.forEach((element, index) => {
             let row = "<tr>";
             row += "<td>" + element.animalName + "</td>";
-            row += "<td>" + element.bacteriumScientificName + "</td>";
+            row += "<td><a style='cursor: pointer; ' onclick ='viewBacteria("+element.bacteriumID+")'>" + element.bacteriumScientificName + "</a></td>";
             if(element.pathogenic == 1) {
                 row += '<td class="text-center"><span class="badge badge-danger">Pathogenic</span></td>';
             }
@@ -99,4 +100,8 @@ function bacteriaModules() {
 
 function viewDisease(id) {
     window.location="view_disease?diseaseID="+id;
+}
+
+function viewBacteria(id){
+    window.location="view_bacteria?bacteriumID="+id;
 }

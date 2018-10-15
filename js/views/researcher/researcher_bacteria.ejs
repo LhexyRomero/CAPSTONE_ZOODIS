@@ -90,8 +90,18 @@
 						<div class="col-lg-7 col-md-7">
 							<h2><em><%=(locals.bacteria?bacteria.bacteriumScientificName:"")%></em></h2>
 							<a class="posts-title">
-							</a><br>
-							<div class="row">
+							</a>
+							<%
+								var patho="";
+								if(locals.bacteria.pathogenic == 1){
+									patho = "<span class='badge badge-danger'>Pathogenic</span>";
+								}
+								else {
+									patho = "<span class='badge badge-warning'>Potentially Pathogenic</span>";
+								}
+							%>
+							<%-patho%>
+							<div class="row"><br><br>
 								<div class="col-md-6">
 									<p class="excert"> Tissue Specifity:</p>
 								</div>

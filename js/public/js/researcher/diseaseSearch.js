@@ -71,8 +71,8 @@ function diseaseModules() {
         let html = "";
         data.forEach((element, index) => {
             let row = "<tr>";
-            row += "<td>" + element.diseaseName + "</td>";
-            row += "<td>" + element.diseaseDesc + "</td>";
+            row += "<td style='cursor: pointer; ' onclick ='viewDisease("+element.diseaseID+")'>" + element.diseaseName + "</td>";
+            row += "<td>" + element.diseaseDesc.substring(0,200)+"..." + "</td>";
             row += "<td class='text-center'>" + element.doi + "</td>";
             row += "</tr>";
             html += row;
@@ -80,4 +80,8 @@ function diseaseModules() {
         $('#disModuleList').html(html);
         $('#disModuleTable').dataTable();
     });
+}
+
+function viewDisease(id) {
+    window.location="view_disease?diseaseID="+id;
 }

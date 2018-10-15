@@ -2,6 +2,9 @@ const db = require('../../connection');
 const pdf = require('../../pdfGenerator');
 
 exports.generateReports = function(req, res, next){
+    let data = req.body;
+    let month = data.selectMonth;
+    let year = data.selectYear;
     let date = req.query.date || Date.parse('now').toString('yyyy-MM-dd');
     let freq = req.query.freq || 3;
 

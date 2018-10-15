@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<% include ../researcher/partials/head %>
+</head>
+
+<body>
+	<% include ../researcher/partials/header %>
+	<!-- start banner Area -->
+	<section class="about-banner relative">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Disease
+					</h1>
+					<p class="text-white link-nav"><a href="index">Home </a>
+						<span class="lnr lnr-arrow-right"></span> <a href="researcher_disease">Disease</a></p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+	<section class="post-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<div class="menu-content pb-70">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 posts-list">
+					<div class="row single-post">
+						<div class="col-md-12">
+							<a class="posts-title">
+								<h3><%=(locals.name?name :"")%></h3>
+							</a>
+							<p class="excert">
+								<%=(locals.desc?desc :"")%>
+							</p><br>
+							<h4>Body Site </h4><br>
+							<ul class="tags">
+								<%
+									var siteList = "";
+									if(locals.bodySite){
+										bodySite.forEach((element, index) => {
+											siteList += "<li class='li'>"+element+"</li>";
+										});
+									}
+								%>
+								<%-siteList%>
+							</ul><br>
+							<h4>Symptoms </h4><br>
+							<ul class="tags">
+								<%
+									var symptomsList = "";
+									if(locals.symptoms){
+										symptoms.forEach((element, index) => {
+											symptomsList += "<li class='li'>"+element+"</li>";
+										});
+									}
+								%>
+								<%-symptomsList%>
+							</ul><br>
+							<h4>Prevention</h4><br>
+							<ul class="tags">
+								<%
+									var preventionList = "";
+									if(locals.preventions){
+										preventions.forEach((element, index) => {
+											preventionList += "<li class='li'>"+element+"</li>";
+										});
+									}
+								%>
+								<%-preventionList%>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<center><a href="researcher_disease" class="genric-btn primary pull-right"><span
+					 class="lnr lnr-arrow-left">&nbsp;&nbsp;Back</span></a></center><br><br><br>
+		</div>
+	</section>
+
+	<!-- start footer Area -->
+	<% include ../researcher/partials/footer %>
+	<!-- End footer Area -->
+	<script src="../../assets/js/researcher/diseaseSearch.js"></script>
+</body>
+
+</html>

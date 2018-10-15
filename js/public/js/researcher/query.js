@@ -1,7 +1,7 @@
 $(function(){
-    bacteriaQuery();
     animalQuery();
-    console.log("GAGAAAAAAAAAAAAAA");
+    numberBacteria();
+    bacteriaQuery();
 });
 
 function animalQuery(){
@@ -46,15 +46,56 @@ function animalQuery(){
     });
 }
 
-
-
-
 function bacteriaQuery(){
-    console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIII");
     $.get('/bacteriaQuery',(response)=>{
         if(response.success == false){
             $.notify("Error querying!",{type:danger});
             return;
         }
+
+        let human = "";
+        let count = "<h1>"+response.data.stCount+"</h1>";
+        let bacName = "<h4>"+response.data.stBac+"</h4>";
+        if(response.data.stPath == 1){
+            human = '<span class="badge badge-danger">Pathogenic Bacteria</span>';
+        }
+        else {
+            human = '<span class="badge badge-warning">Potentially Pathogenic Bacteria</span>';
+        }
+
+        $(".count").html(count);
+        $(".bacName").html(bacName);
+        $(".human").html(human);
+
+        let human1 = "";
+        let count1 = "<h1>"+response.data.ndCount+"</h1>";
+        let bacName1 = "<h4>"+response.data.ndBac+"</h4>";
+        if(response.data.ndPath == 1){
+            human1 = '<span class="badge badge-danger">Pathogenic Bacteria</span>';
+        }
+        else {
+            human1 = '<span class="badge badge-warning">Potentially Pathogenic Bacteria</span>';
+        }
+
+        $(".count1").html(count1);
+        $(".bacName1").html(bacName1);
+        $(".human1").html(human1);
     });
 }
+
+function numberBacteria(){
+    console.log("PASOK");
+    $.get('/numberBacteria',(response)=>{
+        console.log(response);
+        if(response.success == false){
+            $.notify("Error querying!",{type:danger});
+            return;
+        }
+        let patho = "<h1>"+response.data.patho+"</h1>";
+        let potentPatho = "<h1>"+response.data.potentPatho+"</h1>";
+        
+        $(".pathogenic").html(patho);
+        $(".notpathogenic").html(potentPatho);
+    });
+}
+

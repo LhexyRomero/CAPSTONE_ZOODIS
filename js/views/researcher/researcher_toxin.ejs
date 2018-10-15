@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<% include ../researcher/partials/head %>
+</head>
+
+<body>
+	<% include ../researcher/partials/header %>
+	<!-- start banner Area -->
+	<section class="about-banner relative">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Toxin
+					</h1>
+					<p class="text-white link-nav"><a href="index">Home </a>
+						<span class="lnr lnr-arrow-right"></span> <a href="researcher_toxin">Toxin</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+	<section style="background-color: #f6f6ff" class="recent-blog-area section-gap">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="menu-content pb-60 col-lg-9">
+					<div class="title text-center">
+						<h1 class="mb-10">Toxin List</h1>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table class="table" id="toxModuleTable">
+					<thead class="text-primary">
+						<th><small><b>BACTERIA</b></small></th>
+						<th><small><b>TOXINS</b></small></th>
+						<th class="text-center"><small><b>STRUCTURE FEATURE</b></small></th>
+					</thead>
+					<tbody id="toxModuleList">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+	<!-- start footer Area -->
+	<% include ../researcher/partials/footer %>
+	<script src="/assets/js/researcher/toxinSearch.js"></script>
+	<!-- End footer Area -->
+</body>
+
+</html>
