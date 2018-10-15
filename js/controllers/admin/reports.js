@@ -10,6 +10,7 @@ exports.generateReports = function(req, res, next){
 
     gatherData(date, freq).then(data=>{
         data.date = Date.parse('now').toString('MMM dd, yyyy');
+        data.fullDate = date.toString('MMMM yyyy');
         return generate(data).then(buffer=>{
             return buffer;
         });
