@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+	<% include ../researcher/partials/head %>
+</head>
+
+<body>
+	<% include ../researcher/partials/header %>
+	<!-- start banner Area -->
+	<section class="about-banner relative">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Toxin
+					</h1>
+					<p class="text-white link-nav"><a href="index">Home </a>
+						<span class="lnr lnr-arrow-right"></span> <a href="researcher_toxin">Toxin</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+	<section class="post-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<div class="menu-content pb-70">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 posts-list">
+					<div class="row single-post">
+						<div class="col-md-12">
+							<a class="posts-title">
+								<h3><%=(locals.toxinName?toxinName:"")%></h3>
+							</a>
+                            <p>Bacteria &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;
+                            <%=(locals.bacteria?bacteria:"")%></p><br>
+                            <h5>Structure Feature</h5><br>
+							<p class="excert">
+								<%=(locals.structureFeature?structureFeature :"")%>
+							</p><br>
+
+                            <h5>Function</h5><br>
+							<p class="excert">
+								<%=(locals.func?func :"")%>
+							</p><br>
+						</div>
+					</div>
+				</div>
+			</div>
+			<center><a href="researcher_toxin" class="genric-btn primary pull-right"><span
+				class="lnr lnr-arrow-left">&nbsp;&nbsp;Back</span></a></center><br><br><br>
+		</div>
+	</section>
+
+	<!-- start footer Area -->
+	<% include ../researcher/partials/footer %>
+	<script src="/assets/js/researcher/toxinSearch.js"></script>
+	<!-- End footer Area -->
+</body>
+
+</html>

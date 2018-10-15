@@ -19,6 +19,7 @@ const sample = require('../admin/sample');
 const message = require('../admin/message');
 const notification = require('../admin/notification');
 const query = require('../admin/query');
+const reports = require('../admin/reports');
 
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
@@ -245,6 +246,6 @@ router.get('/totalToxins',query.totalToxins);
 router.get('/totalPotent',query.totalPotent);
 router.get('/totalPatho',query.totalPatho);
 
-router.get('/reports', require('./reports').generateReports);
+router.post('/reports',reports.generateReports);
 
 module.exports = router;

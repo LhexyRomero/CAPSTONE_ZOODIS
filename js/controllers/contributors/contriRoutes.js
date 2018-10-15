@@ -12,6 +12,7 @@ const contri_prevention = require('../contributors/prevention');
 const contri_notification = require('../contributors/notification');
 const contri_profile = require('../contributors/profile');
 const contri_search = require('../contributors/search');
+const conrti_query  = require('../contributors/query');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -112,6 +113,7 @@ router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
 router.post('/finishedJournal',contri_notification.finishedJournal);
 
 router.get('/search/bodySite',contri_search.bodySite);
+router.get('/addedData',conrti_query.addedData);
 
 
 module.exports = router;

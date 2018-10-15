@@ -1,7 +1,7 @@
 const db = require('../../connection');
 
 exports.searchingDisease = (req,res,next)=>{
-
+    console.log("IME HEREE RANFAAA");
     let data = req.body;
     let diseaseName = data.diseaseName;
     
@@ -96,7 +96,6 @@ exports.diseaseModules = (req,res,next) =>{
     db.get().query(sql,(err,result)=>{
         if(err) return next (err);
 
-        console.log(result);
         res.status(200).send({success:true,detail:"",data:result});
     });
 }
@@ -196,3 +195,25 @@ function getAnimalCarrier(bacteriumID){
         return a;
     });
 }
+
+exports.viewDisease = (req,res,next)=>{
+    let sql = "SELECT * FROM disease_t INNER JOIN prevention_t ON disease_t.diseaseID = prevention_t.diseaseID";
+    db.get().query(sql,(err,result)=>{
+        if(err) return next(err);
+
+
+        let splittedSymptoms = result[0].symptoms.split(":");
+        let splittedBodySites = result[0].bodySite.split(":");
+        let splitedPreventions  = result[0].preventions.split(":");
+        let dataDisplay = {
+            name                :   result[0].diseaseName,
+            desc                :   result[0].diseaseDesc,
+            symptoms            :   result[0].symptoms,
+            symptoms            :   splittedSymptoms,
+            bodySite            :   splittedBodySites,
+            preventions         :   splitedPreventions,
+        }
+        res.locals = dataDisplay;
+        next();
+    })
+} 

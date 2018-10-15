@@ -257,7 +257,6 @@ exports.approvedDisease = (req, res, next) => {
     let state = "noticed";
     let category = "Disease";
     let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ?,status=? WHERE diseaseID = ?";
-    let sql1 = "UPDATE bacteriadisease_t SET bacteriumID =? , diseaseID =? WHERE diseaseID = ?";
     let sql2 = "UPDATE request_t SET state =?,status =? WHERE category =? AND addedID =? ";
     let error = 0;
 
@@ -278,12 +277,9 @@ exports.approvedDisease = (req, res, next) => {
     if (error == 0) {
         db.get().query(sql, queryData, function (err, result) {
             if (err) return next(err);
-            db.get().query(sql1, [bacteriumID, id, id], (err1, result1) => {
-                if (err1) return next(err1);
-                db.get().query(sql2, [state, status, category, id], (err2, result2) => {
-                    if (err2) return next(err2);
-                    res.status(200).send({ success: true, detail: "Successfully Approved" });
-                });
+            db.get().query(sql2, [state, status, category, id], (err2, result2) => {
+                if (err2) return next(err2);
+                res.status(200).send({ success: true, detail: "Successfully Approved" });
             });
         });
     } else {
