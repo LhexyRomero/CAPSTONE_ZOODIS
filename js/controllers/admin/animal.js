@@ -239,7 +239,6 @@ exports.animalList = (req,res,next) =>{
 
 exports.viewAnimal = (req,res,next) =>{
 
-    console.log("im here na");
     let id = req.params.id;
 
     let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID WHERE animalID = ?";

@@ -88,7 +88,6 @@ exports.editBacteriaTaxon = (req, res, next) => {
 
 exports.updateBacteriaTaxon = (req, res, next) => {
 
-    console.log("DITO AKOOOOOOOO");
     let id = req.params.id;
     let data = req.body;
 
@@ -174,7 +173,6 @@ exports.editToxin = (req, res, next) => {
     db.get().query(sql8, [id], (err8, result8) => {
         if (err8) return next(err8);
 
-        console.log(result8);
         let dataDisplay = {
 
             bacteriumID : result8[0].bacteriumID,
@@ -220,7 +218,6 @@ exports.toSelectBacteria = (req, res, next) => {
 
 exports.addBacteria = (req, res, next) => {
 
-    console.log("ADD KA NA");
     let data = req.body;
     let animalID = data.toSelect;
     let strSpeciesName = data.strSpeciesName;
@@ -240,7 +237,6 @@ exports.addBacteria = (req, res, next) => {
         let sql12 = "SELECT * FROM animalbacteria_t WHERE bacteriumID = ? AND animalID =? AND status = ?";
         db.get().query(sql11, [strScientificName], (err11, result11) => {
             if (err11) return cb(err11);
-            console.log("andito ako sa checking");
 
             if(result11.length == 0) {
                 return cb(null, true);
@@ -251,12 +247,9 @@ exports.addBacteria = (req, res, next) => {
                     if(err12) return next(err12);
                     
                     if (result12.length == 0) {
-                        console.log("Nageexists na Bacteria!");
-                        console.log(result11);
                         return cb(null, false,0,result11);
                     }
                     else {
-                        console.log("Nageexists na yung match!");
                         return cb(null,false,1);
                     }
                 });
@@ -265,7 +258,6 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let checkSpecies = (cb) => {
-        console.log("check Species!");
         let sql = "SELECT * FROM bacteriataxo_t WHERE species = ?";
         db.get().query(sql, [strSpeciesName], (err, result) => {
             if (err) return cb(err);
@@ -324,8 +316,6 @@ exports.addBacteria = (req, res, next) => {
     };
 
     checkBacteria((error,result,check,dataDisplay) => {
-        console.log(result);
-        console.log(dataDisplay);
         if (error) return next(error);
 
         if (result) {
