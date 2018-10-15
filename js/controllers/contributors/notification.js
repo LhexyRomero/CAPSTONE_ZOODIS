@@ -65,8 +65,9 @@ exports.downloadJournal = (req,res,next) =>{
 exports.finishedJournal = (req,res,next) =>{
 
     let status = "completed";
-    let sql = "UPDATE journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID SET journal_t.status=? WHERE staff_t.staffID =?";
-    db.get().query(sql,[status,req.session.staffID],(err,result)=>{
+    let state = "noticed";
+    let sql = "UPDATE journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID SET journal_t.state = ? ,journal_t.status=? WHERE staff_t.staffID =?";
+    db.get().query(sql,[state,status,req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"Journal Successfully Completed!"});
