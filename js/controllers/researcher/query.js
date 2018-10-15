@@ -5,7 +5,6 @@ exports.animalQuery = (req,res,next) =>{
     let sql = "SELECT DISTINCT COUNT(bacteriumID) as bacteriaQ, image,animalName FROM animalbacteria_t INNER JOIN animal_t ON animalbacteria_t.animalID = animal_t.animalID GROUP BY animalbacteria_t.animalID LIMIT 3";
     db.get().query(sql,(err,result)=>{
         if (err) return next (err);
-        console.log(result);
         res.status(200).send({success:true,detail:"",data:result});
     });
 }
@@ -34,7 +33,6 @@ exports.bacteriaQuery = (req,res,next) =>{
                         
         
                     }
-                    console.log(dataDisplay);
                     res.status(200).send({success:true, detail:"",data:dataDisplay});
                 });
             }); 
@@ -43,7 +41,6 @@ exports.bacteriaQuery = (req,res,next) =>{
 }
 
 exports.numberBacteria = (req,res,next) =>{
-    console.log("NAKAPASOK KAO");
     let sql = "SELECT COUNT(bacteriumID) AS patho FROM bacteria_t WHERE pathogenic = 1";
     let sql1 = "SELECT COUNT(bacteriumID) AS potenPatho FROM bacteria_t WHERE pathogenic = 0";
 
@@ -55,7 +52,6 @@ exports.numberBacteria = (req,res,next) =>{
                 patho       :   result[0].patho,
                 potentPatho :   result1[0].potenPatho
             }
-            console.log(dataDisplay);
             res.status(200).send({success:true,detail:"",data:dataDisplay});
         });
     });

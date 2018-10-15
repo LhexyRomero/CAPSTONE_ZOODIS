@@ -13,9 +13,6 @@ exports.addedData = (req,res,next)=>{
                 approve        :    result[0].approvedData,
                 reject         :    result1[0].rejectData
             }
-
-            console.log(dataDisplay);
-
             res.status(200).send({success:true, detail:"",data:dataDisplay});
         });
     });
