@@ -189,7 +189,6 @@ exports.totalPotent = (req,res,next)=>{
     let sql = "SELECT COUNT(pathogenic) as countPotent FROM bacteria_t WHERE pathogenic = ?";
     db.get().query(sql,[patho],(err,result)=>{
         if(err) return next(err);
-        console.log(result[0].countPotent);
         res.status(200).send({success:true, detail:"", data:result[0].countPotent});
     });
 }

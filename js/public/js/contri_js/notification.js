@@ -79,7 +79,7 @@ function updateNotiCard(id) {
 }
 
 function notificationJournal() {
-    return $.get('/notifyJournal', (response) => {
+    $.get('/notifyJournal', (response) => {
         console.log("here");
         if (response.success == false) {
             return;
@@ -87,7 +87,7 @@ function notificationJournal() {
         let data = response.data;
         console.log(data);
 
-        if (data.state == "noticed" && data.status == "Incomplete") {
+        if (data.state == "noticed" && data.status == "Incomplete" && data.name !== "none") {
             let code = "<h6>" + data.code + "</h6>";
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
@@ -96,7 +96,7 @@ function notificationJournal() {
             $('#downloadJournal').attr('href', '/downloadJournal/' + link[link.length-1]);
 
         }
-        else if (data.state == "notify" && data.status == "Incomplete") {
+        else if (data.state == "notify" && data.status == "Incomplete" && data.name !== "none") {
             swal({
                 title: 'Journal',
                 text: response.detail,
@@ -124,14 +124,14 @@ function notificationJournal() {
             $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
         }
 
-        else if (data.state == "none" && data.status == "none") {
+        else if (data.code == "none" && data.name == "none" && data.name == "none") {
             let code = "<h6> No Journal Assigned by the Admin</h6>";
             $("#journalCode").html(code);
-            $("#download").hide();
+            $("#downloadJournal").hide();
             $("#finish").hide();
         }
 
-        else if (data.state == "revised" && data.status == "Incomplete") {
+        else if (data.state == "revised" && data.status == "Incomplete" && data.name !== "none") {
             let code = "<h6>" + data.code + "</h6>";
             let name = "<h6>" + data.name + "</h6>";
             let badge = "<span class='badge badge-danger'>Incomplete</span>";
@@ -145,7 +145,7 @@ function notificationJournal() {
         else {
             let code = "<h6> No Journal Assigned by the Admin</h6>";
             $("#journalCode").html(code);
-            $("#download").hide();
+            $("#downloadJournal").hide();
             $("#finish").hide();
         }
     });

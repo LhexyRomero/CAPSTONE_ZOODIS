@@ -60,7 +60,7 @@ router.get('/notification', auth.authenticate,(req,res,next)=>{
 router.get('/notificationCard', notification.notificationCard);
 router.get('/notificationDetails/:journalID/:staffID',notification.notificationDetails);
 router.post('/completeUpdate/:id/:staff',notification.completeUpdate);
-router.post('/sendUpdate/:id',notification.sendUpdate);
+router.post('/sendUpdate/:id/:owner',notification.sendUpdate);
 router.post('/incompleteUpdate/:id',notification.incompleteUpdate);
 
 

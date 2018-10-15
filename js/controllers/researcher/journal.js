@@ -73,10 +73,10 @@ exports.uploadJournal = (req, res, next) => {
     let insertJournal = function() {
 
         let sql = "INSERT INTO userjournal_t (jSubject,jMessage,jTitle,jDoi,jFile,staffID,jState,jPublished,jDateTime) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql2 = "INSERT INTO journal_t (code,name,doi,status,file,state) VALUES (?,?,?,?,?,?)";
+        let sql2 = "INSERT INTO journal_t (code,name,doi,status,file,state,ownedBy) VALUES (?,?,?,?,?,?,?)";
         db.get().query(sql,[subject,message,name,doi,file,req.session.staffID,jState,publishedDate],(err,result)=>{
             if(err) return next(err);
-            db.get().query(sql2,[code,name,doi,status,file,state],(err2,result2)=>{
+            db.get().query(sql2,[code,name,doi,status,file,state,req.session.staffID],(err2,result2)=>{
                 if(err2) return next(err2);
 
                 res.status(200).send({success: true, detail:"Successfully Submitted!"});

@@ -126,11 +126,11 @@ exports.viewJournal = (req, res, next) => {
 exports.toSelectStaffName = (req, res, next) => {
     let type = 1;
     let journalID = 0;
+    let newAccount = 10;
 
-    let sql = "SELECT * FROM staff_t WHERE type =? AND journalID = ?";
-    db.get().query(sql,[type,journalID],(err, result) => {
+    let sql = "SELECT * FROM staff_t WHERE type =? AND journalID = ? OR journalID = ?";
+    db.get().query(sql,[type,journalID,newAccount],(err, result) => {
         if (err) return next(err);
-
         res.status(200).send({ success: true, detail: "", data: result });
     });
 }
@@ -161,6 +161,7 @@ exports.assignedJournal = (req,res,next) =>{
     
     db.get().query(sql,[journalID,status,state,staffID],(err,result)=>{
         if(err) return next(err);
+        console.log(result);
         db.get().query(sql1,[assign,journalID],(err1,result1)=>{
             if(err1) return next(result1);
 
@@ -171,7 +172,6 @@ exports.assignedJournal = (req,res,next) =>{
 
 exports.journalAssignee = (req,res,next) =>{
 
-    console.log("IM HERE ssignee");
     let id = 10;
     let type = 1;
     let sql = "SELECT firstName, lastName,middleInitial,name FROM staff_t INNER JOIN journal_t ON staff_t.journalID = journal_t.journalID WHERE journal_t.journalID <> ? AND staff_t.type = ?";
