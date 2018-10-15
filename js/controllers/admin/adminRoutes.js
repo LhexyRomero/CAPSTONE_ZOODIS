@@ -246,6 +246,6 @@ router.get('/totalToxins',query.totalToxins);
 router.get('/totalPotent',query.totalPotent);
 router.get('/totalPatho',query.totalPatho);
 
-router.post('/reports',reports.generateReports);
+router.get('/reports',reports.generateReports);
 
 module.exports = router;
