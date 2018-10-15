@@ -55,7 +55,6 @@ function uploadJournal(e){
                 return;
             }
 
-            //green
             let html = "<label><font color='#24bb01'>"+response.detail+"</font></label>";
             let info = "<label>Check your email after 2-3 days, Thankyou!<label>";
             $(".notif").html(html);

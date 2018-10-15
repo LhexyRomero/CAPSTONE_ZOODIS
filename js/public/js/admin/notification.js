@@ -46,6 +46,7 @@ function notificationCard() {
 let view = 0;
 let owner = 0;
 let staff = 0;
+
 function notificationDetails(ownedBy,journalID, staffID){
     view = journalID;
     owner = ownedBy;
@@ -130,7 +131,7 @@ function completeUpdate(){
 }
 
 function sendUpdate(){
-    let url = "/sendUpdate/"+view;
+    let url = "/sendUpdate/"+view+"/"+owner;
     let data = $("#dataForm").serializeArray();
     let dataInsert = {};
 

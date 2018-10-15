@@ -30,7 +30,6 @@ exports.notifyJournal = (req,res,next) =>{
     db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
-        console.log(result);
         let dataDisplay = {
             code        : result[0].code,
             name        : result[0].name,
@@ -61,7 +60,6 @@ exports.downloadJournal = (req,res,next) =>{
         res.setHeader('Content-Disposition', 'attachment; filename=journal.pdf');
         res.status(200).send(buffer);
     });
-    //res.status(200).sendFile(fileName,{root: './public/others'});
 }
 
 exports.finishedJournal = (req,res,next) =>{
