@@ -22,6 +22,9 @@ module.exports = (recipient,content,cb) => {
         auth:{
             user: email,
             pass: pass,
+        },
+        tls:{
+            rejectUnauthorized: false
         }
     });
 
