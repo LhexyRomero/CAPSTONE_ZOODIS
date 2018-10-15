@@ -70,8 +70,7 @@ function notificationDetails(ownedBy,journalID, staffID){
             row += "</tr>";
             html += row;
 
-            
-            if(element.ownedBy == 1){
+            if(element.ownedBy == 4){
                 $("#complete").show();
                 $("#send").hide();
             }

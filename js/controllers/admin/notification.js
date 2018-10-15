@@ -76,6 +76,7 @@ exports.sendUpdate = (req,res,next) =>{
     
     db.get().query(sql1,[owner],(err1,result1)=>{
         if(err1) return next(err1);
+        console.log(result1);
 
         emailer(result1[0].email,{
             subject: subject,
