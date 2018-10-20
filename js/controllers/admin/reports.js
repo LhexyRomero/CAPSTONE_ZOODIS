@@ -42,6 +42,7 @@ function gatherData(date, freq, cb){
                 let journalSql = "SELECT j.*, uj.jDateTime FROM `userjournal_t` uj, journal_t j WHERE uj.jDoi = j.doi AND uj.jDateTime BETWEEN ? AND ?";
                 let journalYearSql = "SELECT jPublished, COUNT(userjournalID) as journCount FROM userjournal_t GROUP BY jPublished";
                 let animalSql = "SELECT COUNT(*) as 'reportCount' FROM animal_t WHERE journalID = ?";
+                let animalNameSql = "SELECT animalName FROM animal_t WHERE journalID = ?";
                 let bacteriaPathoSql = "SELECT COUNT(*) as 'reportCount' FROM bacteria_t WHERE journalID = ? AND pathogenic = 1";
                 let bacteriaNonPathoSql = "SELECT COUNT(*) as 'reportCount' FROM bacteria_t WHERE journalID = ? AND pathogenic = 0";
                 let diseaseSql = "SELECT COUNT(*) as 'reportCount' FROM disease_t WHERE journalID = ?";
@@ -68,11 +69,18 @@ function gatherData(date, freq, cb){
                     journals.forEach((element,index) => {
                         promises.push(new Promise((ok, not)=>{
                             queryReport(animalSql, [element.journalID]).then(animalRes=>{
-                                records.animal.push({
-                                    journalName: element.name,
-                                    animalCount: animalRes[0].reportCount
+                                queryReport(animalNameSql,[element.journalID]).then(animalName=>{
+                                    let name = [];
+                                    animalName.forEach((element,index) => {
+                                        name.push(element.animalName);
+                                    });
+                                    records.animal.push({
+                                        journalName: element.name,
+                                        animalName: name.join(),
+                                        animalCount: animalRes[0].reportCount
+                                    });
+                                    ok();
                                 });
-                                ok();
                             });
                         })); 
                         promises.push(new Promise((ok, not)=>{

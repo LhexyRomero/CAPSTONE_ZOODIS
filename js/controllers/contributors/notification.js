@@ -4,7 +4,7 @@ const db = require('../../connection');
 exports.notiCard = (req,res,next) =>{
 
     let state = "noticed";
-    let sql = "SELECT * FROM request_t WHERE state = ? AND staffID =?";
+    let sql = "SELECT * FROM request_t WHERE state = ? AND staffID =? ORDER by dateTime DESC";
     db.get().query(sql,[state,req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
@@ -26,7 +26,7 @@ exports.updateNotiCard = (req,res,next) =>{
 
 exports.notifyJournal = (req,res,next) =>{
 
-    let sql = "SELECT journal_t.code,name, doi,file,state,journal_t.status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
+    let sql = "SELECT journal_t.code,name,message, doi,file,state,journal_t.status FROM journal_t LEFT JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE staff_t.staffID=?";
     db.get().query(sql,[req.session.staffID],(err,result)=>{
         if(err) return next(err);
 
@@ -35,7 +35,8 @@ exports.notifyJournal = (req,res,next) =>{
             name        : result[0].name,
             file        : result[0].file,
             state       : result[0].state,
-            status      : result[0].status
+            status      : result[0].status,
+            message     : result[0].message
         }
         res.status(200).send({success:true, detail:"Journal are ready to download!",data:dataDisplay});
     });

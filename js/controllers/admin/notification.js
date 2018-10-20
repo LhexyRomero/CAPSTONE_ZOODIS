@@ -9,8 +9,6 @@ exports.notificationCard = (req,res,next) =>{
 
     db.get().query(sql,[status,state],(err,result)=>{
         if(err) return next(err);
-
-        console.log(result);
         res.status(200).send({success:true, detail:"", data:result});
     });
 }
@@ -21,7 +19,6 @@ exports.notificationDetails = (req,res,next) =>{
     let sql = "SELECT requestID,ownedBy,email,staff_t.staffID,assignID, addedData,category FROM request_t INNER JOIN staff_t ON request_t.staffID = staff_t.staffID INNER JOIN journal_t ON assignID = journal_t.journalID WHERE request_t.staffID = ? AND assignID = ?";
     db.get().query(sql,[staffID,journalID],(err,result)=>{
         if(err) return next(err);
-        console.log(result);
 
         res.status(200).send({success:true, detail:"",data:result});
     });
@@ -47,11 +44,14 @@ exports.completeUpdate = (req,res,next) =>{
 
 exports.incompleteUpdate = (req,res,next)=>{
     let id = req.params.id;
+    let data = req.body.name;
+    console.log(data);
     let state = "revised";
     let status = "Incomplete";
-    let sql = "UPDATE journal_t SET status = ?, state =? WHERE journalID =?";
+    let sql = "UPDATE journal_t SET message = ?, status = ?, state =? WHERE journalID =?";
 
-    db.get().query(sql,[status,state,id],(err,result)=>{
+
+    db.get().query(sql,[data,status,state,id],(err,result)=>{
         if(err) return next(err);
 
         res.status(200).send({success:true, detail:"Mark as Incomplete!"});
@@ -76,7 +76,6 @@ exports.sendUpdate = (req,res,next) =>{
     
     db.get().query(sql1,[owner],(err1,result1)=>{
         if(err1) return next(err1);
-        console.log(result1);
 
         emailer(result1[0].email,{
             subject: subject,

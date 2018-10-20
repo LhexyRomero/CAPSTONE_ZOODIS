@@ -14,6 +14,9 @@
             border-collapse: collapse;
             width: 100%;
         }
+        .white-space{
+            padding-bottom : 485px;
+        }
         th {
             border: 1px solid #dddddd;
             text-align: left;
@@ -62,7 +65,7 @@
                 <div align = "right">
                     <small><%=date%></small> 
                 </div>
-                <div class="title" style="text-transform:uppercase;">      
+                <div class="title" style="text-transform:uppercase;">   
                     <b>Journal</b>
                 </div>
                 For the Month of &nbsp; <b><%=fullDate%></b><br>
@@ -84,31 +87,12 @@
                             });
                         %>
                         <%-html%>
-                        <%# <tr>
-                            <td><small>2010</small></td>
-                            <td><small>21</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>2011</small></td>
-                            <td><small>13</small></td>
-                            </tr>
-                            <tr>
-                                <td><small>2012</small></td>
-                                <td><small>40</small></td>
-                            </tr>
-                            <tr>
-                                <td><small>2013</small></td>
-                                <td><small>2</small></td>
-                            </tr>
-                            <tr>
-                                <td><small>2014</small></td>
-                                <td><small>5</small></td>
-                            </tr> %>
                         </tbody>
                 </table>
                 <br>
                 <hr>
                 Average No. of Published Journal per Week: <b><label> <%=journal.week%></label></b><br><br>
+                <div class="white-space"></div>
             
         </div>
         <div class="container">
@@ -126,6 +110,7 @@
                 <thead>
                     <tr>
                         <th><small><b>Journal Name</b></small></th>&nbsp;
+                        <th><small><b>Animal</b></small></th>&nbsp;
                         <th><small><b>Number of Animal</b></small></th>
                     </tr>
                 </thead>
@@ -135,37 +120,18 @@
                     animal.records.forEach((e,i)=>{
                         html += "<tr>";
                         html += "<td><small>"+ e.journalName +"</small></td>";
+                        html += "<td><small>"+ e.animalName +"</small></td>";
                         html += "<td><small>"+ e.animalCount +"</small></td>";
                         html += "</tr>";
                     });
                 %>
                 <%-html%>
-                    <%# <tr>
-                        <td><small>Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System</small></td>
-                        <td><small>5</small></td>
-                        </tr>
-                        <tr>
-                        <td><small>study of the gut microbiome potentially related to milk protein in Murrah buffaloes (Bubalus bubalis) and ChineseHolstein cattle</small></td>
-                        <td><small>8</small></td>
-                    </tr>
-                    <tr>
-                        <td><small>Ecology of Leptospira interrogans in Norway Rats (Rattus
-                                norvegicus) in an Inner-City Neighborhood of Vancouver,
-                                Canada</small></td>
-                            <td>1</td>
-                    </tr>
-                    <tr>
-                        <td><small>Zoonotic Diseases of
-                                Common Pet Birds:
-                                Psittacine, Passerine, and
-                                Columbiform Species</small></td>
-                        <td><small>2</small></td>
-                    </tr> %>
                 </tbody>
             </table>
             <br>
             <hr>
             Average No. of Animal per Week: <b><label><%=animal.week%></label></b><br><br>
+            <div class="white-space"></div>
         </div>
         <div class="container">
                 <div align = "right">
@@ -197,36 +163,12 @@
                             });
                         %>
                         <%-html%>
-                        <%# <tr>
-                            <td><small>Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System</small></td>
-                            <td><small>50</small></td>
-                            <td><small>25</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>study of the gut microbiome potentially related to milk protein in Murrah buffaloes (Bubalus bubalis) and ChineseHolstein cattle</small></td>
-                            <td><small>34</small></td>
-                            <td><small>80</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Ecology of Leptospira interrogans in Norway Rats (Rattus
-                                    norvegicus) in an Inner-City Neighborhood of Vancouver,
-                                    Canada</small></td>
-                            <td><small>19</small></td>
-                            <td><small>45</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Zoonotic Diseases of
-                                    Common Pet Birds:
-                                    Psittacine, Passerine, and
-                                    Columbiform Species</small></td>
-                            <td><small>38</small></td>
-                            <td><small>17</small></td>
-                        </tr> %>
                         </tbody>
                 </table>
                 <br>
                 <hr>
                 Average No. of Bacteria per Week: <b><label><%=bacteria.week%></label></b><br><br>
+                <div class="white-space"></div>
         </div>
         <div class="container">
                 <div align = "right">
@@ -254,35 +196,12 @@
                             });
                         %>
                         <%-html%>
-                        <%# <tr>
-                            <td><small>Salmonella bongori</small></td>
-                            <td><small>35</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Chlamydia psittaci
-                                </small></td>
-                            <td><small>47</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Mycobacterium bovis
-                            </small></td>
-                            <td><small>83</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Bartonella quintana
-                            </small></td>
-                            <td><small>75</small></td>
-                        </tr>
-                        <tr>
-                            <td><small>Bacillus anthracis
-                            </small></td>
-                            <td><small>17</small></td>
-                        </tr> %>
                         </tbody>
                 </table>
                 <br>
                 <hr>
                 Average No. of Disease per Week: <b><label><%=disease.week%></label></b><br><br>
+                <div class="white-space"></div>
             </div>
     </div>
 </body>

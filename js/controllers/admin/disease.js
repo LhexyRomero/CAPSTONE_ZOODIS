@@ -77,7 +77,6 @@ exports.viewDisease = (req,res,next) => {
         if(err3) return next(err3);
 
         let splittedSymptoms = result3[0].symptoms.split(":");
-        console.log(splittedSymptoms);
         let dataDisplay = {
             
             bodySite        : result3[0].bodySite,

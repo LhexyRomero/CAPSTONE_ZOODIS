@@ -237,7 +237,6 @@ exports.viewDisease = (req, res, next) => {
         if (err3) return next(err3);
 
         let splittedSymptoms = result3[0].symptoms.split(":");
-        console.log(splittedSymptoms);
         let dataDisplay = {
 
             diseaseName: result3[0].diseaseName,
@@ -400,7 +399,6 @@ exports.rejectPrevention = (req, res, next) => {
 
 exports.viewAnimal = (req, res, next) => {
 
-    console.log("im here na");
     let id = req.params.id;
 
     let sql = "SELECT * FROM animal_t INNER JOIN animaltaxo_t ON animal_t.animalTaxoID = animaltaxo_t.animalTaxoID WHERE animalID = ?";
@@ -523,7 +521,6 @@ exports.approvedBacteria = (req, res, next) => {
             if (err) return next(err);
             db.get().query(sql1, [status, state, id], (err1, result1) => {
                 if (err1) return next(err1);
-                console.log(result1);
 
                 res.status(200).send({success: true, detail: "Successfully Approved"});
             });

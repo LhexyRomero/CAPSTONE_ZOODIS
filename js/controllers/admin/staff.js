@@ -23,8 +23,6 @@ exports.code = (req,res,next) =>{
     let code = data.generate;
     let email = data.emailAdd;
     let type = 3;
-    console.log(data);
-    console.log(type);
     let sql = "INSERT INTO staff_t (type,code) VALUES (?,?)";
     db.get().query(sql,[type,code],(err,result)=>{
         if(err) return next(err);

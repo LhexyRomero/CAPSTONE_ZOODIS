@@ -16,47 +16,100 @@
                 <div class="card-body">
                     <div class="content" id="placeholder">
                     </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#incomplete">
+                        Launch demo modal
+                    </button>
                 </div>
             </div>
             <div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="viewDetails">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header justify-content-center">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="title title-up">GATHERED DATA</h6>
-                            </div>
-                            <div class="modal-body">
-                                <form id="dataForm" method="POST">
-                                    <input type="hidden" name="animalTaxon">
-                                    <input type="hidden" name="bacteriaTaxon">
-                                    <input type="hidden" name="animal">
-                                    <input type="hidden" name="bacteria">
-                                    <input type="hidden" name="email">
-                                </form>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class=" text-primary">    
-                                            <tr>
-                                                <th><small><b>Category</b></small></th>
-                                                <th><small><b>Data Added</b></small></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="gatheredData">
-                                        </tbody>
-                                    </table>
-                                    <div class="stats pull-right">
-                                        <i class="now-ui-icons loader_refresh spin"></i> Sending Messages
-                                    </div><br>
-                                    <button type="button" class="btn btn-success pull-right" id="complete" onclick="completeUpdate()">Complete</button>
-                                    <button type="button" class="btn btn-success pull-right" id="send" onclick="sendUpdate()">Send</button>
-                                    <button type="button" class="btn btn-danger pull-right" onclick="incompleteUpdate()">Incomplete</button>
-                                </div>
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="title title-up">GATHERED DATA</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="dataForm" method="POST">
+                                <input type="hidden" name="animalTaxon">
+                                <input type="hidden" name="bacteriaTaxon">
+                                <input type="hidden" name="animal">
+                                <input type="hidden" name="bacteria">
+                                <input type="hidden" name="email">
+                            </form>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th><small><b>Category</b></small></th>
+                                            <th><small><b>Data Added</b></small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="gatheredData">
+                                    </tbody>
+                                </table>
+                                <div class="stats pull-right">
+                                    <i class="now-ui-icons loader_refresh spin"></i> Sending Messages
+                                </div><br>
+                                <button type="button" class="btn btn-success pull-right" id="complete" onclick="completeUpdate()">Complete</button>
+                                <button type="button" class="btn btn-success pull-right" id="send" onclick="sendUpdate()">Send</button>
+                                <button type="button" class="btn btn-danger pull-right" onclick="incompleteData()">Incomplete</button>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
+
+            <div class="modal fade" id="incomplete" tabindex="-1" role="dialog" aria-labelledby="incomplete">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="title title-up">Incomplete....</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-check" id="incompleteForm">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Animal" id="incAnimal" type="checkbox">
+                                    Animal
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Bacteria" id="incBacteria" type="checkbox">
+                                    Bacteria
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Animal Taxonomy" id="incAniTaxo" type="checkbox">
+                                    Animal Taxonomy
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Bacteria Taxonomy" id="incBacTaxo" type="checkbox">
+                                    Bacteria Taxonomy
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Disease" id="incDisease" type="checkbox">
+                                    Disease
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" value="Prevention" id="incPrevention" type="checkbox">
+                                    Prevention
+                                    <span class="form-check-sign"></span>
+                                </label><br><br>
+                                <button type="button" class="btn btn-danger pull-right" onclick="incompleteUpdate()">Mark Incomplete</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
             <!--   Core JS Files   -->
             <% include ../partials/core_js %>
             <script src="../../assets/js/admin/notification.js"></script>
