@@ -56,10 +56,6 @@ function notiCard() {
                 $('#placeholder').html(html);
             }
         });
-
-        console.log("DITO AKO");
-        console.log(response.data);
-
     });
 }
 
@@ -68,7 +64,6 @@ function updateNotiCard(id) {
     noti = id;
     let url = "/updateNotiCard/" + noti;
 
-    console.log(noti);
     $.post(url, (response) => {
         if (response.success == false) {
             $.notify("Error getting data from the server!", { type: "danger" });
@@ -80,12 +75,10 @@ function updateNotiCard(id) {
 
 function notificationJournal() {
     $.get('/notifyJournal', (response) => {
-        console.log("here");
         if (response.success == false) {
             return;
         }
         let data = response.data;
-        console.log(data);
 
         if (data.state == "noticed" && data.status == "Incomplete" && data.name !== "none") {
             let code = "<h6>" + data.code + "</h6>";
@@ -130,12 +123,13 @@ function notificationJournal() {
             $("#downloadJournal").hide();
             $("#finish").hide();
         }
-
         else if (data.state == "revised" && data.status == "Incomplete" && data.name !== "none") {
             let code = "<h6>" + data.code + "</h6>";
             let name = "<h6>" + data.name + "</h6>";
             let badge = "<span class='badge badge-danger'>Incomplete</span>";
+            let message = "<label class='text-danger'>Incomplete data:&nbsp;"+data.message+"</label>"
             $(".revised").html(badge);
+            $(".re-message").html(message);
             $("#journalCode").html(code);
             $("#journalName").html(name);
             $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);

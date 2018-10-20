@@ -272,7 +272,6 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let checkGenus = (cb) => {
-        console.log("Check Genus");
         let sql = "SELECT * FROM bacteriataxo_t WHERE genus =?";
         db.get().query(sql, [strGenusName], (err, result) => {
             if (err) return cb(err);
@@ -330,12 +329,10 @@ exports.addBacteria = (req, res, next) => {
                     }
 
                     else if (!genus && species) {
-                        console.log("genus error!");
                         res.status(200).send({ success: false, detail: "Genus not found!", error: 2 });
                     }
 
                     else if (!species && genus) {
-                        console.log("species error!");
                         res.status(200).send({ success: false, detail: "Species not found!", error: 3 });
                     }
 
@@ -379,7 +376,6 @@ exports.viewBacteria = (req,res,next) =>{
         if(err) return next(err);
         db.get().query(sql1,[id,status],(err1,result1)=>{
             if(err1) return next(err1);
-                console.log(result1);
             let dataDisplay = {
                 animal                  : result1,
                 bacteriumID             : result[0].bacteriumID,

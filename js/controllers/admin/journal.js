@@ -1,7 +1,6 @@
 const db = require('../../connection');
 
 exports.addJournal = (req, res, next) => {
-    console.log("andito akoo");
 
     let pdf = req.file.path;
     let data = req.body;
@@ -161,7 +160,6 @@ exports.assignedJournal = (req,res,next) =>{
     
     db.get().query(sql,[journalID,status,state,staffID],(err,result)=>{
         if(err) return next(err);
-        console.log(result);
         db.get().query(sql1,[assign,journalID],(err1,result1)=>{
             if(err1) return next(result1);
 

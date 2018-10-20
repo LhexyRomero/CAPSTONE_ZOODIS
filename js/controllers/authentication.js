@@ -169,7 +169,6 @@ exports.researcherRegister = (req, res, next) => {
                         var index = pendingRegistration.findIndex(x=>x.id == id);
                         pendingRegistration.splice(index,1);
                     },3600000);
-                    console.log(detail);
                 });
             });
         }
