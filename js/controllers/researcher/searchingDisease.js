@@ -197,8 +197,10 @@ function getAnimalCarrier(bacteriumID){
 }
 
 exports.viewDisease = (req,res,next)=>{
-    let sql = "SELECT * FROM disease_t INNER JOIN prevention_t ON disease_t.diseaseID = prevention_t.diseaseID";
-    db.get().query(sql,(err,result)=>{
+
+    let id = req.query.diseaseID;
+    let sql = "SELECT * FROM disease_t INNER JOIN prevention_t ON disease_t.diseaseID = prevention_t.diseaseID WHERE disease_t.diseaseID = ?";
+    db.get().query(sql,[id],(err,result)=>{
         if(err) return next(err);
 
 
@@ -213,6 +215,7 @@ exports.viewDisease = (req,res,next)=>{
             bodySite            :   splittedBodySites,
             preventions         :   splitedPreventions,
         }
+        console.log(dataDisplay);
         res.locals = dataDisplay;
         next();
     })
