@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2018 at 11:26 AM
+-- Generation Time: Oct 23, 2018 at 05:05 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -21,6 +21,72 @@ SET time_zone = "+00:00";
 --
 -- Database: `zoodis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ac_animal_t`
+--
+
+CREATE TABLE `ac_animal_t` (
+  `ac_aID` int(11) NOT NULL,
+  `phylum` varchar(50) NOT NULL,
+  `class` varchar(50) NOT NULL,
+  `orderr` varchar(50) NOT NULL,
+  `family` varchar(50) NOT NULL,
+  `genus` varchar(50) NOT NULL,
+  `species` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ac_animal_t`
+--
+
+INSERT INTO `ac_animal_t` (`ac_aID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`) VALUES
+(2, 'Chordata', ' Mammalia', ' Artiodactyla', ' Suidae', 'Sus', 'domesticus'),
+(3, 'Chordata', 'Aves ', ' Psittaciformes', 'Psittaculidae', 'Agapornis', 'taranta'),
+(4, 'Chordata', 'Aves ', ' Psittaciformes', 'Psittaculidae', 'Melopsittacus', 'undulatus'),
+(5, 'Chordata', ' Mammalia', ' Perissodactyla', 'Equidae', ' Equus', 'ferus'),
+(6, 'Chordata', ' Mammalia', ' Lagomorpha', ' Leporidae', ' Oryctolagus', 'cuniculus'),
+(7, 'Chordata', ' Mammalia', ' Rodentia', ' Caviidae', 'Cavia', 'porcellus'),
+(8, 'Chordata', ' Mammalia', ' Rodentia', ' Chinchillidae', 'Chinchilla', 'lanigera'),
+(9, 'Chordata', ' Mammalia', ' Rodentia', ' Cricetidae', ' Mesocricetus', 'auratus'),
+(10, 'Chordata', ' Mammalia', ' Perissodactyla', 'Equidae', ' Equus', 'africanus'),
+(11, 'Chordata', ' Mammalia', 'Primates', 'Hominidae', ' Pan', 'troglodytes'),
+(12, 'Chordata', 'Aves ', ' Columbiformes', 'Columbidae', ' Columba', 'livia');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ac_bacteria_t`
+--
+
+CREATE TABLE `ac_bacteria_t` (
+  `ac_bID` int(11) NOT NULL,
+  `phylum` varchar(50) NOT NULL,
+  `class` varchar(50) NOT NULL,
+  `orderr` varchar(50) NOT NULL,
+  `family` varchar(50) NOT NULL,
+  `genus` varchar(50) NOT NULL,
+  `species` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ac_bacteria_t`
+--
+
+INSERT INTO `ac_bacteria_t` (`ac_bID`, `phylum`, `class`, `orderr`, `family`, `genus`, `species`) VALUES
+(2, ' Proteobacteria', ' Alphaproteobacteria', 'Rhizobiales', 'Brucellaceae', 'Brucella', 'ovis'),
+(3, ' Proteobacteria', ' Gammaproteobacteria', 'Legionellales', 'Coxiellaceae', 'Coxiella', 'burnetii'),
+(4, 'Proteobacteria', ' Betaproteobacteria', 'Nitrosomonadales', 'Spirillaceae', 'Spirillum', 'minus'),
+(5, ' Fusobacteria', ' Fusobacteria', 'Fusobacteriales', ' Leptotrichiaceae ', 'Streptobacillus', 'moniliformis'),
+(6, ' Proteobacteria', ' Gammaproteobacteria', 'Enterobacteriales', 'Enterobacteriaceae', 'Yersinia', 'enterocolitica'),
+(7, 'Firmicutes', ' Bacilli', 'Bacillales', 'Staphylococcaceae', ' Staphylococcus', 'aureus'),
+(8, ' Proteobacteria', ' Gammaproteobacteria', 'Pasteurellales', 'Pasteurellaceae', 'Pasteurella', 'multocida'),
+(9, ' Proteobacteria', ' Gammaproteobacteria', 'Thiotrichales', 'Francisellaceae', 'Francisella', 'tularensis'),
+(10, 'Firmicutes', ' Bacilli', ' Bacillales', ' Listeriaceae', ' Listeria', 'monocytogenes'),
+(11, 'Proteobacteria', ' Betaproteobacteria', 'Burkholderiales', ' Alcaligenaceae', 'Bordetella', 'pertussis'),
+(12, 'Spirochaetes', ' Spirochete ', 'Spirochaetales', 'Spirochaetaceae', ' Borrelia', 'burgdorferi');
 
 -- --------------------------------------------------------
 
@@ -275,6 +341,7 @@ CREATE TABLE `journal_t` (
   `doi` varchar(25) NOT NULL,
   `status` varchar(25) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `message` text NOT NULL,
   `state` varchar(25) NOT NULL,
   `assign` int(11) NOT NULL DEFAULT '0',
   `ownedBy` int(11) NOT NULL DEFAULT '4'
@@ -284,17 +351,17 @@ CREATE TABLE `journal_t` (
 -- Dumping data for table `journal_t`
 --
 
-INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `state`, `assign`, `ownedBy`) VALUES
-(10, 'none', 'none', 'none', 'Incomplete', 'none', 'notify', 0, 4),
-(11, 'RJ#206', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', '10.3389/fmicb.2016.02125', 'completed', 'js\\public\\others\\cc62abba6f3fa72.pdf', 'noticed', 1, 4),
-(12, 'RJ#44', 'Ecology of Leptospira interrogans in Norway Rats (Rattus norvegicus) in an Inner-City Neighborhood of Vancouver, Canada', '10.1371/journal.pntd.0002', 'completed', 'js\\public\\others\\3d620548954a455.pdf', 'read', 1, 4),
-(13, 'RJ#72', 'Comparative study of the gut microbiome potentially related to milk protein in Murrah buffaloes (Bubalus bubalis) and Chinese Holstein cattle', '10.1038/srep42189', 'completed', 'js\\public\\others\\81082acb5fdc9f7.pdf', 'noticed', 1, 4),
-(14, 'RJ#206', 'Pseudomonas aeruginosa genomic structure and diversity', '10.3389/fmicb.2011.00150', 'completed', 'js\\public\\others\\95469253523d39d.pdf', 'read', 1, 4),
-(15, 'RJ#206', 'Microbial Shifts in the Intestinal Microbiota of Salmonella Infected Chickens in Response to Enrofloxacin', '10.3389/fmicb.2017.01711', 'completed', 'js\\public\\others\\2c7749fa0e6fa26.pdf', 'noticed', 1, 44),
-(16, 'RJ#24', 'The feline skin microbiota: The bacteria inhabiting the skin of healthy and allergic cats', '.org/', 'completed', 'js\\public\\others\\b8ea5e5e42e0f8a.pdf', 'noticed', 1, 44),
-(17, 'RJ#101', 'Exploring the Goat Rumen Microbiome from Seven Days to Two Years', '10.1371/journal.', 'completed', 'js\\public\\others\\b5654f5a89194f0.pdf', 'noticed', 1, 44),
-(18, 'RJ#7', 'Parrot', '10.1038/srep30019', 'completed', 'js\\public\\others\\f5741d10afb337e.pdf', 'noticed', 1, 44),
-(19, 'RJ#250', 'Capnocytophaga canimorsus: an emerging cause of sepsis, meningitis, and post-splenectomy infection after dog bites', '10.1007/s10096-015-2360-7', 'Incomplete', 'js\\public\\others\\beb199464239c69.pdf', 'revised', 1, 44);
+INSERT INTO `journal_t` (`journalID`, `code`, `name`, `doi`, `status`, `file`, `message`, `state`, `assign`, `ownedBy`) VALUES
+(10, 'none', 'none', 'none', 'Incomplete', 'none', '', 'notify', 0, 4),
+(11, 'RJ#206', 'Characterization of Gut Microbiome Dynamics in Developing Pekin Ducks and Impact of Management System', '10.3389/fmicb.2016.02125', 'completed', 'js\\public\\others\\cc62abba6f3fa72.pdf', '', 'noticed', 1, 4),
+(12, 'RJ#44', 'Ecology of Leptospira interrogans in Norway Rats (Rattus norvegicus) in an Inner-City Neighborhood of Vancouver, Canada', '10.1371/journal.pntd.0002', 'completed', 'js\\public\\others\\3d620548954a455.pdf', '', 'read', 1, 4),
+(13, 'RJ#72', 'Comparative study of the gut microbiome potentially related to milk protein in Murrah buffaloes (Bubalus bubalis) and Chinese Holstein cattle', '10.1038/srep42189', 'completed', 'js\\public\\others\\81082acb5fdc9f7.pdf', '', 'noticed', 1, 4),
+(14, 'RJ#206', 'Pseudomonas aeruginosa genomic structure and diversity', '10.3389/fmicb.2011.00150', 'completed', 'js\\public\\others\\95469253523d39d.pdf', '', 'read', 1, 4),
+(15, 'RJ#206', 'Microbial Shifts in the Intestinal Microbiota of Salmonella Infected Chickens in Response to Enrofloxacin', '10.3389/fmicb.2017.01711', 'completed', 'js\\public\\others\\2c7749fa0e6fa26.pdf', '', 'noticed', 1, 44),
+(16, 'RJ#24', 'The feline skin microbiota: The bacteria inhabiting the skin of healthy and allergic cats', '.org/', 'completed', 'js\\public\\others\\b8ea5e5e42e0f8a.pdf', '', 'noticed', 1, 44),
+(17, 'RJ#101', 'Exploring the Goat Rumen Microbiome from Seven Days to Two Years', '10.1371/journal.', 'completed', 'js\\public\\others\\b5654f5a89194f0.pdf', '', 'noticed', 1, 44),
+(18, 'RJ#7', 'Parrot', '10.1038/srep30019', 'completed', 'js\\public\\others\\f5741d10afb337e.pdf', '', 'noticed', 1, 44),
+(19, 'RJ#250', 'Capnocytophaga canimorsus: an emerging cause of sepsis, meningitis, and post-splenectomy infection after dog bites', '10.1007/s10096-015-2360-7', 'Incomplete', 'js\\public\\others\\beb199464239c69.pdf', ' Animal Taxonomy,Bacteria,', 'revised', 1, 44);
 
 -- --------------------------------------------------------
 
@@ -351,70 +418,70 @@ CREATE TABLE `request_t` (
 --
 
 INSERT INTO `request_t` (`dateTime`, `status`, `staffName`, `addedData`, `staffID`, `requestID`, `category`, `addedID`, `state`, `message`, `assignID`) VALUES
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Anas platyrhynchos', 1, 1, 'Animal Taxonomy', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonella bongori', 1, 2, 'Bacteria Taxonomy', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Anas platyrhynchos', 1, 3, 'Animal', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonella bongori', 1, 4, 'Bacteria', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Typhoid Toxin SpvA', 1, 5, 'Toxin', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonellosis', 1, 6, 'Disease', 1, 'noticed', '', 11),
-('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Do not eat or drink foods containing raw eggs, or raw milk:Cook poultry, ground beef, and eggs thoroughly', 1, 7, 'Prevention', 1, 'noticed', '', 11),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Rattus rattus', 1, 8, 'Animal Taxonomy', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospira interrogans', 1, 9, 'Bacteria Taxonomy', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Rattus rattus', 1, 10, 'Animal', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospira interrogans', 1, 11, 'Bacteria', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospirosis', 1, 12, 'Disease', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Avoid contaminated water.:Keep away from infected animals, especially wild rats.:Use disinfectant.: Be aware of your surroundings, especially when you travel.', 1, 13, 'Prevention', 2, 'noticed', '', 12),
-('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Haemolysins', 1, 14, 'Toxin', 2, 'noticed', '', 12),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Bos taurus', 1, 15, 'Animal Taxonomy', 3, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycobacterium bovis', 1, 16, 'Bacteria Taxonomy', 3, 'noticed', '', 13),
-('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycobacterium laprae', 1, 17, 'Bacteria Taxonomy', 4, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Bos taurus', 1, 18, 'Animal', 3, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycobacterium laprae', 1, 19, 'Bacteria', 3, 'noticed', '', 13),
-('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycobacterium bovis', 1, 20, 'Bacteria', 4, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycolactone', 1, 21, 'Toxin', 3, 'noticed', '', 13),
-('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycolactone mlsB', 1, 22, 'Toxin', 4, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Tubercolosis', 1, 23, 'Disease', 3, 'noticed', '', 13),
-('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Cough Etiquette:Drug Treatment', 1, 24, 'Prevention', 3, 'noticed', '', 13),
-('2018-10-15 20:44:06', 'approved', 'Lhexy Romero', 'Ovis aries', 1, 25, 'Animal Taxonomy', 4, 'noticed', 'mali', 14),
-('2018-10-15 23:45:25', 'approved', 'Lhexy Romero', 'Pseudomonas aeruginosa', 1, 26, 'Bacteria Taxonomy', 5, 'noticed', '', 14),
-('2018-10-15 20:56:28', 'approved', 'Lhexy Romero', 'Ovis aries', 1, 27, 'Animal', 4, 'noticed', '', 14),
-('2018-10-15 23:45:25', 'approved', 'Lhexy Romero', 'Pseudomonas aeruginosa', 1, 28, 'Bacteria', 5, 'noticed', '', 14),
-('2018-10-15 21:17:53', 'approved', 'Lhexy Romero', 'Cystic fibrosis', 1, 29, 'Disease', 4, 'noticed', '', 14),
-('2018-10-15 21:20:02', 'approved', 'Lhexy Romero', 'There\'s no way to prevent cystic fibrosis, but the symptoms can be managed.', 1, 30, 'Prevention', 4, 'noticed', '', 14),
-('2018-10-15 23:49:55', 'approved', 'Lhexy Romero', 'Bronchiectasis', 1, 31, 'Disease', 5, 'noticed', '', 14),
-('2018-10-15 23:51:34', 'approved', 'Lhexy Romero', 'Some cases of bronchiectasis can’t be prevented; other cases CAN be prevented by getting treatment for lung infections right away.', 1, 32, 'Prevention', 5, 'noticed', '', 14),
-('2018-10-15 23:57:06', 'approved', 'Lhexy Romero', 'Gallus gallus', 1, 33, 'Animal Taxonomy', 5, 'noticed', '', 14),
-('2018-10-16 01:24:12', 'approved', 'Lhexy Romero', 'Clostridioides difficile', 1, 34, 'Bacteria Taxonomy', 6, 'noticed', '', 14),
-('2018-10-16 01:22:00', 'approved', 'Lhexy Romero', 'Gallus gallus', 1, 35, 'Animal', 5, 'noticed', '', 15),
-('2018-10-16 01:24:12', 'approved', 'Lhexy Romero', 'Clostridioides difficile', 1, 36, 'Bacteria', 6, 'noticed', '', 15),
-('2018-10-16 01:25:33', 'approved', 'Lhexy Romero', 'Clostridium difficile toxin A, Clostridium difficile toxin B', 1, 37, 'Toxin', 5, 'noticed', '', 15),
-('2018-10-16 01:27:25', 'approved', 'Lhexy Romero', ' Clostridium difficile Infection', 1, 38, 'Disease', 6, 'noticed', '', 15),
-('2018-10-16 01:28:44', 'approved', 'Lhexy Romero', ' Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.: People who are infected with C. dif', 1, 39, 'Prevention', 6, 'noticed', '', 15),
-('2018-10-16 01:43:50', 'approved', 'Lhexy Romero', 'Felis domesticus', 1, 40, 'Animal Taxonomy', 6, 'noticed', '', 10),
-('2018-10-16 01:50:43', 'approved', 'Lhexy Romero', 'Bartonella  quintana', 1, 41, 'Bacteria Taxonomy', 7, 'noticed', '', 10),
-('2018-10-16 01:45:29', 'approved', 'Lhexy Romero', 'Felis domesticus', 1, 42, 'Animal', 6, 'noticed', '', 10),
-('2018-10-16 01:50:43', 'approved', 'Lhexy Romero', 'Bartonella  quintana', 1, 43, 'Bacteria', 7, 'noticed', '', 10),
-('2018-10-16 01:53:00', 'approved', 'Lhexy Romero', 'Cat-Scratch Disease', 1, 44, 'Disease', 7, 'noticed', '', 10),
-('2018-10-16 01:53:54', 'approved', 'Lhexy Romero', 'Flea control : Washing hands after handling a cat.', 1, 45, 'Prevention', 7, 'noticed', '', 10),
-('2018-10-16 02:12:33', 'approved', 'Lhexy Romero', 'Capra aegagrus', 1, 46, 'Animal Taxonomy', 7, 'noticed', '', 17),
-('2018-10-16 02:15:48', 'approved', 'Lhexy Romero', 'Bacillus anthracis', 1, 47, 'Bacteria Taxonomy', 8, 'noticed', '', 17),
-('2018-10-16 02:13:25', 'approved', 'Lhexy Romero', 'Capra aegagrus', 1, 48, 'Animal', 7, 'noticed', '', 17),
-('2018-10-16 02:15:48', 'approved', 'Lhexy Romero', 'Bacillus anthracis', 1, 49, 'Bacteria', 8, 'noticed', '', 17),
-('2018-10-16 02:17:30', 'approved', 'Lhexy Romero', 'Haemolysin BL', 1, 50, 'Toxin', 6, 'noticed', '', 17),
-('2018-10-16 02:18:44', 'approved', 'Lhexy Romero', 'Anthrolysin O', 1, 51, 'Toxin', 7, 'noticed', '', 17),
-('2018-10-16 02:20:33', 'approved', 'Lhexy Romero', 'Anthrax', 1, 52, 'Disease', 8, 'noticed', '', 17),
-('2018-10-16 02:21:32', 'approved', 'Lhexy Romero', 'Vaccines : Antibiotics :Quarantine', 1, 53, 'Prevention', 8, 'noticed', '', 17),
-('2018-10-16 02:32:54', 'approved', 'Lhexy Romero', 'Cacatua galerita', 1, 54, 'Animal Taxonomy', 8, 'noticed', '', 17),
-('2018-10-16 02:35:08', 'approved', 'Lhexy Romero', 'Chlamydia psittaci', 1, 55, 'Bacteria Taxonomy', 9, 'noticed', '', 17),
-('2018-10-16 02:35:15', 'approved', 'Lhexy Romero', 'Cacatua galerita', 1, 56, 'Animal', 8, 'noticed', '', 17),
-('2018-10-16 02:35:08', 'approved', 'Lhexy Romero', 'Chlamydia psittaci', 1, 57, 'Bacteria', 9, 'noticed', '', 17),
-('2018-10-16 02:40:33', 'approved', 'Lhexy Romero', 'Psittacosis', 1, 58, 'Disease', 9, 'noticed', '', 17),
-('2018-10-16 02:41:28', 'approved', 'Lhexy Romero', 'Oral Theraphy:Antibiotics', 1, 59, 'Prevention', 9, 'noticed', '', 17),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Anas platyrhynchos', 1, 1, 'Animal Taxonomy', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonella bongori', 1, 2, 'Bacteria Taxonomy', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Anas platyrhynchos', 1, 3, 'Animal', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonella bongori', 1, 4, 'Bacteria', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Typhoid Toxin SpvA', 1, 5, 'Toxin', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Salmonellosis', 1, 6, 'Disease', 1, 'read', '', 11),
+('2018-10-13 03:56:32', 'approved', 'Lhexy Romero', 'Do not eat or drink foods containing raw eggs, or raw milk:Cook poultry, ground beef, and eggs thoroughly', 1, 7, 'Prevention', 1, 'read', '', 11),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Rattus rattus', 1, 8, 'Animal Taxonomy', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospira interrogans', 1, 9, 'Bacteria Taxonomy', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Rattus rattus', 1, 10, 'Animal', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospira interrogans', 1, 11, 'Bacteria', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Leptospirosis', 1, 12, 'Disease', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Avoid contaminated water.:Keep away from infected animals, especially wild rats.:Use disinfectant.: Be aware of your surroundings, especially when you travel.', 1, 13, 'Prevention', 2, 'read', '', 12),
+('2018-10-13 03:56:51', 'approved', 'Lhexy Romero', 'Haemolysins', 1, 14, 'Toxin', 2, 'read', '', 12),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Bos taurus', 1, 15, 'Animal Taxonomy', 3, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycobacterium bovis', 1, 16, 'Bacteria Taxonomy', 3, 'read', '', 13),
+('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycobacterium laprae', 1, 17, 'Bacteria Taxonomy', 4, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Bos taurus', 1, 18, 'Animal', 3, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycobacterium laprae', 1, 19, 'Bacteria', 3, 'read', '', 13),
+('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycobacterium bovis', 1, 20, 'Bacteria', 4, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Mycolactone', 1, 21, 'Toxin', 3, 'read', '', 13),
+('2018-10-13 04:25:49', 'approved', 'Lhexy Romero', 'Mycolactone mlsB', 1, 22, 'Toxin', 4, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Tubercolosis', 1, 23, 'Disease', 3, 'read', '', 13),
+('2018-10-13 04:25:44', 'approved', 'Lhexy Romero', 'Cough Etiquette:Drug Treatment', 1, 24, 'Prevention', 3, 'read', '', 13),
+('2018-10-15 20:44:06', 'approved', 'Lhexy Romero', 'Ovis aries', 1, 25, 'Animal Taxonomy', 4, 'read', 'mali', 14),
+('2018-10-15 23:45:25', 'approved', 'Lhexy Romero', 'Pseudomonas aeruginosa', 1, 26, 'Bacteria Taxonomy', 5, 'read', '', 14),
+('2018-10-15 20:56:28', 'approved', 'Lhexy Romero', 'Ovis aries', 1, 27, 'Animal', 4, 'read', '', 14),
+('2018-10-15 23:45:25', 'approved', 'Lhexy Romero', 'Pseudomonas aeruginosa', 1, 28, 'Bacteria', 5, 'read', '', 14),
+('2018-10-15 21:17:53', 'approved', 'Lhexy Romero', 'Cystic fibrosis', 1, 29, 'Disease', 4, 'read', '', 14),
+('2018-10-15 21:20:02', 'approved', 'Lhexy Romero', 'There\'s no way to prevent cystic fibrosis, but the symptoms can be managed.', 1, 30, 'Prevention', 4, 'read', '', 14),
+('2018-10-15 23:49:55', 'approved', 'Lhexy Romero', 'Bronchiectasis', 1, 31, 'Disease', 5, 'read', '', 14),
+('2018-10-15 23:51:34', 'approved', 'Lhexy Romero', 'Some cases of bronchiectasis can’t be prevented; other cases CAN be prevented by getting treatment for lung infections right away.', 1, 32, 'Prevention', 5, 'read', '', 14),
+('2018-10-15 23:57:06', 'approved', 'Lhexy Romero', 'Gallus gallus', 1, 33, 'Animal Taxonomy', 5, 'read', '', 14),
+('2018-10-16 01:24:12', 'approved', 'Lhexy Romero', 'Clostridioides difficile', 1, 34, 'Bacteria Taxonomy', 6, 'read', '', 14),
+('2018-10-16 01:22:00', 'approved', 'Lhexy Romero', 'Gallus gallus', 1, 35, 'Animal', 5, 'read', '', 15),
+('2018-10-16 01:24:12', 'approved', 'Lhexy Romero', 'Clostridioides difficile', 1, 36, 'Bacteria', 6, 'read', '', 15),
+('2018-10-16 01:25:33', 'approved', 'Lhexy Romero', 'Clostridium difficile toxin A, Clostridium difficile toxin B', 1, 37, 'Toxin', 5, 'read', '', 15),
+('2018-10-16 01:27:25', 'approved', 'Lhexy Romero', ' Clostridium difficile Infection', 1, 38, 'Disease', 6, 'read', '', 15),
+('2018-10-16 01:28:44', 'approved', 'Lhexy Romero', ' Surfaces that may have come into contact with the bacteria or spores, such as toilets, the floor around toilets, bedpans and beds, should also be cleaned thoroughly with water and a cleaning product containing bleach.: People who are infected with C. dif', 1, 39, 'Prevention', 6, 'read', '', 15),
+('2018-10-16 01:43:50', 'approved', 'Lhexy Romero', 'Felis domesticus', 1, 40, 'Animal Taxonomy', 6, 'read', '', 10),
+('2018-10-16 01:50:43', 'approved', 'Lhexy Romero', 'Bartonella  quintana', 1, 41, 'Bacteria Taxonomy', 7, 'read', '', 10),
+('2018-10-16 01:45:29', 'approved', 'Lhexy Romero', 'Felis domesticus', 1, 42, 'Animal', 6, 'read', '', 10),
+('2018-10-16 01:50:43', 'approved', 'Lhexy Romero', 'Bartonella  quintana', 1, 43, 'Bacteria', 7, 'read', '', 10),
+('2018-10-16 01:53:00', 'approved', 'Lhexy Romero', 'Cat-Scratch Disease', 1, 44, 'Disease', 7, 'read', '', 10),
+('2018-10-16 01:53:54', 'approved', 'Lhexy Romero', 'Flea control : Washing hands after handling a cat.', 1, 45, 'Prevention', 7, 'read', '', 10),
+('2018-10-16 02:12:33', 'approved', 'Lhexy Romero', 'Capra aegagrus', 1, 46, 'Animal Taxonomy', 7, 'read', '', 17),
+('2018-10-16 02:15:48', 'approved', 'Lhexy Romero', 'Bacillus anthracis', 1, 47, 'Bacteria Taxonomy', 8, 'read', '', 17),
+('2018-10-16 02:13:25', 'approved', 'Lhexy Romero', 'Capra aegagrus', 1, 48, 'Animal', 7, 'read', '', 17),
+('2018-10-16 02:15:48', 'approved', 'Lhexy Romero', 'Bacillus anthracis', 1, 49, 'Bacteria', 8, 'read', '', 17),
+('2018-10-16 02:17:30', 'approved', 'Lhexy Romero', 'Haemolysin BL', 1, 50, 'Toxin', 6, 'read', '', 17),
+('2018-10-16 02:18:44', 'approved', 'Lhexy Romero', 'Anthrolysin O', 1, 51, 'Toxin', 7, 'read', '', 17),
+('2018-10-16 02:20:33', 'approved', 'Lhexy Romero', 'Anthrax', 1, 52, 'Disease', 8, 'read', '', 17),
+('2018-10-16 02:21:32', 'approved', 'Lhexy Romero', 'Vaccines : Antibiotics :Quarantine', 1, 53, 'Prevention', 8, 'read', '', 17),
+('2018-10-16 02:32:54', 'approved', 'Lhexy Romero', 'Cacatua galerita', 1, 54, 'Animal Taxonomy', 8, 'read', '', 17),
+('2018-10-16 02:35:08', 'approved', 'Lhexy Romero', 'Chlamydia psittaci', 1, 55, 'Bacteria Taxonomy', 9, 'read', '', 17),
+('2018-10-16 02:35:15', 'approved', 'Lhexy Romero', 'Cacatua galerita', 1, 56, 'Animal', 8, 'read', '', 17),
+('2018-10-16 02:35:08', 'approved', 'Lhexy Romero', 'Chlamydia psittaci', 1, 57, 'Bacteria', 9, 'read', '', 17),
+('2018-10-16 02:40:33', 'approved', 'Lhexy Romero', 'Psittacosis', 1, 58, 'Disease', 9, 'read', '', 17),
+('2018-10-16 02:41:28', 'approved', 'Lhexy Romero', 'Oral Theraphy:Antibiotics', 1, 59, 'Prevention', 9, 'read', '', 17),
 ('2018-10-16 17:14:35', 'approved', 'Lhexy Romero', 'Canis lupus', 1, 60, 'Animal Taxonomy', 9, 'noticed', '', 19),
-('2018-10-16 17:15:15', 'approved', 'Lhexy Romero', 'Flavobacteriales flavobacteriaceae', 1, 61, 'Bacteria Taxonomy', 10, 'noticed', '', 19),
-('2018-10-16 17:14:48', 'approved', 'Lhexy Romero', 'Canis lupus', 1, 62, 'Animal', 9, 'noticed', '', 19),
-('2018-10-16 17:15:15', 'approved', 'Lhexy Romero', 'Flavobacteriales flavobacteriaceae', 1, 63, 'Bacteria', 10, 'noticed', '', 19),
-('2018-10-16 16:47:08', 'approved', 'Lhexy Romero', 'Capnocytophaga canimorsus infection', 1, 64, 'Disease', 11, 'noticed', '', 19),
+('2018-10-16 17:15:15', 'approved', 'Lhexy Romero', 'Flavobacteriales flavobacteriaceae', 1, 61, 'Bacteria Taxonomy', 10, 'read', '', 19),
+('2018-10-16 17:14:48', 'approved', 'Lhexy Romero', 'Canis lupus', 1, 62, 'Animal', 9, 'read', '', 19),
+('2018-10-16 17:15:15', 'approved', 'Lhexy Romero', 'Flavobacteriales flavobacteriaceae', 1, 63, 'Bacteria', 10, 'read', '', 19),
+('2018-10-16 16:47:08', 'approved', 'Lhexy Romero', 'Capnocytophaga canimorsus infection', 1, 64, 'Disease', 11, 'read', '', 19),
 ('2018-10-16 16:47:51', 'rejected', 'Lhexy Romero', 'Shiga toxin', 1, 65, 'Toxin', 12, 'noticed', 'Typo', 19);
 
 -- --------------------------------------------------------
@@ -580,6 +647,18 @@ CREATE TABLE `usermessage_t` (
 --
 
 --
+-- Indexes for table `ac_animal_t`
+--
+ALTER TABLE `ac_animal_t`
+  ADD PRIMARY KEY (`ac_aID`);
+
+--
+-- Indexes for table `ac_bacteria_t`
+--
+ALTER TABLE `ac_bacteria_t`
+  ADD PRIMARY KEY (`ac_bID`);
+
+--
 -- Indexes for table `animalbacteria_t`
 --
 ALTER TABLE `animalbacteria_t`
@@ -693,6 +772,18 @@ ALTER TABLE `usermessage_t`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `ac_animal_t`
+--
+ALTER TABLE `ac_animal_t`
+  MODIFY `ac_aID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `ac_bacteria_t`
+--
+ALTER TABLE `ac_bacteria_t`
+  MODIFY `ac_bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `animalbacteria_t`
