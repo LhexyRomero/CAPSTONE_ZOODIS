@@ -63,22 +63,22 @@
 
                                         <div class="form-group has-label">
                                             <label>Phylum</label>
-                                            <input autocomplete="off" class="form-control" name="strPhylum" type="text" />
+                                            <input class="form-control bPhylum" name="strPhylum" type="text" />
 
                                             <label>Class</label>
-                                            <input autocomplete="off" class="form-control" name="strClass" type="text" />
+                                            <input class="form-control bClass" name="strClass" type="text" />
 
                                             <label>Order</label>
-                                            <input autocomplete="off" class="form-control" name="strOrder" type="text" />
+                                            <input class="form-control bOrder" name="strOrder" type="text" />
 
                                             <label>Family</label>
-                                            <input autocomplete="off" class="form-control" name="strFamily" type="text" />
+                                            <input class="form-control bFamily" name="strFamily" type="text" />
 
                                             <label>Genus</label>
-                                            <input class="form-control" name="strGenus" type="text" />
+                                            <input class="form-control bGenus" name="strGenus" type="text" />
 
                                             <label>Species</label>
-                                            <input class="form-control" name="strSpecies" type="text" />
+                                            <input class="form-control bSpecies" name="strSpecies" type="text" />
 
                                         </div>
                                     </div>
@@ -197,12 +197,12 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
     <script src="../assets/js/contri_js/bacteria.js"></script>
+    <script src="../assets/js/contri_js/autocomplete.js"></script>
     <script>
         $(".navbarName").html("Maintenance / Bacteria Taxonomy");
         $("#main").addClass("active");
