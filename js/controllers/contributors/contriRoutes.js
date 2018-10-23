@@ -13,6 +13,7 @@ const contri_notification = require('../contributors/notification');
 const contri_profile = require('../contributors/profile');
 const contri_search = require('../contributors/search');
 const conrti_query  = require('../contributors/query');
+const contri_autocomplete = require('../contributors/autocomplete');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
     res.locals.staffData = req.session.staffData;
@@ -115,5 +116,19 @@ router.post('/finishedJournal',contri_notification.finishedJournal);
 router.get('/search/bodySite',contri_search.bodySite);
 router.get('/addedData',conrti_query.addedData);
 
+//autocomplete
+router.get('/search/aPhylum',contri_autocomplete.aPhylum);
+router.get('/search/aClass',contri_autocomplete.aClass);
+router.get('/search/aOrder',contri_autocomplete.aOrder);
+router.get('/search/aFamily',contri_autocomplete.aFamily);
+router.get('/search/aGenus',contri_autocomplete.aGenus);
+router.get('/search/aSpecies',contri_autocomplete.aSpecies);
+
+router.get('/search/bPhylum',contri_autocomplete.bPhylum);
+router.get('/search/bClass',contri_autocomplete.bClass);
+router.get('/search/bOrder',contri_autocomplete.bOrder);
+router.get('/search/bFamily',contri_autocomplete.bFamily);
+router.get('/search/bGenus',contri_autocomplete.bGenus);
+router.get('/search/bSpecies',contri_autocomplete.bSpecies);
 
 module.exports = router;
