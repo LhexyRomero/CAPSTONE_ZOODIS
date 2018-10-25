@@ -108,10 +108,15 @@ router.get('/contri_Notification', auth.authenticate, (req,res,next)=>{
 router.get('/notiCard',contri_notification.notiCard);
 router.get('/notifyJournal',contri_notification.notifyJournal);
 router.get('/downloadJournal/:filename',contri_notification.downloadJournal);
+router.get('/modalDisease/:id',contri_notification.modalDisease);
+router.get('/modalPrevention/:id',contri_notification.modalPrevention);
+router.get('/revisedSelectDisease',contri_notification.selectDisease);
 
 router.post('/setJournal',contri_notification.setJournal);
 router.post('/updateNotiCard/:id',contri_notification.updateNotiCard);
 router.post('/finishedJournal',contri_notification.finishedJournal);
+router.post('/reSubmitDisease/:id',contri_notification.reSubmitDisease);
+router.post('/reSubmitPrevention/:id',contri_notification.reSubmitPrevention);
 
 router.get('/search/bodySite',contri_search.bodySite);
 router.get('/addedData',conrti_query.addedData);
