@@ -18,6 +18,115 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Disease -->
+            <div class="modal fade" id="contri_modalDisease" tabindex="-1" role="dialog" aria-labelledby="contri_modalDisease"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content for-scroll">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5><b>DISEASE FORM</b></h5>
+                        </div>
+                        <div class="modal-body body-scroll">
+                            <form id="modalDiseaseForm" method="POST" onsubmit="reSubmitDisease(event)">
+                                <div class="form-group has-label">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>Disease Name</label>
+                                            <input class="form-control" name="modalName" type="text" />
+
+                                            <label>Disease Description</label>
+                                            <textarea class="form-control" name="modalDesc" type="text"></textarea>
+
+                                            <div class="row">
+                                                <div class="col-sm-10"><br>
+                                                    <label>Symptoms</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type='button' onclick="addFieldEdit()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                </div>
+                                            </div>
+                                            <div id="modalSymptoms">
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-10"><br>
+                                                    <label>Body Site</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type='button' onclick="addFieldEdit3()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                </div>
+                                            </div>
+                                            <div id="modalBodySite">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                            <div class="for-footer">
+                                <div align="right">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Prevention -->
+            <div class="modal fade" id="contri_modalPreventions" tabindex="-1" role="dialog" aria-labelledby="contri_modalPreventions"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content for-scroll">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5><b>PREVENTION FORM</b></h5>
+                        </div>
+                        <div class="modal-body body-scroll">
+                            <form id="modalPreventionForm" action="" method="POST" onsubmit="reSubmitPrevention(event)">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group has-label">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="modalLabel">Disease Name</label>
+                                                    <select class="form-control" name="selectDisease" id="toSelectDisease"></select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-10"><br>
+                                                    <label class="modalLabel">Prevention/s</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type='button' onclick="addFieldEdit2()" rel='tooltip' class='btn btn-primary btn-icon btn-sm add btnPosition'>+</button>
+                                                </div>
+                                            </div>
+
+                                            <div id="modalPreventionDisplay">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="for-footer">
+                            <div align="right">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!--   Core JS Files   -->
             <% include ../partials/core_js %>
             <script src="../assets/js/contri_js/notification.js"></script>

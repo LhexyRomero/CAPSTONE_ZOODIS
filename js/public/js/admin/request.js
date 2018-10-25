@@ -503,28 +503,41 @@ function viewDisease(id) {
             return;
         }
 
+
         let data = response.data;
+        console.log(data);
         $('input[name=modalName').val(data.diseaseName);
         $('textarea[name=modalDesc]').val(data.diseaseDesc);
 
         $("#modalSymptoms").html("");
+        $("#modalBodySite").html("");
 
         data.symptoms.forEach((element, index) => {
+            console.log("adding sym");
             addFieldEdit(element);
         });
 
-        let html;
-        $('#modalDisease').html(html);
+        data.bodySite.forEach((element, index) => {
+            console.log("adding body");
+            addFieldEdit3(element);
+            console.log(element);
+        });
+
         sympCount = data.symptoms.length;
+        bodyCount = data.bodySite.length;
     });
 }
 
 function approvedDisease(eAdd) {
     eAdd.preventDefault();
 
+    let dataInsert = {};
     let formData = $('#modalDiseaseForm').serializeArray();
     let _data = {
         symptoms: [],
+    };
+    let _body = {
+        bodySite: [],
     };
     let error = 0;
     formData.forEach((element, index) => {
@@ -535,12 +548,25 @@ function approvedDisease(eAdd) {
         }
         if (element.name.search("modalSymp") == -1) {
             _data[element.name] = element.value;
-        } else {
+        } 
+        else {
             _data.symptoms.push(element.value);
+        }
+        if (element.name.search("modalBody") == -1) {
+            _body[element.name] = element.value;
+        }
+        else {
+            _body.bodySite.push(element.value);
         }
     });
     if (error == 0) {
         _data.symptoms = _data.symptoms.join(":");
+        _body.bodySite = _body.bodySite.join(":");
+        
+        dataInsert[formData[0].name] = formData[0].value;
+        dataInsert[formData[1].name] = formData[1].value;
+        dataInsert["symptoms"] = _data.symptoms;
+        dataInsert["bodySite"] = _body.bodySite;
         swal({
             title: 'Are you sure?',
             text: "Approve Disease",
@@ -554,7 +580,7 @@ function approvedDisease(eAdd) {
                 $.ajax({
                     url: "/requestApprovedDisease/" + viewDiseaseID,
                     type: "POST",
-                    data: _data,
+                    data: dataInsert,
                     success: function (res) {
                         if (res.success) {
                             swal({
@@ -1735,3 +1761,55 @@ let deleteFieldEdit2 = function (selected) {
     $('.prevEditDiv' + selected).remove();
 }
 
+let count2 = 0;
+let bodyCount = 0;
+let target2 = $(".bodyTxt");
+let targetBtn2 = $("#responseButton");
+
+function addFieldBody() {
+    if (count >= 9) {
+        $.notify("You reached the maximum numbers of field!", { type: "danger" });
+        return;
+    }
+
+    let boxName = "body" + count2;
+    let buttonName = "button" + count2;
+    let html = '<input type="text" class="form-control" name="' + boxName + '""/>';
+    let button = '<button name="' + buttonName + '"type="button" onclick ="deleteFieldPrevention(' + count2 + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+
+    let newDiv = "<div class='bodyDiv" + count2 + " row'>" + "<div class='col-md-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+
+    target.append(newDiv);
+    count2++;
+}
+
+function deleteFieldPrevention(count) {
+    $('input[name=symptoms' + count + ']').remove();
+    $('button[name=button' + count + ']').remove();
+    $('.bodyDiv' + count).remove();
+    count--;
+    console.log(count + "lol");
+}
+
+
+let addFieldEdit3 = function (value) {
+    if ($('.bodySiteEditDiv').length >= 10) {
+        $.notify("You reached the maximum numbers of field!", { type: "danger" });
+        return;
+    }
+
+    value = value == undefined ? "" : value;
+
+    let html = "<input class='form-control' name='modalBody" + bodyCount + "' value='" + value + "' type = 'text'/><br>";
+    let buttonName = "buttonEdit" + bodyCount;
+    let button = '<button name="' + buttonName + '"type="button" onclick ="deleteFieldEdit3(' + bodyCount + ')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
+
+    let newDiv = "<div class='bodySiteEditDiv bodyEditDiv" + bodyCount + " row'>" + "<div class='col-sm-10'>" + html + "</div><div class='col-sm-2'>" + button + "</div>";
+
+    $("#modalBodySite").append(newDiv);
+    bodyCount++;
+}
+
+let deleteFieldEdit3 = function (selected) {
+    $('.bodyEditDiv' + selected).remove();
+}

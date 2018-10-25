@@ -237,11 +237,13 @@ exports.viewDisease = (req, res, next) => {
         if (err3) return next(err3);
 
         let splittedSymptoms = result3[0].symptoms.split(":");
+        let splittedBody    =   result3[0].bodySite.split(":");
         let dataDisplay = {
 
             diseaseName: result3[0].diseaseName,
             diseaseDesc: result3[0].diseaseDesc,
             symptoms: splittedSymptoms,
+            bodySite:  splittedBody,
         }
 
         res.status(200).send({ success: true, detail: "", data: dataDisplay });
@@ -255,7 +257,7 @@ exports.approvedDisease = (req, res, next) => {
     let status = "approved";
     let state = "noticed";
     let category = "Disease";
-    let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?, symptoms = ?,status=? WHERE diseaseID = ?";
+    let sql = "UPDATE disease_t SET diseaseName = ?, diseaseDesc = ?,bodySite = ?, symptoms = ?,status=? WHERE diseaseID = ?";
     let sql2 = "UPDATE request_t SET state =?,status =? WHERE category =? AND addedID =? ";
     let error = 0;
 
@@ -263,6 +265,7 @@ exports.approvedDisease = (req, res, next) => {
     let queryData = [];
     queryData.push(data.modalName);
     queryData.push(data.modalDesc);
+    queryData.push(data.bodySite);
     queryData.push(data.symptoms);
     queryData.push("approved");
     queryData.push(id);
@@ -292,7 +295,7 @@ exports.rejectDisease = (req, res, next) => {
     let data = req.body;
     let reasons = data.reasons;
     let category = "Disease";
-    let status = "rejected";
+    let status = "revised";
     let state = "noticed";
 
     let sql = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
@@ -302,7 +305,7 @@ exports.rejectDisease = (req, res, next) => {
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
 
-            res.status(200).send({ success: true, detail: "Data Rejected!" });
+            res.status(200).send({ success: true, detail: "Data needs to Revised!" });
 
         });
     });
@@ -381,7 +384,7 @@ exports.rejectPrevention = (req, res, next) => {
     let data = req.body;
     let reasons = data.reasons;
     let category = "Prevention";
-    let status = "rejected";
+    let status = "revised";
     let state = "noticed";
 
     let sql = "UPDATE request_t SET state=?, status=?, message=? WHERE category =? AND addedID =?";
@@ -391,7 +394,7 @@ exports.rejectPrevention = (req, res, next) => {
         db.get().query(sql1, [status, id], (err1, return1) => {
             if (err1) return next(err1);
 
-            res.status(200).send({ success: true, detail: "Data Rejected!" });
+            res.status(200).send({ success: true, detail: "Data needs to Revised!" });
 
         });
     });
