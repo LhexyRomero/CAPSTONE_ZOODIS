@@ -274,7 +274,8 @@ exports.addBacteria = (req, res, next) => {
             }
         });
     }
-
+    
+    console.log(req.session.staffID,"STAFF NUMBER");
     let insertBacteria = (result) => {
         let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO request_t (dateTime,status,staffName, addedData, staffID,category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";

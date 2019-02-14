@@ -34,6 +34,8 @@ function contactMessage(e) {
         dataInsert[data[3].name] = data[3].value;
     }
 
+    console.log(dataInsert,"LEKI THIS IS FOR CONTACTS");
+
     $.post("/contactMessage", dataInsert, (response)=>{
         if(response.success == false){
             let html = "<label><font color='red'>Error sending message!</font></label>";

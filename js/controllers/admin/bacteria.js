@@ -116,7 +116,7 @@ exports.addToxin = (req, res, next) => {
     let status = "approved";
 
     let checkToxin = function (cb) {
-        let sql5 = "SELECT * FROM toxin_t WHERE name =?"; //undecided
+        let sql5 = "SELECT bacteriumID FROM bacteriatoxin_t WHERE toxinID = (SELECT toxinID FROM `toxin_t` WHERE name = ?)"; //undecided
         db.get().query(sql5, [strToxinName], (err5, result5) => {
             if (err5) return cb(err5);
 
@@ -405,6 +405,7 @@ exports.updateBacteria = (req,res,next) => {
     let id = req.params.id;
     let data = req.body;
 
+    console.log(data);
     let speciesName = data.modalSpeciesName;
     let genusName = data.modalGenusName;
     let scientificName = genusName+" "+speciesName;
@@ -413,8 +414,8 @@ exports.updateBacteria = (req,res,next) => {
     let isolation = data.modalIsolation;
     let identification = data.modalIdentification;
 
-    let sql = "UPDATE bacteria_t SET bacteriumSpeciesName = ?, bacteriumGenusName = ?, bacteriumScientificName =?, bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =? WHERE bacteriumID = ?";
-    db.get().query(sql,[speciesName,genusName,scientificName,tissue,sample,isolation,identification,id],(err,result) =>{
+    let sql = "UPDATE bacteria_t SET  bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =? WHERE bacteriumID = ?";
+    db.get().query(sql,[tissue,sample,isolation,identification,id],(err,result) =>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"Successfully Updated!",});

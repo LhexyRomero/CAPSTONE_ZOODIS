@@ -269,7 +269,6 @@ function viewDisease(id) {
             $("#status").html(pending);
         }
         $("#name").html(data.title);
-        $("#viewSelected").html(selectedBacteria);
         $("#viewDiseaseName").html(diseaseName);
         $("#viewDiseaseDesc").html(diseaseDesc);
         $("#viewSymptoms").html(html);

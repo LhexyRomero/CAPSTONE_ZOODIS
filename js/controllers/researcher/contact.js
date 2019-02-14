@@ -32,6 +32,7 @@ exports.contactMessage = (req,res,next) =>{
     let state = 1;
     let staffID = 14;
 
+    console.log(data);
     let sql = "INSERT INTO usermessage_t (name,email,subject,message,state,staffID,dateTime) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP)";
     db.get().query(sql,[name,email,subject,message,state,staffID],(err,result)=>{
         if(err) return next(err);
