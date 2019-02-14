@@ -99,7 +99,7 @@ exports.viewDisease = (req,res,next) => {
     let id = req.params.id;
     let data = req.body;
 
-    let sql = "SELECT *,disease_t.status FROM disease_t INNER JOIN bacteriadisease_t ON disease_t.diseaseID = bacteriadisease_t.diseaseID INNER JOIN bacteria_t ON bacteriadisease_t.bacteriumID = bacteria_t.bacteriumID INNER JOIN journal_t ON journal_t.journalID = disease_t.journalID WHERE disease_t.diseaseID = ?";
+    let sql = "SELECT *,disease_t.status FROM disease_t INNER JOIN journal_t ON journal_t.journalID = disease_t.journalID WHERE disease_t.diseaseID = ?";
     db.get().query(sql,[id],(err,result)=>{
         if(err) return next(err);
 

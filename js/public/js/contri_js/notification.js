@@ -106,14 +106,13 @@ function notificationJournal() {
             return;
         }
         let data = response.data;
-
+         
         if (data.state == "noticed" && data.status == "Incomplete" && data.name !== "none") {
             let code = "<h6>" + data.code + "</h6>";
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            let link = data.file.split('\\');
-            $('#downloadJournal').attr('href', '/downloadJournal/' + link[link.length-1]);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[3]);
 
         }
         else if (data.state == "notify" && data.status == "Incomplete" && data.name !== "none") {
@@ -141,7 +140,7 @@ function notificationJournal() {
             let name = "<h6>" + data.name + "</h6>";
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[3]);
         }
 
         else if (data.code == "none" && data.name == "none" && data.name == "none") {
@@ -159,7 +158,7 @@ function notificationJournal() {
             $(".re-message").html(message);
             $("#journalCode").html(code);
             $("#journalName").html(name);
-            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[2]);
+            $('#downloadJournal').attr('href', '/downloadJournal/' + data.file.split('\\')[3]);
 
         }
 
@@ -180,11 +179,16 @@ function finishedJournal() {
 
         $.notify(response.detail, { type: "success" });
 
+        $("#finish").hide();
         let code = "<h6>Job well Done</h6>";
         let name = "<h6>Journal Completed!</h6>";
         $("#journalCode").html(code);
         $("#journalName").html(name);
         $("#download").hide();
+        
+        setTimeout(function(){ 
+            window.location = 'http://localhost:4000/contri_Dashboard'
+        }, 2000);
     });
 }
 

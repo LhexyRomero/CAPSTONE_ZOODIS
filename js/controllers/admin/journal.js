@@ -78,8 +78,8 @@ exports.updateJournal = (req, res, next) => {
 exports.journalList = (req, res, next) => {
     let status = "none";
 
-    let sql = "SELECT * FROM journal_t WHERE status <> ?";
-    db.get().query(sql,[status],(err,result) => {
+    let sql = "SELECT * FROM journal_t WHERE status <> ? AND name <> ?";
+    db.get().query(sql,[status,status],(err,result) => {
 
         if (err) return next(err);
         res.status(200).send({ success: true, detail: "", data: result });
