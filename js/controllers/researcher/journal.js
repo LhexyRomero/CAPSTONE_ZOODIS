@@ -22,14 +22,18 @@ exports.uploadJournal = (req, res, next) => {
     let code = "RJ#" + Math.floor(Math.random() * 255);
 
     let checkJournal = function (cb) {
+        console.log("PLS HAHAHHAHA");
         checkJournalDate(file, function(err, entry){
+            console.log(file);
             if(err) return next(err);
             doi = entry.doi;
             publishedDate = entry.published;
 
+            console.log("UPPER", doi, publishedDate);
             if(!doi || !publishedDate) return cb(null, false, "No DOI/Published Date Found on file");
 
             new Promise((resolve, reject)=>{
+                console.log("FIRST RESOLVE", resolve);
                 let sql = "SELECT * FROM journal_t WHERE doi = ?";
                 db.get().query(sql, [doi], (err, result) => {
                     if (err) return reject(err);
@@ -42,8 +46,10 @@ exports.uploadJournal = (req, res, next) => {
                     }
                 });
             }).then(passed=>{
+                console.log("AFTER 1st RESOLVD", passed);
                 return new Promise((resolve, reject)=>{
                     if(passed){
+                        console.log(passed,"INSIDE IF");
                         let today = Date.parse('today');
     
                         for(let x=0; x<10; x++){
@@ -57,14 +63,25 @@ exports.uploadJournal = (req, res, next) => {
                             }
                         }                    
                     }
+                    else {
+                        resolve(false);
+                    }
                 });
             }).then(passed=>{
                 if(passed){
+                    console.log("IM HERE PASSED FOR CHECK JOURNAL");
                     cb(null,passed);
                 }
+                else {
+                    cb(null,null); 
+                    console.log("IM HERE");
+                }
             }).catch(reason=>{
+                console.log("IM HERE REASON STACK FOR CHECK JOURNAL");
                 throw new Error(reason.stack);
             }).catch(reason=>{
+                
+                console.log("IM HERE REASON FOR CHECK JOURNAL");
                 cb(reason);
             });
         });
@@ -85,6 +102,7 @@ exports.uploadJournal = (req, res, next) => {
     }
 
     checkJournal((error,result, detail) =>{
+        console.log("THE FINAL RESULT",result);
         if(error) return next(error);
 
         if(result){
@@ -135,6 +153,7 @@ function checkJournalDate(path, cb){
             if(!page1){
                 page1 = true;
                 return new Promise((resolve, reject)=>{
+                    console.log(page);
                     let doiRegExp = new RegExp('doi', 'i');
                     let publishRegExp = new RegExp('published', 'i');
                     page.forEach((e,i)=>{
@@ -145,12 +164,16 @@ function checkJournalDate(path, cb){
                             doi = e.substring(doiIndex+3);
                             doi = doi.replace(':', '');
                             doi = doi.trim();
+
+                            console.log(doi);
                         }
         
                         if(publishIndex != -1 && !published){
                             published = e.substring(publishIndex+9);
                             published = published.replace(':', '');
                             published = published.trim();
+
+                            console.log(published);
                         }
         
                         if(doi && published) done = 1;

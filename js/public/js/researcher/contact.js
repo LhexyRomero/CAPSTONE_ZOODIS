@@ -43,10 +43,18 @@ function contactMessage(e) {
             return;
         }
         
+        clearFields();
         let html = "<label><font color='#24bb01'>" + response.detail + "</font></label>";
         let info = "<label>Check your email after 2-3 days, Thankyou!<label>";
         $(".notif").html(html);
         $(".info").html(info);
     });
 
+}
+
+function clearFields() {
+    $('textarea[name=message]').val("");
+    $('input[name=name]').val("");
+    $('input[name=subject]').val("");
+    $('input[name=email]').val("");
 }

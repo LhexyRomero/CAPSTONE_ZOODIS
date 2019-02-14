@@ -1,5 +1,9 @@
 let isClicked = 0;
 
+$(function(){
+    $(".stats").hide();
+});
+
 function uploadJournal(e){
     e.preventDefault();
 
@@ -41,6 +45,7 @@ function uploadJournal(e){
         return;
     }
 
+    $(".stats").show();
     $.ajax({
         type: "POST",
         url: "/uploadJournal",
@@ -52,9 +57,12 @@ function uploadJournal(e){
             if(response.success == false) {
                 let html = "<label><font color='red'>"+response.detail+"</font></label>";
                 $(".notif").html(html);
+                clearJournal();
                 return;
             }
 
+            
+            $(".stats").hide();
             let html = "<label><font color='#24bb01'>"+response.detail+"</font></label>";
             let info = "<label>Check your email after 2-3 days, Thankyou!<label>";
             $(".notif").html(html);
@@ -65,6 +73,8 @@ function uploadJournal(e){
 }
 
 function clearJournal() {
+    $("textarea[name=message]").val("");
+    $("input[name=subject]").val("");
     $("input[name=name]").val("");
     $("input[name=doi]").val("");
     $("input[type=file]").val("");
