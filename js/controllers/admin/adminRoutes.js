@@ -163,6 +163,7 @@ router.post('/editDisease/:id',disease.editDisease);
 router.get('/toxin', auth.authenticate, (req,res,next)=>{
     res.render('admin/toxin');
 });
+router.post('/carrier', bacteria.addCarrier);
 router.post('/toxin',bacteria.addToxin);
 router.get('/toxinList',bacteria.toxinList);
 router.get('/editToxin/:id',bacteria.editToxin);

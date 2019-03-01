@@ -27,12 +27,6 @@
                                         <tbody id="messageList"></tbody>
                                     </table>
                                 </div>
-                                <button type="button" rel="tooltip" title="" class="prevPage btn btn-default btn-round btn-icon btn-icon-mini btn-sm" >
-                                    <i class="now-ui-icons arrows-1_minimal-left"></i>
-                                </button>
-                                <button type="button" rel="tooltip" title="" class="nextPage btn btn-default btn-round btn-icon btn-icon-mini btn-sm" >
-                                    <i class="now-ui-icons arrows-1_minimal-right"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -40,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="composeMessage" tabindex="-1" role="dialog" aria-labelledby="composeMessage"
+    <div class="modal fade compose" id="composeMessage" tabindex="-1" role="dialog" aria-labelledby="composeMessage"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form id="adminSendForm" method="POST" onsubmit="adminSend(event)">
@@ -78,7 +72,6 @@
     <!--   Core JS Files   -->
     <% include ../partials/core_js %>
     <script src="../../assets/js/admin/message.js"></script>
-    <script src="../../assets/js/span.js"></script>
     <script>
         $(".navbarName").html("Messages");
     </script>

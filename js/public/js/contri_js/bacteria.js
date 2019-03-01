@@ -249,6 +249,11 @@ function toSelectAnimal() {
     });
 }
 
+function passToxin(result){
+    $("input[name=forToxin").val(result[0].toxinID);
+    $("#toDisplayToxin").val(result[0].name);
+}
+
 function addToxin(eAdd) {
     eAdd.preventDefault();
 
@@ -309,14 +314,13 @@ function addToxin(eAdd) {
                 $.post("/contri_toxin", dataInsert, function (response) {
                     isClick = 0;
                     if (response.success == false) {
-                        swal({
-                            title: "Error!",
-                            text: response.detail,
-                            type: "error",
-                            confirmButtonColor: "#9c27b0",
-                            confirmButtonText: "Okay",
-                            allowOutsideClick: false
+                        $.notify(response.detail,{type:"warning"});
+                        $("#addCarrier").modal({
+                            backdrop: 'static',
+                            keyboard: false
                         });
+                        $("#addCarrier").modal('hide');
+                        passToxin(response.data);
                     }
 
                     else {
@@ -677,9 +681,11 @@ function viewBacteria(id){
     });
 }
 
-function passResult(result){
-    $("input[name=toBacteria").val(result[0].bacteriumID);
-    $("#toDisplay").val(result[0].bacteriumScientificName);
+
+function passToxin(result){
+    console.log(result);
+    $("input[name=forToxin").val(result[0].toxinID);
+    $("#toDisplayToxin").val(result[0].name);
 }
 
 function addHost(){
@@ -744,7 +750,67 @@ function addHost(){
     }
 }
 
+function addCarrier(){
+    let data = $("#carrierForm").serializeArray();
+    let errCount = 0;
+    let dataInsert = {};
+    console.log(data);
 
+    if(data[0].value =="" || data[1].value ==""){
+        $('select[name=toModal]').css("background", "#feebeb");
+        errCount++;
+    }
+
+    else {
+        dataInsert[data[0].name] = data[0].value;
+        dataInsert[data[1].name] = data[1].value;
+    }
+
+    if(errCount>0){
+        $.notify("Select Bacteria!",{type:"danger"});
+    }
+
+    else {
+        swal({
+            title: 'Are you sure?',
+            text: "Add Carrier Bacteria",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post("/carrier",dataInsert,(response)=>{
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: response.detail,
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Successfully Added!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                        $('#addCarrier').modal("hide");
+                        clearToxin();
+                    }
+                });
+            }
+        });
+            
+    }
+
+}
 
 
 

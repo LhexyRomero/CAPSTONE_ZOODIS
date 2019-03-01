@@ -101,19 +101,19 @@ exports.addToxin = (req, res, next) => {
     let state = "notify";
     let category = "Toxin";
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
-    console.log(name);
 
     let checkToxin = function (cb) {
-        let sql = "SELECT * FROM toxin_t INNER JOIN bacteriatoxin_t ON toxin_t.toxinID = bacteriatoxin_t.toxinID WHERE toxin_t.toxinID = ? AND name = ?";
-        db.get().query(sql, [selectBacteria, strToxinName], (err, result) => {
+        let sql = "SELECT toxinID, name FROM toxin_t WHERE name = ?";
+        db.get().query(sql, [strToxinName], (err, result) => {
             if (err) return cb(err);
 
+            console.log(result.length);
             if (result.length == 0) {
-                return cb(null, true);
+                return cb(null, true, result);
             }
 
             else {
-                return cb(null, false);
+                return cb(null, false, result);
             }
         });
     }
@@ -134,7 +134,7 @@ exports.addToxin = (req, res, next) => {
         });
     }
 
-    checkToxin((error, result) => {
+    checkToxin((error, result, data) => {
         if (error) return next(error);
 
         if (result) {
@@ -142,7 +142,7 @@ exports.addToxin = (req, res, next) => {
         }
 
         else {
-            res.status(200).send({ success: false, detail: "Data Already Exists!" })
+            res.status(200).send({ success: false, detail: "Toxin already exists assign Bacteria!", data:data});
         }
     });
 
@@ -275,7 +275,6 @@ exports.addBacteria = (req, res, next) => {
         });
     }
     
-    console.log(req.session.staffID,"STAFF NUMBER");
     let insertBacteria = (result) => {
         let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
         let sql1 = "INSERT INTO request_t (dateTime,status,staffName, addedData, staffID,category,addedID,state,assignID) VALUES (CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?)";
@@ -409,4 +408,44 @@ exports.bacteriaHost = (req,res,next) =>{
             res.status(200).send({success:false, detail:"Data Already Exists!", data:result});
         }
     });
+}
+
+///// TO BE CONTINUED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+exports.addCarrier = (req,res,next) => {
+    let toxinID = req.body.forToxin;
+    let bacteriumID = req.body.toModal;
+
+    let insertCarrier = ()=>{
+        let sql = "INSERT INTO bacteriatoxin_t (toxinID, bacteriumID) VALUES (?,?)";
+        db.get().query(sql,[toxinID,bacteriumID],(err,result)=>{
+            if(err) return next(err);
+
+            res.status(200).send({success:true, dsetail:"Successfully Added!", data:result});
+        });
+    }
+
+    let checkHost = (cb)=>{
+        let sql = "SELECT * FROM bacteriatoxin_t WHERE toxinID =? AND bacteriumID =?";
+        db.get().query(sql,[toxinID,bacteriumID],(err,result)=>{
+            if(err) return cb(err,result);
+
+                if(result.length == 0){
+                    return cb(null,true);
+                }
+                else{
+                    return cb(null,false);
+                }
+        });
+    }
+
+    checkHost((error,result)=>{
+        if(error) return next(error);
+        if(result){
+            insertCarrier();
+        }
+        else{
+            res.status(200).send({success:false, detail:"Data Already Exists!", data:result});
+        }
+    });
+    console.log(toxinID, bacteriumID);
 }
