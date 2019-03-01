@@ -229,7 +229,6 @@ function toSelectBacteria() {
             html += "<option value=" + element.bacteriumID + ">" + element.bacteriumScientificName + "</option>";
         });
         $('#toSelectBacteria').html(html);
-        $('.select-bacteria').chosen({});
     });
 }
 
@@ -247,15 +246,19 @@ function toSelectAnimal() {
         });
         $('#toSelectAnimal').html(html);
         $('#toModalBacteria').html(html);
-
-        $('.select-animal').chosen({});
-        $('.modal-bacteria').chosen({});
     });
 }
 
 function passToxin(result){
     $("input[name=forToxin").val(result[0].toxinID);
     $("#toDisplayToxin").val(result[0].name);
+}
+
+
+function passResult(result){
+    console.log(result);
+    $("input[name=toBacteria").val(result[0].bacteriumID);
+    $("#toDisplay").val(result[0].bacteriumScientificName);
 }
 
 function addToxin(eAdd) {
@@ -451,20 +454,19 @@ function toSelectJournal() {
             html += "<option value=" + element.journalID + ">" + element.code + "</option>";
         });
         $('#toSelectJournal').html(html);
-        $('.select-journal').chosen({});
     });
 };
 
 
 function clearBacteria() {
-    $("select[name=toSelect]").val("");
+    $("select[name=toAnimal]").val('');
+    $("select[name=toAnimal]").val('').trigger('chosen:updated');
     $("input[name=strSpeciesName]").val("");
     $("input[name=strGenusName]").val("");
     $("input[name=strTissueSpecifity]").val("");
     $("input[name=strSampleType]").val("");
     $("input[name=strMethodOfIsolation]").val("");
     $("input[name=strMethodOfIdentification]").val("");
-
 }
 
 function addBacteria(eAdd) {
@@ -577,23 +579,6 @@ function addBacteria(eAdd) {
     }
 }
 
-function clearBacteria() {
-    $("select[name=toAnimal]").val("");
-    $("select[name=selectJournal]").val("");
-    $("input[name=strSpeciesName]").val("");
-    $("input[name=strGenusName]").val("");
-    $("input[name=strTissueSpecifity]").val("");
-    $("input[name=strSampleType]").val("");
-    $("input[name=strMethodOfIsolation]").val("");
-    $("input[name=strMethodOfIdentification]").val("");
-    $("input[name=strGramStain]").val("");
-    $("input[name=strLength]").val("");
-    $("input[name=strWidth]").val("");
-    $("input[name=strShape]").val("");
-    $("input[name=strMotility]").val("");
-    isClick = 0;
-}
-
 function bacteriaList() {
     $.get("/contri_bacteriaList",(response)=>{
 
@@ -697,13 +682,6 @@ function viewBacteria(id){
         $("#shape").html(shape);
         $("#motility").html(motility);
     });
-}
-
-
-function passToxin(result){
-    console.log(result);
-    $("input[name=forToxin").val(result[0].toxinID);
-    $("#toDisplayToxin").val(result[0].name);
 }
 
 function addHost(){

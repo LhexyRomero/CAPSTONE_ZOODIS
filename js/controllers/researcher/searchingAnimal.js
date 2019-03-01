@@ -75,9 +75,9 @@ exports.searchingAnimal = (req,res,next) =>{
 }
 
 exports.animalModules = (req,res,next) =>{
-
-    let sql = "SELECT animal_t.animalID, animalName, animalScientificName, image, journal_t.name, doi FROM journal_t INNER JOIN animal_t WHERE journal_t.journalID = animal_t.journalID";
-    db.get().query(sql,(err,result)=>{
+    let status = 'approved';
+    let sql = "SELECT animal_t.animalID, animalName, animalScientificName, image, journal_t.name, doi FROM journal_t INNER JOIN animal_t WHERE journal_t.journalID = animal_t.journalID AND animal_t.status = ?";
+    db.get().query(sql,[status],(err,result)=>{
         if (err) return next (err);
         res.status(200).send({success:true,detail:"",data:result});
     });
@@ -87,14 +87,15 @@ exports.viewAnimal = (req,res,next) =>{
 
     let id =req.query.animalID;
     let active  = 1;
+    let status = 'approved';
 
-    let sql = "SELECT * FROM animal_t WHERE animalID =?";
-    let sql1 = "SELECT * FROM animaltaxo_t WHERE animalTaxoID = ?";
+    let sql = "SELECT * FROM animal_t WHERE animalID =? AND status = ?";
+    let sql1 = "SELECT * FROM animaltaxo_t WHERE animalTaxoID = ? AND status = ?";
     let sql2 = "SELECT bacteria_t.bacteriumID,bacteriumScientificName FROM animalbacteria_t INNER JOIN bacteria_t on animalbacteria_t.bacteriumID = bacteria_t.bacteriumID WHERE animalID =? AND animalbacteria_t.status=?";
     let sql3 = "SELECT name,doi FROM journal_t WHERE journalID =?";
-    db.get().query(sql,[id],(err,result)=>{
+    db.get().query(sql,[id,status],(err,result)=>{
         if(err) return next(err);
-        db.get().query(sql1,[result[0].animalTaxoID],(err1,result1)=>{
+        db.get().query(sql1,[result[0].animalTaxoID,status],(err1,result1)=>{
             if(err1) return next(err1);
             db.get().query(sql2,[result[0].animalID,active],(err2,result2)=>{
                 if(err2) return next(err2);

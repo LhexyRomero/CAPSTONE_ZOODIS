@@ -183,6 +183,7 @@ function clearAnimal(eClear) {
     $('input[name=strFamily]').val("");
     $('input[name=strGenus]').val("");
     $('input[name=strSpecies]').val("");
+    $('select[name=selectJournal]').val('').trigger('chosen:updated');
     $('select[name=selectJournal]').val("");
     $("#toSubmitAnimal").html("Add");
     isClicked = 0;
@@ -636,6 +637,5 @@ function toSelectJournal() {
             html += "<option value=" + element.journalID + ">" +element.code+" - "+ element.name + "</option>";
         });
         $('#toSelectJournal').html(html);
-        $('.toSelectJournal').chosen({});
     });
 };

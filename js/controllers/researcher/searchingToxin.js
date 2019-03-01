@@ -1,9 +1,9 @@
 const db = require('../../connection');
 
 exports.toxinModule = (req,res,next) =>{
-    let sql = "SELECT toxin_t.toxinID, structureFeature, name,bacteriumScientificName FROM toxin_t INNER JOIN bacteriatoxin_t ON bacteriatoxin_t.toxinID = toxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID";
-    db.get().query(sql,(err,result)=>{
-
+    let status = 'approved';
+    let sql = "SELECT toxin_t.toxinID, structureFeature, name,bacteriumScientificName FROM toxin_t INNER JOIN bacteriatoxin_t ON bacteriatoxin_t.toxinID = toxin_t.toxinID INNER JOIN bacteria_t ON bacteria_t.bacteriumID = bacteriatoxin_t.bacteriumID WHERE toxin_t.status = ?";
+    db.get().query(sql,[status],(err,result)=>{
         res.status(200).send({success:true,detail:"",data:result});
     });
 }

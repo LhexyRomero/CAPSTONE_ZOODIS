@@ -91,9 +91,9 @@ exports.searchingDisease = (req,res,next)=>{
 }
 
 exports.diseaseModules = (req,res,next) =>{
-
-    let sql ="SELECT diseaseID,diseaseName,diseaseDesc,doi FROM disease_t INNER JOIN journal_t ON disease_t.journalID = journal_t.journalID";
-    db.get().query(sql,(err,result)=>{
+    let status = 'approved';
+    let sql ="SELECT diseaseID,diseaseName,diseaseDesc,doi FROM disease_t INNER JOIN journal_t ON disease_t.journalID = journal_t.journalID WHERE disease_t.status = ?";
+    db.get().query(sql,[status],(err,result)=>{
         if(err) return next (err);
 
         res.status(200).send({success:true,detail:"",data:result});
@@ -199,8 +199,9 @@ function getAnimalCarrier(bacteriumID){
 exports.viewDisease = (req,res,next)=>{
 
     let id = req.query.diseaseID;
-    let sql = "SELECT * FROM disease_t INNER JOIN prevention_t ON disease_t.diseaseID = prevention_t.diseaseID WHERE disease_t.diseaseID = ?";
-    db.get().query(sql,[id],(err,result)=>{
+    let status = 'approved';
+    let sql = "SELECT * FROM disease_t INNER JOIN prevention_t ON disease_t.diseaseID = prevention_t.diseaseID WHERE disease_t.diseaseID = ? AND disease_t.status = ? AND prevention_t.status = ?";
+    db.get().query(sql,[id,status,status],(err,result)=>{
         if(err) return next(err);
 
 

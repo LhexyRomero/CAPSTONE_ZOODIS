@@ -493,8 +493,6 @@ function selectBacteria() {
         });
         $('#toSelectBacteria1').html(html);
         $('#toSelectBacteria2').html(html);
-        $('.select-bacteria1').chosen({});
-        $('.select-bacteria2').chosen({});
     });
 }
 
@@ -929,7 +927,6 @@ function selectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
-        $('.select-disease').chosen({});
     });
 }
 
@@ -1466,7 +1463,6 @@ function selectAnimal() {
             html += "<option value=" + element.animalID + ">" + element.animalScientificName + "</option>";
         });
         $('#toSelectAnimal').html(html);
-        $('.select-animal').chosen({});
     });
 }
 

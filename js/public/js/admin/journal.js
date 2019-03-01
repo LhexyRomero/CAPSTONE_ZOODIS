@@ -67,8 +67,9 @@ function addJournal(eAdd) {
             contentType: false,
             success: function (response) {
                 isClicked = 0;
+                
+                $(".stats").hide();
                 if (response.success == false) {
-                    $(".stats").hide();
                     swal({
                         title: "Error!",
                         text: response.detail,

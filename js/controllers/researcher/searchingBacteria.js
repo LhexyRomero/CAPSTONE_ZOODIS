@@ -246,9 +246,9 @@ exports.searchingBacteria = (req,res,next) =>{
 }
 
 exports.bacteriaModules = (req,res,next) =>{
-    
-    let sql = "SELECT bacteria_t.bacteriumID,animal_t.animalID,animalName,bacteriumScientificName,pathogenic,doi FROM animalbacteria_t INNER JOIN animal_t ON animalbacteria_t.animalbacteriaID = animal_t.animalID INNER JOIN bacteria_t ON animalbacteria_t.bacteriumID = bacteria_t.bacteriumID INNER JOIN journal_t ON journal_t.journalID = bacteria_t.journalID";
-    db.get().query(sql,(err,result)=>{
+    let status = 'approved';
+    let sql = "SELECT bacteria_t.bacteriumID,animal_t.animalID,animalName,bacteriumScientificName,pathogenic,doi FROM animalbacteria_t INNER JOIN animal_t ON animalbacteria_t.animalbacteriaID = animal_t.animalID INNER JOIN bacteria_t ON animalbacteria_t.bacteriumID = bacteria_t.bacteriumID INNER JOIN journal_t ON journal_t.journalID = bacteria_t.journalID WHERE bacteria_t.status = ?";
+    db.get().query(sql,[status],(err,result)=>{
         if (err) return next (err);
 
         res.status(200).send({success:true,detail:"",data:result});
