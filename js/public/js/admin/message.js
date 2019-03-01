@@ -14,7 +14,7 @@ $(function () {
 let messageNext = 0;
 let messageLimit = 100;
 
-function viewMessage(e, id, member) {
+/* function viewMessage(e, id, member) {
     let url = "/viewMessage/" + id + "/" + member;
     $.get(url, (response) => {
         if (response.success == false) {
@@ -39,7 +39,7 @@ function viewMessage(e, id, member) {
         $("#message").html(message);
         $("#dateTime").html(dateTime);
     });
-}
+} */
 
 function messageList(limit, offset) {
     $.get("/messageList", (response) => {
@@ -55,8 +55,14 @@ function messageList(limit, offset) {
         for(let x=0; x<limit; x++){
             let element = data[offset+x];
             if(!element) break;
+            let row ="";
             if(element.type == 1){
-                let row = "<tr class='unread hov mail' data-href='messageDetails?mid=" + element.usermessageID +"'>";
+                if(element.mState == 2){
+                    row = "<tr id='userMessage' style='cursor:pointer' class='hov mail' data-href='messageDetails?mid=" + element.usermessageID +"'>";
+                
+                } else {
+                    row = "<tr id='userMessage' style='cursor:pointer' class='unread hov mail' data-href='messageDetails?mid=" + element.usermessageID +"'>";
+                }
                 row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
                 row += "<td class='b-size'><span class='badge badge-info'>inquiry</span></td>"
                 row += "<td class='name-size'><strong>" + element.mName + "</strong></td>";
@@ -66,10 +72,13 @@ function messageList(limit, offset) {
                 row += "<td><label class='pull-right'>" + Date.parse(element.mDateTime).toString('MMM dd') + "&nbsp;&nbsp;</label></td>";
                 row += "</tr>";
                 html += row;
-
             }
             else {
-                let row = "<tr class='unread hov mail' data-href='messageDetails?ujid=" + element.userjournalID +"&staffid="+ element.staffID +"'>";
+                if(element.jState == 2){
+                    row = "<tr id='userJournal' class='hov mail' style='cursor:pointer' onclick='readJournal("+ element.userjournalID +",event)'  data-href='messageDetails?ujid="+ element.userjournalID +"&staffid="+ element.staffID +"'>";
+                } else {
+                    row = "<tr id='userJournal' class='unread hov mail' style='cursor:pointer' onclick='readJournal("+ element.userjournalID +",event)'  data-href='messageDetails?ujid="+ element.userjournalID +"&staffid="+ element.staffID +"'>";
+                }
                 row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
                 row += "<td class='b-size'><span class='badge badge-danger'>journal</span></td>";
                 row += "<td class='name-size'><strong>" + element.firstName + " " + element.lastName + "</strong></td>";
@@ -79,11 +88,9 @@ function messageList(limit, offset) {
                 row += "<td class='date-size'><label class='pull-right'>" + Date.parse(element.jDateTime).toString('MMM dd') + "&nbsp;&nbsp;</label></td>";
                 row += "</tr>";
                 html += row;
-
-                
             }
-
             count = x+offset;
+
         }
 
         messageNext = count;
@@ -200,4 +207,24 @@ function cancel() {
     $("#btnCancel").hide();
     $("#btnSend").hide();
     $("#btnReply").show();
+}
+
+function readMessage(id,e){
+    e.preventDefault();
+    $.post('/readMessage',id,(response)=>{
+        console.log("Reading message");
+        if(response.success == true){
+            $('#userMessage').removeClass('unread');
+        }
+    });
+}
+
+function readJournal(id,e){
+    e.preventDefault();
+    $.post('/readJournal',id,(response)=>{
+        console.log("Reading Journal");
+        if(response.success == true){
+            $('#userJournal').removeClass('unread');
+        }
+    });
 }

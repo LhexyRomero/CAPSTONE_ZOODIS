@@ -421,12 +421,34 @@
             } catch (err) {
                 console.log('Facebook Track Error:', err);
             }
-
         });
     </script>
 
     <script>
         $(document).ready(function () {
+            $.get('/requestNumber',(response)=>{
+                if(response.data == 0){
+                     $("#spanReq").hide();
+                } else {
+                    $("#spanReq").html("<div id='request'>"+response.data+"</div>");
+                }
+            });
+
+            $.get('/messageNumber',(response)=>{
+                if(response.data == 0){
+                    $("#spanMessage").hide();
+                } else {
+                    $("#spanMessage").html("<div id='request'>"+response.data+"</div>");
+                } 
+            });
+
+            $.get('/notificationCard',(response)=>{
+                if(response.noti == 0){
+                    $("#spanNotification").hide();
+                } else {
+                    $("#spanNotification").html("<div id='request'>"+response.noti+"</div>");
+                }
+            });
             $().ready(function () {
                 $sidebar = $('.sidebar');
                 $sidebar_img_container = $sidebar.find('.sidebar-background');

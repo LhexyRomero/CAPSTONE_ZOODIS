@@ -1,5 +1,18 @@
 const db = require('../../connection');
 
+
+exports.requestNumber = (req,res,next)=>{
+
+    let state = 'notify';
+    let sql = "SELECT * FROM `request_t` WHERE state = ?";
+
+    db.get().query(sql,[state],(err,result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success:true, detail:"", data:result.length});
+    });
+}
+
 exports.notiCard = (req,res,next) =>{
 
     let state = "noticed";

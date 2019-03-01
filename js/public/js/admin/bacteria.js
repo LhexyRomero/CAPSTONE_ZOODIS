@@ -4,6 +4,7 @@ $(function () { //onload
     toSelectBacteria2();
     toSelectBacteria3();
     toSelectJournalBacteria();
+    toSelectAnimal();
     toxinList();
     bacteriaList();
     //toModalSelect(); leki: error
@@ -164,7 +165,6 @@ function toSelectBacteria() {
             html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
         });
         $('#toSelectBacteria').html(html);
-        $('#toModalBacteria').html(html);
     });
 };
 
@@ -921,9 +921,9 @@ function editBacteria(id) {
             console.log(data.animal);
             let html ="<input class='form-control' name='addHost"+hostCount+"' value='"+ element.animalName +"' type = 'text'/><br>";
             let buttonName = "buttonEdit" + hostCount;
-            let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove"><i class="now-ui-icons ui-1_simple-remove"></i></button>';
-        
-            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-10'> "+ html + "</div><div class='col-sm-2'>" + button + "</div>";
+            let buttonAddName = "buttonAdd" + hostCount;
+            let button = '<button name="' + buttonName + '"type="button" onclick ="deleteHostField(' + hostCount +","+element.animalID+ "," + element.bacteriumID+')" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">x</button>';
+            let newDiv = "<div class='hostDiv deleteHost" + hostCount + " row'>" + "<div class='col-sm-12'> "+ html + "</div>";
         
             $("#modalHost").append(newDiv); 
             hostCount++;
@@ -1255,5 +1255,21 @@ function toSelectBacteria3() {
         $('#toModalSelectB').html(html);
         $('#toModalBacteria').html(html);
     });
+}
+
+function toSelectAnimal(){
+    $.get('/toSelectAnimal',(response)=>{
+        if(response.success == false){
+            $.notify("Error getting data from the server!",{type:"danger"});
+            return;
+        }
+        let data = response.data;
+        let html = "<option value=''>...</option>";
+        data.forEach((element, index) => {
+            html += "<option value=" + element.animalID + ">" + element.animalName + "</option>";
+        });
+        $('#toModalBacteria').html(html);
+    });
+
 }
 
