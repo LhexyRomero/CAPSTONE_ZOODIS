@@ -90,11 +90,22 @@ exports.register = function (req, res, next) {
     let code = req.body.code;
     let type = 1;
     let journal = 10;
+    let exists = 'yes';
 
     let data = [fname,lname,email,username,password,code,type,journal];
 
-    data.forEach((e) => {
-        if (e == null) return res.redirect('/register?error=1');
+   /*  data.forEach((e) => {
+        console.log(data);  
+        if (e.fname == '' || e.lname == '' || e.email == '' || e.username == '' || e.password == '' || e.code == '') {
+            return res.redirect('/register?error=1');
+            console.log("you bitch");
+        }
+    }); */
+
+    data.forEach((e)=>{
+        if(e = null){
+            return res.redirect('/register?error=1');
+        }
     });
 
     let checkCode = (cb) => {
@@ -112,9 +123,9 @@ exports.register = function (req, res, next) {
     }
 
     let insertStaff = () => {
-        let sql = "UPDATE staff_t SET firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? ,journalID = ? WHERE code = ?";
+        let sql = "UPDATE staff_t SET code=?, firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? ,journalID = ? WHERE code = ?";
 
-        db.get().query(sql, [fname, lname, username, email, password, type, journal, code], function (err) {
+        db.get().query(sql, [exists,fname, lname, username, email, password, type, journal, code], function (err) {
             if (err) return next(err);
             res.status(200).redirect('/register?error=2');
         });
@@ -122,14 +133,13 @@ exports.register = function (req, res, next) {
 
     checkCode((error, result) => {
         if (error) return next(error);
-
         if (result) {
             insertStaff();
         }
         else {
             res.status(200).redirect('/register?error=3');
         }
-    })
+    }) 
 }
 
 exports.researcherRegister = (req, res, next) => {
