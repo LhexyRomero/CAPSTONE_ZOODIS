@@ -120,9 +120,9 @@
         if(regError==1){
             script = "<script type='text/javascript'>alert('All fields must be filled!')</script>";
         }else if(regError==2){
-            script = "<script type='text/javascript'>alert('Register Successful')</script>";
+            script = "<script type='text/javascript'>alert('Register Successful'); window.location.href='/login'; </script>";
         }else if(regError==3){
-            script = "<script type='text/javascript'>alert('Invalid Code!')</script>";
+            script = "<script type='text/javascript'>alert('All fields must be filled! or Invalid Code!');</script>";
         }else{
             script;
         }
