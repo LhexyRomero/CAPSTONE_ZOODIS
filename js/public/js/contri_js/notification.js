@@ -2,7 +2,6 @@ $(function () {
     notiCard();
     selectDisease();
     notificationJournal();
-    $.notify("Dont forget to Submit Journal!",{type:"info"});
 });
 
 function notiCard() {
@@ -96,6 +95,7 @@ function updateNotiCard(id) {
             $.notify("Error getting data from the server!", { type: "danger" });
             return;
         }
+        window.location.href = '/contri_Notification';
         notiCard();
     });
 }

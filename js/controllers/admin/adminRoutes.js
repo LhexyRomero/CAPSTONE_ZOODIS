@@ -72,6 +72,7 @@ router.get('/message',auth.authenticate,(req,res,next)=>{
     res.render('admin/message');
 });
 
+router.get('/messageNumber',message.messageNumber);
 router.get('/messageDetails',auth.authenticate, message.messageDetail);
 router.get('/messageList',message.messageList);
 router.post('/send',message.send);
@@ -148,7 +149,7 @@ router.get('/toSelectBacteria3',bacteria.toSelectBacteria3);
 router.get('/toSelectJournalBacteria',bacteria.toSelectJournalBacteria);
 router.get('/viewBacteria/:id',bacteria.viewBacteria);
 router.get('/editBacteria/:id',bacteria.viewBacteria);
-
+router.get('/toSelectAnimal',bacteria.toSelectAnimal);
 
 router.get('/disease', auth.authenticate,(req,res,next)=>{
     res.render('admin/disease');
@@ -183,6 +184,7 @@ router.get('/request',auth.authenticate,(req,res,next) =>{
     res.render('admin/request');
 });
 
+router.get('/requestNumber',request.requestNumber);
 router.get('/requestList',request.requestList);
 router.get('/requestViewAnimalTaxo/:id',request.viewAnimalTaxo);
 router.get('/requestViewBacteriaTaxo/:id',request.viewBacteriaTaxo);

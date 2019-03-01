@@ -9,7 +9,7 @@ exports.notificationCard = (req,res,next) =>{
 
     db.get().query(sql,[status,state],(err,result)=>{
         if(err) return next(err);
-        res.status(200).send({success:true, detail:"", data:result});
+        res.status(200).send({success:true, detail:"", data:result, noti:result.length});
     });
 }
 

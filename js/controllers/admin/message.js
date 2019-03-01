@@ -5,33 +5,39 @@ exports.messageDetail = (req, res, next) => {
     let id = req.query.mid;
     let jID = req.query.ujid;
     let member = req.query.staffid;
+    let state = 2;
 
     if(id){
         let sql ="SELECT * FROM usermessage_t WHERE usermessageID = ?";
+        let sql1 ="UPDATE usermessage_t SET mState = ? WHERE usermessageID = ?";
         db.get().query(sql,[id],(err,result)=>{
             if(err) return next(err);
-
-            res.locals.email= result[0].mEmail;
-            res.locals.subject= result[0].mSubject;
-            res.locals.message= result[0].mMessage;
-            res.locals.date= Date.parse(result[0].mDateTime).toString('MMMM dd, yyyy hh:mm tt'); 
-            res.render('admin/messageDetails');
+            db.get().query(sql1,[state,id],(err1,result1)=>{
+                if(err1) return next(err1);
+                res.locals.email= result[0].mEmail;
+                res.locals.subject= result[0].mSubject;
+                res.locals.message= result[0].mMessage;
+                res.locals.date= Date.parse(result[0].mDateTime).toString('MMMM dd, yyyy hh:mm tt'); 
+                res.render('admin/messageDetails');
+            });
         });
     }
     else if(jID) {
         let sql = "SELECT * FROM staff_t S, userjournal_t U WHERE S.staffID = U.staffID AND userjournalID = ? AND U.staffID = ?";
+        let sql1 ="UPDATE userjournal_t SET jState = ? WHERE userjournalID = ?";
         db.get().query(sql, [jID, member], (err, result) => {
             if (err) return next(err);
-
-            res.locals.title =result[0].jTitle;
-            res.locals.file = result[0].jFile;
-            res.locals.email = result[0].email;
-            res.locals.subject = result[0].jSubject;
-            res.locals.message = result[0].jMessage;
-            res.locals.date = Date.parse(result[0].jDateTime).toString('MMMM dd, yyyy hh:mm tt');
-            res.render('admin/messageDetails');
+            db.get().query(sql1, [state,jID],(err1,result1)=>{
+                if(err1) return next(err1);
+                res.locals.title =result[0].jTitle;
+                res.locals.file = result[0].jFile;
+                res.locals.email = result[0].email;
+                res.locals.subject = result[0].jSubject;
+                res.locals.message = result[0].jMessage;
+                res.locals.date = Date.parse(result[0].jDateTime).toString('MMMM dd, yyyy hh:mm tt');
+                res.render('admin/messageDetails');
+            });
         });
-
     }
     else{
         res.redirect('/message');
@@ -109,4 +115,30 @@ exports.adminSend = (req,res,next)=>{
         }
     );
 }
+
+
+exports.readMessage = (req,res,next)=>{
+    console.log("LEKI");
+    let id = req.body.id;
+    console.log(id);
+}
+
+exports.messageNumber = (req,res,next)=>{
+    let state = 1;
+    let sql = "SELECT * from usermessage_t WHERE mState =?";
+    let sql1 = "SELECT * from userjournal_t WHERE jState =?";
+
+    db.get().query(sql,[state],(err,result)=>{
+        if(err) return next(err);
+        db.get().query(sql1,[state],(err1,result1)=>{
+            if(err1) return next(err1);
+
+            let total  = result.length + result1.length;
+            console.log(total);
+            
+            res.status(200).send({success: true, data:total});
+        });
+    });
+}
+
 

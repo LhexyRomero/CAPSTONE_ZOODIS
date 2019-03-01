@@ -169,6 +169,7 @@ function approvedAnimalTaxo(eAdd) {
                             allowOutsideClick: false
                         });
                         $("#modalAnimalTaxo").modal('hide');
+                        window.location.href = '/request';
                         requestList();
                     }
                 });
@@ -267,6 +268,7 @@ function sendReasonAnimalTaxo() {
                 });
                 $("#modalAnimalTaxo").modal('hide');
                 $("#reasonsAnimalTaxo").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -370,6 +372,7 @@ function approvedBacteriaTaxo(eAdd) {
                             allowOutsideClick: false
                         });
                         $("#modalBacteriaTaxo").modal('hide');
+                        window.location.href = '/request';
                         requestList();
                     }
                 });
@@ -469,6 +472,7 @@ function sendReasonBacteriaTaxo() {
                 });
                 $("#modalBacteriaTaxo").modal('hide');
                 $("#reasonsBacteriaTaxo").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -594,6 +598,7 @@ function approvedDisease(eAdd) {
                                 allowOutsideClick: false
                             });
                             $('#modalDisease').modal("hide");
+                            window.location.href = '/request';
                             requestList();
                         } else {
                             $.notify("Failed: " + res.detail, { type: "danger" });
@@ -700,6 +705,7 @@ function sendReasonDisease() {
                 });
                 $("#modalDisease").modal('hide');
                 $("#reasonsDisease").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -802,6 +808,7 @@ function approvedToxin(eAdd) {
                             allowOutsideClick: false
                         });
                         $("#modalToxins").modal('hide');
+                        window.location.href = '/request';
                         requestList();
                     }
                 });
@@ -902,6 +909,7 @@ function sendReasonToxin() {
                 });
                 $("#modalToxins").modal('hide');
                 $("#reasonsToxin").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -999,6 +1007,7 @@ function approvedPrevention(eAdd) {
                                 allowOutsideClick: false
                             });
                             $('#modalPreventions').modal("hide");
+                            window.location.href = '/request';
                             requestList();
                         } else {
                             $.notify("Failed: " + res.detail, { type: "danger" });
@@ -1105,6 +1114,7 @@ function sendReasonPrevention() {
                 });
                 $("#modalPreventions").modal('hide');
                 $("#reasonsPrevention").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -1235,6 +1245,7 @@ function approvedAnimal(eAdd) {
                             allowOutsideClick: false
                         });
                         $("#modalAnimal").modal("hide");
+                        window.location.href = '/request';
                         requestList();
                     }
                 }
@@ -1335,6 +1346,7 @@ function sendReasonAnimal() {
                 });
                 $("#modalAnimal").modal('hide');
                 $("#reasonsAnimal").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });
@@ -1550,6 +1562,7 @@ function approvedBacteria(eAdd) {
                             allowOutsideClick: false
                         });
                         $("#modalBacteria").modal("hide");
+                        window.location.href = '/request';
                         requestList();
                     }
                 });
@@ -1651,6 +1664,7 @@ function sendReasonBacteria() {
                 });
                 $("#modalBacteria").modal('hide');
                 $("#reasonsBacteria").modal('hide');
+                window.location.href = '/request';
                 requestList();
             }
         });

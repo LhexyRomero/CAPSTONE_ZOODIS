@@ -401,8 +401,8 @@ exports.updateBacteria = (req,res,next) => {
 
     let id = req.params.id;
     let data = req.body;
-
     console.log(data);
+
     let speciesName = data.modalSpeciesName;
     let genusName = data.modalGenusName;
     let scientificName = genusName+" "+speciesName;
@@ -411,6 +411,8 @@ exports.updateBacteria = (req,res,next) => {
     let isolation = data.modalIsolation;
     let identification = data.modalIdentification;
 
+
+    let sql0 = "SELECT "
     let sql = "UPDATE bacteria_t SET  bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =? WHERE bacteriumID = ?";
     db.get().query(sql,[tissue,sample,isolation,identification,id],(err,result) =>{
         if(err) return next(err);
@@ -539,4 +541,13 @@ exports.addCarrier = (req,res,next) => {
         }
     });
     console.log(toxinID, bacteriumID);
+}
+
+exports.toSelectAnimal = (req,res,next)=>{
+    let sql = "SELECT animalName, animalID FROM animal_t";
+    db.get().query(sql,(err, result)=>{
+        if(err) return next(err);
+
+        res.status(200).send({success:true, data:result});
+    });
 }
