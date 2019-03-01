@@ -120,8 +120,9 @@ exports.editDisease = (req, res, next) => {
 }
 
 exports.toSelectJournalDisease = (req,res,next) =>{
-    let sql = "SELECT * FROM journal_t";
-    db.get().query(sql,(err,result)=>{
+    let name = "none";
+    let sql = "SELECT * FROM journal_t WHERE name <> ? ";
+    db.get().query(sql,[name],(err,result)=>{
 
         res.status(200).send({success: true, detail:"", data:result});
     });

@@ -12,7 +12,7 @@ $(function () {
 });
 
 let messageNext = 0;
-let messageLimit = 3;
+let messageLimit = 100;
 
 function viewMessage(e, id, member) {
     let url = "/viewMessage/" + id + "/" + member;
@@ -42,7 +42,7 @@ function viewMessage(e, id, member) {
 }
 
 function messageList(limit, offset) {
-    $.get("/messageList?offset=" + offset + "&limit=" + limit, (response) => {
+    $.get("/messageList", (response) => {
         if(response.success ==false){
             $.notify("Error getting data from the server!",{type:"danger"});
             return;
@@ -69,7 +69,6 @@ function messageList(limit, offset) {
 
             }
             else {
-                
                 let row = "<tr class='unread hov mail' data-href='messageDetails?ujid=" + element.userjournalID +"&staffid="+ element.staffID +"'>";
                 row += "<td class='cb-size'><br><div class='form-check'><label class'form-check-label'><input class='form-check-input' type='checkbox'><span class='form-check-sign'></span></label></div></td>"
                 row += "<td class='b-size'><span class='badge badge-danger'>journal</span></td>";
@@ -150,6 +149,7 @@ function adminSend(e) {
                 return;
             }
             $.notify(response.detail,{type:"success"});
+            $(".compose").modal("hide");
             $(".stats").hide();
         });
     }
@@ -185,6 +185,7 @@ function send() {
             return;
         }
         $(".stats").hide();
+        $(".compose").modal("hide");
         $.notify(response.detail,{type:"success"});
     });
 }

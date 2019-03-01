@@ -110,8 +110,9 @@ exports.addAnimal = (req, res, next) => {
 
 exports.toSelectJournal = (req, res, next) => {
     let status = "Incomplete";
-    let sql = "SELECT journalID, code FROM journal_t WHERE status = ?";
-    db.get().query(sql,[status],(err, result) => {
+    let name = "none";
+    let sql = "SELECT journalID, code, name FROM journal_t WHERE status = ? AND name <> ?";
+    db.get().query(sql,[status,name],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result });

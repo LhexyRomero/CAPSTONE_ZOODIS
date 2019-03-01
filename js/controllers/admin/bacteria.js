@@ -116,16 +116,16 @@ exports.addToxin = (req, res, next) => {
     let status = "approved";
 
     let checkToxin = function (cb) {
-        let sql5 = "SELECT bacteriumID FROM bacteriatoxin_t WHERE toxinID = (SELECT toxinID FROM `toxin_t` WHERE name = ?)"; //undecided
+        let sql5 = "SELECT toxinID, name FROM toxin_t WHERE name = ?"; 
         db.get().query(sql5, [strToxinName], (err5, result5) => {
             if (err5) return cb(err5);
 
             if (result5.length == 0) {
-                return cb(null, true);
+                return cb(null, true, null);
             }
 
             else {
-                return cb(null, false);
+                return cb(null, false, result5);
             }
         });
     }
@@ -142,15 +142,14 @@ exports.addToxin = (req, res, next) => {
         });
     }
 
-    checkToxin((error, result) => {
+    checkToxin((error, result, data) => {
         if (error) return next(error);
 
         if (result) {
             insertToxin();
         }
-
         else {
-            res.status(200).send({ success: false, detail: "Data Already Exists" })
+            res.status(200).send({success: false, detail: "Toxin already exists assign Bacteria!", data:data});
         }
     });
 
@@ -174,7 +173,6 @@ exports.editToxin = (req, res, next) => {
         if (err8) return next(err8);
 
         let dataDisplay = {
-
             bacteriumID : result8[0].bacteriumID,
             name: result8[0].name,
             structureFeature: result8[0].structureFeature,
@@ -201,7 +199,6 @@ exports.updateToxin = (req, res, next) => {
         if (err9) return next(err9);
         db.get().query(sql10,[bacteriumID,id,id],(err,result)=>{
             if(err) return next(err);
-
             res.status(200).send({ success: true, detail: "Successfully Updated!" });
         });
     });
@@ -433,11 +430,13 @@ exports.toSelectBacteria2 = (req,res,next) =>{
 }
 
 exports.toSelectJournalBacteria = (req, res, next) => {
-    let sql = "SELECT journalID, code FROM journal_t";
-    db.get().query(sql, (err, result) => {
+    let name = "none";
+    let sql = "SELECT journalID, code, name FROM journal_t WHERE name <> ?";
+    db.get().query(sql,[name],(err, result) => {
         if (err) return next(err);
 
-        res.status(200).send({ success: true, detail: "", data: result });
+        res.status(200).send({ success: true, detail: "", data: result});
+
     });
 }
 
@@ -501,4 +500,43 @@ exports.deleteHostField = (req,res,next) =>{
 
         res.status(200).send({success:true, detail:"Removed Successfully!"});
     });
+}
+
+exports.addCarrier = (req,res,next) => {
+    let toxinID = req.body.forToxin;
+    let bacteriumID = req.body.toModal;
+
+    let insertCarrier = ()=>{
+        let sql = "INSERT INTO bacteriatoxin_t (toxinID, bacteriumID) VALUES (?,?)";
+        db.get().query(sql,[toxinID,bacteriumID],(err,result)=>{
+            if(err) return next(err);
+
+            res.status(200).send({success:true, dsetail:"Successfully Added!", data:result});
+        });
+    }
+
+    let checkHost = (cb)=>{
+        let sql = "SELECT * FROM bacteriatoxin_t WHERE toxinID =? AND bacteriumID =?";
+        db.get().query(sql,[toxinID,bacteriumID],(err,result)=>{
+            if(err) return cb(err,result);
+
+                if(result.length == 0){
+                    return cb(null,true);
+                }
+                else{
+                    return cb(null,false);
+                }
+        });
+    }
+
+    checkHost((error,result)=>{
+        if(error) return next(error);
+        if(result){
+            insertCarrier();
+        }
+        else{
+            res.status(200).send({success:false, detail:"Data Already Exists!", data:result});
+        }
+    });
+    console.log(toxinID, bacteriumID);
 }
