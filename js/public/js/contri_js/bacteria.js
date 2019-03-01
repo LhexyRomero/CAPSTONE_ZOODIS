@@ -313,7 +313,20 @@ function addToxin(eAdd) {
             if (isConfirmed) {
                 $.post("/contri_toxin", dataInsert, function (response) {
                     isClick = 0;
+                    console.log(response);
                     if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: response.detail,
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                        clearToxin();
+                    }
+
+                    else if(response.error == 1 ){
                         $.notify(response.detail,{type:"warning"});
                         $("#addCarrier").modal({
                             backdrop: 'static',

@@ -142,7 +142,7 @@ exports.addToxin = (req, res, next) => {
         }
 
         else {
-            res.status(200).send({ success: false, detail: "Toxin already exists assign Bacteria!", data:data});
+            res.status(200).send({detail: "Toxin already exists assign Bacteria!", data:data, error: 1});
         }
     });
 
