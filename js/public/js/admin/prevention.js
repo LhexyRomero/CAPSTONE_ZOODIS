@@ -51,6 +51,7 @@ function toSelectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
+        $('.select-disease').chosen({});
     });
 }
 
@@ -166,7 +167,7 @@ function preventionList() {
         data.forEach((element,index) => {
             let row = "<tr>";
             row += "<td>" +element.diseaseName+"</td>";
-            row += "<td><a data-toggle='modal' href='#exampleModalCenter2'><button onclick = editPrevention(" + element.preventionID + ") type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td><a data-toggle='modal' href='#exampleModalCenter2'><button onclick = editPrevention(" + element.preventionID + ") type='button' rel='tooltip' title='Edit' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;<a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-success btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             row += "</tr>";
             html += row;
         });

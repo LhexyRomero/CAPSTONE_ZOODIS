@@ -42,25 +42,25 @@ function requestList() {
             row += "<td>" + element.category + "</td>";
             row += "<td>" + element.addedData + "</td>";
             if (element.category === "Bacteria") {
-                row += "<td><a data-toggle='modal' href='#modalBacteria'><button onclick ='viewBacteria(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalBacteria'><button onclick ='viewBacteria(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Animal") {
-                row += "<td><a data-toggle='modal' href='#modalAnimal'><button onclick ='viewAnimal(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalAnimal'><button onclick ='viewAnimal(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Toxin") {
-                row += "<td><a data-toggle='modal' href='#modalToxins'><button onclick ='viewToxin(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalToxins'><button onclick ='viewToxin(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Disease") {
-                row += "<td><a data-toggle='modal' href='#modalDisease'><button onclick ='viewDisease(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalDisease'><button onclick ='viewDisease(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Prevention") {
-                row += "<td><a data-toggle='modal' href='#modalPreventions'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalPreventions'><button onclick ='viewPrevention(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else if (element.category === "Animal Taxonomy") {
-                row += "<td><a data-toggle='modal' href='#modalAnimalTaxo'><button onclick ='viewAnimalTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalAnimalTaxo'><button onclick ='viewAnimalTaxo(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
             else {
-                row += "<td><a data-toggle='modal' href='#modalBacteriaTaxo'><button onclick ='viewBacteriaTaxo(" + element.addedID + ")' type='button' rel='tooltip' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
+                row += "<td><a data-toggle='modal' href='#modalBacteriaTaxo'><button onclick ='viewBacteriaTaxo(" + element.addedID + ")' type='button' rel='tooltip' title='View Details' class='btn btn-round btn-info btn-icon btn-sm'><i class='now-ui-icons ui-2_settings-90'></i></button></a>&nbsp;</td>";
             }
 
             row += "</tr>";
@@ -489,6 +489,8 @@ function selectBacteria() {
         });
         $('#toSelectBacteria1').html(html);
         $('#toSelectBacteria2').html(html);
+        $('.select-bacteria1').chosen({});
+        $('.select-bacteria2').chosen({});
     });
 }
 
@@ -919,6 +921,7 @@ function selectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
+        $('.select-disease').chosen({});
     });
 }
 
@@ -1451,6 +1454,7 @@ function selectAnimal() {
             html += "<option value=" + element.animalID + ">" + element.animalScientificName + "</option>";
         });
         $('#toSelectAnimal').html(html);
+        $('.select-animal').chosen({});
     });
 }
 
