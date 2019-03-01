@@ -4,6 +4,7 @@ $(function () {
     journalAssignee();
     toSelectStaffName();
     toSelectJournal();
+    $(".stats").hide();
 });
 
 function addJournal(eAdd) {
@@ -56,7 +57,8 @@ function addJournal(eAdd) {
         if (!isConfirmed) {
             return;
         }
-
+        
+        $(".stats").show();
         $.ajax({
             type: "POST",
             url: "/addJournal",
@@ -66,6 +68,7 @@ function addJournal(eAdd) {
             success: function (response) {
                 isClicked = 0;
                 if (response.success == false) {
+                    $(".stats").hide();
                     swal({
                         title: "Error!",
                         text: response.detail,
@@ -74,6 +77,8 @@ function addJournal(eAdd) {
                         confirmButtonText: "Okay",
                         allowOutsideClick: false
                     });
+                    clearJournal();
+                    journalList();
                 }
                 else {
                     swal({
@@ -274,7 +279,6 @@ function toSelectStaffName() {
         $('#toSelectStaffName').html(html);
     });
 }
-
 
 function toSelectJournal() {
     $.get("/toSelectJournal1", (response) => {

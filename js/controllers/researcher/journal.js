@@ -22,18 +22,14 @@ exports.uploadJournal = (req, res, next) => {
     let code = "RJ#" + Math.floor(Math.random() * 255);
 
     let checkJournal = function (cb) {
-        console.log("PLS HAHAHHAHA");
         checkJournalDate(file, function(err, entry){
-            console.log(file);
             if(err) return next(err);
             doi = entry.doi;
             publishedDate = entry.published;
 
-            console.log("UPPER", doi, publishedDate);
             if(!doi || !publishedDate) return cb(null, false, "No DOI/Published Date Found on file");
 
             new Promise((resolve, reject)=>{
-                console.log("FIRST RESOLVE", resolve);
                 let sql = "SELECT * FROM journal_t WHERE doi = ?";
                 db.get().query(sql, [doi], (err, result) => {
                     if (err) return reject(err);
@@ -46,7 +42,6 @@ exports.uploadJournal = (req, res, next) => {
                     }
                 });
             }).then(passed=>{
-                console.log("AFTER 1st RESOLVD", passed);
                 return new Promise((resolve, reject)=>{
                     if(passed){
                         console.log(passed,"INSIDE IF");
