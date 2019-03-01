@@ -245,6 +245,7 @@ function selectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
+        $('.select-disease').chosen({});
     });
 }
 

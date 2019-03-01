@@ -208,7 +208,7 @@ function diseaseList() {
         data.forEach((element, index) => {
             let row = "<tr>";
             row += "<td>" + element.diseaseName + "</td>";
-            row += "<td>&nbsp;<a data-toggle='modal' href='#viewModal'><button onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td>&nbsp;<a data-toggle='modal' href='#viewModal'><button title='View Details' onclick = 'viewDisease(" + element.diseaseID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if (element.status === "approved") {
                 row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
             }
