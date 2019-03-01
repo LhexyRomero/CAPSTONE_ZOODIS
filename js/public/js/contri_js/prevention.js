@@ -151,6 +151,7 @@ function toSelectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
+        $('.select-disease').chosen({});
     });
 }
 
@@ -212,7 +213,7 @@ function preventionList() {
         data.forEach((element,index) => {
             let row = "<tr>";
             row += "<td>" +element.diseaseName+"</td>";
-            row += "<td><a data-toggle='modal' href='#viewModal2'><button onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
+            row += "<td><a data-toggle='modal' href='#viewModal2'><button title='View Details' onclick = 'viewPrevention(" + element.preventionID + ")' type='button' rel='tooltip' class='btn btn-round btn-primary btn-icon btn-sm'><i class='now-ui-icons travel_info'></i></button></a></td>";
             if (element.status === "approved") {
                 row += "<td><span class='badge badge-success'>"+element.status+"</span></td>";
             }
