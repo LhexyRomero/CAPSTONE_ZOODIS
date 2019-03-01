@@ -51,7 +51,6 @@ function toSelectDisease() {
             html += "<option value=" + element.diseaseID + ">" + element.diseaseName + "</option>";
         });
         $('#toSelectDisease').html(html);
-        $('.select-disease').chosen({});
     });
 }
 
@@ -142,6 +141,7 @@ function addPrevention(eAdd) {
 function clearPrevention() {
 
     $('select[name=selectDisease]').val("");
+    $('select[name=selectDisease]').val('').trigger('chosen:updated');
     $('input[name=strPrevention]').val("");
     $('input[name=prevention0]').val("");
     $('input[name=prevention1]').val("");

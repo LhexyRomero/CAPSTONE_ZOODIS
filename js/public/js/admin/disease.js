@@ -126,6 +126,7 @@ function addDisease(eAdd) {
 function clearDisease() {
     
     $('select[name=selectJournal]').val("");
+    $('select[name=selectJournal]').val('').trigger('chosen:updated');
     $('input[name=bodySite]').val("");
     $('input[name=strDiseaseName]').val("");
     $('textarea[name=strDiseaseDesc]').val("");
@@ -319,7 +320,6 @@ function toSelectJournalDisease2() {
             html += "<option value=" + element.journalID + ">" + element.code + " - " + element.name + "</option>";
         });
         $('#toSelectJournal').html(html);
-        $('.select-journal').chosen({});
     });
 
 }

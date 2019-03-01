@@ -82,6 +82,7 @@ exports.authRedirect = function (req, res, next) {
 }
 
 exports.register = function (req, res, next) {
+
     let fname = req.body.fname;
     let lname = req.body.lname;
     let email = req.body.email;

@@ -432,9 +432,10 @@ exports.toSelectBacteria2 = (req,res,next) =>{
 }
 
 exports.toSelectJournalBacteria = (req, res, next) => {
+    let status = "Incomplete";
     let name = "none";
-    let sql = "SELECT journalID, code, name FROM journal_t WHERE name <> ?";
-    db.get().query(sql,[name],(err, result) => {
+    let sql = "SELECT journalID, code, name FROM journal_t WHERE status = ? AND name <> ?";
+    db.get().query(sql,[status,name],(err, result) => {
         if (err) return next(err);
 
         res.status(200).send({ success: true, detail: "", data: result});
