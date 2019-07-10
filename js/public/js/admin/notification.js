@@ -10,6 +10,8 @@ function notificationCard() {
             return;
         }
 
+        console.log('notificationCard', response.data);
+
         let data = response.data;
         let colPerRow = 1;
         let colCount = 1;

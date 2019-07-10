@@ -31,6 +31,18 @@ function notiCard() {
                 html += temphtml;
             }
 
+            if(element.status == 'pending'){
+                let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
+                temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.requestID + ")'><span>&times;</span></button>"
+                    + "<h5 class='text-primary'><strong>" + element.category + "</strong></h5>"
+                    + "<p class='pLabel'><strong>" + element.addedData + "</strong></p>"
+                    + "<span class='badge badge-warning'>" + element.status + "</span><br>"
+                    + "<label>" + Date.parse(element.dateTime).toString('MMM dd, yyyy hh:mm tt') + "</label><br>"
+                    + "<label class='text-danger'>" + element.message + "</label><p></p>"
+                temphtml += "</div>";
+                html += temphtml;
+            }
+
             else if(element.status == 'rejected'){
                 let temphtml = "<div class='offset-md-1 col-md-" + parseInt(10 / colPerRow) + " div" + index + " card'><br>";
                 temphtml += "<button type='button' class='close' onclick='updateNotiCard(" + element.requestID + ")'><span>&times;</span></button>"

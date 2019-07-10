@@ -4,10 +4,13 @@ const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         let file_extension = file.mimetype.split('/')[1];
         if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png"){
-            cb(null, /* __dirname +  */"js/public/image_upload");
+            cb(null,  __dirname +  "/public/image_upload");
+        }
+        else if(file_extension == "xlxs" || file_extension == "xlx" || file_extension == "xls"){
+            cb(null,  __dirname +  "/public/data_upload");
         }
         else {
-            cb(null,/*  __dirname +  */"js/public/others");
+            cb(null,  __dirname +  "/public/others");
         }
     },
     filename: (req, file, cb)=>{
