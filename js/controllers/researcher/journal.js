@@ -1,197 +1,271 @@
 const db = require('../../connection');
 const pdfReader = require('pdfreader').PdfReader;
+var XLSX = require('xlsx');
 
-exports.uploadJournal = (req, res, next) => {
+exports.uploadJournal = async (req, res, next) => {
     
     let file = req.file.path;
-
+    
     if (!req.file) {
         res.status(200).send({ success: false, detail: "No Journal Provided!" });
         return;
     }
 
-    let data = req.body;
-    let name = data.name;
-    let subject = data.subject;
-    let message = data.message;
-    let doi;
-    let publishedDate;
-    let status = "Incomplete";
-    let state = "notify";
-    let jState  = 1;
-    let code = "RJ#" + Math.floor(Math.random() * 255);
+    let name = req.body.name;
+    let subject = req.body.subject;
+    let message = req.body.message;
+    let body = req.body;
+    let journal_file_path = req.file.path;
 
-    let checkJournal = function (cb) {
-        checkJournalDate(file, function(err, entry){
-            if(err) return next(err);
-            doi = entry.doi;
-            publishedDate = entry.published;
-
-            if(!doi || !publishedDate) return cb(null, false, "No DOI/Published Date Found on file");
-
-            new Promise((resolve, reject)=>{
-                let sql = "SELECT * FROM journal_t WHERE doi = ?";
-                db.get().query(sql, [doi], (err, result) => {
-                    if (err) return reject(err);
-        
-                    if (result.length == 0) {
-                        return resolve(true);
-                    }
-                    else {
-                        return resolve(false);
-                    }
-                });
-            }).then(passed=>{
-                return new Promise((resolve, reject)=>{
-                    if(passed){
-                        console.log(passed,"INSIDE IF");
-                        let today = Date.parse('today');
     
-                        for(let x=0; x<10; x++){
-                            let yearMatch = (parseInt(today.toString('yyyy')) - x) + "";
-                            if(publishedDate.match(yearMatch)){
-                                resolve(yearMatch);
-                                break;
-                            };
-                            if(x==9){
-                                resolve(false);
-                            }
-                        }                    
-                    }
-                    else {
-                        resolve(false);
-                    }
-                });
-            }).then(passed=>{
-                if(passed){
-                    console.log("IM HERE PASSED FOR CHECK JOURNAL");
-                    cb(null,passed);
+    let full_name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
+    console.log('name', name);
+    console.log('body', body);
+    console.log('journal_file_path', journal_file_path);
+    console.log('req.session.staffData', req.session.staffData);
+
+    var workbook = XLSX.readFile(journal_file_path);
+    var sheet_name_list = workbook.SheetNames;
+    var worksheet = workbook.Sheets['DASHBOARD'];
+    var headers_detail = {};
+    var header_name = [];
+    var row_data = [];
+
+    var h_bjournal_number = worksheet['B2'].v;
+    var h_doi_number = worksheet['B3'].v
+    var h_id_method = worksheet['B4'].v
+    var h_animal_common_name = worksheet['B5'].v
+    var h_animal_scientific_name = worksheet['B6'].v
+    var h_animal_specimen = worksheet['B7'].v
+    var h_country = worksheet['B8'].v
+    console.log('Basilio Journal Number:', h_bjournal_number);
+    console.log('DOI Number:', h_doi_number);
+    console.log('ID Method:', h_id_method);
+    console.log('common name:', h_animal_common_name);
+    console.log('scientific name:', h_animal_scientific_name);
+    console.log('animal specimen:', h_animal_specimen);
+    console.log('country:', h_country);
+
+
+    let checkAnimal = function (data) {
+        return new Promise(function (resolve, reject) {
+            let sql = "SELECT animalID FROM animal_t  WHERE animalScientificName = ?";
+            db.get().query(sql, [data.animal_scientific_name], (err, results) => {
+                console.log('checkAnimal err', err);
+                if (err) return reject(err);
+                if (results.length == 0) {
+                    return resolve(false);
+                } else {
+                    return resolve(results[0].animalID);
                 }
-                else {
-                    cb(null,null); 
-                    console.log("IM HERE");
-                }
-            }).catch(reason=>{
-                console.log("IM HERE REASON STACK FOR CHECK JOURNAL");
-                throw new Error(reason.stack);
-            }).catch(reason=>{
-                
-                console.log("IM HERE REASON FOR CHECK JOURNAL");
-                cb(reason);
             });
         });
     }
 
-    let insertJournal = function() {
-
-        let sql = "INSERT INTO userjournal_t (jSubject,jMessage,jTitle,jDoi,jFile,staffID,jState,jPublished,jDateTime) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-        let sql2 = "INSERT INTO journal_t (code,name,doi,status,file,state,ownedBy) VALUES (?,?,?,?,?,?,?)";
-        db.get().query(sql,[subject,message,name,doi,file,req.session.staffID,jState,publishedDate],(err,result)=>{
-            if(err) return next(err);
-            db.get().query(sql2,[code,name,doi,status,file,state,req.session.staffID],(err2,result2)=>{
-                if(err2) return next(err2);
-
-                res.status(200).send({success: true, detail:"Successfully Submitted!"});
+    let insertAnimal = function (req, data) {
+        return new Promise(function (resolve, reject) {
+            let sql = "INSERT INTO animal_t (animalScientificName, animalName, journalID, staffID, dateTime, animalTaxoID, image, status) VALUES (?, ?, ?, ?, NOW(), 1, ?, 'pending')";
+            db.get().query(sql, [data.animal_scientific_name, data.animal_common_name, data.journal_id, req.session.staffID, 'N/A'], (err, result) => {
+                console.log('insertAnimal err', err);
+                if (err) return reject(err);
+                return resolve(result.insertId)
             });
         });
     }
 
-    checkJournal((error,result, detail) =>{
-        console.log("THE FINAL RESULT",result);
-        if(error) return next(error);
-
-        if(result){
-            publishedDate = result;
-            insertJournal();
-        }
-
-        else {
-            res.status(200).send({success: false, detail: detail || "Journal already Exists!"});
-        }
-    });
-}
-
-function checkJournalDate(path, cb){
-    let error = 0;
-    let done = 0; 
-    let page1 = false; 
-    let rows = {};
-    let pages = [];
-
-    let doi;
-    let published;
-
-    new pdfReader().parseFileItems(path, function(err, item){
-        if(err) return error++;
-        if(!item || item.page){
-            processRows();
-            rows = {};
-        }else if(item.text){
-            (rows[item.y] = rows[item.y] || []).push(item.text);
-        }
-    }); 
-
-    function processRows() {
-        let pageContent = [];
-        new Promise((resolve, reject)=>{
-            let sortedRows = Object.keys(rows) // => array of y-positions (type: float)
-              .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)); // sort float positions
-            sortedRows.forEach((y,i) => {
-                let row = (rows[y] || []).join('');
-                pageContent.push(row);
-                if(i==sortedRows.length-1){
-                    pages.push(pageContent);
-                    resolve(pageContent);
-                }
+    let insertAcBacteria = function (req, data) {
+        return new Promise(function (resolve, reject) {
+            console.log('data', data);
+            let sql = "INSERT INTO ac_bacteria_t (phylum, class, orderr, family, genus, species) VALUES (?, ?, ?, ?, ?, ?)";
+            db.get().query(sql, [data.phylum, data.clazz, data.order, data.family, data.genus, data.species], (err, result) => {
+                console.log('insertAcBacteria err', err);
+                if (err) return reject(err);
+                return resolve(result.insertId)
             });
-        }).then(page=>{
-            if(!page1){
-                page1 = true;
-                return new Promise((resolve, reject)=>{
-                    console.log(page);
-                    let doiRegExp = new RegExp('doi', 'i');
-                    let publishRegExp = new RegExp('published', 'i');
-                    page.forEach((e,i)=>{
-                        let doiIndex = e.search(doiRegExp);
-                        let publishIndex = e.search(publishRegExp);
-        
-                        if(doiIndex != -1 && !doi){
-                            doi = e.substring(doiIndex+3);
-                            doi = doi.replace(':', '');
-                            doi = doi.trim();
+        });
+    }
 
-                            console.log(doi);
-                        }
-        
-                        if(publishIndex != -1 && !published){
-                            published = e.substring(publishIndex+9);
-                            published = published.replace(':', '');
-                            published = published.trim();
+    let insertUserJournal = function (h_doi_number, req, name, message, subject, journal_file_path) {
+        return new Promise(function (resolve, reject) {
+            let sql = "INSERT INTO userjournal_t (jDoi, jState, staffID, jTitle, jPublished, jSubject, jMessage, jFile, jDateTime) VALUES (?, 0, ?, ?, ?, ?, ?, ?, NOW())";
+            db.get().query(sql, [h_doi_number, req.session.staffID, name, 2019, subject, message, 'jFile'], (err, result) => {
+                console.log('insertUserJournal err', err);
+                if (err) return reject(err);
+                return resolve(result.insertId);
+            });
+        });
+    }
 
-                            console.log(published);
-                        }
-        
-                        if(doi && published) done = 1;
-        
-                        if(i==page.length-1){
-                            done = 2;
-                            resolve({
-                                doi: doi,
-                                published: published
-                            });
-                        }
-                    });
-                });
+    let insertRequest = function (req, h_animal_scientific_name, addedId) {
+        return new Promise(function (resolve, reject) {
+            let sql = `INSERT INTO request_t (dateTime, status, category, state, assignID, message,
+                            staffName, 
+                            staffID, 
+                            addedData,
+                            addedId
+                            ) 
+                    VALUES (NOW(), 'pending', 'Animal', 'noticed', 19, '',
+                            ?, 
+                            ?,
+                            ?,
+                            ?)`;
+            db.get().query(sql, [
+                req.session.staffData.firstName + " " + req.session.staffData.lastName, 
+                req.session.staffID,
+                h_animal_scientific_name,
+                addedId
+            ], (err, result) => {
+                console.log('insertRequest err', err);
+                if (err) return reject(err);
+                return resolve(result.insertId)
+            });
+        });
+    }
+    
+
+    var journal_id = await insertUserJournal(h_doi_number, req, name, message, subject, journal_file_path);
+    console.log('journal_id', journal_id);
+
+    var start = 11;
+    var rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
+
+    while (true) {
+        if (!worksheet['A' + start]) {
+            console.log('end at ' + 'A' + start)
+            break;
+        }
+        var journal_number;
+        var doi_number;
+        var journal_title;
+        var bacterial_id_method;
+        var country;
+        var animal_specimen;
+        var animal_common_name;
+        var animal_scientific_name;
+        var bacterial_name;
+        var phylum;
+        var clazz;
+        var order;
+        var family;
+        var genus;
+        var species;
+        for (r in rows) {
+            position = rows[r] + start
+            console.log(position)
+            if (worksheet[position]) {
+                //check also if value is N/A
+                console.log('[' + position + ']' + worksheet[position].v)
+
+                if (rows[r] == 'A') {
+                    journal_number = worksheet[position].v;
+                }
+                if (rows[r] == 'B') {
+                    doi_number = worksheet[position].v;
+                }
+                if (rows[r] == 'C') {
+                    journal_title = worksheet[position].v;
+                }
+                if (rows[r] == 'D') {
+                    bacterial_id_method = worksheet[position].v;
+                }
+                if (rows[r] == 'E') {
+                    country = worksheet[position].v;
+                }
+                if (rows[r] == 'F') {
+                    animal_specimen = worksheet[position].v;
+                }
+                if (rows[r] == 'G') {
+                    animal_common_name = worksheet[position].v;
+                }
+                if (rows[r] == 'H') {
+                    animal_scientific_name = worksheet[position].v;
+                }
+                if (rows[r] == 'I') {
+                    bacterial_name = worksheet[position].v;
+                }
+                if (rows[r] == 'J') {
+                    phylum = worksheet[position].v;
+                }
+                if (rows[r] == 'K') {
+                    clazz = worksheet[position].v;
+                }
+                if (rows[r] == 'L') {
+                    order = worksheet[position].v;
+                }
+                if (rows[r] == 'M') {
+                    family = worksheet[position].v;
+                }
+                if (rows[r] == 'N') {
+                    genus = worksheet[position].v;
+                }
+                if (rows[r] == 'O') {
+                    species = worksheet[position].v;
+                }
+
             }
-            return [];
-        }).then(output=>{
-            if(!Array.isArray(output)){
-                cb(null,output);
+        }
+
+        var data = {
+            'journal_id': (journal_id) ? journal_id : '',
+            'journal_number': (journal_number) ? journal_number : '',
+            'doi_number': (doi_number) ? doi_number : '',
+            'journal_title': (journal_title) ? journal_title : '',
+            'bacterial_id_method': (bacterial_id_method) ? bacterial_id_method : '',
+            'country': (country) ? country : '',
+            'animal_specimen': (animal_specimen) ? animal_specimen : '',
+            'animal_common_name': (animal_common_name) ? animal_common_name : '',
+            'animal_scientific_name': (animal_scientific_name) ? animal_scientific_name : '',
+            'bacterial_name': (bacterial_name) ? bacterial_name : '',
+            'phylum': (phylum) ? phylum : '',
+            'clazz': (clazz) ? clazz : '',
+            'order': (order) ? order : '',
+            'family': (family) ? family : '',
+            'genus': (genus) ? genus : '',
+            'species': (species) ? species : '',
+        }
+
+
+        var animal_id = -1
+        // console.log('animal_scientific_name', animal_scientific_name);
+        if (animal_scientific_name != 'N/A') {
+
+            var id = await checkAnimal(data);
+            if (!id) {
+                var animal_id_insert = await insertAnimal(req, data);
+                await insertRequest(req, data.animal_scientific_name, animal_id_insert)
+                console.log('insertAnimal result: ', animal_id_insert);
+                animal_id = animal_id_insert;
+                var acBacteria_id = await insertAcBacteria(req, data);
+                var bac_id = acBacteria_id;
+                console.log('animal_id', animal_id)
+                console.log('bac_id', bac_id)
+            } else {
+                animal_id = id;
+                var acBacteria_id = await insertAcBacteria(req, data);
+                var bac_id = acBacteria_id;
+                console.log('animal_id', animal_id)
+                console.log('bac_id', bac_id)
+
             }
-        }).catch(reason=>{
-            throw new Error(reason.stack);
-        }).catch(reason=>{
-            cb(reason);
-        });
+
+        }
+        start = start + 1;
     }
+
+    res.status(200).send();
+    //journal_number = 0
+    //doi_number = 1
+    //journal_title = 2
+    //identification_method = 3
+    //country = 4
+    //animal_specimen = 5
+    //animal_common_name = 6
+    //animal_scientific_name = 7
+    //Bacterial_name = 8
+    //phylum = 9
+    //class = 10
+    //order = 11
+    //family = 12
+    //genus = 13
+    //species = 14
 }
