@@ -1,6 +1,8 @@
 $(function () {
     console.log("SHEEEE");
     bacteriaModules();
+
+   
     $("input[name=bacteriaScientificName").autocomplete({
         source: (req, res) => {
             $.ajax({
