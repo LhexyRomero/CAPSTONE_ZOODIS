@@ -4,9 +4,13 @@ const db = require('../../connection');
 exports.notiCard = (req,res,next) =>{
 
     let state = "noticed";
-    let sql = "SELECT * FROM request_t WHERE state = ? AND staffID =? ORDER by dateTime DESC";
+    let sql = `SELECT * FROM 
+                request_t 
+               WHERE state = ? AND staffID =? 
+               ORDER by dateTime DESC`;
     db.get().query(sql,[state,req.session.staffID],(err,result)=>{
         if(err) return next(err);
+        console.log('notiCard', result.length);
 
         res.status(200).send({success:true, detail:"", data:result, noti: result.length});
     });

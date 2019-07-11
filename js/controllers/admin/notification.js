@@ -4,11 +4,19 @@ const emailer = require('../../emailer');
 exports.notificationCard = (req,res,next) =>{
     let status = "completed";
     let state = "noticed";
+   
 
-    let sql = "SELECT ownedBy,journal_t.journalID,name,journal_t.code,staffID,middleInitial,firstName,lastName FROM journal_t INNER JOIN staff_t ON journal_t.journalID = staff_t.journalID WHERE journal_t.status =? AND journal_t.state =?";
+    let sql = `SELECT 
+                ownedBy,journal_t.journalID,name,journal_t.code,staffID,middleInitial,firstName,lastName 
+               FROM journal_t 
+               INNER JOIN staff_t ON journal_t.journalID = staff_t.journalID
+               WHERE journal_t.status =? AND journal_t.state =?`;
+
+    console.log('notificationCard', status, state)
 
     db.get().query(sql,[status,state],(err,result)=>{
         if(err) return next(err);
+        console.log(result);
         res.status(200).send({success:true, detail:"", data:result, noti:result.length});
     });
 }
@@ -16,7 +24,13 @@ exports.notificationCard = (req,res,next) =>{
 exports.notificationDetails = (req,res,next) =>{
     let journalID = req.params.journalID;
     let staffID = req.params.staffID;
-    let sql = "SELECT requestID,ownedBy,email,staff_t.staffID,assignID, addedData,category FROM request_t INNER JOIN staff_t ON request_t.staffID = staff_t.staffID INNER JOIN journal_t ON assignID = journal_t.journalID WHERE request_t.staffID = ? AND assignID = ?";
+    console.log('notificationDetails', journalID, staffID)
+    let sql = `SELECT 
+                requestID,ownedBy,email,staff_t.staffID,assignID, addedData,category 
+               FROM request_t 
+               INNER JOIN staff_t ON request_t.staffID = staff_t.staffID 
+               INNER JOIN journal_t ON assignID = journal_t.journalID 
+               WHERE request_t.staffID = ? AND assignID = ?`;
     db.get().query(sql,[staffID,journalID],(err,result)=>{
         if(err) return next(err);
 

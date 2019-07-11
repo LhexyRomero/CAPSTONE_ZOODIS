@@ -13,6 +13,7 @@ const contri_notification = require('../contributors/notification');
 const contri_profile = require('../contributors/profile');
 const contri_search = require('../contributors/search');
 const conrti_query  = require('../contributors/query');
+const contri_upload  = require('../contributors/upload');
 const contri_autocomplete = require('../contributors/autocomplete');
 
 router.use((req,res,next)=>{ //Add initial middleware to ensure all request below will have staffData(if there is)
@@ -36,7 +37,12 @@ router.get('/contri_Animal',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_Animal');
 });
 
+router.get('/contri_Upload',auth.authenticate,(req,res,next)=>{
+    res.render('contributor/contri_Upload');
+});
+
 router.post('/contri_animal',upload.single("contri_animalImg"), contri_auth, contri_animal.addAnimal);
+router.post('/contri_upload',upload.single("contri_uploadData"),    contri_upload.uploadData);
 
 router.get('/contri_viewAnimal/:id',contri_animal.viewAnimal);
 router.get('/contri_animalList',contri_animal.animalList);
