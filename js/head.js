@@ -19,7 +19,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+var port = process.env.PORT
+if (!port) {
+    port = 4000
+}
 app.use('/',routes);
 db.connect(db.zoodis_mode, (err) =>{
     if(err) {
@@ -27,7 +30,7 @@ db.connect(db.zoodis_mode, (err) =>{
         process.exit(1);
     }
     else {
-        let server = app.listen(4000,function(){
+        let server = app.listen(port,function(){
             console.log('[SERVER] Listening in port: ' + server.address().port);
         }).on('error',function(err){
             console.log('[SERVER] Network related error: Port must be in use.' + err );
