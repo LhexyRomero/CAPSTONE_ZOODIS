@@ -55,9 +55,24 @@ exports.uploadData =  async (req, res, next) => {
         });
     }
 
+    let checkBacteria = function (data) {
+        return new Promise(function (resolve, reject) {
+            let sql = "SELECT bacteriumID FROM bacteria_t  WHERE bacteriumScientificName = ?";
+            db.get().query(sql, [data.bacterial_name], (err, results) => {
+                console.log('checkBacteria err', err);
+                if (err) return reject(err);
+                if (results.length == 0) {
+                    return resolve(false);
+                } else {
+                    return resolve(results[0].bacteriumID);
+                }
+            });
+        });
+    }
+
     let insertAnimal = function (req, data) {
         return new Promise(function (resolve, reject) {
-            let sql = "INSERT INTO animal_t (animalScientificName, animalName, journalID, staffID, dateTime, animalTaxoID, image, status) VALUES (?, ?, ?, ?, NOW(), 1, ?, 'pending')";
+            let sql = "INSERT INTO animal_t (animalScientificName, animalName, journalID, staffID, dateTime, animalTaxoID, image, status) VALUES (?, ?, ?, ?, NOW(), 1, ?, 'approved')";
             db.get().query(sql, [data.animal_scientific_name, data.animal_common_name, data.journal_id, req.session.staffID, 'N/A'], (err, result) => {
                 console.log('insertAnimal err', err);
                 if (err) return reject(err);
@@ -66,11 +81,11 @@ exports.uploadData =  async (req, res, next) => {
         });
     }
 
-    let insertAcBacteria = function (req, data) {
+    let insertAcBacteria = function (req, data, animal_id) {
         return new Promise(function (resolve, reject) {
             console.log('data', data);
-            let sql = "INSERT INTO ac_bacteria_t (phylum, class, orderr, family, genus, species) VALUES (?, ?, ?, ?, ?, ?)";
-            db.get().query(sql, [data.phylum, data.clazz, data.order, data.family, data.genus, data.species], (err, result) => {
+            let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName, bacteriumTissueSpecifity, bacteriumSampleType, bacteriumIsolation, bacteriumIdentification, pathogenic, count, bacteriumTaxoID, journalID, status, staffID, dateTime) VALUES (?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+            db.get().query(sql, [data.species, data.genus, data.bacterial_name, 'N/A', 'N/A', 'N/A', 'N/A', 0,0,1, data.journal_id, 'approved', req.session.staffID  ], (err, result) => {
                 console.log('insertAcBacteria err', err);
                 if (err) return reject(err);
                 return resolve(result.insertId)
@@ -223,19 +238,32 @@ exports.uploadData =  async (req, res, next) => {
         if (animal_scientific_name != 'N/A') {
 
             var id = await checkAnimal(data);
+            var bacterial_id = await checkBacteria(data)
+                
             if (!id) {
                 var animal_id_insert = await insertAnimal(req, data);
                 await insertRequest(req, data.animal_scientific_name, animal_id_insert)
                 console.log('insertAnimal result: ', animal_id_insert);
                 animal_id = animal_id_insert;
-                var acBacteria_id = await insertAcBacteria(req, data);
-                var bac_id = acBacteria_id;
+
+                var acBacteria_id = -1;
+                var bac_id = -1;
+                if (!bacterial_id) {
+                    acBacteria_id = await insertAcBacteria(req, data, animal_id);
+                    bac_id = acBacteria_id;
+                }
+                
                 console.log('animal_id', animal_id)
                 console.log('bac_id', bac_id)
             } else {
                 animal_id = id;
-                var acBacteria_id = await insertAcBacteria(req, data);
-                var bac_id = acBacteria_id;
+                var acBacteria_id = -1;
+                var bac_id = -1;
+                if (!bacterial_id) {
+                    acBacteria_id = await insertAcBacteria(req, data, animal_id);
+                    bac_id = acBacteria_id;
+                }
+                
                 console.log('animal_id', animal_id)
                 console.log('bac_id', bac_id)
 
