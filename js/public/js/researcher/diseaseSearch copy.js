@@ -6,14 +6,8 @@ $(function(){
                 type: "GET",
                 url: "/search/diseaseName/?data=" + req.term,
                 success: function (response) {
-                    res($.map(response.data, function (value, key) {
-                        return {
-                            label: value.name,
-                            value: value.tb_name + '-' + value.name
-                        }
-                    }));
-                }
-            ,
+                    res(response.data);
+                },
                 error: function (response) {
                     console.log(response.detail);
                 },
@@ -35,11 +29,8 @@ function searchDisease(e) {
 
     let data = $("#searchDisease").serializeArray();
     let dataInsert = {};
-    console.log('data', data);
+
     diseaseIsClick = 0;
-
-    var variables = data[0].value.split('-')
-
     if (data[0].value == ""){
         $("input[name=diseaseName").css("background", "#feebeb");
 
@@ -55,21 +46,14 @@ function searchDisease(e) {
     }
 
     else {
-        dataInsert[variables[0] + 'Name'] = variables[1];
+        dataInsert[data[0].name] = data[0].value;
     }
 
-    
-
-    console.log('dataInsert', dataInsert);
-
-
-    $.post('/researcher_' + variables[0],dataInsert,(response)=>{
-       
+    $.post('/researcher_disease',dataInsert,(response)=>{
+        console.log(dataInsert);
         if(response.success == false) {
             return;
         }
-
-        $("body").replaceWith(response);
     });
 }
 

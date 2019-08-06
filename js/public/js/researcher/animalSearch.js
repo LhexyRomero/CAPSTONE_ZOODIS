@@ -115,6 +115,7 @@ function animalModules(){
 }
 
 async function wordCloud(category) {
+   
     /*  ======================= SETUP WORD CLOUD ======================= */
     var config = {
         trace: true,
@@ -153,7 +154,7 @@ async function wordCloud(category) {
             });   
           });
         words = await promise1;
-    } else {
+    } else if (category == 'Bacteria') {
         var promise1 = new Promise(function(resolve, reject) {
             $.get("/bacteriaList",(response)=>{
                 if(response.success == false) {
@@ -177,6 +178,8 @@ async function wordCloud(category) {
             });   
           });
         words = await promise1;
+    } else {
+        words = []
     }
     
 

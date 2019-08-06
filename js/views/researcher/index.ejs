@@ -38,10 +38,10 @@
 							<a class="nav-link" id="bacteria-tab" data-toggle="tab" href="#bacteria" role="tab" aria-controls="bacteria"
 							 aria-selected="false" onclick="wordCloud('Bacteria')">Bacteria</a>
 						</li>
-						<!-- <li class="nav-item">
+						<li class="nav-item">
 							<a class="nav-link" id="disease-tab" data-toggle="tab" href="#disease" role="tab" aria-controls="disease"
-							 aria-selected="false">Disease</a>
-						</li> -->
+							 aria-selected="false" onclick="wordCloud('Hide')">Search</a>
+						</li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div id="word-cloud" style="height: 300px;width: 350px;  border: .5px solid #eee"></div>
@@ -62,11 +62,11 @@
 							</form>
 						</div>
 						<div class="tab-pane" id="disease" role="tabpanel" aria-labelledby="disease-tab">
-							<form class="form-wrap" method="POST" action="/researcher_disease" id="searchDisease">
-								<p>Access disease information together with its causes, its symptoms, and preventions.</p>
-								<input type="text" class="form-control" name="diseaseName" placeholder="Disease Name">
+							<form class="form-wrap"></form>
+								<!-- <p>Access disease information together with its causes, its symptoms, and preventions.</p> -->
+								<input type="text" class="form-control" name="diseaseName" id="searchDisease" placeholder="Search Animal or Bacteria">
 								<div class="diseaseNotif"></div>
-								<button type="submit" class="genric-btn primary">Search Disease&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+								<button type="submit" onclick="searchDisease(event)" class="genric-btn primary">Search Animal or Bacteria&nbsp;&nbsp;<i class="fa fa-search"></i></button>
 							</form>
 						</div>
 					</div>
@@ -87,6 +87,7 @@
 	<script src="../../assets/js/researcher/query.js"></script>
 	<script src="../../assets/js/researcher/animalSearch.js"></script>
 	<script src="../../assets/js/researcher/bacteriaSearch.js"></script>
+	<script src="../../assets/js/researcher/diseaseSearch.js"></script>
 </body>
 
 </html>
