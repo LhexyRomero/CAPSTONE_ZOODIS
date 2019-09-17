@@ -16,22 +16,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-6 col-6 header-top-right">
                     <div class="header-social">
-                        <% 
-                            var account = '';
-                            var out = '';
-
-                            if(locals.staffData) {
-                                out = '<a href="/logout">Logout</a>';
-                            }
-
-                            else {
-                                account += '<a href="#modalLogin" data-toggle="modal">Login</a>';
-                                account += '<a href="">|</a>';
-                                account += '<a href="#modalRegister" data-toggle="modal">Register</a>';
-                            }
-                        %>
-                        <%-account%>
-                        <%-out%>
+                        <a href="login">Login</a>
                     </div>
                 </div>
             </div>

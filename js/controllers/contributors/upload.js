@@ -1,45 +1,8 @@
 const db = require("../../connection");
 var XLSX = require('xlsx');
 
-exports.uploadData =  async (req, res, next) => {
-
-    if (!req.file) {
-        res.status(200).send({ success: false, error: 1, detail: "No Image Provided!" });
-        return;
-    }
-
-    let body = req.body;
-    let journal_file_path = req.file.path;
-
+exports.submitData =  async (req, res, next) => {
     let name = req.session.staffData.firstName + " " + req.session.staffData.lastName;
-    console.log('name', name);
-    console.log('body', body);
-    console.log('journal_file_path', journal_file_path);
-    console.log('req.session.staffData', req.session.staffData);
-
-    var workbook = XLSX.readFile(journal_file_path);
-    var sheet_name_list = workbook.SheetNames;
-    var worksheet = workbook.Sheets['DASHBOARD'];
-    var headers_detail = {};
-    var header_name = [];
-    var row_data = [];
-
-    var h_bjournal_number = worksheet['B2'].v;
-    var h_doi_number = worksheet['B3'].v
-    var h_id_method = worksheet['B4'].v
-    var h_animal_common_name = worksheet['B5'].v
-    var h_animal_scientific_name = worksheet['B6'].v
-    var h_animal_specimen = worksheet['B7'].v
-    var h_country = worksheet['B8'].v
-    console.log('Basilio Journal Number:', h_bjournal_number);
-    console.log('DOI Number:', h_doi_number);
-    console.log('ID Method:', h_id_method);
-    console.log('common name:', h_animal_common_name);
-    console.log('scientific name:', h_animal_scientific_name);
-    console.log('animal specimen:', h_animal_specimen);
-    console.log('country:', h_country);
-
-
     let checkAnimal = function (data) {
         return new Promise(function (resolve, reject) {
             let sql = "SELECT animalID FROM animal_t  WHERE animalScientificName = ?";
@@ -129,14 +92,72 @@ exports.uploadData =  async (req, res, next) => {
             });
         });
     }
-    
+    console.log(req.data());
+    // var journal_id = await insertUserJournal(h_doi_number, req);
+    // console.log('journal_id', journal_id);
 
-    var journal_id = await insertUserJournal(h_doi_number, req);
-    console.log('journal_id', journal_id);
+    // var animal_id = -1
+    // // console.log('animal_scientific_name', animal_scientific_name);
+    // if (animal_scientific_name != 'N/A') {
 
-    var start = 11;
-    var rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
+    //     var id = await checkAnimal(data);
+    //     var bacterial_id = await checkBacteria(data)
+            
+    //     if (!id) {
+    //         var animal_id_insert = await insertAnimal(req, data);
+    //         await insertRequest(req, data.animal_scientific_name, animal_id_insert)
+    //         console.log('insertAnimal result: ', animal_id_insert);
+    //         animal_id = animal_id_insert;
 
+    //         var acBacteria_id = -1;
+    //         var bac_id = -1;
+    //         if (!bacterial_id) {
+    //             acBacteria_id = await insertAcBacteria(req, data, animal_id);
+    //             bac_id = acBacteria_id;
+    //         }
+            
+    //         console.log('animal_id', animal_id)
+    //         console.log('bac_id', bac_id)
+    //     } else {
+    //         animal_id = id;
+    //         var acBacteria_id = -1;
+    //         var bac_id = -1;
+    //         if (!bacterial_id) {
+    //             acBacteria_id = await insertAcBacteria(req, data, animal_id);
+    //             bac_id = acBacteria_id;
+    //         }
+            
+    //         console.log('animal_id', animal_id)
+    //         console.log('bac_id', bac_id)
+
+    //     }
+
+    // }
+}
+
+exports.uploadData =  async (req, res, next) => {
+
+    if (!req.file) {
+        res.status(200).send({ success: false, error: 1, detail: "No Image Provided!" });
+        return;
+    }
+
+    let body = req.body;
+    let journal_file_path = req.file.path;
+
+   
+    var workbook = XLSX.readFile(journal_file_path);
+    var sheet_name_list = workbook.SheetNames;
+    var worksheet = workbook.Sheets['DASHBOARD'];
+    var headers_detail = {};
+    var header_name = [];
+    var row_data = [];
+   
+
+    var start = 2;
+    var rows = ['A', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
+
+    var all_data = [];
     while (true) {
         if (!worksheet['A' + start]) {
             console.log('end at ' + 'A' + start)
@@ -167,54 +188,54 @@ exports.uploadData =  async (req, res, next) => {
                 if (rows[r] == 'A') {
                     journal_number = worksheet[position].v;
                 }
-                if (rows[r] == 'B') {
+                if (rows[r] == 'C') {
                     doi_number = worksheet[position].v;
                 }
-                if (rows[r] == 'C') {
+                if (rows[r] == 'E') {
                     journal_title = worksheet[position].v;
                 }
-                if (rows[r] == 'D') {
+                if (rows[r] == 'F') {
                     bacterial_id_method = worksheet[position].v;
                 }
-                if (rows[r] == 'E') {
+                if (rows[r] == 'G') {
                     country = worksheet[position].v;
                 }
-                if (rows[r] == 'F') {
+                if (rows[r] == 'H') {
                     animal_specimen = worksheet[position].v;
                 }
-                if (rows[r] == 'G') {
+                if (rows[r] == 'I') {
                     animal_common_name = worksheet[position].v;
                 }
-                if (rows[r] == 'H') {
+                if (rows[r] == 'J') {
                     animal_scientific_name = worksheet[position].v;
                 }
-                if (rows[r] == 'I') {
+                if (rows[r] == 'R') {
                     bacterial_name = worksheet[position].v;
                 }
-                if (rows[r] == 'J') {
+                if (rows[r] == 'S') {
                     phylum = worksheet[position].v;
                 }
-                if (rows[r] == 'K') {
+                if (rows[r] == 'T') {
                     clazz = worksheet[position].v;
                 }
-                if (rows[r] == 'L') {
+                if (rows[r] == 'U') {
                     order = worksheet[position].v;
                 }
-                if (rows[r] == 'M') {
+                if (rows[r] == 'V') {
                     family = worksheet[position].v;
                 }
-                if (rows[r] == 'N') {
+                if (rows[r] == 'W') {
                     genus = worksheet[position].v;
                 }
-                if (rows[r] == 'O') {
+                if (rows[r] == 'X') {
                     species = worksheet[position].v;
                 }
 
             }
+            
         }
 
         var data = {
-            'journal_id': (journal_id) ? journal_id : '',
             'journal_number': (journal_number) ? journal_number : '',
             'doi_number': (doi_number) ? doi_number : '',
             'journal_title': (journal_title) ? journal_title : '',
@@ -232,61 +253,11 @@ exports.uploadData =  async (req, res, next) => {
             'species': (species) ? species : '',
         }
 
+        all_data.push(data);
+     
 
-        var animal_id = -1
-        // console.log('animal_scientific_name', animal_scientific_name);
-        if (animal_scientific_name != 'N/A') {
-
-            var id = await checkAnimal(data);
-            var bacterial_id = await checkBacteria(data)
-                
-            if (!id) {
-                var animal_id_insert = await insertAnimal(req, data);
-                await insertRequest(req, data.animal_scientific_name, animal_id_insert)
-                console.log('insertAnimal result: ', animal_id_insert);
-                animal_id = animal_id_insert;
-
-                var acBacteria_id = -1;
-                var bac_id = -1;
-                if (!bacterial_id) {
-                    acBacteria_id = await insertAcBacteria(req, data, animal_id);
-                    bac_id = acBacteria_id;
-                }
-                
-                console.log('animal_id', animal_id)
-                console.log('bac_id', bac_id)
-            } else {
-                animal_id = id;
-                var acBacteria_id = -1;
-                var bac_id = -1;
-                if (!bacterial_id) {
-                    acBacteria_id = await insertAcBacteria(req, data, animal_id);
-                    bac_id = acBacteria_id;
-                }
-                
-                console.log('animal_id', animal_id)
-                console.log('bac_id', bac_id)
-
-            }
-
-        }
         start = start + 1;
     }
-
-    res.status(200).send();
-    //journal_number = 0
-    //doi_number = 1
-    //journal_title = 2
-    //identification_method = 3
-    //country = 4
-    //animal_specimen = 5
-    //animal_common_name = 6
-    //animal_scientific_name = 7
-    //Bacterial_name = 8
-    //phylum = 9
-    //class = 10
-    //order = 11
-    //family = 12
-    //genus = 13
-    //species = 14
+    
+    res.status(200).send(all_data);
 }
