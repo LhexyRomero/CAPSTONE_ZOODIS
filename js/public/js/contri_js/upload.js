@@ -23,9 +23,9 @@ function uploadNow(event) {
      $.ajax({
         type: "POST",
         url: "/contri_upload_2",
-        data: all_data,
-        processData: false,
-        contentType: false,
+        data: {
+            'data': JSON.stringify(all_data)
+        },
         success: function (response) {
             isClicked = 0;
 
