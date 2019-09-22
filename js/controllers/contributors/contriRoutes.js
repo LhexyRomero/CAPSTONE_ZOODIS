@@ -21,11 +21,6 @@ router.use((req,res,next)=>{ //Add initial middleware to ensure all request belo
     next();
 });
 
-router.get('/contri_*', auth.authenticate, (req,res,next)=>{
-    if(req.session.accType == 1) return next();
-    res.redirect('/login');
-}); 
-
 router.get('/contri_user',auth.authenticate,(req,res,next)=>{
     res.render('contributor/contri_user');
 });
