@@ -37,8 +37,9 @@ router.get('/contri_Upload',auth.authenticate,(req,res,next)=>{
 });
 
 router.post('/contri_animal',upload.single("contri_animalImg"), contri_auth, contri_animal.addAnimal);
-router.post('/contri_upload',upload.single("contri_uploadData"),    contri_upload.uploadData);
+router.post('/contri_upload',upload.single("contri_uploadData"), contri_upload.uploadData);
 router.post('/contri_upload_2',  contri_upload.submitData);
+router.get('/contri_getExcelData',  contri_upload.getExcelData);
 
 router.get('/contri_viewAnimal/:id',contri_animal.viewAnimal);
 router.get('/contri_animalList',contri_animal.animalList);

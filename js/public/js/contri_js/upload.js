@@ -1,7 +1,8 @@
 isClicked = 0;
 
-$(function () {
-    // init
+$(document).ready(function() {
+    // Load Excel Data
+    loadExcelData();
 });
 
 function uploadNow(event) {
@@ -70,6 +71,80 @@ function uploadNow(event) {
     });
 }
 
+function clearTable() {
+    var table = $('#excelTable').DataTable();
+    //clear datatable
+    table.clear().draw();
+    //destroy datatable
+    table.destroy();
+}
+
+function renderData(data) {
+    let html = "";
+    data.forEach((element, index) => {
+            
+        let row = "<tr>";
+        row += "<td><input name=\"journal_number\" type=\"text\" value=\"" + element.journal_number + "\"/></td>";
+        row += "<td><input name=\"doi_number\" type=\"text\" value=\"" + element.doi_number + "\"/></td>";
+        row += "<td><input name=\"journal_title\" type=\"text\" value=\"" + element.journal_title + "\"/></td>";
+        row += "<td><input name=\"bacterial_id_method\" type=\"text\" value=\"" + element.bacterial_id_method + "\"/></td>";
+        row += "<td><input name=\"animal_specimen\" type=\"text\" value=\"" + element.animal_specimen + "\"/></td>";
+        row += "<td><input name=\"animal_common_name\" type=\"text\" value=\"" + element.animal_common_name + "\"/></td>";
+        row += "<td><input name=\"animal_scientific_name\" type=\"text\" value=\"" + element.animal_scientific_name + "\"/></td>";
+        row += "<td><input name=\"bacterial_name\" type=\"text\" value=\"" + element.bacterial_name + "\"/></td>";
+        row += "<td><input name=\"phylum\" type=\"text\" value=\"" + element.phylum + "\"/></td>";
+        row += "<td><input name=\"clazz\" type=\"text\" value=\"" + element.clazz + "\"/></td>";
+        row += "<td><input name=\"order\" type=\"text\" value=\"" + element.order + "\"/></td>";
+        row += "<td><input name=\"family\" type=\"text\" value=\"" + element.family + "\"/></td>";
+        row += "<td><input name=\"genus\" type=\"text\" value=\"" + element.genus + "\"/></td>";
+        row += "<td><input name=\"species\" type=\"text\" value=\"" + element.species + "\"/></td>";
+        row += "<td><input name=\"country\" type=\"text\" value=\"" + element.country + "\"/></td>";
+        
+        row += "</tr>";
+        html += row;
+    });
+
+    $('#excelList').html(html);
+    $('#excelTable').DataTable();
+
+}
+
+function saveExcelData(dataInsert) {
+    // Reset Table
+    clearTable();
+
+    $.ajax({
+        type: "POST",
+        url: "/contri_upload",
+        data: dataInsert,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response);
+            let data = response;
+            renderData(data);
+        }
+    });
+}
+
+function loadExcelData() {
+    // Reset Table
+    clearTable();
+    
+
+    $.ajax({
+        type: "GET",
+        url: "/contri_getExcelData",
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response);
+            let data = response;
+            renderData(data);
+        }
+    });
+}
+
 function uploadData(eAdd) {
     eAdd.preventDefault();
 
@@ -88,7 +163,7 @@ function uploadData(eAdd) {
 
         else if (element.value.match(/[*#\/]/g) != null) {
             $('input[name=' + element.name + ']').css("background", "#feebeb");
-            invCount++;
+            // invCount++;
             isClicked = 0;
         }
 
@@ -112,44 +187,8 @@ function uploadData(eAdd) {
         allowOutsideClick: false
     }).then((isConfirmed) => {
         if (isConfirmed) {
-            $.ajax({
-                type: "POST",
-                url: "/contri_upload",
-                data: dataInsert,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    isClicked = 0;
-
-                    console.log(response);
-                    let data = response;
-                    let html = "";
-                    data.forEach((element, index) => {
-                            let row = "<tr>";
-                            row += "<td><input name=\"journal_number\" type=\"text\" value=\"" + element.journal_number + "\"/></td>";
-                            row += "<td><input name=\"doi_number\" type=\"text\" value=\"" + element.doi_number + "\"/></td>";
-                            row += "<td><input name=\"journal_title\" type=\"text\" value=\"" + element.journal_title + "\"/></td>";
-                            row += "<td><input name=\"bacterial_id_method\" type=\"text\" value=\"" + element.bacterial_id_method + "\"/></td>";
-                            row += "<td><input name=\"animal_specimen\" type=\"text\" value=\"" + element.animal_specimen + "\"/></td>";
-                            row += "<td><input name=\"animal_common_name\" type=\"text\" value=\"" + element.animal_common_name + "\"/></td>";
-                            row += "<td><input name=\"animal_scientific_name\" type=\"text\" value=\"" + element.animal_scientific_name + "\"/></td>";
-                            row += "<td><input name=\"bacterial_name\" type=\"text\" value=\"" + element.bacterial_name + "\"/></td>";
-                            row += "<td><input name=\"phylum\" type=\"text\" value=\"" + element.phylum + "\"/></td>";
-                            row += "<td><input name=\"clazz\" type=\"text\" value=\"" + element.clazz + "\"/></td>";
-                            row += "<td><input name=\"order\" type=\"text\" value=\"" + element.order + "\"/></td>";
-                            row += "<td><input name=\"family\" type=\"text\" value=\"" + element.family + "\"/></td>";
-                            row += "<td><input name=\"genus\" type=\"text\" value=\"" + element.genus + "\"/></td>";
-                            row += "<td><input name=\"species\" type=\"text\" value=\"" + element.species + "\"/></td>";
-                            row += "<td><input name=\"country\" type=\"text\" value=\"" + element.country + "\"/></td>";
-                            
-                            row += "</tr>";
-                            html += row;
-                        });
-
-                        $('#excelList').html(html);
-                        $('#excelTable').DataTable();
-                }
-            });
+            isClicked = 0;
+            saveExcelData(dataInsert);
         }
     })
     

@@ -67,6 +67,8 @@ exports.submitData =  async (req, res, next) => {
         });
     }
 
+    
+
     let insertRequest = function (req, h_animal_scientific_name, addedId) {
         return new Promise(function (resolve, reject) {
             let sql = `INSERT INTO request_t (dateTime, status, category, state, assignID, message,
@@ -141,7 +143,71 @@ exports.submitData =  async (req, res, next) => {
     res.status(200).send();
 }
 
+let getExcelData = function () {
+    return new Promise(function (resolve, reject) {
+        let sql = "SELECT * FROM exceldata_t";
+        db.get().query(sql, (err, results) => {
+            console.log('getExcelData err', err);
+            if (err) return reject(err);
+            if (results.length == 0) {
+                return resolve(false);
+            } else {
+                return resolve(results);
+            }
+        });
+    });
+}
+
+exports.getExcelData = (req, res, next) => {
+    getExcelData().then(data => res.status(200).send(data));
+}
+
 exports.uploadData =  async (req, res, next) => {
+
+    let insertExcelData = function (data) {
+        return new Promise(function (resolve, reject) {
+            let sql = `INSERT INTO exceldata_t (
+                        journal_number,
+                        doi_number,
+                        journal_title,
+                        bacterial_id_method,
+                        country,
+                        animal_specimen,
+                        animal_common_name,
+                        animal_scientific_name,
+                        bacterial_name,
+                        phylum,
+                        clazz,
+                        exceldata_t.order,
+                        family,
+                        genus,
+                        species) 
+                    VALUES (?, ?, ?, ?, ?, ?,
+                            ?, ?, ?, ?, ?, ?, 
+                            ?, ?, ?)`;
+            db.get().query(sql, [
+                data.journal_number,
+                data.doi_number,
+                data.journal_title,
+                data.bacterial_id_method,
+                data.country,
+                data.animal_specimen,
+                data.animal_common_name,
+                data.animal_scientific_name,
+                data.bacterial_name,
+                data.phylum,
+                data.clazz,
+                data.order,
+                data.family,
+                data.genus,
+                data.species
+            ], (err, result) => {
+                console.log('inserExcelData err', err);
+                if (err) return reject(err);
+                return resolve(result)
+            });
+        });
+    }
 
     if (!req.file) {
         res.status(200).send({ success: false, error: 1, detail: "No Image Provided!" });
@@ -163,7 +229,6 @@ exports.uploadData =  async (req, res, next) => {
     var start = 2;
     var rows = ['A', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
 
-    var all_data = [];
     while (true) {
         if (!worksheet['A' + start]) {
             console.log('end at ' + 'A' + start)
@@ -259,11 +324,10 @@ exports.uploadData =  async (req, res, next) => {
             'species': (species) ? species : '',
         }
 
-        all_data.push(data);
-     
+        insertExcelData(data);
 
         start = start + 1;
     }
-    
-    res.status(200).send(all_data);
+
+    getExcelData().then(excelData => res.status(200).send(excelData));
 }
