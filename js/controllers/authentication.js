@@ -23,7 +23,7 @@ exports.login = function (req, res, next) {
     let password = req.body.password || "";
     let type = req.body.type || false;
 
-    let sql = "SELECT * FROM staff_t WHERE userName = ? AND password = SHA1(?)";
+    let sql = "SELECT * FROM staff_t WHERE userName = ? AND password = SHA1(?) AND status = 1";
 
     db.get().query(sql, [username, password], function (err, result) {
         if (err) return next(err);
