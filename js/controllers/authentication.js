@@ -95,6 +95,23 @@ exports.register = function (req, res, next) {
 
     let data = [fname,lname,email,username,password,code,type,journal];
 
+    data.forEach((e)=>{
+        if(e = null){
+            return res.redirect('/register?error=1');
+        }
+    });
+
+    let insertStaff = () => {
+        let sql = "INSERT INTO staff_t (firstName, lastName, middleInitial, userName, email, contact,address, password, status, type, code, journalID) VALUES(?,?,?,?,?,?,?,SHA(?),?,?,?,?)";
+
+        db.get().query(sql, [fname, lname, '', username,'','','', password, 0, type, '', journal], function (err) {
+            if (err) return next(err);
+            res.status(200).redirect('/register?error=2');
+        });
+    }
+
+    insertStaff();
+
    /*  data.forEach((e) => {
         console.log(data);  
         if (e.fname == '' || e.lname == '' || e.email == '' || e.username == '' || e.password == '' || e.code == '') {
@@ -103,44 +120,44 @@ exports.register = function (req, res, next) {
         }
     }); */
 
-    data.forEach((e)=>{
-        if(e = null){
-            return res.redirect('/register?error=1');
-        }
-    });
+    // data.forEach((e)=>{
+    //     if(e = null){
+    //         return res.redirect('/register?error=1');
+    //     }
+    // });
 
-    let checkCode = (cb) => {
-        let sql = "SELECT * FROM staff_t WHERE code = ?";
-        db.get().query(sql, [code], (err, result) => {
-            if (err) return cb(err);
+    // let checkCode = (cb) => {
+    //     let sql = "SELECT * FROM staff_t WHERE code = ?";
+    //     db.get().query(sql, [code], (err, result) => {
+    //         if (err) return cb(err);
 
-            if (result.length == 0) {
-                return cb(null, false)
-            }
-            else {
-                return cb(null, true);
-            }
-        });
-    }
+    //         if (result.length == 0) {
+    //             return cb(null, false)
+    //         }
+    //         else {
+    //             return cb(null, true);
+    //         }
+    //     });
+    // }
 
-    let insertStaff = () => {
-        let sql = "UPDATE staff_t SET code=?, firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? ,journalID = ? WHERE code = ?";
+    // let insertStaff = () => {
+    //     let sql = "UPDATE staff_t SET code=?, firstName = ?, lastName = ?, userName = ?, email = ?, password = SHA(?), type = ? ,journalID = ? WHERE code = ?";
 
-        db.get().query(sql, [exists,fname, lname, username, email, password, type, journal, code], function (err) {
-            if (err) return next(err);
-            res.status(200).redirect('/register?error=2');
-        });
-    }
+    //     db.get().query(sql, [exists,fname, lname, username, email, password, type, journal, code], function (err) {
+    //         if (err) return next(err);
+    //         res.status(200).redirect('/register?error=2');
+    //     });
+    // }
 
-    checkCode((error, result) => {
-        if (error) return next(error);
-        if (result) {
-            insertStaff();
-        }
-        else {
-            res.status(200).redirect('/register?error=3');
-        }
-    }) 
+    // checkCode((error, result) => {
+    //     if (error) return next(error);
+    //     if (result) {
+    //         insertStaff();
+    //     }
+    //     else {
+    //         res.status(200).redirect('/register?error=3');
+    //     }
+    // }) 
 }
 
 exports.researcherRegister = (req, res, next) => {
@@ -162,7 +179,7 @@ exports.researcherRegister = (req, res, next) => {
         }
         if (i == data.length - 1) {
             let sql = "INSERT INTO staff_t (firstName,lastName,middleInitial,userName,email,password,status,type) VALUES (?,?,?,?,?,SHA(?),?,?)";
-            db.get().query(sql, [firstName, lastName, middleInitial, userName, email, password,status,type], (err, result) => {
+            db.get().query(sql, ['', '', '', '', email, '',0,type], (err, result) => {
                 if (err) return next(err);
                 res.status(200).redirect('/registerResearcher?error=2');
                 let code = Math.random().toString(36).replace('0.','');
