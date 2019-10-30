@@ -88,6 +88,10 @@ router.get('/user',auth.authenticate,(req,res,next)=>{
     res.render('admin/user');
 });
 
+router.get('/upload',auth.authenticate,(req,res,next)=>{
+    res.render('admin/upload');
+});
+
 router.get('/viewProfile',profile.viewProfile);
 router.post('/updateProfile',profile.updateProfile);
 
@@ -152,7 +156,7 @@ router.get('/editBacteria/:id',bacteria.viewBacteria);
 router.get('/toSelectAnimal',bacteria.toSelectAnimal);
 
 router.get('/upload',auth.authenticate,(req,res,next)=>{
-    res.render('contributor/contri_Upload');
+    res.render('admin/upload');
 });
 
 router.get('/disease', auth.authenticate,(req,res,next)=>{

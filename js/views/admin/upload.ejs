@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    <div class="wrapper ">
+        <% include ../partials/admin_sidebar %>
+        <div class="main-panel">
+            <% include ../partials/admin_navbar %>
+            <div class="panel-header panel-header-sm">
+            </div>
+            <div class="content">
+                <form enctype="multipart/form-data" onsubmit="uploadData(event)" method="POST" action="#" id="animalForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <h5 class="card-title">
+                                        <b>UPLOAD FORM</b>
+                                    </h5>
+                                </div>
+
+                                <div class="card-body ">
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail">
+                                            <img src="../assets/img/upload.png" width="130" height="70" alt="...">
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                            <span class="btn btn-rose btn-file">
+                                                <span class="fileinput-new">Select file</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" class="animalAdd" name="contri_uploadData" />
+                                            </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                                data-dismiss="fileinput">
+                                                <i class="fa fa-times"></i> Remove</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer" align="right">
+                                    <button type="button" class="btn btn-warning" onclick="clearAnimal(event)">Clear</button>
+                                    <button type="submit" class="btn btn-primary" id="toSubmitAnimal">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="excelTable">
+                                    <thead class="text-primary">
+                                        <th><small><b>Basilio Journal Number</b></small></th>
+                                        <th><small><b>DOI Number</b></small></th>
+                                        <th><small><b>Journal Title</b></small></th>
+                                        <th><small><b>Bacterial Id Method</b></small></th>
+                                        <th><small><b>Animal Specimen</b></small></th>
+                                        <th><small><b>Animal Common Name</b></small></th>
+                                        <th><small><b>Animal Scientific Name</b></small></th>
+                                        <th><small><b>Bacterial Name</b></small></th>
+                                        <th><small><b>Phylum</b></small></th>
+                                        <th><small><b>Class</b></small></th>
+                                        <th><small><b>Order</b></small></th>
+                                        <th><small><b>Family</b></small></th>
+                                        <th><small><b>Genus</b></small></th>
+                                        <th><small><b>Species</b></small></th>
+                                        <th><small><b>Country</b></small></th>
+                                    </thead>
+                                    <tbody id="excelList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--   Core JS Files   -->
+            <% include ../partials/core_js %>
+            <script src="../assets/js/contri_js/upload.js"></script>
+            <script>
+                $(".navbarName").html("Upload");
+                $("#upload").addClass("active");
+                $("#aImg").attr("src","/assets/img/animal.png");
+            </script>
+</body>
+
+</html>
