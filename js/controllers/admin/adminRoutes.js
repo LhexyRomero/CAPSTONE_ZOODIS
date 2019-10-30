@@ -142,7 +142,7 @@ router.get('/bacteria', auth.authenticate, (req,res,next)=>{
     res.render('admin/bacteria');
 });
 
-router.post('/bacteria',bacteria.addBacteria);
+router.post('/bacteria', upload.single("animalImg"), bacteria.addBacteria);
 router.post('/updateBacteria/:id',bacteria.updateBacteria);
 router.post('/bacteriaHost',bacteria.bacteriaHost);
 router.post('/deleteHostField/:bacteriumID/:hostID',bacteria.deleteHostField);

@@ -214,7 +214,7 @@ exports.toSelectBacteria = (req, res, next) => {
 }
 
 exports.addBacteria = (req, res, next) => {
-
+    let image = req.file.path;
     let data = req.body;
     let animalID = data.toSelect;
     let strSpeciesName = data.strSpeciesName;
@@ -228,6 +228,11 @@ exports.addBacteria = (req, res, next) => {
     let status = "approved";
     let isInserting = data.isInserting;
     let animalStatus = 1;
+
+    if (!req.file) {
+        res.status(200).send({ success: false, detail: "No Image Provide" });
+        return;
+    }
 
     let checkBacteria = (cb) => {
         let sql11 = "SELECT bacteriumScientificName, bacteriumID FROM bacteria_t WHERE bacteriumScientificName = ?";
@@ -283,7 +288,7 @@ exports.addBacteria = (req, res, next) => {
     }
 
     let insertBacteria = (result) => {
-        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+        let sql = "INSERT INTO bacteria_t (bacteriumSpeciesName, bacteriumGenusName, bacteriumScientificName,bacteriumTissueSpecifity,bacteriumSampleType,bacteriumIsolation,bacteriumIdentification,bacteriumTaxoID,journalID,status,staffID,dateTime,image) VALUES (?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)";
         let sql1 = "INSERT INTO animalbacteria_t (animalID,bacteriumID,status) VALUES (?,?,?)";
         let dataDisplay = {
             scientificName: strScientificName,
@@ -292,11 +297,12 @@ exports.addBacteria = (req, res, next) => {
             order: result[0].orderr,
             family: result[0].family,
             genus: result[0].genus,
-            species: result[0].species
+            species: result[0].species,
+            image   : image
         }
 
         if (isInserting) {
-            db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, result[0].bacteriumTaxoID,journal,status,req.session.staffID], (err, result) => {
+            db.get().query(sql, [strSpeciesName, strGenusName, strScientificName, strTissueSpecifity, strSampleType, strMethodOfIsolation, strMethodOfIdentification, result[0].bacteriumTaxoID,journal,status,req.session.staffID, image], (err, result) => {
                 if (err) return next(err);
                 db.get().query(sql1,[animalID,result.insertId,animalStatus],(err1,result1)=>{
                     if(err1) return next(err1);
@@ -388,7 +394,8 @@ exports.viewBacteria = (req,res,next) =>{
                 order                   : result[0].orderr,
                 family                  : result[0].family,
                 genus                   : result[0].genus,
-                species                 : result[0].species
+                species                 : result[0].species,
+                image                   :   result[0].image
             }
     
             res.status(200).send({success: true, detail:"", data:dataDisplay});
@@ -398,6 +405,13 @@ exports.viewBacteria = (req,res,next) =>{
 }
 
 exports.updateBacteria = (req,res,next) => {
+    if (!req.file) {
+        res.status(200).send({success: false, detail: "No Image Provide" });
+        return;
+    }
+
+    let image = req.file.path;
+
 
     let id = req.params.id;
     let data = req.body;
@@ -413,8 +427,8 @@ exports.updateBacteria = (req,res,next) => {
 
 
     let sql0 = "SELECT "
-    let sql = "UPDATE bacteria_t SET  bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =? WHERE bacteriumID = ?";
-    db.get().query(sql,[tissue,sample,isolation,identification,id],(err,result) =>{
+    let sql = "UPDATE bacteria_t SET  bacteriumTissueSpecifity =?, bacteriumSampleType =?, bacteriumIsolation =?, bacteriumIdentification =?, image=? WHERE bacteriumID = ?";
+    db.get().query(sql,[tissue,sample,isolation,identification,image,id],(err,result) =>{
         if(err) return next(err);
 
         res.status(200).send({success: true, detail:"Successfully Updated!",});
