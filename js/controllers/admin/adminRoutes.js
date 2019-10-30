@@ -151,6 +151,10 @@ router.get('/viewBacteria/:id',bacteria.viewBacteria);
 router.get('/editBacteria/:id',bacteria.viewBacteria);
 router.get('/toSelectAnimal',bacteria.toSelectAnimal);
 
+router.get('/upload',auth.authenticate,(req,res,next)=>{
+    res.render('contributor/contri_Upload');
+});
+
 router.get('/disease', auth.authenticate,(req,res,next)=>{
     res.render('admin/disease');
 });
