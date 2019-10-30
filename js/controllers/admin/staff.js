@@ -79,3 +79,45 @@ exports.updateTypeToContributor = (req,res,next) =>{
         });
     });
 }
+
+exports.activateStatus = (req,res,next) =>{
+
+    let id = req.params.id;
+    let status = 1;
+
+    let sql = "SELECT * FROM staff_t WHERE staffID = ?";
+    let sql1 = "UPDATE staff_t SET status = ? WHERE staffID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
+        db.get().query(sql1,[status,id],(err1,result1)=>{
+            if(err1) return next(err1);
+    
+            let firstName = result[0].firstName;
+            let lastName = result[0].lastName;
+            let name = firstName + " " + lastName;
+    
+            res.status(200).send({success:true, detail:name+""+" is now Activated!"});
+        });
+    });
+}
+
+exports.deactivateStatus = (req,res,next) =>{
+
+    let id = req.params.id;
+    let status = 0;
+
+    let sql = "SELECT * FROM staff_t WHERE staffID = ?";
+    let sql1 = "UPDATE staff_t SET status = ? WHERE staffID = ?";
+    db.get().query(sql,[id],(err,result)=>{
+        if(err) return next(err);
+        db.get().query(sql1,[status,id],(err1,result1)=>{
+            if(err1) return next(err1);
+    
+            let firstName = result[0].firstName;
+            let lastName = result[0].lastName;
+            let name = firstName + " " + lastName;
+    
+            res.status(200).send({success:true, detail:name+""+" is now Deactivated!"});
+        });
+    });
+}

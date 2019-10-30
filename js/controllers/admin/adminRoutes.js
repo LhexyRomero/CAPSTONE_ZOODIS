@@ -236,6 +236,8 @@ router.get('/staffList',staff.staffList);
 router.post('/code',staff.code);
 router.post('/updateTypeToAdmin/:id',staff.updateTypeToAdmin);
 router.post('/updateTypeToContributor/:id',staff.updateTypeToContributor);
+router.post('/activateStatus/:id',staff.activateStatus);
+router.post('/deactivateStatus/:id',staff.deactivateStatus);
 
 router.get('/totalAnimal',query.totalAnimal);
 router.get('/totalDisease',query.totalDisease);

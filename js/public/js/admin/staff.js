@@ -17,21 +17,118 @@ function staffList() {
             let row = "<tr>";
             row += "<td>" + element.firstName + " " + element.lastName + "</td>";
             row += "<td>" + element.userName + "</td>";
-            row += "<td>" + element.email + "</td>";
-            row += "<td>" + element.contact + "</td>"; //I need ID of this specific user... is it element.id?
+            // row += "<td>" + element.email + "</td>";
+            // row += "<td>" + element.contact + "</td>"; //I need ID of this specific user... is it element.id?
             if (element.type == 2) {
-                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "admin" type="checkbox" value=' + element.staffID + ' checked><span class="form-check-sign"></span></label></td>';
+                row += '<td><div class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "admin" type="checkbox" value="' + element.staffID + '" checked><span class="form-check-sign"></span></label></div></td>';
             }
             else {
-                row += '<td class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "contributor" type="checkbox" value=' + element.staffID + ' ><span class="form-check-sign"></span></label></td>';
+                row += '<td><div class="form-check"><label class="form-check-label"><input class="form-check-input admin-switch" name = "contributor" type="checkbox" value="' + element.staffID + '" ><span class="form-check-sign"></span></label></div></td>';
+            }
+            if (element.status == 1) {
+                row += '<td><div class="form-check"><label class="form-check-label"><input class="form-check-input status-switch" name = "active" type="checkbox" value="' + element.staffID + '" checked><span class="form-check-sign"></span></label></div></td>';
+            }
+            else {
+                row += '<td><div class="form-check"><label class="form-check-label"><input class="form-check-input status-switch" name = "inactive" type="checkbox" value="' + element.staffID + '" ><span class="form-check-sign"></span></label></div></td>';
             }
             row += "</tr>";
             html += row;
         });
         $('#staffList').html(html);
         $('.admin-switch').on('click', adminSwitch);
+        $('.status-switch').on('click', statusSwitch);
         $('#staffTable').dataTable();
     });
+}
+
+function statusSwitch(event) {
+    if (this.checked) {
+        let staffID = this.value;
+        console.log("CHECKED" + staffID);
+
+        let url = "/activateStatus/" + staffID;
+        swal({
+            title: 'Are you sure?',
+            text: "You want to active this staff?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, (response) => {
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Unsuccessful!",
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Account activated!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                    }
+
+                });
+            }
+        }).catch(()=>{
+            $('input[type=checkbox][value="'+ staffID +'"]').removeAttr('checked');
+        });
+    }
+
+
+    else {
+        let staffID = this.value;
+        console.log("UNCHECKED" + staffID);
+
+        let url = "/deactivateStatus/" + staffID;
+
+        swal({
+            title: 'Are you sure?',
+            text: "You want to deactivate this staff?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#9c27b0',
+            confirmButtonText: 'Yes',
+            allowOutsideClick: false
+        }).then((isConfirmed) => {
+            if (isConfirmed) {
+                $.post(url, (response) => {
+                    if (response.success == false) {
+                        swal({
+                            title: "Error!",
+                            text: "Unsuccessful!",
+                            type: "error",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Done!",
+                            text: "Privilege dismissed!",
+                            type: "success",
+                            confirmButtonColor: "#9c27b0",
+                            confirmButtonText: "Okay",
+                            allowOutsideClick: false
+                        });
+                    }
+
+                });
+            }
+        });
+    }
 }
 
 function adminSwitch(event) {
