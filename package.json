@@ -15,7 +15,7 @@
     "datejs": "^1.0.0-rc3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-promise": "^0.4.0",
     "express-session": "^1.15.6",
     "forever": "^0.15.3",
